@@ -83,9 +83,30 @@ useEffect(() => {
 
 ```
 
+### hook规则
+
+#### 只在最顶层使用 Hook
+
+不要在循环，条件或嵌套函数中调用 Hook， 确保总是在你的 React 函数的最顶层调用他们。遵守这条规则，你就能确保 Hook 在每一次渲染中都按照同样的顺序被调用。这让 React 能够在多次的 useState 和 useEffect 调用之间保持 hook 状态的正确。
+
+#### 只在 React 函数中调用 Hook
+
+不要在普通的 JavaScript 函数中调用 Hook。你可以：
+
+- ✅ 在 React 的函数组件中调用 Hook
+- ✅ 在自定义 Hook 中调用其他 Hook
+
+### 自定义hook
+
+> demo参考 react-hook-demo 中的hooks文件夹
+
+- 自定义hook将组建逻辑提取到可重用的函数中
+- **自定义 Hook 必须以 “use” 开头**： 这个约定非常重要。不遵循的话，由于无法判断某个函数是否包含对其内部 Hook 的调用，React 将无法自动检查你的 Hook 是否违反了 Hook 的规则。
+- **在两个组件中使用相同的 Hook 不会共享 state**： 自定义 Hook 是一种重用状态逻辑的机制(例如设置为订阅并存储当前值)，所以每次使用自定义 Hook 时，其中的所有 state 和副作用都是完全隔离的。
+- 自定义hook可以原实现class组件高阶组件HOC的功能，比HOC更加易读和编写
 
 
-
+> HOC(higher order component) 高阶组件就是一个函数，接受一个组件作为参数，返回一个新的组件 
 
 
 
