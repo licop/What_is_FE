@@ -131,6 +131,13 @@ useEffect(() => {
 ref 也是一种访问 DOM 的主要方式。如果你将 ref 对象以` <div ref={myRef} /> `形式传入组件，则无论该节点如何改变，React 都会将 ref 对象的 .current 属性设置为相应的 DOM 节点。
 
 
+### 更多参考
+
+- [react hook 中文文档](https://zh-hans.reactjs.org/docs/hooks-intro.html)
+- [useEffect 完整指南 by Dan](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
+- [React Hooks 实现和由来以及解决的问题](https://mp.weixin.qq.com/s/Vl5LhpkTocNl9LYRIYBwFg)
+
+
 
 
 
