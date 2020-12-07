@@ -1,4 +1,8 @@
-import React, { Children } from 'react';
+import React, { useContext } from 'react';
+
+import {ThemeContext} from '../App';
+
+
 interface HelloProps{
     message?: string
 }
@@ -15,7 +19,13 @@ interface HelloProps{
 // React.FC 是 React.FunctionComponent的别名
 // 当函数使用这个类型时，会函数模块和props会获取到来自react的一些属性
 const Hello: React.FC<HelloProps> = (props) =>{
-    return <h2>{props.message}</h2>
+    const theme = useContext(ThemeContext);
+    const style = {
+        color: theme.color,
+        background: theme.background
+    }
+
+    return <h2 style={style}>{props.message}</h2>
 }
 
 Hello.defaultProps = {
