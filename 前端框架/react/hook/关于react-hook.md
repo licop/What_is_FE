@@ -108,6 +108,32 @@ useEffect(() => {
 > HOC(higher order component) 高阶组件就是一个函数，接受一个组件作为参数，返回一个新的组件 
 
 
+### useContext
+
+> demo参考 react-hook-demo中的`ThemeContext `
+
+```
+  const value = useContext(MyContext);
+```
+
+接收一个 `context`对象（`React.createContext` 的返回值）并返回该 `context`的当前值。当前的 `context` 值由上层组件中距离当前组件最近的 `<MyContext.Provider>` 的 value prop 决定。
+
+### useRef
+
+> demo参考 react-hook-demo 中的LikeButton组件
+
+```
+ const refContainer = useRef(initialValue);
+```
+
+`useRef` 返回一个可变的 ref 对象，其` .current` 属性被初始化为传入的参数`（initialValue）`。返回的 ref 对象在组件的整个生命周期内保持不变。
+
+ref 也是一种访问 DOM 的主要方式。如果你将 ref 对象以` <div ref={myRef} /> `形式传入组件，则无论该节点如何改变，React 都会将 ref 对象的 .current 属性设置为相应的 DOM 节点。
+
+
+
+
+
 
 
 
