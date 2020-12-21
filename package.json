@@ -1,0 +1,24 @@
+{ 
+  "name": "what_is_fe",
+  "version": "1.0.0",
+  "description": "doc for fe",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "deploy": "sh build.sh" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/licop/ts-axios-doc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/ustbhuangyi/ts-axios-doc#readme",
+  "devDependencies": {
+    "vuepress": "^1.7.1"
+  }
+}
