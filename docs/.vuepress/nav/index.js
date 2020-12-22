@@ -3,7 +3,7 @@ module.exports = [
     { text: '语法和API', link: '/syntax&API/HTML/关于HTML.html' },
     { text: '网络和通讯', link: '/network/' },
     { text: '开发流程', link: '/development-process/Git/git命令.html' },
-    { text: '前端工程化', link: '/engineering/' },
+    { text: '前端工程化', link: '/engineering/webpack/webpack基础学习.html' },
     { text: '运行与监控', link: '/runnnig-monitoring/' },
     { text: '前端框架', link: '/framework/React/关于react-hook.html' },
     { text: '常用工具与插件', link: '/tool&plugin/'},

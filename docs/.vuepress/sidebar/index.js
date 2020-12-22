@@ -19,8 +19,15 @@ module.exports = {
     '/network/': {},
     // 前端工程化
     '/engineering/': {
+        "webpack": [
+            "webpack基础学习",
+            "webpack高级概念",
+            "webpack实例应用",
+            "webpack性能优化",
+            "编一个webapck loader和pugin",
+            "bundler源码编写"
+        ],
         "babel": [],
-        "webpack": [],
         "rollup": []
     },  
     // 运行与监控

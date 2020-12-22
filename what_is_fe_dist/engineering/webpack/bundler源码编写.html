@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>简易的 bundler 源码编写 | What is Fe</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.41761744.css" as="style"><link rel="preload" href="/assets/js/app.a4e20ded.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/19.bef20e55.js" as="script"><link rel="preload" href="/assets/js/3.be30d3f9.js" as="script"><link rel="prefetch" href="/assets/js/10.4ff0b6b6.js"><link rel="prefetch" href="/assets/js/11.f8d05fef.js"><link rel="prefetch" href="/assets/js/12.5b161d54.js"><link rel="prefetch" href="/assets/js/13.a983f7f5.js"><link rel="prefetch" href="/assets/js/14.466cf9fc.js"><link rel="prefetch" href="/assets/js/15.755954c5.js"><link rel="prefetch" href="/assets/js/16.2c832fb0.js"><link rel="prefetch" href="/assets/js/17.8653a0f2.js"><link rel="prefetch" href="/assets/js/18.fc9029a4.js"><link rel="prefetch" href="/assets/js/20.1239cd84.js"><link rel="prefetch" href="/assets/js/21.179655bb.js"><link rel="prefetch" href="/assets/js/22.25fbfe6f.js"><link rel="prefetch" href="/assets/js/23.062a7c06.js"><link rel="prefetch" href="/assets/js/24.e299a6a3.js"><link rel="prefetch" href="/assets/js/25.f8c54314.js"><link rel="prefetch" href="/assets/js/26.21c8289b.js"><link rel="prefetch" href="/assets/js/27.b8aec5bf.js"><link rel="prefetch" href="/assets/js/28.536f874c.js"><link rel="prefetch" href="/assets/js/29.f43710be.js"><link rel="prefetch" href="/assets/js/30.5a9e15da.js"><link rel="prefetch" href="/assets/js/4.cf3e819a.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/8.92b8e2ba.js"><link rel="prefetch" href="/assets/js/9.8d9b981b.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.41761744.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is Fe</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>webpack</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/engineering/webpack/webpack基础学习.html" class="sidebar-link">webpack 基础学习</a></li><li><a href="/engineering/webpack/webpack高级概念.html" class="sidebar-link">webpack 高级概念</a></li><li><a href="/engineering/webpack/webpack实例应用.html" class="sidebar-link">webpack 实例应用</a></li><li><a href="/engineering/webpack/webpack性能优化.html" class="sidebar-link">webpack 性能优化</a></li><li><a href="/engineering/webpack/编一个webapck loader和pugin.html" class="sidebar-link">编写一个简单的 loader 和 plugin</a></li><li><a href="/engineering/webpack/bundler源码编写.html" class="active sidebar-link">简易的 bundler 源码编写</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/engineering/webpack/bundler源码编写.html#分析模块-提取依赖" class="sidebar-link">分析模块，提取依赖</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/bundler源码编写.html#提取深层依赖-绘制依赖图谱" class="sidebar-link">提取深层依赖，绘制依赖图谱</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/bundler源码编写.html#生成最终代码" class="sidebar-link">生成最终代码</a></li></ul></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>babel</span> <!----></p> <!----></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>rollup</span> <!----></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="简易的-bundler-源码编写"><a href="#简易的-bundler-源码编写" class="header-anchor">#</a> 简易的 bundler 源码编写</h1> <p>编写一个简易的 es6 语法的 js 文件 <code>bundler</code> 可以帮助更好的了解 webpack 的原理。</p> <h2 id="分析模块-提取依赖"><a href="#分析模块-提取依赖" class="header-anchor">#</a> 分析模块，提取依赖</h2> <p>当我们打包 js 文件时，首先需要一个入口文件<code>（entry）</code>，然后提取文件中的依赖<code>（dependencies）</code>。</p> <p>使用<code>@babel/parser</code>将文件代买转入未抽象语法树（AST）,使用<code>@babel/traverse</code>从 <code>import</code>声明语句中提取依赖。</p> <p>使用<code>@babel/core</code>的<code>transformFromAst</code>方法将抽象语法树转化为浏览器可执行的 es5 代码</p> <div class="language- extra-class"><pre class="language-text"><code>    // 分析模块
+    const moduleAnalyser = (filename) =&gt; {
+        // 读取文件内容
+        const content = fs.readFileSync(filename, 'utf-8');
+        // 获取抽象语法树
+        const ast = paser.parse(content, {
+            sourceType: 'module'
+        });
+
+        const dependencies = {};
+        // 遇到声明语法时执行，获取依赖
+        traverse(ast, {
+            ImportDeclaration({node}) {
+                const dirname = path.dirname(filename);
+                const newFile = './' + path.join(dirname, node.source.value)
+
+                dependencies[node.source.value] = newFile;
+            }
+        });
+        // 将抽象语法树转化为浏览器能够识别的代码
+        const {code} = babel.transformFromAst(ast, null, {
+            presets: [&quot;@babel/preset-env&quot;]
+        });
+
+        return {
+            filename,
+            dependencies,
+            code
+        }
+    }
+
+</code></pre></div><h2 id="提取深层依赖-绘制依赖图谱"><a href="#提取深层依赖-绘制依赖图谱" class="header-anchor">#</a> 提取深层依赖，绘制依赖图谱</h2> <p>入口文件依赖的文件，也可能依赖引入其他文件，使用<strong>递归</strong>的方法提取出来，绘制依赖文件的图谱，便于将所有 js 文件打包在一起</p> <div class="language- extra-class"><pre class="language-text"><code>const makeDependenciesGraph = (entry) =&gt; {
+    const entryModule = moduleAnalyser(entry);
+    const graphArr = [entryModule]
+    for(let i = 0; i &lt; graphArr.length; i++) {
+        const item = graphArr[i];
+        const { dependencies } = item;
+        if(dependencies) {
+            for(let j in dependencies) {
+                graphArr.push(moduleAnalyser(dependencies[j]));
+            }
+        }
+    }
+    const graph = {};
+    graphArr.forEach(item =&gt; {
+        graph[item.filename] = {
+            dependencies: item.dependencies,
+            code: item.code
+        }
+    })
+
+    return graph;
+}
+
+</code></pre></div><h2 id="生成最终代码"><a href="#生成最终代码" class="header-anchor">#</a> 生成最终代码</h2> <p>使用闭包函数将依赖图谱合并成最终代码</p> <div class="language- extra-class"><pre class="language-text"><code>const generateCode = (entry) =&gt; {
+    const graph = JSON.stringify(makeDependenciesGraph(entry));
+
+    return `
+        (function(graph) {
+            function require(module) {
+                function localRequire(relativePath) {
+                    return require(graph[module].dependencies[relativePath]);
+                }
+                var exports = {};
+                (function(require, exports, code) {
+                    eval(code);
+                })(localRequire, exports, graph[module].code);
+                return exports;
+            }
+            require('${entry}');
+        })(${graph});
+    `
+}
+
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/engineering/webpack/编一个webapck loader和pugin.html" class="prev">
+        编写一个简单的 loader 和 plugin
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.a4e20ded.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/19.bef20e55.js" defer></script><script src="/assets/js/3.be30d3f9.js" defer></script>
+  </body>
+</html>

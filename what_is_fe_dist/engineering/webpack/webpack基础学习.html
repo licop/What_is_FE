@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>webpack 基础学习 | What is Fe</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.41761744.css" as="style"><link rel="preload" href="/assets/js/app.a4e20ded.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/20.1239cd84.js" as="script"><link rel="preload" href="/assets/js/3.be30d3f9.js" as="script"><link rel="prefetch" href="/assets/js/10.4ff0b6b6.js"><link rel="prefetch" href="/assets/js/11.f8d05fef.js"><link rel="prefetch" href="/assets/js/12.5b161d54.js"><link rel="prefetch" href="/assets/js/13.a983f7f5.js"><link rel="prefetch" href="/assets/js/14.466cf9fc.js"><link rel="prefetch" href="/assets/js/15.755954c5.js"><link rel="prefetch" href="/assets/js/16.2c832fb0.js"><link rel="prefetch" href="/assets/js/17.8653a0f2.js"><link rel="prefetch" href="/assets/js/18.fc9029a4.js"><link rel="prefetch" href="/assets/js/19.bef20e55.js"><link rel="prefetch" href="/assets/js/21.179655bb.js"><link rel="prefetch" href="/assets/js/22.25fbfe6f.js"><link rel="prefetch" href="/assets/js/23.062a7c06.js"><link rel="prefetch" href="/assets/js/24.e299a6a3.js"><link rel="prefetch" href="/assets/js/25.f8c54314.js"><link rel="prefetch" href="/assets/js/26.21c8289b.js"><link rel="prefetch" href="/assets/js/27.b8aec5bf.js"><link rel="prefetch" href="/assets/js/28.536f874c.js"><link rel="prefetch" href="/assets/js/29.f43710be.js"><link rel="prefetch" href="/assets/js/30.5a9e15da.js"><link rel="prefetch" href="/assets/js/4.cf3e819a.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/8.92b8e2ba.js"><link rel="prefetch" href="/assets/js/9.8d9b981b.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.41761744.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is Fe</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>webpack</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/engineering/webpack/webpack基础学习.html" class="active sidebar-link">webpack 基础学习</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/engineering/webpack/webpack基础学习.html#什么是-webpack" class="sidebar-link">什么是 webpack</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/webpack基础学习.html#webpack-安装" class="sidebar-link">webpack 安装</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/webpack基础学习.html#webpack-配置" class="sidebar-link">webpack 配置</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/webpack基础学习.html#plugins" class="sidebar-link">plugins</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/webpack基础学习.html#entry-output" class="sidebar-link">entry &amp; output</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/webpack基础学习.html#devtool" class="sidebar-link">Devtool</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/webpack基础学习.html#devserver" class="sidebar-link">devServer</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/webpack基础学习.html#解析-resolve" class="sidebar-link">解析 resolve</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/webpack基础学习.html#热模块替换-hmr" class="sidebar-link">热模块替换 hmr</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/webpack基础学习.html#babel" class="sidebar-link">babel</a></li></ul></li><li><a href="/engineering/webpack/webpack高级概念.html" class="sidebar-link">webpack 高级概念</a></li><li><a href="/engineering/webpack/webpack实例应用.html" class="sidebar-link">webpack 实例应用</a></li><li><a href="/engineering/webpack/webpack性能优化.html" class="sidebar-link">webpack 性能优化</a></li><li><a href="/engineering/webpack/编一个webapck loader和pugin.html" class="sidebar-link">编写一个简单的 loader 和 plugin</a></li><li><a href="/engineering/webpack/bundler源码编写.html" class="sidebar-link">简易的 bundler 源码编写</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>babel</span> <!----></p> <!----></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>rollup</span> <!----></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="webpack-基础学习"><a href="#webpack-基础学习" class="header-anchor">#</a> webpack 基础学习</h1> <h2 id="什么是-webpack"><a href="#什么是-webpack" class="header-anchor">#</a> 什么是 webpack</h2> <p><strong>核心定义:</strong> webpack 是一个静态模块打包工具(module bundler)</p> <p><strong>模块 module:</strong> 在模块化编程中，开发者将程序分解为功能离散的 chunk，并称之<em>模块</em>。</p> <h3 id="webpack-天生支持的模块"><a href="#webpack-天生支持的模块" class="header-anchor">#</a> webpack 天生支持的模块</h3> <ul><li>ES Module import 语句</li> <li>commonJS <code>require()</code> 语句</li> <li>AMD <code>define</code>和<code>require</code> 语句</li> <li>stylesheet url(） 或者 HTML <img src=""> 文件中的图片链接</li> <li>WebAssembly 模块</li></ul> <h3 id="通过-loader-支持的模块"><a href="#通过-loader-支持的模块" class="header-anchor">#</a> 通过 <em>loader</em> 支持的模块</h3> <ul><li>CoffeeScript</li> <li>TypeScript</li> <li>ESNext (Babel)</li> <li>Sass</li> <li>Less</li> <li>Stylus</li> <li>Elm</li></ul> <blockquote><p>当使用 webpack 打包 ES6 模块时，webpack 可以识别<code>import</code>和<code>export</code>语法，但是注意，如果使用其他的 ES6+ 特性，仍然需要引入 babel。</p></blockquote> <h2 id="webpack-安装"><a href="#webpack-安装" class="header-anchor">#</a> webpack 安装</h2> <ul><li>npm install webpack webpack-cli -g</li></ul> <h2 id="webpack-配置"><a href="#webpack-配置" class="header-anchor">#</a> webpack 配置</h2> <h3 id="mode"><a href="#mode" class="header-anchor">#</a> mode</h3> <ul><li>提供 <code>mode</code> 配置选项，告知 webpack 使用相应模式的内置优化。</li></ul> <p>string = 'production': 'none' | 'development' | 'production'</p> <ul><li>使用<code>production</code>会对代码进行压缩，使用<code>development</code>不会</li></ul> <h3 id="loader"><a href="#loader" class="header-anchor">#</a> loader</h3> <p><code>webpack</code> 不能识别非 js 格式文件， 只能使用 <code>loader</code> 用于对模块的源代码进行转换。webpack 根据正则表达式，来确定应该查找哪些文件，并将其提供给指定的 <code>loader</code>。</p> <p>webpack 支持使用 <code>loader</code> 对文件进行预处理。你可以构建包括 JavaScript 在内的任何静态资源。并且可以使用 Node.js 轻松编写自己的 <code>loader</code>。</p> <p>如果一个静态文件不是 js 格式，则需要判断文件的结尾后缀，使用对应的文件格式的<code>loader</code></p> <p><strong>常用配置方式</strong>： <code>module.rules</code> 允许你在 webpack 配置中指定多个 loader。</p> <h4 id="打包图片"><a href="#打包图片" class="header-anchor">#</a> 打包图片</h4> <div class="language- extra-class"><pre class="language-text"><code>    module: {
+        rules: [{
+            test: /\.(jpe?g|png|gif)$/i,
+            use: {
+                loader: 'url-loader', // 'file-loader'
+                options: {
+                    // 占位符
+                    name: 'image/[contenthash].[ext]',
+                    limit: 10240
+                }
+            }
+        }]
+    }
+</code></pre></div><blockquote><p><code>url-loader</code> 与 <code>file-loader</code> 类似, 用于打包文件，不过<code>url-loader</code>会将文件小于<code>limit</code>的值的的图片打包成 base64 格式的文件</p></blockquote> <h3 id="打包样式文件"><a href="#打包样式文件" class="header-anchor">#</a> 打包样式文件</h3> <ul><li><strong>style-loader 作用:</strong> 把 CSS 插入到 DOM 中。</li> <li><strong>css-loader 作用</strong> 对 <code>@import</code> 和 <code>url()</code> 进行处理，就像 js 解析 <code>import/require()</code> 一样， 把多个 css 文件合并成一个</li> <li><strong>sass-loader 作用</strong> 把 sass 文件翻译成 css</li> <li><strong>postcss-loader</strong> 用来自动添加 css 浏览器商家前缀，可在<code>post.config.js</code>中进行配置</li></ul> <div class="language- extra-class"><pre class="language-text"><code>    module: {
+        rules: [{
+            test: /\.scss$/i,
+            use: [
+                'style-loader',
+				{
+                    loader: 'css-loader',
+                    options: {
+                        // 处理scss文件里引入其他scss文件，引入的scss文件也要走两个loader
+                        importLoaders: 2,
+                        // 是否开启css module打包
+                        modules: true
+                    }
+                },
+				'sass-loader',
+				'postcss-loader'
+            ]
+        }]
+    }
+</code></pre></div><p>在<a href="https://webpack.docschina.org/loaders/css-loader/" target="_blank" rel="noopener noreferrer">css-loader<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>的<code>options</code>将<code>module</code>设置成<code>true</code>,可以使用<code>CSS Modules</code>组织样式，避免 css 全局污染, <code>CSS Modules</code>使用方式如下：</p> <div class="language- extra-class"><pre class="language-text"><code> import style from './style/index.scss'
+</code></pre></div><blockquote><p>注：use 数组里编译的顺序是从上到下，从右到左，如果不注意先后顺序打包时可能会报错</p></blockquote> <h3 id="打包-iconfont-文件"><a href="#打包-iconfont-文件" class="header-anchor">#</a> 打包 iconfont 文件</h3> <div class="language- extra-class"><pre class="language-text"><code>  module: {
+        rules: [{
+            test: /\.(eot|ttf|svg)$/,
+			use: {
+				loader: 'file-loader'
+			}
+        }]
+    }
+</code></pre></div><p>更多文件格式的参考 <a href="https://webpack.docschina.org/loaders/" target="_blank" rel="noopener noreferrer">loader<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h2 id="plugins"><a href="#plugins" class="header-anchor">#</a> plugins</h2> <p><code>plugin</code>可以在 webpack 运行到某个节点，帮你做一些事情，<code>plugin</code>目的在于解决 loader 无法实现的其他事。</p> <h3 id="htmlwebpackplugin"><a href="#htmlwebpackplugin" class="header-anchor">#</a> HtmlWebpackPlugin</h3> <p><code>HtmlWebpackPlugin</code> 会在打包结束后自动生成一个 html 文件，并把打包生成 js 自动引入到这个 html 文件中, 在文件被打包之后执行</p> <div class="language- extra-class"><pre class="language-text"><code>module.exports = {
+    entry: 'index.js',
+    output: {
+        path: path.resolve(__dirname, './dist'),
+        filename: 'index_bundle.js'
+    },
+    plugins: [
+      new HtmlWebpackPlugin({template: 'src/index.html'})
+    ]
+};
+
+</code></pre></div><h3 id="cleanwebpackplugin"><a href="#cleanwebpackplugin" class="header-anchor">#</a> CleanWebpackPlugin</h3> <p><code>CleanWebpackPlugin</code> 在打包之前，帮你清理删除某个文件夹</p> <div class="language- extra-class"><pre class="language-text"><code>    plugins: [
+		new CleanWebpackPlugin(['dist'])
+	]
+</code></pre></div><p>更多插件参考 <a href="https://webpack.docschina.org/plugins/" target="_blank" rel="noopener noreferrer">plugin<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h2 id="entry-output"><a href="#entry-output" class="header-anchor">#</a> entry &amp; output</h2> <p>打包的入口起点和输出， 即使可以存在多个 <code>entry</code> 起点，但只能指定一个 <code>output</code> 配置</p> <div class="language- extra-class"><pre class="language-text"><code> module.exports = {
+  entry: {
+    app: './src/app.js',
+    search: './src/search.js'
+  },
+  output: {
+    filename: '[name].js',
+    path: __dirname + '/dist',
+    publicPath: 'http://cdn.com.cn',
+  }
+};
+
+// 写入到硬盘：./dist/app.js, ./dist/search.js
+
+</code></pre></div><p><code>publicPath</code> 支持文件路径使用 cdn 地址</p> <h2 id="devtool"><a href="#devtool" class="header-anchor">#</a> Devtool</h2> <p><code>sourceMap</code>可以将打包后的代码与原代码做具体到行和列的映射(mapping),从而便于开发者查询问题和 debug, <code>Devtool</code>属性可以选择生成<code>sourceMap</code>的方式</p> <p><code>sourceMap</code>有多种生成模式，各种模式可以自由组合，来满足各种环境下的需求 模式是<code>[inline-|hidden-|eval-][nosources-][cheap-[module-]]source-map</code></p> <ul><li><code>inline-</code> source map 转换为 DataUrl 后添加到 bundle 中</li> <li><code>clean-</code> 没有列映射(column mapping)的 source map，可以提升构建速度</li> <li><code>eval-</code> 每个模块使用 eval() 执行，并且 source map 转换为 DataUrl 后添加到 eval() 中</li> <li><code>module-</code> 源自 loader 的 <code>source map</code> 会得到更好的处理结果</li></ul> <h3 id="最佳实践"><a href="#最佳实践" class="header-anchor">#</a> 最佳实践</h3> <ul><li>开发环境下 <code>development</code>使用 <code>cheap-module-eval-source-map</code>，可以兼顾打包效率和精确度</li> <li>生产环境下 <code>production</code> 使用 <code>cheap-module-source-map</code>，提升精确度</li></ul> <p><a href="https://webpack.docschina.org/configuration/devtool/" target="_blank" rel="noopener noreferrer">更多关于 devtool 内容参考<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h2 id="devserver"><a href="#devserver" class="header-anchor">#</a> devServer</h2> <p>在每次编译代码时，手动运行 <code>npm run build</code> 会显得很麻烦。</p> <p><code>webpack-dev-server</code>会开启一个服务器，打开一个端口，可以帮助你在代码发生变化后自动编译代码。</p> <p>webpack 没有提供自带的工具，我们需要自己安装</p> <div class="language- extra-class"><pre class="language-text"><code>  npm install --save-dev webpack-dev-server
+</code></pre></div><p>以下配置告知 <code>webpack-dev-server</code>，将 dist 目录下的文件 serve 到 localhost:9000 下。</p> <div class="language- extra-class"><pre class="language-text"><code>   devServer: {
+		contentBase: path.join(__dirname, 'dist'),
+		compress: true,
+		port: 9000,
+		open: true
+	},
+</code></pre></div><h3 id="转发代理"><a href="#转发代理" class="header-anchor">#</a> 转发代理</h3> <p>当拥有单独的 API 后端开发服务器并且希望在同一域上发送 API 请求时，我们可以使用<code>webpack-dev-server</code>对请求转发进行代理。</p> <p>使用后端在 <code>localhost:3000</code> 上，可以使用它来启用代理</p> <div class="language- extra-class"><pre class="language-text"><code>   module.exports = {
+        devServer: {
+            proxy: {
+            '/api': 'http://localhost:3000'
+            }
+        }
+    };
+</code></pre></div><p>现在，对 <code>/api/users</code> 的请求会将请求代理到 <code>http://localhost:3000/api/users</code>。</p> <h3 id="实现一个简易的-webpackserver"><a href="#实现一个简易的-webpackserver" class="header-anchor">#</a> 实现一个简易的 webpackserver</h3> <p>同样我们可以使用<code>webpack-dev-middleware</code>和<code>express</code>来自己编写一个，简单的<code>webpack-dev-server</code>。</p> <p>新建一个 <code>server.js</code>文件，然后执行<code>node server.js</code></p> <div class="language- extra-class"><pre class="language-text"><code>    const express = require('express');
+    const webpack = require('webpack');
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+
+    const app = express();
+    const config = require('./webpack.config.js');
+    const compiler = webpack(config);
+
+    // 告知 express 使用 webpack-dev-middleware，
+    // 以及将 webpack.config.js 配置文件作为基础配置。
+    app.use(
+    webpackDevMiddleware(compiler, {
+        publicPath: config.output.publicPath,
+    })
+    );
+
+    // 将文件 serve 到 port 3000。
+    app.listen(3000, function () {
+    console.log('Example app listening on port 3000!\n');
+    });
+</code></pre></div><p>更多 <a href="https://webpack.docschina.org/configuration/dev-server/" target="_blank" rel="noopener noreferrer">webpack-dev-server 配置<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> 参考</p> <h2 id="解析-resolve"><a href="#解析-resolve" class="header-anchor">#</a> 解析 resolve</h2> <p>这些选项能设置模块如何被解析。webpack 提供合理的默认值，但是还是可能会修改一些解析的细节。</p> <p><code>resolve.alias</code>为 reslove 常用属性。创建 import 或 require 的别名，来确保模块引入变得更简单</p> <p>例如，一些位于 src/ 文件夹下的常用模块：</p> <div class="language- extra-class"><pre class="language-text"><code>    const path = require('path');
+
+    module.exports = {
+
+    resolve: {
+        alias: {
+        Utilities: path.resolve(__dirname, 'src/utilities/'),
+        Templates: path.resolve(__dirname, 'src/templates/'),
+        },
+    },
+    };
+</code></pre></div><p>可以这样使用别名</p> <div class="language- extra-class"><pre class="language-text"><code>  import Utility from 'Utilities/utility';
+</code></pre></div><p><a href="https://webpack.docschina.org/configuration/resolve/" target="_blank" rel="noopener noreferrer">更多 resolve 参考<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h2 id="热模块替换-hmr"><a href="#热模块替换-hmr" class="header-anchor">#</a> 热模块替换 hmr</h2> <p>**模块热替换(HMR - hot module replacement)**功能会在应用程序运行过程中，替换、添加或删除 模块，而无需重新加载整个页面。</p> <h3 id="hrm-作用"><a href="#hrm-作用" class="header-anchor">#</a> hrm 作用</h3> <ul><li>保留在完全重新加载页面期间丢失的应用程序状态。</li> <li>只更新变更内容，以节省宝贵的开发时间。</li> <li>在源代码中 CSS/JS 产生修改时，会立刻在浏览器中进行更新，这几乎相当于在浏览器 devtools 直接更改样式。</li></ul> <h3 id="hrm-使用"><a href="#hrm-使用" class="header-anchor">#</a> hrm 使用</h3> <p><code>webpack</code> 配置</p> <div class="language- extra-class"><pre class="language-text"><code>    devServer: {
+		contentBase: path.join(__dirname, 'dist'),
+		port: 9000,
+		open: true,
+
+		hot: true,
+		hotOnly: true
+	}
+</code></pre></div><p>当更新 js 文件时，可以在 js 文件中添加如下方法，实现某个模块的热替换</p> <div class="language- extra-class"><pre class="language-text"><code>    if (module.hot) {
+        module.hot.accept('./print.js', function() {
+            printMe();
+        })
+    }
+</code></pre></div><p>当更新 css 文件时，<code>style-loader</code>帮我们自动完成了热替换；当它通过 HMR 接收到更新，它会使用新的样式替换旧的样式。</p> <ul><li><a href="https://webpack.docschina.org/concepts/hot-module-replacement/" target="_blank" rel="noopener noreferrer">模块热替换(hot module replacement)<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://webpack.docschina.org/api/hot-module-replacement/" target="_blank" rel="noopener noreferrer">Hot Module Replacement API<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <h2 id="babel"><a href="#babel" class="header-anchor">#</a> babel</h2> <p>使用<code>babel</code>对 js 文件进行转化，是的 ES6 语法变成各个浏览器能够识别的语法</p> <p>webpack 引入<code>babel-loader</code>, 并且新建<code>.babelrc</code>文件对 babel 进行配置</p> <div class="language- extra-class"><pre class="language-text"><code>    module: {
+		rules: [{
+			test: /\.js$/,
+			exclude: /node_modules/,
+			loader: 'babel-loader',
+		}]
+    }
+</code></pre></div><p>如果对 react 项目进行打包，需用使用<code>@babel/preset-react</code>对文件进行处理，是的<code>jsx</code>格式语法能够被翻译</p> <p>更多参考<a href="https://babeljs.io/setup#installation" target="_blank" rel="noopener noreferrer">babel 文档<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/engineering/webpack/webpack高级概念.html">
+        webpack 高级概念
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.a4e20ded.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/20.1239cd84.js" defer></script><script src="/assets/js/3.be30d3f9.js" defer></script>
+  </body>
+</html>
