@@ -3,7 +3,7 @@ const navData = require('./nav');
 
 module.exports = {
     title: 'What is Fe',
-    description: '对前端知识体系的详细梳理',
+    description: '构建自己的系统的 Web 前端知识体系',
     dest: 'dist',
     base: '/what-is-fe/',
     port: '8099',
@@ -12,33 +12,29 @@ module.exports = {
         editLinks: true,
         docsDir: 'docs',
         nav: navData,
-        sidebar: {
-            "/framework/": [{
-                title: 'React',
-                collapsable: false,
-                children: [
-                    'React/关于react-hook'
-                ]
-            }]
-        }
+        sidebar: getSidebar()
     }
 }
 
 function getSidebar() {
-    const obj = {};
-    navData.forEach(navItem => {
-        if(navItem.link in sidebarData) {
-            obj[navItem.link] = Object.keys(sidebarData[navItem.link]).map(sidebarKey => {
-                const children = sidebarData[navItem.link][sidebarKey].length > 0 ? sidebarData[navItem.link][sidebarKey] : [];
-                console.log(children);
-                return {
-                    title: sidebarKey,
-                    collapsable: false,
-                    children
-                }
-            })
-        }
+    let obj = {};
+    Object.keys(sidebarData).forEach(key => {
+        obj[key] = Object.keys(sidebarData[key]).map(subKey => {
+            let children =  [];
+            if(sidebarData[key][subKey].length > 0) {
+                children = sidebarData[key][subKey].map(child => {
+                    return `${subKey}/${child}`
+                })
+            }
+
+            return {
+                title: subKey,
+                collapsable: false,
+                children
+            }
+        })
     })
+    
     console.log(obj);  
     return obj;
 }
