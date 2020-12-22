@@ -2,14 +2,12 @@
   "name": "what_is_fe",
   "version": "1.0.0",
   "description": "doc for fe",
-  "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "dev": "vuepress dev docs",
-    "build": "vuepress build docs",
-    "deploy": "sh build.sh"
+    "build": "vuepress build docs"  
   },
   "repository": {
     "type": "git",
