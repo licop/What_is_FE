@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Storybook 使用 | What is Fe</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.41761744.css" as="style"><link rel="preload" href="/assets/js/app.bcf46949.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/18.5bec50da.js" as="script"><link rel="preload" href="/assets/js/3.be30d3f9.js" as="script"><link rel="prefetch" href="/assets/js/10.a1bb7c5b.js"><link rel="prefetch" href="/assets/js/11.460b07fa.js"><link rel="prefetch" href="/assets/js/12.2e394fe4.js"><link rel="prefetch" href="/assets/js/13.37443924.js"><link rel="prefetch" href="/assets/js/14.e4ee4a94.js"><link rel="prefetch" href="/assets/js/15.61d3cd46.js"><link rel="prefetch" href="/assets/js/16.44f92758.js"><link rel="prefetch" href="/assets/js/17.883eaf2e.js"><link rel="prefetch" href="/assets/js/19.84b1db3f.js"><link rel="prefetch" href="/assets/js/20.42a60e79.js"><link rel="prefetch" href="/assets/js/21.a4baa608.js"><link rel="prefetch" href="/assets/js/22.348aba77.js"><link rel="prefetch" href="/assets/js/23.57d56c79.js"><link rel="prefetch" href="/assets/js/24.f4b52303.js"><link rel="prefetch" href="/assets/js/4.156e29b7.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/8.0971b919.js"><link rel="prefetch" href="/assets/js/9.bca781e2.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.41761744.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is Fe</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Git</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/Git/git命令.html" class="sidebar-link">常用 git 命令</a></li><li><a href="/development-process/Git/使用omyzsh git插件的别名.html" class="sidebar-link">使用 omyzsh git 插件的别名 Aliases</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Linux</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/Linux/linux 常用命令.html" class="sidebar-link">linux 常用命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>mock</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/mock/在线 mock server.html" class="sidebar-link">在线 mock server</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>NPM</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/NPM/关于 package.json.html" class="sidebar-link">关于 package.json</a></li><li><a href="/development-process/NPM/关于npx.html" class="sidebar-link">关于 npx</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>CI-CD</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/CI-CD/CI-CD以及travis的使用.html" class="sidebar-link">CI/CD 以及 travis 的使用</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>文档</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/文档/storybook.html" class="active sidebar-link">Storybook 使用</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#storybook-是什么" class="sidebar-link">Storybook 是什么</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#storybook-优点" class="sidebar-link">Storybook 优点</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#安装" class="sidebar-link">安装</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#编写-stories" class="sidebar-link">编写 Stories</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#自定义组件文档" class="sidebar-link">自定义组件文档</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#组件注释方法" class="sidebar-link">组件注释方法</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#常用配置" class="sidebar-link">常用配置</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#自定义-controls-类型" class="sidebar-link">自定义 Controls 类型</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#自定义-props-描述" class="sidebar-link">自定义 Props 描述</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#插件系统" class="sidebar-link">插件系统</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#快照测试" class="sidebar-link">快照测试</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#更多参考" class="sidebar-link">更多参考</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="storybook-使用"><a href="#storybook-使用" class="header-anchor">#</a> Storybook 使用</h1> <h2 id="storybook-是什么"><a href="#storybook-是什么" class="header-anchor">#</a> Storybook 是什么</h2> <p>使用 Storybook 可以为你的项目一键生成样式指南(Style Guide)页面。</p> <p>使用 <strong>组件驱动开发(CDD)</strong> 的模式，首先完成基础组件，通过组件复用的方式构建功能模块和页面。
+使用 CDD 开发有如下好处：</p> <ol><li>开发和设计更方便交流，更快速的迭代产品原型</li> <li>UI 与业务分离，基础组件中间无依赖，可以并行开发</li> <li>组件拆分更合理、规范，整体风格由基础组件决定，可以保证 UI 风格的统一性</li> <li>组件包含文档和样例，方便其他人员开始使用</li></ol> <h2 id="storybook-优点"><a href="#storybook-优点" class="header-anchor">#</a> Storybook 优点</h2> <ol><li>环境配置简单快捷，一条命令即可完成配置 (CRA 基础上)。</li> <li>样式指南编写简单，可自动提取 Props 定义、组件名称等，无需繁琐步骤即可使用。</li> <li>提供插件机制，功能可扩展，默认支持响应式设计，预览背景，实时属性更改，自动化文档等。</li> <li>支持 MDX 格式，可编写带组件预览的 Markdown 文档，亦可作为纯文档使用。</li> <li>可以独立打包成 App，作为 UI 文档发布。</li></ol> <h2 id="安装"><a href="#安装" class="header-anchor">#</a> 安装</h2> <p>在项目中运行</p> <div class="language- extra-class"><pre class="language-text"><code>  npx sb init
+</code></pre></div><p>会在项目中生成如下文件</p> <div class="language- extra-class"><pre class="language-text"><code>.storybook
+├── main.js     // stories 路径和插件配置
+└── preview.js  // 全局组件预览配置
+
+src
+├── index.tsx
+└── stories     // 默认生成的 Demo
+    ├── Button.stories.tsx
+    ├── Button.tsx
+    ├── Header.stories.tsx
+    ├── Header.tsx
+    ├── Introduction.stories.mdx
+    ├── Page.stories.tsx
+    ├── Page.tsx
+    ├── assets
+    │   ├── code-brackets.svg
+    │   ├── colors.svg
+    │   ├── comments.svg
+    │   ├── direction.svg
+    │   ├── flow.svg
+    │   ├── plugin.svg
+    │   ├── repo.svg
+    │   └── stackalt.svg
+    ├── button.css
+    ├── header.css
+    └── page.css
+</code></pre></div><p>除此之外，还会自动修改<code>package.json</code>，添加相关依赖和 scripts</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;storybook&quot;: &quot;start-storybook -p 6006 -s public&quot;,
+  &quot;build-storybook&quot;: &quot;build-storybook -s public&quot;
+}
+</code></pre></div><p>运行<code>yarn storybook</code>即可直接预览 Demo</p> <h2 id="编写-stories"><a href="#编写-stories" class="header-anchor">#</a> 编写 Stories</h2> <h3 id="概述"><a href="#概述" class="header-anchor">#</a> 概述</h3> <p>Story 文件以.stories.tsx 结尾， 如存在自定义文档，则以.stories.mdx 结尾。
+每个 story 为一个菜单项，通过 ESModule 的形式导出。</p> <p>default 导出为页面配置(组件、标题)</p> <p>export 导出为组件的每种 Props 枚举的样式，可添加多种展示方式。</p> <div class="language- extra-class"><pre class="language-text"><code>import React from 'react';
+import { Story, Meta } from '@storybook/react/types-6-0';
+
+import { Button, ButtonProps } from './Button';
+
+export default {
+  title: 'Example/Button',
+  component: Button,
+} as Meta;
+
+const Template: Story&lt;ButtonProps&gt; = (args) =&gt; &lt;Button {...args} /&gt;;
+
+export const Primary = Template.bind({});
+Primary.args = {
+  primary: true,
+  label: 'Button',
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  label: 'Button',
+};
+
+</code></pre></div><h3 id="组件预览页面"><a href="#组件预览页面" class="header-anchor">#</a> 组件预览页面</h3> <p>首先配置组件默认导出，必填项为<code>title</code></p> <div class="language- extra-class"><pre class="language-text"><code>  export default {
+      title: 'Example/Button',
+      component: Button,
+  } as Meta;
+</code></pre></div><ul><li>title: 用于组织菜单层次结构，可以通过/创建子目录（如：Example/Component/Button）</li> <li>component: Story 相关的组件（用于自动生成文档等）</li></ul> <p>导出每个组件有两种方式:</p> <ul><li>可直接导出组件</li></ul> <div class="language- extra-class"><pre class="language-text"><code>  export const Menu: React.VFC = (props) =&gt; {
+  return (
+    &lt;Menu defaultIndex='0' onSelect={(index) =&gt; {action(`clicked ${index} item`)}} &gt;
+    &lt;/Menu&gt;
+  )
+}
+</code></pre></div><blockquote><p>参数增加 props 可出现 Props 控制选项，不加则没有</p></blockquote> <ul><li>使用 Args 方式导出（推荐）</li></ul> <div class="language- extra-class"><pre class="language-text"><code>  const Template: Story&lt;ButtonProps&gt; = (args) =&gt; &lt;Button {...args} /&gt;;
+
+  export const Primary = Template.bind({});
+  Primary.args = {
+     primary: true,
+     label: 'Button',
+  };
+</code></pre></div><p>使用 Args 导出模式可自动添加 Props 相关控制选项，并且重用 Props 很方便</p> <div class="language- extra-class"><pre class="language-text"><code> const Secondary = ButtonStory.bind({});
+ Secondary.args = {
+    ...Primary.args,
+    primary: false,
+  };
+</code></pre></div><h2 id="自定义组件文档"><a href="#自定义组件文档" class="header-anchor">#</a> 自定义组件文档</h2> <p>Storybook 支持自行编写组件相关文档，文件后缀名为<code>.stories.mdx</code>
+MDX = Markdown + JSX</p> <p>首先需要先定义菜单名称和相关组件（类似<code>.stories.tsx</code>的默认导出）</p> <div class="language- extra-class"><pre class="language-text"><code>import { Meta, Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Button } from './Button';
+
+&lt;Meta title=&quot;Documents/Button&quot; component={Button} /&gt;;
+</code></pre></div><p>接下来可以使用 Markdown 语法和 Canvas、Story 等 JSX 标记编写文档</p> <div class="language- extra-class"><pre class="language-text"><code>export const Template = (args) =&gt; &lt;Button {...args} /&gt;;
+
+# 按钮组件
+
+- 这是一个按钮
+- 好看的按钮
+
+## Primary 按钮
+
+&lt;Story name=&quot;Primary&quot; args={{ primary, label: 'Button' }}&gt;
+{Template.bind({})}
+&lt;/Story&gt;
+
+## 大与小
+
+&lt;Canvas&gt;
+  &lt;Story name=&quot;Large&quot; args={{ size: 'large', label: 'Button' }}&gt;
+    {Template.bind({})}
+  &lt;/Story&gt;
+  &lt;Story name=&quot;Small&quot; args={{ size: 'small', label: 'Button' }}&gt;
+    {Template.bind({})}
+  &lt;/Story&gt;
+&lt;/Canvas&gt;
+</code></pre></div><ul><li><code>Story:</code> 组件展示</li> <li><code>Canvas:</code> 包含代码片段展示块</li></ul> <p>此段代码生成如下效果</p> <p><img src="/storybook-custom-doc.png" alt=""></p> <blockquote><p>每个 Story 块生成一个子项，多个子项共用一个文档</p></blockquote> <h2 id="组件注释方法"><a href="#组件注释方法" class="header-anchor">#</a> 组件注释方法</h2> <p>组件 Props 注释（用于生成文档的 Props 描述文字）</p> <p>组件行首注释（用于生成文档的组件描述文字）</p> <div class="language- extra-class"><pre class="language-text"><code> import React from 'react';
+
+ export interface ButtonProps {
+  /** 是否为主按钮 */
+  primary?: boolean;
+  /** 按钮背景颜色 */
+  backgroundColor?: string;
+  /** 按钮大小 */
+  size?: 'small' | 'medium' | 'large';
+  /** 按钮文字 */
+  label: string;
+  /** 点击回调函数 */
+  onClick?: () =&gt; void;
+}
+
+/** 这是一个按钮 */
+export const Button: React.FC&lt;ButtonProps&gt; = ({
+  primary = false,
+  size = 'medium',
+  backgroundColor,
+  label,
+  ...props
+}) =&gt; {
+  return (
+    &lt;button
+      type=&quot;button&quot;
+      className={[
+        'storybook-button',
+        `storybook-button--${size}`,
+        primary ? 'storybook-button--primary' : 'storybook-button--secondary',
+      ].join(' ')}
+      style={{ backgroundColor }}
+      {...props}
+    &gt;
+      {label}
+    &lt;/button&gt;
+  );
+};
+</code></pre></div><p>此段代码生成如下效果（注意红框内的文字）</p> <p><img src="/story-jsx-doc.png" alt=""></p> <h2 id="常用配置"><a href="#常用配置" class="header-anchor">#</a> 常用配置</h2> <p>Storybook 配置可分别指定作用范围，分为组件配置、Story 文件配置、全局配置，继承关系如下：</p> <ul><li>全局配置</li></ul> <p><code>.storybook/preview.js</code></p> <div class="language- extra-class"><pre class="language-text"><code>export const parameters = {
+  backgrounds: {
+    default: 'twitter',
+    values: [
+      {
+        name: 'twitter',
+        value: '#00aced',
+      },
+      {
+        name: 'facebook',
+        value: '#3b5998',
+      },
+    ],
+  },
+};
+</code></pre></div><ul><li>Story 文件配置</li></ul> <p><code>Button.stories.js</code></p> <div class="language- extra-class"><pre class="language-text"><code>  export default {
+  title: 'Button',
+  parameters: {
+    backgrounds: {
+      default: 'twitter',
+      values: [
+        { name: 'twitter', value: '#00aced' },
+        { name: 'facebook', value: '#3b5998' },
+      ],
+    },
+  },
+};
+</code></pre></div><ul><li>组件配置</li></ul> <div class="language- extra-class"><pre class="language-text"><code>  export const Primary = …
+  Primary.decorators = [(Story) =&gt; &lt;div style={{ padding: '3em' }}&gt;&lt;Story/&gt;&lt;/div&gt;]
+</code></pre></div><h2 id="自定义-controls-类型"><a href="#自定义-controls-类型" class="header-anchor">#</a> 自定义 Controls 类型</h2> <p>在 Controls 面板中，Storybook 会自动通过 Props 的类型选择合适的控件，也可以手动指定需要的控件。</p> <p><code>.stories.tsx</code></p> <div class="language- extra-class"><pre class="language-text"><code>  export default {
+  title: 'Button',
+  component: Button,
+  argTypes: {
+    backgroundColor: { control: 'color' },
+    loadingState: {
+      control: {
+        type: 'inline-radio',
+        options: ['loading', 'error', 'ready'],
+      },
+    },
+    width: {
+      control: {
+        type: 'range',
+        min: 400,
+        max: 1200,
+        step: 50,
+      },
+    },
+  },
+};
+</code></pre></div><p><code>argTypes</code>属性可以指定某个 Props 使用指定的控件。更多<code>Control</code>属性参考文档</p> <h2 id="自定义-props-描述"><a href="#自定义-props-描述" class="header-anchor">#</a> 自定义 Props 描述</h2> <p>Story 可以覆盖默认的 Props 描述（来自静态代码分析）</p> <p>还可以添加大段文字，以说明 Props 的用途</p> <div class="language- extra-class"><pre class="language-text"><code>  export default {
+  title: 'Example/Button',
+  component: Button,
+  argTypes: {
+    label: {
+      name: '标签',
+      type: {
+        required: false,
+      },
+      description: 'overwritten description',
+      table: {
+        type: {
+          summary: 'something short',
+          detail: 'something really really long',
+        },
+        defaultValue: {
+          summary: 'default summary',
+          detail: 'default detail',
+        },
+      },
+      control: {
+        type: null,
+      },
+    },
+  },
+} as Meta;
+</code></pre></div><h2 id="插件系统"><a href="#插件系统" class="header-anchor">#</a> 插件系统</h2> <p>官方插件列表：https://github.com/storybookjs/storybook/tree/master/addons</p> <p>添加插件的一般步骤</p> <ol><li>使用 yarn 或 npm 安装相关依赖</li> <li>修改<code>.storybook/main.js</code>中的<code>addons</code>字段，添加插件</li> <li>在<code>.storybook/preview.js</code>中添加相关配置（可选）</li></ol> <h2 id="快照测试"><a href="#快照测试" class="header-anchor">#</a> 快照测试</h2> <ol><li>安装插件：yarn add --dev @storybook/addon-storyshots react-test-renderer</li> <li>在 src/stories 中新建文件 snapshoot.test.ts</li></ol> <div class="language- extra-class"><pre class="language-text"><code>import initStoryshots from '@storybook/addon-storyshots';
+
+initStoryshots();
+</code></pre></div><ol start="3"><li>运行 yarn test 即可在 src/stories 中生成<strong>snapshots</strong>文件夹，包含 stories 中组件的快照</li></ol> <h2 id="更多参考"><a href="#更多参考" class="header-anchor">#</a> 更多参考</h2> <p><a href="https://storybook.js.org/docs/react/get-started/introduction" target="_blank" rel="noopener noreferrer">官方文档<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/development-process/CI-CD/CI-CD以及travis的使用.html" class="prev">
+        CI/CD 以及 travis 的使用
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.bcf46949.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/18.5bec50da.js" defer></script><script src="/assets/js/3.be30d3f9.js" defer></script>
+  </body>
+</html>
