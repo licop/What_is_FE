@@ -2,12 +2,11 @@ language: node_js
 node_js:
   - "12"
 cache:
-  directories:
-    - node_modules
+  npm: false
 env:
   - CI=true
 install:
-  - npm install --registry=https://registry.npm.taobao.org
+  - npm install
 script:
   - npm run build
 deploy:
