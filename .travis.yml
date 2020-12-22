@@ -6,7 +6,7 @@ cache:
 env:
   - CI=true
 install:
-  - npm install
+  - npm install -g npm@2
 script:
   - npm run build
 deploy:
