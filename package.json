@@ -13,11 +13,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/licop/ts-axios-doc.git"
+    "url": "https://github.com/licop/What_is_FE"
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/ustbhuangyi/ts-axios-doc#readme",
+  "homepage": "",
   "devDependencies": {
     "@vuepress/plugin-back-to-top": "^1.7.1",
     "@vuepress/plugin-medium-zoom": "^1.7.1",
