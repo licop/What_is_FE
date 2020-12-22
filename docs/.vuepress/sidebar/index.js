@@ -1,4 +1,5 @@
 module.exports = {
+    // 编程基础
     '/programming-basics/': {
     },
     // 语法和API
@@ -31,6 +32,7 @@ module.exports = {
         ],
         'Vue': []
     },
+    // 开发流程
     '/development-process/': {
         'Git': [
             'git命令',
