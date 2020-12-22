@@ -6,6 +6,8 @@ cache:
     - node_modules
 env:
   - CI=true
+install:
+  - npm install --registry=https://registry.npm.taobao.org
 script:
   - npm run build
 deploy:
