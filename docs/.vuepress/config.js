@@ -2,7 +2,7 @@ const sidebarData = require('./sidebar');
 const navData = require('./nav');
 
 module.exports = {
-    title: 'What is Fe',
+    title: 'What is FE',
     description: '构建自己的系统的 Web 前端知识体系',
     dest: 'what_is_fe_dist',
     port: '8099',

@@ -65,7 +65,10 @@ module.exports = {
     // 工具和插件
     '/tool&plugin/': {
         'axios': [],
-        'lodash': []
+        'lodash': [],
+        'cross-env': [
+            '关于cross-env'
+        ]
     },
     // 服务器端
     '/server/': {

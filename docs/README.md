@@ -14,6 +14,6 @@ footer: 更多关于前端的知识，持续更新中。。。
 
 ## 目录大纲
 
-<img width="auto" src="/whatisfe.png" alt="logo">
+<img width="auto" src="/whatisfe.svg" alt="logo">
 
-> [点击查看大图](/whatisfe.png).
+> [点击查看大图](/whatisfe.svg).
