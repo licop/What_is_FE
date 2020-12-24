@@ -100,3 +100,5 @@ const generateCode = (entry) => {
 }
 
 ```
+
+[完整源码地址](https://github.com/licop/webpack4.0_learn/blob/master/%E7%BC%96%E5%86%99bundler%E6%BA%90%E7%A0%81/bundler/bundler.js)

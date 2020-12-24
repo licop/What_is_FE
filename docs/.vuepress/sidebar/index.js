@@ -25,7 +25,8 @@ module.exports = {
             "webpack实例应用",
             "webpack性能优化",
             "编一个webapck loader和pugin",
-            "bundler源码编写"
+            "bundler源码编写",
+            "createReactApp wepack配置分析"
         ],
         "babel": [],
         "rollup": []

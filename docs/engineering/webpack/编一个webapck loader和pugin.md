@@ -18,6 +18,7 @@
 
 我们可以编写 loader 对想要的文件源代码进行包装，比如添加全局的异常监控，国际化等等
 
+[完整的 loader 源码](https://github.com/licop/webpack4.0_learn/tree/master/%E7%BC%96%E5%86%99loader/makeLoader)
 [更多关于 loader 查看](https://webpack.docschina.org/api/loaders/)
 
 ## plugin 编写
@@ -56,4 +57,5 @@ class CopyrightWebpackPlugin {
 
 ```
 
+[完整的 plugin 源码](https://github.com/licop/webpack4.0_learn/tree/master/%E7%BC%96%E5%86%99plugin/plugin)
 [更多关于 plugin 查看](https://webpack.docschina.org/api/plugins/)

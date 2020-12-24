@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>creactReactApp webapck 配置分析 | What is FE</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.41761744.css" as="style"><link rel="preload" href="/assets/js/app.f855c7bd.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/20.e927c48f.js" as="script"><link rel="preload" href="/assets/js/3.be30d3f9.js" as="script"><link rel="prefetch" href="/assets/js/10.9fc866c3.js"><link rel="prefetch" href="/assets/js/11.d3dd7629.js"><link rel="prefetch" href="/assets/js/12.4dce4d10.js"><link rel="prefetch" href="/assets/js/13.a983f7f5.js"><link rel="prefetch" href="/assets/js/14.2c18f271.js"><link rel="prefetch" href="/assets/js/15.ce645e31.js"><link rel="prefetch" href="/assets/js/16.6c22c2d5.js"><link rel="prefetch" href="/assets/js/17.a2e41543.js"><link rel="prefetch" href="/assets/js/18.5bec50da.js"><link rel="prefetch" href="/assets/js/19.c944ea72.js"><link rel="prefetch" href="/assets/js/21.601eec8f.js"><link rel="prefetch" href="/assets/js/22.e6ce73ac.js"><link rel="prefetch" href="/assets/js/23.67a5a87c.js"><link rel="prefetch" href="/assets/js/24.51962652.js"><link rel="prefetch" href="/assets/js/25.fd7361c4.js"><link rel="prefetch" href="/assets/js/26.17943525.js"><link rel="prefetch" href="/assets/js/27.b1b96a12.js"><link rel="prefetch" href="/assets/js/28.907100c4.js"><link rel="prefetch" href="/assets/js/29.5d48b548.js"><link rel="prefetch" href="/assets/js/30.f5d7d14c.js"><link rel="prefetch" href="/assets/js/31.b5c12b45.js"><link rel="prefetch" href="/assets/js/32.ff0a4fac.js"><link rel="prefetch" href="/assets/js/4.291cfed9.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/8.b423a102.js"><link rel="prefetch" href="/assets/js/9.cf5a45fa.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.41761744.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is FE</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>webpack</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/engineering/webpack/webpack基础学习.html" class="sidebar-link">webpack 基础学习</a></li><li><a href="/engineering/webpack/webpack高级概念.html" class="sidebar-link">webpack 高级概念</a></li><li><a href="/engineering/webpack/webpack实例应用.html" class="sidebar-link">webpack 实例应用</a></li><li><a href="/engineering/webpack/webpack性能优化.html" class="sidebar-link">webpack 性能优化</a></li><li><a href="/engineering/webpack/编一个webapck loader和pugin.html" class="sidebar-link">编写一个简单的 loader 和 plugin</a></li><li><a href="/engineering/webpack/bundler源码编写.html" class="sidebar-link">简易的 bundler 源码编写</a></li><li><a href="/engineering/webpack/createReactApp wepack配置分析.html" class="active sidebar-link">creactReactApp webapck 配置分析</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/engineering/webpack/createReactApp wepack配置分析.html#思维导图" class="sidebar-link">思维导图</a></li><li class="sidebar-sub-header"><a href="/engineering/webpack/createReactApp wepack配置分析.html#配置详解" class="sidebar-link">配置详解</a></li></ul></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>babel</span> <!----></p> <!----></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>rollup</span> <!----></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="creactreactapp-webapck-配置分析"><a href="#creactreactapp-webapck-配置分析" class="header-anchor">#</a> creactReactApp webapck 配置分析</h1> <p><code>creactReactApp</code>是最流行的<code>React</code>脚手架工具,可以满足各种不同的需求项目的开发和打包， 通过阅读学习<code>creactReactApp</code>这种脚手架项目<code>webpack</code>配置，可以更多的了解到关于<code>webpack</code>的一些细节和深层次的东西，并且学会了如何配置大型项目的<code>wepbapck</code>。</p> <p>执行<code>npm run eject</code>之后目录生成<code>scripts</code>和<code>config</code>两个文件家，<code>scripts</code>文件夹包含<code>npm</code>命令文件，<code>config</code>文件夹则是<code>webpack</code>配置相关的文件。</p> <p><code>config</code>文件夹下包含以下文件和具体作用</p> <div class="language- extra-class"><pre class="language-text"><code>├── env.js // 获取环境变量
+├── getHttpsConfig.js // 获取 Https 配置
+├── modules.js // 获取 alias 等
+├── paths.js // 获取路径信息
+├── pnpTs.js // pnp 加速
+├── webpack.config.js // webpack 配置
+└── webpackDevServer.config.js // devserver 配置
+</code></pre></div><h2 id="思维导图"><a href="#思维导图" class="header-anchor">#</a> 思维导图</h2> <p>webpack 开发模式<code>delvploment</code>和生产模式<code>production</code>很多配置是不一样的，<code>creactReactApp</code>没有像常规的做法分为<code>common</code>,<code>dev</code>,<code>prd</code>三个配置文件进行打包，而是将所有环境配置都写在一个文件中。为方便分析，提取了不同环境相同和不同配置做成思维导图</p> <p><img src="/create-react-app+webpack%E9%85%8D%E7%BD%AE.svg" alt=""></p> <h2 id="配置详解"><a href="#配置详解" class="header-anchor">#</a> 配置详解</h2> <h3 id="mode"><a href="#mode" class="header-anchor">#</a> mode</h3> <ul><li>dev
+<ul><li>develop // 开发模式，不进行优化提升开发效率</li></ul></li> <li>prd
+<ul><li>production // 生产模式，默认开启代码优化</li></ul></li></ul> <h3 id="bail"><a href="#bail" class="header-anchor">#</a> bail</h3> <p>在第一个错误出现时抛出失败结果，而不是容忍它，会导致打包退出</p> <ul><li>dev
+<ul><li>默认值 false</li></ul></li> <li>prd
+<ul><li>true</li></ul></li></ul> <h3 id="devtool"><a href="#devtool" class="header-anchor">#</a> devtool</h3> <ul><li>dev
+<ul><li>cheap-module-source-map 没有列信息不包含 loader 的 sourcemap</li></ul></li> <li>prd
+<ul><li>source-map</li></ul></li></ul> <h3 id="entry"><a href="#entry" class="header-anchor">#</a> entry</h3> <ul><li>common
+<ul><li>${appIndexJs} 代码入口</li></ul></li> <li>dev
+<ul><li>${appIndexJs} 代码入口</li> <li>react-dev-utils/webpackHotDevClient // 解决模块热更新 websocket 可能出现的问题</li></ul></li></ul> <h3 id="output"><a href="#output" class="header-anchor">#</a> output</h3> <ul><li>common
+<ul><li>publicPath: ${publicUrlOrPath} // 可以放置 cdn 地址</li> <li>jsonpFunction</li> <li>globalObject: 'this' // 决定使用哪个全局对象来挂载 library</li> <li>devtoolModuleFilenameTemplate // 从硬盘上获取依赖的具体位置，来帮助调错</li></ul></li> <li>dev
+<ul><li>path: undefined // 打包进入内存</li> <li>pathInfo: true // bundle 中引入「所包含模块信息」的相关注释</li> <li>filename: static/js/bundle.js // 文件名</li> <li>chunkFilename: static/js/[name].bundle.js // 非入口 chunk 文件的名称</li></ul></li> <li>prd
+<ul><li>path: ${appBuildPath} // 目标输出目录 path 的绝对路径</li> <li>filename: static/js/[name].[contenthash:8].js // 文件名</li> <li>chunkFilename: static/js/[name].[contenthash:8].chunk.js // 非入口 chunk 文件的名称</li></ul></li></ul> <h3 id="resolve"><a href="#resolve" class="header-anchor">#</a> resolve</h3> <ul><li>common
+<ul><li>alias // 别名</li> <li>extensions // 自动解析确定的扩展</li> <li>modules // webpack 解析模块时应该搜索的目录</li> <li>plugins
+<ul><li>ModuleScopePlugin // 限制自己编写的模块只能从 src 引入</li> <li>PnpWebpackPlugin //</li></ul></li></ul></li></ul> <h3 id="resolveloader"><a href="#resolveloader" class="header-anchor">#</a> resolveLoader</h3> <p>引入 loader 时才会执行</p> <h3 id="optimization"><a href="#optimization" class="header-anchor">#</a> optimization</h3> <ul><li>prd
+<ul><li>minimize: true // 是否压缩， 线上环境压缩</li> <li>minimizer
+<ul><li>TerserPlugin // 压缩 js</li> <li>OptimizeCSSAssetsPlugin // 优化压缩 css</li></ul></li> <li>splitChunks // 用于 code-splitting 代码拆分
+<ul><li>chunks: all //动态和非动态模块同时进行优化打包</li> <li>name: false</li></ul></li> <li>runtimeChunk // 把 runtime 模块的代码单独打包
+<ul><li>name: entrypoint =&gt; runtime-${entrypoint.name}</li></ul></li></ul></li></ul> <h3 id="module"><a href="#module" class="header-anchor">#</a> module</h3> <ul><li>common
+<ul><li>strictExportPresence // 引入模块必须明确导出自己的内容</li></ul></li> <li>rules
+<ul><li>js|mjs|jsx|ts|tsx 先进行 eslint 语法检测</li> <li>/.bmp/, /.gif/, /.jpe?g/, /.png/ url-loader 解析</li> <li>js|mjs|jsx|ts|tsx babel-loader，cacheDirectory: true 开启缓存</li> <li>/.css$/ style-loader MiniCssExtractPlugin css-loader postcss-loader</li> <li>/.module.css$/ 开启 cssmodule</li> <li>同时也支持 sass 和 sassmodule</li></ul></li></ul> <h3 id="plugins"><a href="#plugins" class="header-anchor">#</a> plugins</h3> <ul><li><p>common</p> <ul><li>HtmlWebpackPlugin //打包到 Html 中</li> <li>InterpolateHtmlPlugin // 允许在 html 中加入变量</li> <li>ModuleNotFoundPlugin // 找不到 module 提示</li> <li>DefinePlugin // 定义变量</li> <li>ManifestPlugin // 资源映射文件</li> <li>IgnorePlugin // 忽略掉某些包</li> <li>ForkTsCheckerWebpackPlugin // Ts 类型检测</li></ul></li> <li><p>dev</p> <ul><li>HotModuleReplacementPlugin // 热更新</li> <li>CaseSensitivePathsPlugin // 路径区分大小写</li> <li>WatchMissingNodeModulesPlugin // npm install 后不需要重新 restart</li></ul></li> <li><p>prd</p> <ul><li>MiniCssExtractPlugin // 将 css 提取到单独的文件</li> <li>WorkboxWebpackPlugin // pwa 开启 servicework</li></ul></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/engineering/webpack/bundler源码编写.html" class="prev">
+        简易的 bundler 源码编写
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.f855c7bd.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/20.e927c48f.js" defer></script><script src="/assets/js/3.be30d3f9.js" defer></script>
+  </body>
+</html>
