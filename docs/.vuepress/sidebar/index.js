@@ -32,7 +32,11 @@ module.exports = {
         "rollup": []
     },  
     // 运行与监控
-    '/runnnig-monitoring/': {},
+    '/runnnig-monitoring/': {
+        '安全': [
+            'CSRF'
+        ]
+    },
     // 前端框架
     '/framework/': {
         'React': [

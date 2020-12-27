@@ -14,6 +14,6 @@ footer: 更多关于前端的知识，持续更新中。。。
 
 ## 目录大纲
 
-![](/create-react-app+webpack配置.svg)
+![](/whatisfe.svg)
 
 > [点击查看大图](/whatisfe.svg).
