@@ -4,21 +4,21 @@ TypeScript 支持与 JavaScript 几乎相同的数据类型，此外还提供了
 
 ## 布尔值
 
-最基本的数据类型就是简单的 true/false 值，在JavaScript 和 TypeScript 里叫做 `boolean`（其它语言中也一样）。
+最基本的数据类型就是简单的 true/false 值，在 JavaScript 和 TypeScript 里叫做 `boolean`（其它语言中也一样）。
 
 ```typescript
-let isDone: boolean = false
+let isDone: boolean = false;
 ```
 
 ## 数字
 
-和 JavaScript 一样，TypeScript 里的所有数字都是浮点数。 这些浮点数的类型是 number。 除了支持十进制和十六进制字面量，TypeScript 还支持 ECMAScript 2015中引入的二进制和八进制字面量。
+和 JavaScript 一样，TypeScript 里的所有数字都是浮点数。 这些浮点数的类型是 number。 除了支持十进制和十六进制字面量，TypeScript 还支持 ECMAScript 2015 中引入的二进制和八进制字面量。
 
 ```typescript
-let decLiteral: number = 20
-let hexLiteral: number = 0x14
-let binaryLiteral: number = 0b10100
-let octalLiteral: number = 0o24
+let decLiteral: number = 20;
+let hexLiteral: number = 0x14;
+let binaryLiteral: number = 0b10100;
+let octalLiteral: number = 0o24;
 ```
 
 ## 字符串
@@ -26,25 +26,30 @@ let octalLiteral: number = 0o24
 JavaScript 程序的另一项基本操作是处理网页或服务器端的文本数据。 像其它语言里一样，我们使用 `string` 表示文本数据类型。 和 JavaScript 一样，可以使用双引号（`"`）或单引号（`'`）表示字符串。
 
 ```typescript
-let name: string = 'bob'
-name = 'smith'
+let name: string = "bob";
+name = "smith";
 ```
 
-你还可以使用模版字符串，它可以定义多行文本和内嵌表达式。 这种字符串是被反引号包围（ ``` ` ```），并且以 `${ expr }` 这种形式嵌入表达式
+你还可以使用模版字符串，它可以定义多行文本和内嵌表达式。 这种字符串是被反引号包围（ `` ` ``），并且以 `${ expr }` 这种形式嵌入表达式
 
 ```typescript
-let name: string = `Yee`
-let age: number = 37
-let sentence: string = `Hello, my name is ${ name }.
+let name: string = `Yee`;
+let age: number = 37;
+let sentence: string = `Hello, my name is ${name}.
 
-I'll be ${ age + 1 } years old next month.`
+I'll be ${age + 1} years old next month.`;
 ```
 
 这与下面定义 `sentence` 的方式效果相同：
 
 ```typescript
-let sentence: string = 'Hello, my name is ' + name + '.\n\n' +
-    'I\'ll be ' + (age + 1) + ' years old next month.'
+let sentence: string =
+  "Hello, my name is " +
+  name +
+  ".\n\n" +
+  "I'll be " +
+  (age + 1) +
+  " years old next month.";
 ```
 
 ## 数组
@@ -52,13 +57,13 @@ let sentence: string = 'Hello, my name is ' + name + '.\n\n' +
 TypeScript 像 JavaScript 一样可以操作数组元素。 有两种方式可以定义数组。 第一种，可以在元素类型后面接上 `[]`，表示由此类型元素组成的一个数组：
 
 ```typescript
-let list: number[] = [1, 2, 3]
+let list: number[] = [1, 2, 3];
 ```
 
 第二种方式是使用数组泛型，`Array<元素类型>`：
 
 ```typescript
-let list: Array<number> = [1, 2, 3]
+let list: Array<number> = [1, 2, 3];
 ```
 
 ## 元组 Tuple
@@ -66,26 +71,26 @@ let list: Array<number> = [1, 2, 3]
 元组类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。 比如，你可以定义一对值分别为 `string` 和 `number` 类型的元组。
 
 ```typescript
-let x: [string, number]
-x = ['hello', 10] // OK
-x = [10, 'hello'] // Error
+let x: [string, number];
+x = ["hello", 10]; // OK
+x = [10, "hello"]; // Error
 ```
 
 当访问一个已知索引的元素，会得到正确的类型：
 
 ```typescript
-console.log(x[0].substr(1)) // OK
-console.log(x[1].substr(1)) // Error, 'number' 不存在 'substr' 方法
+console.log(x[0].substr(1)); // OK
+console.log(x[1].substr(1)); // Error, 'number' 不存在 'substr' 方法
 ```
 
 当访问一个越界的元素，会使用联合类型替代：
 
 ```typescript
-x[3] = 'world' // OK, 字符串可以赋值给(string | number)类型
+x[3] = "world"; // OK, 字符串可以赋值给(string | number)类型
 
-console.log(x[5].toString()) // OK, 'string' 和 'number' 都有 toString
+console.log(x[5].toString()); // OK, 'string' 和 'number' 都有 toString
 
-x[6] = true // Error, 布尔不是(string | number)类型
+x[6] = true; // Error, 布尔不是(string | number)类型
 ```
 
 联合类型是高级主题，我们会在以后的章节里讨论它。
@@ -97,31 +102,47 @@ x[6] = true // Error, 布尔不是(string | number)类型
 `enum` 类型是对 JavaScript 标准数据类型的一个补充。 像 C# 等其它语言一样，使用枚举类型可以为一组数值赋予友好的名字。
 
 ```typescript
-enum Color {Red, Green, Blue}
-let c: Color = Color.Green
+enum Color {
+  Red,
+  Green,
+  Blue,
+}
+let c: Color = Color.Green;
 ```
 
 默认情况下，从 `0` 开始为元素编号。 你也可以手动的指定成员的数值。 例如，我们将上面的例子改成从 `1` 开始编号：
 
 ```typescript
-enum Color {Red = 1, Green, Blue}
-let c: Color = Color.Green
+enum Color {
+  Red = 1,
+  Green,
+  Blue,
+}
+let c: Color = Color.Green;
 ```
 
 或者，全部都采用手动赋值：
 
 ```typescript
-enum Color {Red = 1, Green = 2, Blue = 4}
-let c: Color = Color.Green
+enum Color {
+  Red = 1,
+  Green = 2,
+  Blue = 4,
+}
+let c: Color = Color.Green;
 ```
 
 枚举类型提供的一个便利是你可以由枚举的值得到它的名字。 例如，我们知道数值为 2，但是不确定它映射到 Color 里的哪个名字，我们可以查找相应的名字：
 
 ```typescript
-enum Color {Red = 1, Green, Blue}
-let colorName: string = Color[2]
+enum Color {
+  Red = 1,
+  Green,
+  Blue,
+}
+let colorName: string = Color[2];
 
-console.log(colorName)  // 显示'Green'因为上面代码里它的值是2
+console.log(colorName); // 显示'Green'因为上面代码里它的值是2
 ```
 
 ## any
@@ -129,17 +150,17 @@ console.log(colorName)  // 显示'Green'因为上面代码里它的值是2
 有时候，我们会想要为那些在编程阶段还不清楚类型的变量指定一个类型。 这些值可能来自于动态的内容，比如来自用户输入或第三方代码库。 这种情况下，我们不希望类型检查器对这些值进行检查而是直接让它们通过编译阶段的检查。 那么我们可以使用 `any` 类型来标记这些变量：
 
 ```typescript
-let notSure: any = 4
-notSure = 'maybe a string instead'
-notSure = false // 也可以是个 boolean
+let notSure: any = 4;
+notSure = "maybe a string instead";
+notSure = false; // 也可以是个 boolean
 ```
 
 在对现有代码进行改写的时候，`any` 类型是十分有用的，它允许你在编译时可选择地包含或移除类型检查。并且当你只知道一部分数据的类型时，`any` 类型也是有用的。 比如，你有一个数组，它包含了不同的类型的数据：
 
 ```typescript
-let list: any[] = [1, true, 'free']
+let list: any[] = [1, true, "free"];
 
-list[1] = 100
+list[1] = 100;
 ```
 
 ## void
@@ -148,15 +169,14 @@ list[1] = 100
 
 ```typescript
 function warnUser(): void {
-  console.log('This is my warning message')
+  console.log("This is my warning message");
 }
-
 ```
 
 声明一个 `void` 类型的变量没有什么大用，因为你只能为它赋予 `undefined` 和 `null`：
 
 ```typescript
-let unusable: void = undefined
+let unusable: void = undefined;
 ```
 
 ## null 和 undefined
@@ -164,8 +184,8 @@ let unusable: void = undefined
 TypeScript 里，`undefined` 和 `null` 两者各自有自己的类型分别叫做 `undefined` 和 `null`。 和 `void` 相似，它们的本身的类型用处不是很大：
 
 ```typescript
-let u: undefined = undefined
-let n: null = null
+let u: undefined = undefined;
+let n: null = null;
 ```
 
 默认情况下 `null` 和 `undefined` 是所有类型的子类型。 就是说你可以把 `null` 和 `undefined` 赋值给 `number` 类型的变量。
@@ -183,18 +203,17 @@ let n: null = null
 ```typescript
 // 返回never的函数必须存在无法达到的终点
 function error(message: string): never {
-  throw new Error(message)
+  throw new Error(message);
 }
 
 // 推断的返回值类型为never
 function fail() {
-  return error("Something failed")
+  return error("Something failed");
 }
 
 // 返回never的函数必须存在无法达到的终点
 function infiniteLoop(): never {
-  while (true) {
-  }
+  while (true) {}
 }
 ```
 
@@ -205,15 +224,15 @@ function infiniteLoop(): never {
 使用 `object` 类型，就可以更好的表示像 `Object.create` 这样的 `API`。例如：
 
 ```typescript
-declare function create(o: object | null): void
+declare function create(o: object | null): void;
 
-create({ prop: 0 }) // OK
-create(null) // OK
+create({ prop: 0 }); // OK
+create(null); // OK
 
-create(42) // Error
-create('string') // Error
-create(false) // Error
-create(undefined) // Error
+create(42); // Error
+create("string"); // Error
+create(false); // Error
+create(undefined); // Error
 ```
 
 ## 类型断言
@@ -225,21 +244,17 @@ create(undefined) // Error
 类型断言有两种形式。 其一是“尖括号”语法：
 
 ```typescript
-let someValue: any = 'this is a string'
+let someValue: any = "this is a string";
 
-let strLength: number = (<string>someValue).length
+let strLength: number = (<string>someValue).length;
 ```
 
 另一个为 `as` 语法：
 
 ```typescript
-let someValue: any = 'this is a string'
+let someValue: any = "this is a string";
 
-let strLength: number = (someValue as string).length
+let strLength: number = (someValue as string).length;
 ```
 
 两种形式是等价的。 至于使用哪个大多数情况下是凭个人喜好；然而，当你在 TypeScript 里使用 JSX 时，只有 `as` 语法断言是被允许的。
-
-
-
-
