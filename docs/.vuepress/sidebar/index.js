@@ -13,6 +13,16 @@ module.exports = {
         'ES语法': [
         ],
         'Typescript': [
+            'introduction',
+            'install',
+            'type',
+            'declare',
+            'interface',
+            'class',
+            'function',
+            'generic',
+            'inference',
+            'advance'
         ]
     },
     // 网络与通讯
