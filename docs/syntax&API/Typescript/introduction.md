@@ -24,9 +24,9 @@ TypeScript 提供最新的和不断发展的 JavaScript 特性，包括那些来
 
 ## 技术脑图
 
-![](/Typescript.svg)
+![](/typescript.svg)
 
-> [点击查看大图](/Typescript.svg)
+> [点击查看大图](/typescript.svg)
 
 ## 总结
 

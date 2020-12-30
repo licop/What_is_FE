@@ -73,6 +73,9 @@ module.exports = {
         'CI-CD': [
             'CI-CD以及travis的使用'
         ],
+        '单元测试': [
+            'Jest'
+        ],
         '文档': [
             'storybook'
         ]
