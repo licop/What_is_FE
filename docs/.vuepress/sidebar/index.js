@@ -15,7 +15,9 @@ module.exports = {
         ],
         'ES语法': [
             'Javascript异步编程',
-            'promise源码实现'
+            'promise源码实现',
+            'Promise.all()有哪些具体应用',
+            'Promise.race()有哪些具体应用'
         ],
         'Typescript': [
             'introduction',
