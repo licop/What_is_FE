@@ -17,4 +17,34 @@
 
 // console.log('end')
 
-Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log)
+// Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log)
+
+
+// function timer(str, duration) {
+//   return new Promise(function(resolve, reject) {
+//      setTimeout(() => resolve(str), duration);
+//   })
+// }
+
+// timer('hello ', 10)
+//   .then(value => timer(`${value}lagou `, 10))
+//   .then(value => timer(`${value}I❤U`, 10))
+//   .then(console.log)
+
+new Promise(resolve => {
+  setTimeout(() => {
+    resolve('hello ')
+  }, 1000)
+}).then(value => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(`${value}lagou `)
+    }, 1000)
+  })
+}).then(value => {
+  setTimeout(() => {
+    console.log(`${value}I❤U`)
+  }, 1000);
+})
+
+

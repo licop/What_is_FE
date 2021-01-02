@@ -487,4 +487,4 @@ async 函数是一种特殊语法，特征实在 function 关键字之前加上 
    main();
 ```
 
-## promise 源码
+## promise 原理
