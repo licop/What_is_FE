@@ -15,11 +15,13 @@ class MyPromise {
  
   
   resolve = (value) => {
+    
     if(this.status !== PENDING) return;
     // 将状态更改为成功
     this.status = FULFILLED;
     // 保存成功之后的值
     this.value = value
+    console.log(this.status, 24)
   }
 
   reject = (reason) => {
@@ -28,8 +30,10 @@ class MyPromise {
     this.status = REJECTED;
     this.reason = reason;
   }
-   
-  then = (successCallback, failCallback) => {
+  
+  then = (successCallback, failCallback) => { 
+    console.log(this.status, 36)
+
     // 判断状态
     if(this.status === FULFILLED) {
       successCallback(this.value);

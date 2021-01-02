@@ -13,17 +13,20 @@
   7. then方法是可以被链式调用的, 后面then方法的回调函数拿到值的是上一个then方法的回调函数的返回值
 */
 
-const MyPromise = require('./myPromise6');
+const MyPromise = require('./myPromise1');
 let promise = new MyPromise((resolve, reject) => {
   // throw new Error('excutor error')
 
-  //resolve('成功');
+  resolve('成功');
   // setTimeout(() => {
-  //   resolve('成功....');
+  //   resolve('成功.....');
   // }, 2000);
-  reject('失败')
+  // reject('失败')
 })
 
+promise.then(value => {
+  console.log(value); 
+})
 
 // function other() {
 //   return new MyPromise((resolve, reject) => {
@@ -90,21 +93,21 @@ let promise = new MyPromise((resolve, reject) => {
 //   .then(value => console.log(value))
 //   .catch(reason => console.log(reason))
 
-function p1 () {
-  return new MyPromise(function (resolve, reject) {
-    setTimeout(function () {
-      resolve('p1')
-    }, 2000)
-  })
-}
+// function p1 () {
+//   return new MyPromise(function (resolve, reject) {
+//     setTimeout(function () {
+//       resolve('p1')
+//     }, 2000)
+//   })
+// }
 
-function p2 () {
-  return new MyPromise(function (resolve, reject) {
-    setTimeout(function () {
-      reject('p2 reject')
-    }, 1000)
-  })
-}
+// function p2 () {
+//   return new MyPromise(function (resolve, reject) {
+//     setTimeout(function () {
+//       reject('p2 reject')
+//     }, 1000)
+//   })
+// }
 
 // MyPromise.all(['a', 'b', p1(), p2(), 'c']).then(result => {
 //   console.log(result, 110)
@@ -113,17 +116,17 @@ function p2 () {
 // MyPromise.resolve(100).then(value => console.log(value))
 // MyPromise.resolve(p1()).then(value => console.log(value))
 
-p2().finally(() => {
-  console.log('finally')
-  return p1();
-}).then(value => {
-  console.log(value, 120)
-}, reason => {
-  console.log(reason)
-})
+// p2().finally(() => {
+//   console.log('finally')
+//   return p1();
+// }).then(value => {
+//   console.log(value, 120)
+// }, reason => {
+//   console.log(reason)
+// })
 
-p2().then(value => {
-  console.log(value)
-}).catch(reason => {
-  console.log(reason)
-})
+// p2().then(value => {
+//   console.log(value)
+// }).catch(reason => {
+//   console.log(reason)
+// })

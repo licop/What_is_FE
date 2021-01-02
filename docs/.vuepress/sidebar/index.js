@@ -1,6 +1,9 @@
 module.exports = {
     // 编程基础
     '/programming-basics/': {
+        '编程模式': [
+            '函数式编程'
+        ]
     },
     // 语法和API
     '/syntax&API/': {
@@ -11,6 +14,8 @@ module.exports = {
             'css单位中px和em,rem的区别'
         ],
         'ES语法': [
+            'Javascript异步编程',
+            'promise源码实现'
         ],
         'Typescript': [
             'introduction',

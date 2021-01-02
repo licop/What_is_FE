@@ -1,5 +1,5 @@
 module.exports = [
-    { text: '编程基础', link: '/programming-basics/' },
+    { text: '编程基础', link: '/programming-basics/编程模式/函数式编程.html' },
     { text: '语法和API', link: '/syntax&API/HTML/关于HTML.html' },
     { text: '网络和通讯', link: '/network/' },
     { text: '开发流程', link: '/development-process/Git/git命令.html' },
