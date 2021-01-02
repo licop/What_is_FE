@@ -274,7 +274,7 @@ promise.then(function (values) {
 })
 ```
 
-[更多关于 Promise.all 使用]()
+[更多关于 Promise.all 使用](/syntax&API/ES语法/Promise.all()有哪些具体应用.html)
 
 - **Promise.race()** 方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。其中一个 promise 方法状态改变，则整个返回的 promise 状态跟着改变
 
@@ -298,7 +298,7 @@ Promise.race([
 })
 ```
 
-[更多关于 Promise.race 使用]()
+[更多关于 Promise.race 使用](/syntax&API/ES语法/Promise.all()有哪些具体应用.html)
 
 ## 宏任务和微任务
 
