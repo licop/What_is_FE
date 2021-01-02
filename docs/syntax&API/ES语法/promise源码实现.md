@@ -1,4 +1,4 @@
-# promise 源码实现
+# Promise 源码实现
 
 用了`Promise`这么久，应该对`Promise`使用方法和相关属性很熟悉了，本文将一步一步编写`Promise`的源码，实现其基本功能。
 

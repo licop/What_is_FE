@@ -6,7 +6,7 @@ module.exports = [
     { text: '前端工程化', link: '/engineering/webpack/webpack基础学习.html' },
     { text: '运行与监控', link: '/runnnig-monitoring/安全/CSRF.html' },
     { text: '前端框架', link: '/framework/React/关于react-hook.html' },
-    { text: '常用工具与插件', link: '/tool&plugin/'},
+    { text: '常用工具与插件', link: '/tool&plugin/cross-env/关于cross-env.html'},
     { text: '服务器端', link: '/server/'},
     { text: '技术广度', link: '/more/'},
     { text: 'Github', link: 'https://github.com/licop/What_is_FE', target:'_blank' }
