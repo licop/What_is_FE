@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>函数式编程 | What is FE</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.41761744.css" as="style"><link rel="preload" href="/assets/js/app.2c10249a.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/28.d215094e.js" as="script"><link rel="preload" href="/assets/js/3.b304fdc1.js" as="script"><link rel="prefetch" href="/assets/js/10.a1bb7c5b.js"><link rel="prefetch" href="/assets/js/11.f8d05fef.js"><link rel="prefetch" href="/assets/js/12.5b161d54.js"><link rel="prefetch" href="/assets/js/13.a983f7f5.js"><link rel="prefetch" href="/assets/js/14.e4ee4a94.js"><link rel="prefetch" href="/assets/js/15.755954c5.js"><link rel="prefetch" href="/assets/js/16.4c707614.js"><link rel="prefetch" href="/assets/js/17.9dae5907.js"><link rel="prefetch" href="/assets/js/18.77de363b.js"><link rel="prefetch" href="/assets/js/19.c944ea72.js"><link rel="prefetch" href="/assets/js/20.21c71b16.js"><link rel="prefetch" href="/assets/js/21.601eec8f.js"><link rel="prefetch" href="/assets/js/22.9c3a8913.js"><link rel="prefetch" href="/assets/js/23.67a5a87c.js"><link rel="prefetch" href="/assets/js/24.51962652.js"><link rel="prefetch" href="/assets/js/25.9fa20b61.js"><link rel="prefetch" href="/assets/js/26.87b9b857.js"><link rel="prefetch" href="/assets/js/27.e0219f21.js"><link rel="prefetch" href="/assets/js/29.15100ca0.js"><link rel="prefetch" href="/assets/js/30.8093a860.js"><link rel="prefetch" href="/assets/js/31.a7e01fd5.js"><link rel="prefetch" href="/assets/js/32.aee96e8e.js"><link rel="prefetch" href="/assets/js/33.9703a837.js"><link rel="prefetch" href="/assets/js/34.b8ef3ac0.js"><link rel="prefetch" href="/assets/js/35.6e28ba39.js"><link rel="prefetch" href="/assets/js/36.7b0f4a1b.js"><link rel="prefetch" href="/assets/js/37.7c660609.js"><link rel="prefetch" href="/assets/js/38.38733b20.js"><link rel="prefetch" href="/assets/js/39.9db79e08.js"><link rel="prefetch" href="/assets/js/4.b4d775ba.js"><link rel="prefetch" href="/assets/js/40.1a50d3c7.js"><link rel="prefetch" href="/assets/js/41.859efa20.js"><link rel="prefetch" href="/assets/js/42.d8bed5b1.js"><link rel="prefetch" href="/assets/js/43.69153b8b.js"><link rel="prefetch" href="/assets/js/44.7200d2be.js"><link rel="prefetch" href="/assets/js/45.51496fd6.js"><link rel="prefetch" href="/assets/js/46.439e5c82.js"><link rel="prefetch" href="/assets/js/47.d9b18fe0.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/8.f847aa7a.js"><link rel="prefetch" href="/assets/js/9.cf5a45fa.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.41761744.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is FE</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/cross-env/关于cross-env.html" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/cross-env/关于cross-env.html" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>编程模式</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/programming-basics/编程模式/函数式编程.html" class="active sidebar-link">函数式编程</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/programming-basics/编程模式/函数式编程.html#为什么要学习函数式编程" class="sidebar-link">为什么要学习函数式编程</a></li><li class="sidebar-sub-header"><a href="/programming-basics/编程模式/函数式编程.html#什么是函数式编程" class="sidebar-link">什么是函数式编程</a></li><li class="sidebar-sub-header"><a href="/programming-basics/编程模式/函数式编程.html#前置知识" class="sidebar-link">前置知识</a></li><li class="sidebar-sub-header"><a href="/programming-basics/编程模式/函数式编程.html#纯函数" class="sidebar-link">纯函数</a></li><li class="sidebar-sub-header"><a href="/programming-basics/编程模式/函数式编程.html#柯里化-haskell-brooks-curry" class="sidebar-link">柯里化 (Haskell Brooks Curry)</a></li><li class="sidebar-sub-header"><a href="/programming-basics/编程模式/函数式编程.html#函数组合" class="sidebar-link">函数组合</a></li><li class="sidebar-sub-header"><a href="/programming-basics/编程模式/函数式编程.html#函子-functor" class="sidebar-link">函子（Functor）</a></li><li class="sidebar-sub-header"><a href="/programming-basics/编程模式/函数式编程.html#更多参考" class="sidebar-link">更多参考</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="函数式编程"><a href="#函数式编程" class="header-anchor">#</a> 函数式编程</h1> <h2 id="为什么要学习函数式编程"><a href="#为什么要学习函数式编程" class="header-anchor">#</a> 为什么要学习函数式编程</h2> <ul><li>函数式编程是随着 React 的流行受到越来越多的关注</li> <li>Vue 3 也开始拥抱函数式编程</li> <li>函数式编程可以抛弃 <code>this</code></li> <li>打包过程中可以更好的利用 <code>tree shaking</code> 过滤无用代码 方便测试、方便并行处理 有很多库可以帮助我们进行函数式开发:<code>lodash</code>、<code>underscore</code>、<code>ramda</code></li></ul> <h2 id="什么是函数式编程"><a href="#什么是函数式编程" class="header-anchor">#</a> 什么是函数式编程</h2> <p>函数式编程(Functional Programming, FP)，FP 是编程范式之一，我们常听说的编程范式还有面向过程 编程、面向对象编程。</p> <ul><li>面向对象编程的思维方式:把现实世界中的事物抽象成程序世界中的类和对象，通过封装、继承和 多态来演示事物事件的联系</li> <li>函数式编程的思维方式:把现实世界的事物和事物之间的联系抽象到程序世界(对运算过程进行抽 象)
+<ul><li>程序的本质:根据输入通过某种运算获得相应的输出，程序开发过程中会涉及很多有输入和 输出的函数</li> <li>x -&gt; f(联系、映射) -&gt; y，y=f(x) 函数式编程中的函数指的不是程序中的函数(方法)，而是数学中的函数即映射关系，例如:y = sin(x)，x 和 y 的关系</li> <li>相同的输入始终要得到相同的输出(纯函数) 函数式编程用来描述数据(函数)之间的映射</li></ul></li></ul> <div class="language- extra-class"><pre class="language-text"><code>    // 非函数式
+    let num1 = 2
+    let num2 = 3
+    let sum = num1 + num2 console.log(sum)
+    // 函数式
+    function add (n1, n2) {
+    return n1 + n2
+    }
+    let sum = add(2, 3) console.log(sum)
+</code></pre></div><h2 id="前置知识"><a href="#前置知识" class="header-anchor">#</a> 前置知识</h2> <ul><li>函数是一等公民</li> <li>高阶函数</li> <li>闭包</li></ul> <h3 id="函数是一等公民"><a href="#函数是一等公民" class="header-anchor">#</a> 函数是一等公民</h3> <p><a href="https://developer.mozilla.org/zh-CN/docs/Glossary/First-class_Function" target="_blank" rel="noopener noreferrer">MDN First-class Function<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <div class="language- extra-class"><pre><code>- 函数可以存储在变量中
+- 函数作为参数
+- 函数作为返回值
+</code></pre></div><p>在 JavaScript 中函数就是一个普通的对象 (可以通过 new Function() )，我们可以把函数存储到变量/ 数组中，它还可以作为另一个函数的参数和返回值，甚至我们可以在程序运行的时候通过来构造一个新的函数。</p> <div class="language- extra-class"><pre class="language-text"><code>  // 把函数赋值给变量
+let fn = function () {
+    console.log('Hello First-class Function')
+}
+fn()
+// 一个示例
+const BlogController = {
+    index (posts) { return Views.index(posts) },
+    show (post) { return Views.show(post) },
+    create (attrs) { return Db.create(attrs) },
+    update (post, attrs) { return Db.update(post, attrs) }, destroy (post) { return Db.destroy(post) }
+}
+// 优化
+const BlogController = {
+    index: Views.index,
+    show: Views.show,
+    create: Db.create,
+    update: Db.update,
+    destroy: Db.destroy
+}
+
+</code></pre></div><p>函数是一等公民是高阶函数、柯里化等的基础。</p> <h3 id="高阶函数-higher-order-function"><a href="#高阶函数-higher-order-function" class="header-anchor">#</a> 高阶函数(Higher-order function)</h3> <h4 id="什么是高阶函数"><a href="#什么是高阶函数" class="header-anchor">#</a> 什么是高阶函数</h4> <ul><li>可以把函数作为参数传递给另一个函数</li> <li>可以把函数作为另一个函数的返回结果 函数作为参数</li></ul> <h4 id="函数作为参数"><a href="#函数作为参数" class="header-anchor">#</a> 函数作为参数</h4> <div class="language- extra-class"><pre class="language-text"><code>  // forEach
+function forEach(array, fn) {
+    for(let i = 0; i &lt; array.length; i++) {
+        fn(array[i])
+    }
+}
+// filter
+function filter(array, fn) {
+    let results = []
+    for(let i = 0; i &lt; array.length; i++) {
+        if(fn(array[i])) {
+            results.push(array[i])
+        }
+    }
+    return results;
+}
+</code></pre></div><h4 id="函数作为返回值"><a href="#函数作为返回值" class="header-anchor">#</a> 函数作为返回值</h4> <div class="language- extra-class"><pre class="language-text"><code>function once(fn) {
+    let done = false;
+
+    return function() {
+        if(!done) {
+            done = true;
+            return fn.apply(this, arguments)
+        }
+    }
+}
+let pay = once(function (money) {
+    console.log(`支付： ${money} RMB`);
+})
+
+pay(5)
+pay(6)
+
+</code></pre></div><h3 id="使用高阶函数的意义"><a href="#使用高阶函数的意义" class="header-anchor">#</a> 使用高阶函数的意义</h3> <ul><li>抽象可以帮我们屏蔽细节，只需要关注与我们的目标</li> <li>高阶函数是用来抽象通用的问题</li></ul> <h3 id="常用高阶函数"><a href="#常用高阶函数" class="header-anchor">#</a> 常用高阶函数</h3> <ul><li>map</li> <li>filter</li> <li>every</li> <li>some</li> <li>find/findIndex</li> <li>reduce</li> <li>sort</li></ul> <div class="language- extra-class"><pre class="language-text"><code>// map
+const map = (array, fn) =&gt; {
+    let result = [];
+    for(let value of array) {
+        result.push(fn(value))
+    }
+    return result;
+}
+
+// every
+const every = (array, fn) =&gt; {
+    let result = true
+    for(let value of array) {
+        result = fn(value)
+        if(!result) {
+            break;
+        }
+    }
+    return result;
+}
+
+// some
+const some = (array, fn) =&gt; {
+    let result = false
+    for(let value of array) {
+        result = fn(value)
+        if(result) {
+            break
+        }
+    }
+    return result;
+}
+
+// find
+const find = (array, fn) =&gt; {
+    let result = undefined;
+    for(let value of array) {
+        if(fn(value)) {
+            result = value
+            break;
+        }
+    }
+    return result;
+}
+// findIndex
+const findIndex = (array, fn) =&gt; {
+    let result = -1;
+    for(let i = 0; i &lt; array.length; i++) {
+        if(fn(array[i])) {
+            result = i;
+            break;
+        }
+    }
+    return result
+}
+
+// reduce
+const reduce = (array, fn, init) =&gt; {
+    const result = init;
+    let i = 0;
+    if(result === undefined) {
+        result = array[0]
+        i = 1
+    }
+
+    for(i; i &lt; array.length; i++) {
+        result = fn(result, array[i], i, array)
+    }
+    return result;
+}
+
+// sort
+// 冒泡实现
+const sort = (array, fn) =&gt; {
+    for(let i = 0; i &lt; array.length - 1; i++) {
+        for(let j = 1; j &lt; array.length; j++) {
+            if(fn(array[j], array[j + 1])) {
+                const element = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = element
+            }
+        }
+    }
+}
+</code></pre></div><h3 id="闭包"><a href="#闭包" class="header-anchor">#</a> 闭包</h3> <ul><li>闭包(closure): 函数和其周围的状态(词法环境)的引用捆绑在一起形成闭包
+<ul><li>可以在另一个作用域中调用一个函数的内部函数并访问到该函数的作用域中的成员，延长了外部函数内部变量的作用范围</li></ul></li> <li>闭包的本质:函数在执行的时候会放到一个执行栈上当函数执行完毕之后会从执行栈上移除，但是 堆上的作用域成员因为被外部引用不能释放，因此内部函数依然可以访问外部函数的成员</li> <li>闭包案例</li></ul> <div class="language- extra-class"><pre class="language-text"><code>    // 生成计算数字的多少次幂的函数
+    function makePower(power) {
+        return function (number) {
+            return Math.pow(number, power);
+        }
+    }
+
+    let power2 = makePower(2)
+    let power3 = makePower(3)
+
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>   // 计算工资，基本工资+绩效工资
+    function makeSalary(base) {
+        return function(performance) {
+            return base + performance;
+        }
+    }
+
+    let salaryLevel1 = makeSalary(12000)
+    let salaryLevel2 = makeSalary(15000)
+</code></pre></div><h2 id="纯函数"><a href="#纯函数" class="header-anchor">#</a> 纯函数</h2> <h3 id="纯函数概念"><a href="#纯函数概念" class="header-anchor">#</a> 纯函数概念</h3> <ul><li><p>纯函数: <strong>相同的输入永远会得到相同的输出</strong>，而且没有任何可观察的副作用</p> <ul><li>纯函数就类似数学中的函数(用来描述输入和输出之间的关系)，y = f(x)</li></ul></li> <li><p><code>lodash</code> 是一个纯函数的功能库，提供了对数组、数字、对象、字符串、函数等操作的一些方法</p></li> <li><p>数组的 slice 和 splice 分别是:纯函数和不纯的函数</p> <ul><li>slice 返回数组中的指定部分，不会改变原数组 splice</li> <li>对数组进行操作返回该数组，会改变原数组</li></ul></li></ul> <div class="language- extra-class"><pre class="language-text"><code>  let numbers = [1, 2, 3, 4, 5]
+
+  // 纯函数
+  numbers.slice(0, 3)
+  // =&gt; [1, 2, 3]
+  numbers.slice(0, 3)
+  // =&gt; [1, 2, 3]
+  numbers.slice(0, 3)
+  // =&gt; [1, 2, 3]
+
+  // 不纯的函数
+  numbers.splice(0, 3)
+  // =&gt; [1, 2, 3]
+  numbers.splice(0, 3)
+  // =&gt; [4, 5]
+  numbers.splice(0, 3)
+</code></pre></div><ul><li>函数式编程不会保留计算中间的结果，所以变量是不可变的(无状态的)</li> <li>我们可以把一个函数的执行结果交给另一个函数去处理</li></ul> <h3 id="纯函数的好处"><a href="#纯函数的好处" class="header-anchor">#</a> 纯函数的好处</h3> <ul><li>可缓存 因为纯函数对相同的输入始终有相同的结果，所以可以把纯函数的结果缓存起来</li></ul> <div class="language- extra-class"><pre class="language-text"><code> const _ = require('lodash')
+ function getArea (r) { return Math.PI * r * r }
+ let getAreaWithMemory = _.memoize(getArea) console.log(getAreaWithMemory(4))
+</code></pre></div><ul><li>自己模拟一个 <strong>memoize</strong> 函数</li></ul> <div class="language- extra-class"><pre class="language-text"><code>function memoize(fn) {
+    let cache = {};
+
+    return function () {
+        let key = JSON.stringify(arguments);
+        cache[key] = cache[key] || fn.apply(fn, arguments);
+
+        return cache[key]
+    }
+}
+</code></pre></div><ul><li>可测试 纯函数让测试更方便</li> <li>并行处理
+<ul><li>在多线程环境下并行操作共享的内存数据很可能会出现意外情况</li> <li>纯函数不需要访问共享的内存数据，所以在并行环境下可以任意运行纯函数 (Web Worker)</li></ul></li></ul> <h3 id="副作用"><a href="#副作用" class="header-anchor">#</a> 副作用</h3> <ul><li>纯函数:对于相同的输入永远会得到相同的输出，而且没有任何可观察的<strong>副作用</strong></li></ul> <div class="language- extra-class"><pre class="language-text"><code>    // 不纯的
+    let mini = 18
+    function checkAge (age) {
+    return age &gt;= mini
+    }
+    // 纯的(有硬编码，后续可以通过柯里化解决) function checkAge (age) {
+    let mini = 18
+    return age &gt;= mini
+    }
+</code></pre></div><p>副作用让一个函数变的不纯(如上例)，纯函数的根据相同的输入返回相同的输出，如果函数依赖于外部 的状态就无法保证输出相同，就会带来副作用。</p> <p>副作用来源:</p> <ul><li>配置文件</li> <li>数据库</li> <li>获取用户的输入 ......</li></ul> <p>所有的外部交互都有可能带来副作用，副作用也使得方法通用性下降不适合扩展和可重用性，同时副作 用会给程序中带来安全隐患给程序带来不确定性，但是副作用不可能完全禁止，尽可能控制它们在可控 范围内发生。</p> <h2 id="柯里化-haskell-brooks-curry"><a href="#柯里化-haskell-brooks-curry" class="header-anchor">#</a> 柯里化 (Haskell Brooks Curry)</h2> <ul><li>使用柯里化解决上一个案例中硬编码的问题</li></ul> <div class="language- extra-class"><pre class="language-text"><code>    function checkAge (age) { let min = 18
+        return age &gt;= min
+    }
+    // 普通纯函数
+    function checkAge (min, age) {
+        return age &gt;= min
+    }
+    checkAge(18, 24)
+    checkAge(18, 20)
+    checkAge(20, 30)
+
+    // 柯里化
+    function checkAge (min) {
+        return function (age) {
+            return age &gt;= min
+        }
+    }
+
+    // ES6 写法
+    let checkAge = min =&gt; (age =&gt; age &gt;= min)
+    let checkAge18 = checkAge(18)
+    let checkAge20 = checkAge(20)
+
+    checkAge18(24)
+    checkAge18(20)
+</code></pre></div><ul><li>当一个函数有多个参数的时候先传递一部分参数调用它(这部分参数以后永远不变)</li> <li>然后返回一个新的函数接收剩余的参数，返回结果</li></ul> <h3 id="lodash-中的柯里化函数"><a href="#lodash-中的柯里化函数" class="header-anchor">#</a> lodash 中的柯里化函数</h3> <ul><li>_.curry(func)
+<ul><li>功能:创建一个函数，该函数接收一个或多个 func 的参数，如果 func 所需要的参数都被提 供则执行 func 并返回执行的结果。否则继续返回该函数并等待接收剩余的参数。</li> <li>参数:需要柯里化的函数</li> <li>返回值:柯里化后的函数</li></ul></li></ul> <div class="language- extra-class"><pre class="language-text"><code>    const _ = require('lodash') // 要柯里化的函数
+    function getSum (a, b, c) {
+    return a + b + c
+    }
+    // 柯里化后的函数
+    let curried = _.curry(getSum) // 测试
+    curried(1, 2, 3) curried(1)(2)(3)
+    curried(1, 2)(3)
+</code></pre></div><ul><li>案例</li></ul> <div class="language- extra-class"><pre class="language-text"><code>    const _ = require('lodash')
+    const match = _.curry(function (reg, str) {
+        return str.match(reg)
+    })
+    const haveSpace = match(/\s+/g)
+    const haveNumber = match(/\d+/g)
+
+    console.log(haveSpace('hello world'))
+    console.log(haveNumber('25$'))
+
+    const filter = _.curry(function (func, array) {
+        return array.filter(func)
+    })
+    console.log(filter(haveSpace, ['John Connor', 'John_Donne']))
+
+    const findSpace = filter(haveSpace)
+    console.log(findSpace(['John Connor', 'John_Donne']))
+</code></pre></div><p>模拟 _.curry() 的实现</p> <div class="language- extra-class"><pre class="language-text"><code>function curry(fn) {
+    return function curriedFn(...args) {
+        // 判断实参和形参的个数
+        if(args.length &lt; fn.length) {
+            return function () {
+                return curriedFn(...args.concat(Array.from(arguments)));
+            }
+        }
+        return fn(...args);
+
+    }
+}
+</code></pre></div><h3 id="总结"><a href="#总结" class="header-anchor">#</a> 总结</h3> <ul><li>柯里化可以让我们给一个函数传递较少的参数得到一个已经记住了某些固定参数的新函数</li> <li>这是一种对函数参数的'缓存'</li> <li>让函数变的更灵活，让函数的粒度更小 可以把多元函数转换成一元函数，可以组合使用函数产生强大的功能</li></ul> <h2 id="函数组合"><a href="#函数组合" class="header-anchor">#</a> 函数组合</h2> <ul><li>纯函数和柯里化很容易写出洋葱代码 h(g(f(x)))
+<ul><li>获取数组的最后一个元素再转换成大写字母， <em>.toUpper(</em>.first(_.reverse(array)))</li></ul></li> <li>函数组合可以让我们把细粒度的函数重新组合生成一个新的函数</li></ul> <h3 id="管道"><a href="#管道" class="header-anchor">#</a> 管道</h3> <p>下面这张图表示程序中使用函数处理数据的过程，给 fn 函数输入参数 a，返回结果 b。可以想想 a 数据 通过一个管道得到了 b 数据。</p> <p><img src="/programming-basics/pipe.png" alt=""></p> <p>当 fn 函数比较复杂的时候，我们可以把函数 fn 拆分成多个小函数，此时多了中间运算过程产生的 m 和 n。</p> <p>下面这张图中可以想象成把 fn 这个管道拆分成了 3 个管道 f1, f2, f3，数据 a 通过管道 f3 得到结果 m，m 再通过管道 f2 得到结果 n，n 通过管道 f1 得到最终结果 b。</p> <p><img src="/programming-basics/pipe2.png" alt=""></p> <div class="language- extra-class"><pre class="language-text"><code>  fn=compose(f1,f2,f3)
+  b=fn(a)
+</code></pre></div><h3 id="函数组合-2"><a href="#函数组合-2" class="header-anchor">#</a> 函数组合</h3> <p>函数组合 (compose):如果一个函数要经过多个函数处理才能得到最终值，这个时候可以把中间 过程的函数合并成一个函数</p> <ul><li>函数就像是数据的管道，函数组合就是把这些管道连接起来，让数据穿过多个管道形成最终结果</li> <li><strong>函数组合默认是从右到左执行</strong></li></ul> <div class="language- extra-class"><pre class="language-text"><code>    // 组合函数
+    function compose (f, g) {
+        return function (x) {
+            return f(g(x))
+        }
+    }
+    function first (arr) {
+        return arr[0]
+    }
+    function reverse (arr) {
+        return arr.reverse()
+    }
+    // 从右到左运行
+    let last = compose(first, reverse)
+    console.log(last([1, 2, 3, 4]))
+</code></pre></div><h3 id="lodash-中的组合函数"><a href="#lodash-中的组合函数" class="header-anchor">#</a> lodash 中的组合函数</h3> <ul><li>lodash 中组合函数 flow() 或者 flowRight()，他们都可以组合多个函数</li> <li>flow() 是从左到右运行</li> <li>flowRight() 是从右到左运行，使用的更多一些</li></ul> <div class="language- extra-class"><pre class="language-text"><code>    // lodash 中的函数组合的方法 _.flowRight()
+    const _ = require('lodash');
+    const reverse = arr =&gt; arr.reverse();
+    const first = arr =&gt; arr[0];
+    const toUpper = s =&gt; s.toUpperCase();
+
+    const f = _.flowRight(toUpper, first, reverse);
+    console.log(f(['one', 'two', 'three']));
+
+</code></pre></div><ul><li>模拟实现 lodash 的 flowRight 方法</li></ul> <div class="language- extra-class"><pre class="language-text"><code>function compose(...args) {
+    return function(value) {
+        return args.reverse().reduce(function(acc, fn) {
+            return fn(acc);
+        }, value)
+    }
+}
+// es6
+const compose = (...args) =&gt; value =&gt; args.reverse().reduce((acc, fn) =&gt; fn(acc), value);
+</code></pre></div><h3 id="调试"><a href="#调试" class="header-anchor">#</a> 调试</h3> <ul><li>如何调试组合函数</li></ul> <div class="language- extra-class"><pre class="language-text"><code>    // 函数组合 调试
+    // NEVER SAY DIE  --&gt; never-say-die
+
+    const _ = require('lodash')
+
+    const trace = _.curry((tag, v) =&gt; {
+        console.log(tag, v)
+        return v
+    })
+
+    // _.split()
+    const split = _.curry((sep, str) =&gt; _.split(str, sep))
+
+    // _.toLower()
+    const join = _.curry((sep, array) =&gt; _.join(array, sep))
+
+    const map = _.curry((fn, array) =&gt; _.map(array, fn))
+
+    const f = _.flowRight(join('-'), trace('map 之后'), map(_.toLower), trace('split 之后'), split(' '))
+
+    console.log(f('NEVER SAY DIE'))
+</code></pre></div><h3 id="lodash-fp"><a href="#lodash-fp" class="header-anchor">#</a> lodash/fp</h3> <ul><li>lodash 的 fp 模块提供了实用的对函数式编程友好的方法 <a href="https://github.com/lodash/lodash/wiki/FP-Guide" target="_blank" rel="noopener noreferrer">lodash/fp<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>提供了不可变 auto-curried iteratee-first data-last 的方法</li></ul> <div class="language- extra-class"><pre class="language-text"><code>// lodash 模块
+const _ = require('lodash')
+
+_.map(['a', 'b', 'c'], _.toUpper)
+// =&gt; ['A', 'B', 'C']
+_.map(['a', 'b', 'c'])
+// =&gt; ['a', 'b', 'c']
+
+_.split('Hello World', ' ')
+
+// lodash/fp 模块
+const fp = require('lodash/fp')
+
+fp.map(fp.toUpper, ['a', 'b', 'c'])
+fp.map(fp.toUpper)(['a', 'b', 'c'])
+
+fp.split(' ', 'Hello World')
+fp.split(' ')('Hello World')
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>// NEVER SAY DIE  --&gt; never-say-die
+
+const fp = require('lodash/fp');
+
+const f = fp.flowRight(fp.join('-'), fp.map(fp.toLower), fp.split(' '));
+
+console.log(f('NEVER SAY DIE'));
+
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>// lodash 和 lodash/fp 模块中map方法的区别
+const _ = require('lodash');
+console.log(_.map(['23', '8', '10', '12'], parseInt)); // [ 23, NaN, 2 ]
+
+// parseInt('23', 0, array);
+// parserInt('8', 1, array)
+// parserInt('10', 2, array)
+
+// fp.map只给函数传递一个参数
+const fp = require('lodash/fp');
+console.log(fp.map(parseInt)(['23', '8', '10'])) // [23, 8, 10]
+
+</code></pre></div><h3 id="point-free"><a href="#point-free" class="header-anchor">#</a> Point Free</h3> <p><strong>Point Free</strong>: 我们可以把数据处理的过程定义成与数据无关的合成运算，不需要用到代表数据的那个参
+数，只要把简单的运算步骤合成到一起，在使用这种模式之前我们需要定义一些辅助的基本运算函数。</p> <ul><li>不需要指明处理的数据</li> <li>只需要合成运算过程</li> <li>需要定义一些辅助的基本运算函数</li></ul> <div class="language- extra-class"><pre class="language-text"><code>// Hello   World =&gt; hello_world
+
+const fp = require('lodash/fp');
+const f = fp.flowRight(fp.replace(/\s+/g, '_'), fp.toLower);
+
+console.log(f('Hello   World'))
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>// 把一个字符串中的首字母提取并转换成大写, 使用. 作为分隔符
+// world wild web ==&gt; W. W. W
+const fp = require('lodash/fp')
+
+// const firstLetterToUpper = fp.flowRight(fp.join('. '), fp.map(fp.first), fp.map(fp.toUpper), fp.split(' '))
+const firstLetterToUpper = fp.flowRight(fp.join('. '), fp.map(fp.flowRight(fp.first, fp.toUpper)), fp.split(' '))
+
+console.log(firstLetterToUpper('world wild web'))
+</code></pre></div><h2 id="函子-functor"><a href="#函子-functor" class="header-anchor">#</a> 函子（Functor）</h2> <h3 id="为什么要学函子"><a href="#为什么要学函子" class="header-anchor">#</a> 为什么要学函子</h3> <p>到目前为止已经已经学习了函数式编程的一些基础，但是我们还没有演示在函数式编程中如何把副作用 控制在可控的范围内、异常处理、异步操作等。</p> <h3 id="副作用-side-effects"><a href="#副作用-side-effects" class="header-anchor">#</a> 副作用（side-effects）</h3> <p>说得直白一点就是与程序外部的世界的交互作用，比如改变显示屏的界面展示，读写后端数据库中的内容，副作用让我们的应用得以与外部世界发生交互以实现功能。如果一段代码完全没有副作用，那执行完以后你只会发现电脑热了一点（这其实也是一种副作用）。所以可以说，程序的价值就在于它产生的副作用。</p> <p>然而在开发阶段，由于外部世界的不可控性（例如没有办法控制后端返回的数据，没有办法控制用户浏览器的缓存数据等等），包含副作用的逻辑行为往往也跟着变得不可预测。</p> <p>当一个应用充斥着副作用，我们将难以确定我们写完的逻辑哪些是可靠的哪些是有漏洞的，难以定位一个错误来自哪里，难以通过有限的 mock 工作，来完全模拟代码的外部世界。</p> <p>函数式编程提倡把副作用分离出来，让没有副作用的“纯”逻辑们待在一起，远离包含副作用的逻辑。</p> <h3 id="什么是-functor"><a href="#什么是-functor" class="header-anchor">#</a> 什么是 Functor</h3> <ul><li>容器:包含值和值的变形关系(这个变形关系就是函数)</li> <li>函子:是一个特殊的容器，通过一个普通的对象来实现，该对象具有 map 方法，map 方法可以运 行一个函数对值进行处理(变形关系)</li></ul> <h3 id="functor-函子"><a href="#functor-函子" class="header-anchor">#</a> Functor 函子</h3> <div class="language- extra-class"><pre class="language-text"><code>// 一个容器，包裹一个值
+class Container {
+    // of 静态方法，可以省略 new 关键字创建对象
+    static of (value) {
+        return new Container(value)
+    }
+
+
+    constructor(value) {
+        this._value = value
+    }
+
+    // map 方法，传入变形关系，将容器里的每一个值映射到另一个容器
+    map(fn) {
+        return Container.of(fn(this._value))
+    }
+}
+
+let r = Container.of(5)
+    .map(x =&gt; x + 2)
+    .map(x =&gt; x * x)
+
+console.log(r);
+</code></pre></div><ul><li><p>总结</p> <ul><li>函数式编程的运算不直接操作值，而是由函子完成</li> <li>函子就是一个实现了 map 契约的对象</li> <li>我们可以把函子想象成一个盒子，这个盒子里封装了一个值</li> <li>想要处理盒子中的值，我们需要给盒子的 map 方法传递一个处理值的函数(纯函数)，由这 个函数来对值进行处理</li> <li>最终 map 方法返回一个包含新值的盒子(函子)</li></ul></li> <li><p>在 Functor 中如果我们传入 null 或 undefined</p></li></ul> <div class="language- extra-class"><pre class="language-text"><code>  // 值如果不小心传入了空值(副作用) Container.of(null)
+  .map(x =&gt; x.toUpperCase())
+  // TypeError: Cannot read property 'toUpperCase' of null
+</code></pre></div><h3 id="maybe-函子"><a href="#maybe-函子" class="header-anchor">#</a> MayBe 函子</h3> <ul><li>我们在编程的过程中可能会遇到很多错误，需要对这些错误做相应的处理</li> <li>MayBe 函子的作用就是可以对外部的空值情况做处理(控制副作用在允许的范围)</li></ul> <div class="language- extra-class"><pre class="language-text"><code> // MayBe函子
+class MayBe {
+    static of(value) {
+        return new MayBe(value);
+    }
+
+    constructor(value) {
+        this._value = value;
+    }
+
+    map(fn) {
+        return this.isNothing() ? MayBe.of(null) : MayBe.of(fn(this._value))
+    }
+
+    isNothing() {
+        return this._value === undefined || this._value === null
+    }
+}
+
+let r = MayBe.of('Hello world')
+      .map(x =&gt; x.toUpperCase())
+      .map(x =&gt; null)
+      .map(x =&gt; x.split(' '))
+console.log(r)
+
+</code></pre></div><h3 id="either-函子"><a href="#either-函子" class="header-anchor">#</a> Either 函子</h3> <ul><li>Either 两者中的任何一个，类似于 if...else...的处理</li> <li>异常会让函数变的不纯，Either 函子可以用来做异常处理</li></ul> <div class="language- extra-class"><pre class="language-text"><code>
+  // Either 函子
+class Left {
+    static of(value) {
+        return new Left(value)
+    }
+    constructor(value) {
+        this._value = value
+    }
+
+    map(fn) {
+        return this
+    }
+}
+
+class Right {
+    static of(value) {
+        return new Right(value)
+    }
+    constructor(value) {
+        this._value = value
+    }
+    map(fn) {
+        return Right.of(fn(this._value));
+    }
+}
+
+let r1 = Right.of(12).map(x =&gt; x + 2);
+let r2 = Left.of(12).map(x =&gt; x + 2);
+
+// console.log(r1);
+// console.log(r2);
+
+function parseJSON(str) {
+    try{
+        return Right.of(JSON.parse(str));
+    } catch(e) {
+        return Left.of({error: e.message})
+    }
+}
+// let r3 = parseJSON('{name: zs}');
+// console.log(r3);
+
+let r3 = parseJSON('{&quot;name&quot;: &quot;zs&quot;}')
+            .map(x =&gt; x.name.toUpperCase());
+console.log(r3);
+</code></pre></div><h3 id="io-函子"><a href="#io-函子" class="header-anchor">#</a> IO 函子</h3> <ul><li>IO 函子中的 _value 是一个函数，这里是把函数作为值来处理</li> <li>IO 函子可以把不纯的动作存储到 _value 中，延迟执行这个不纯的操作(惰性执行)，包装当前的操 作纯</li> <li>把不纯的操作交给调用者来处理</li></ul> <div class="language- extra-class"><pre class="language-text"><code>  // IO函子
+const fp = require('lodash/fp');
+
+class IO {
+    static of(value) {
+        return new IO(function() {
+            return value
+        })
+    }
+
+    constructor(fn) {
+        this._value = fn;
+    }
+
+    map(fn) {
+        return new IO(fp.flowRight(fn, this._value));
+    }
+}
+
+const r = IO.of(process).map(p =&gt; p.execPath);
+console.log(r);
+console.log(r._value());
+
+</code></pre></div><h3 id="task-异步执行"><a href="#task-异步执行" class="header-anchor">#</a> Task 异步执行</h3> <ul><li>异步任务的实现过于复杂，我们使用 folktale 中的 Task 来演示</li> <li><a href="https://folktale.origamitower.com/" target="_blank" rel="noopener noreferrer">folktale<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> 一个标准的函数式编程库
+<ul><li>和 lodash、ramda 不同的是，他没有提供很多功能函数</li> <li>只提供了一些函数式处理的操作，例如:compose、curry 等，一些函子 Task、Either、 MayBe 等</li></ul></li></ul> <div class="language- extra-class"><pre class="language-text"><code>  // Task 处理异步任务
+const fs = require('fs')
+const { task } = require('folktale/concurrency/task')
+const { split, find } = require('lodash/fp')
+
+function readFile (filename) {
+  return task(resolver =&gt; {
+    fs.readFile(filename, 'utf-8', (err, data) =&gt; {
+      if (err) resolver.reject(err)
+
+      resolver.resolve(data)
+    })
+  })
+}
+
+readFile('package.json')
+  .map(split('\n'))
+  .map(find(x =&gt; x.includes('version')))
+  .run()
+  .listen({
+    onRejected: err =&gt; {
+      console.log(err)
+    },
+    onResolved: value =&gt; {
+      console.log(value)
+    }
+  })
+</code></pre></div><h3 id="pointed-函子"><a href="#pointed-函子" class="header-anchor">#</a> Pointed 函子</h3> <ul><li>Pointed 函子是实现了 of 静态方法的函子</li> <li>of 方法是为了避免使用 new 来创建对象，更深层的含义是 of 方法用来把值放到上下文 Context(把值放到容器中，使用 map 来处理值)</li></ul> <div class="language- extra-class"><pre class="language-text"><code>  class Container {
+    static of (value) {
+        return new Container(value)
+    }
+    ......
+  }
+  Contanier.of(2) .map(x =&gt; x + 5)
+</code></pre></div><h3 id="monad-单子"><a href="#monad-单子" class="header-anchor">#</a> Monad(单子)</h3> <p>在使用 IO 函子的时候，如果我们写出如下代码:</p> <div class="language- extra-class"><pre class="language-text"><code>  // IO 函子的问题
+const fs = require('fs')
+const fp = require('lodash/fp')
+
+class IO {
+  static of (value) {
+    return new IO(value)
+  }
+
+  constructor (fn) {
+    this._value = fn
+  }
+
+  map (fn) {
+    return IO.of(fp.flowRight(fn, this._value))
+  }
+}
+
+let readFile = function (filename) {
+  return IO.of(function () {
+    return fs.readFileSync(filename, 'utf-8')
+  })
+}
+
+let print = function (x) {
+  return IO.of(function () {
+    console.log(x)
+    return x
+  })
+}
+
+let cat = fp.flowRight(print, readFile)
+// IO(IO(x))
+let r = cat('package.json')._value()._value()
+console.log(r)
+</code></pre></div><p>以上使用 IO 函子导致调用<code>_value()</code>过多，代码不清晰</p> <ul><li>Monad 函子是可以变扁的 Pointed 函子，IO(IO(x))</li> <li>一个函子如果具有 join 和 of 两个方法并遵守一些定律就是一个 Monad</li></ul> <p>下面是一个处理打印<code>package.json</code>的代码</p> <div class="language- extra-class"><pre class="language-text"><code>function showPackage(filename) {
+  let package = fs.readFileSync(filename, 'utf-8');
+  package = fp.toUpper(package);
+  console.log(package)
+}
+showPackage('package.json');
+</code></pre></div><p>其中函数的第二行和第四行都是副作用，可以使用 IO Monad 把<strong>读取</strong>和<strong>打印</strong>两个副作用包裹起来</p> <div class="language- extra-class"><pre class="language-text"><code>// IO Monad
+const fs = require('fs')
+const fp = require('lodash/fp')
+
+class IO {
+  static of (value) {
+    return new IO(value)
+  }
+
+  constructor (fn) {
+    this._value = fn
+  }
+
+  map (fn) {
+    return new IO(fp.flowRight(fn, this._value))
+  }
+
+  join () {
+    return this._value()
+  }
+
+  flatMap (fn) {
+    return this.map(fn).join()
+  }
+}
+
+let readFile = function (filename) {
+  return IO.of(function () {
+    return fs.readFileSync(filename, 'utf-8')
+  })
+}
+
+let print = function (x) {
+  return IO.of(function () {
+    console.log(x)
+    return x
+  })
+}
+
+let r = readFile('package.json')
+          // .map(x =&gt; x.toUpperCase())
+          .map(fp.toUpper)
+          .flatMap(print)
+          .join()
+
+console.log(r)
+</code></pre></div><h2 id="更多参考"><a href="#更多参考" class="header-anchor">#</a> 更多参考</h2> <ul><li><a href="https://llh911001.gitbooks.io/mostly-adequate-guide-chinese/content/ch1.html" target="_blank" rel="noopener noreferrer">函数式编程指北<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html" target="_blank" rel="noopener noreferrer">函数式编程入门<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="http://www.ruanyifeng.com/blog/2017/03/pointfree.html" target="_blank" rel="noopener noreferrer">Pointfree 编程风格指南<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="http://www.ruanyifeng.com/blog/2015/07/monad.html" target="_blank" rel="noopener noreferrer">图解 Monad<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html" target="_blank" rel="noopener noreferrer">Functors, Applicatives, And Monads In Pictures<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.2c10249a.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/28.d215094e.js" defer></script><script src="/assets/js/3.b304fdc1.js" defer></script>
+  </body>
+</html>
