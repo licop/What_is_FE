@@ -13,7 +13,7 @@
   7. then方法是可以被链式调用的, 后面then方法的回调函数拿到值的是上一个then方法的回调函数的返回值
 */
 
-const MyPromise = require('./myPromise1');
+const MyPromise = require('./myPromise6');
 let promise = new MyPromise((resolve, reject) => {
   // throw new Error('excutor error')
 
@@ -24,9 +24,9 @@ let promise = new MyPromise((resolve, reject) => {
   // reject('失败')
 })
 
-promise.then(value => {
-  console.log(value); 
-})
+// promise.then(value => {
+//   console.log(value); 
+// })
 
 // function other() {
 //   return new MyPromise((resolve, reject) => {
@@ -93,29 +93,43 @@ promise.then(value => {
 //   .then(value => console.log(value))
 //   .catch(reason => console.log(reason))
 
-// function p1 () {
-//   return new MyPromise(function (resolve, reject) {
-//     setTimeout(function () {
-//       resolve('p1')
-//     }, 2000)
-//   })
-// }
+function p1 () {
+  return new MyPromise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve('p1 resolve')
+    }, 2000)
+  })
+}
 
-// function p2 () {
-//   return new MyPromise(function (resolve, reject) {
-//     setTimeout(function () {
-//       reject('p2 reject')
-//     }, 1000)
-//   })
-// }
+function p2 () {
+  return new MyPromise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve('p2 resolve')
+    }, 1000)
+  })
+}
 
 // MyPromise.all(['a', 'b', p1(), p2(), 'c']).then(result => {
 //   console.log(result, 110)
 // })
 
+MyPromise.race(['a', p1(), p2()]).then(result => {
+  console.log(result, 110)
+})
+
 // MyPromise.resolve(100).then(value => console.log(value))
 // MyPromise.resolve(p1()).then(value => console.log(value))
 
+// MyPromise.reject(100).then(null, function (s) {
+//   console.log(s)
+// });
+// Promise.reject(p1()).then(null, function (s) {
+//   console.log(s)
+// });
+// MyPromise.reject('出错了')
+// .catch(e => {
+//   console.log(e === '出错了')
+// })
 // p2().finally(() => {
 //   console.log('finally')
 //   return p1();
@@ -130,3 +144,4 @@ promise.then(value => {
 // }).catch(reason => {
 //   console.log(reason)
 // })
+

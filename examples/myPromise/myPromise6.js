@@ -121,7 +121,7 @@ class MyPromise {
 
         return promise2;
     }
-    // 无论结果返回成功还是失败都要调用一次
+    // finally 方法用于指定不管 Promise 对象最后状态如何，都会执行的操作
     finally(callback) {
         // 通过then方法得到当前promise的状态
         return this.then(value => {
@@ -160,10 +160,27 @@ class MyPromise {
             }
         })
     }
+    
+    static race(array) {
+        return new MyPromise((resolve, reject) => {
+            for(let p of array) {
+                 // 只要有一个实例率先改变状态，新的MyPromise的状态就跟着改变
+                MyPromise.resolve(p).then(res => {
+                    resolve(res)
+                }, err => {
+                    reject(err)
+                })
+            }
+        })
+    }
 
     static resolve(value) {
         if(value instanceof MyPromise) return value;
         return new MyPromise(resolve => resolve(value))
+    }
+
+    static reject(value) {
+        return new MyPromise((resolve, reject) => reject(value))
     }
 }
 
