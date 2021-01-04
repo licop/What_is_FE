@@ -109,9 +109,9 @@ function p2 () {
   })
 }
 
-// MyPromise.all(['a', 'b', p1(), p2(), 'c']).then(result => {
-//   console.log(result, 110)
-// })
+MyPromise.all(['a', 'b', p1(), p2(), 'c']).then(result => {
+  console.log(result, 110)
+})
 
 MyPromise.race(['a', p1(), p2()]).then(result => {
   console.log(result, 110)
