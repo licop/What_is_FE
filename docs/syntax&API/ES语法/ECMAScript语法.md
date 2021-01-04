@@ -1,4 +1,4 @@
-# ECMAScript
+# ECMAScript 语法
 
 ## ECMAScript 与 JavaScript 的关系
 
@@ -8,19 +8,19 @@ JavaScript 在继承了 ECMAScript 语法的基础之上，做了一些扩展，
 
 JavaScript 语言本身指的就是 ECMAScript。
 
-pic
+![](/syntax&API/es&js1.png)
+
+![](/syntax&API/es&js2.png)
 
 ## ECMA 的发展过程
 
 2015 年开始 ES 保持每年一个版本的迭代。
 
-pic
+![](/syntax&API/es_version.png)
 
 其中 ES2015 值得了解的内容有很多，是最新 ECMAScript 标准的代表版本， 相比上一个版本 ES5.1 变化比较大，自此标准命名规则发生了变化。ES2015 之后开始按照年份命名，很多人也把 ES2015 称之为 ES6，也有很多人用 ES6 泛指所有的新标准，例如`async`函数是 ES2017 制定的标准，也被称之为 ES6 语法，应该注意分辨资料中的 ES6 是特指还是泛指。
 
-## ECMAScript 2015 的新特性
-
-ES2015 的新特性有一下几个特点：
+## ECMAScript 2015 新特性特点
 
 - 解决原有语法上的一些问题或者不足
 - 对原有语法进行增强
@@ -28,7 +28,9 @@ ES2015 的新特性有一下几个特点：
 
 [ECMAScript 特性官方文档](https://www.ecma-international.org/ecma-262/6.0/)
 
-### let 与块级作用域
+下面我们将介绍一些 ECMAScript 2015 新特性
+
+## let 与块级作用域
 
 **作用域**: 某个成员能够起作用的范围
 
@@ -54,7 +56,7 @@ console.log(foo) // ReferenceError:
 
 `let`可以解决`var`以前的很多奇怪的行为。
 
-#### let 在 for 循环中的表现
+### let 在 for 循环中的表现
 
 很多时候使用 var 关键字 for 循环中如果变量没有定义清楚，会造成一些意想不到的结果
 
@@ -81,7 +83,7 @@ for (var i = 0; i < 3; i++) {
 }
 ```
 
-#### let 应用场景：循环绑定事件
+### let 应用场景：循环绑定事件
 
 来看下面这个例子。 我们在 for 循环的头部定义了变量 i，通常是因为只想的 for 循环内部的上下文中使用 i,而忽略了 i 会被绑定在外部作用域（函数或全局）中的事实。因为 i 是全局作用域中的, 所以打印的都是循环后累加的 3。
 
@@ -124,7 +126,7 @@ for (let i = 0; i < elements.length; i++) {
 elements[0].onclick()
 ```
 
-#### let 与变量声明提升现象
+### let 与变量声明提升现象
 
 什么是**变量声明提升**？先看下面两个例子
 
@@ -180,7 +182,7 @@ bar() 名称标识符在赋值之前也无法在所在作用域中使用
 
 `let` 则修复了变量声明提升现象,以上俩个例子使用`let`声明都会报`ReferenceError`(引用错误，即在作用域中没有找到该变量)，`let`默认如果没有声明前就引用变量，则会报引用错误。
 
-### const
+## const
 
 `const`用来声明一个只读的恒量/产量，任何修改值得操作都会引起错误。
 
@@ -193,7 +195,7 @@ obj.name = 'zce';
 
 **最佳实践： 不用 var，主用 const，配合 let**
 
-### 数组的解构
+## 数组的解构
 
 使用解构可以快速提取数组中的指定成员。
 
@@ -246,7 +248,7 @@ const arr = ['foo', 'bar', 'baz']
 console.log(...arr)
 ```
 
-### 对象的解构
+## 对象的解构
 
 除了数组可以被解构，对象也可被解构。对象的解构需要根据**属性名**去匹配提取，而不是位置。因为数组中的元素有下标和顺序规则，而对象里的成员没有固定的次序。
 
@@ -269,7 +271,7 @@ log('bar')
 log('123')
 ```
 
-### 模板字符串
+## 模板字符串
 
 ```
 // 反引号包裹
@@ -319,7 +321,7 @@ console.log(result)
 
 可以使用这种功能实现多语言化，检查不安全字符之类的需求，甚至可以实现一个小型的模板引擎。
 
-### 字符串的扩展方法
+## 字符串的扩展方法
 
 - includes() 判断一个字符串是否包含在另一个字符串中，根据情况返回 true 或 false。
 - startsWith() 用来判断当前字符串是否是以另外一个给定的子字符串“开始”的，根据判断结果返回 true 或 false。
@@ -335,7 +337,7 @@ message.includes('foo')
 
 更多字符串扩展方法参考[MDN String](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String)
 
-### 函数的形参列表
+## 函数的形参列表
 
 可以给参数的默认值
 
@@ -359,7 +361,7 @@ function foo (first, ...args) {
 foo(1, 2, 3, 4)
 ```
 
-### 箭头函数
+## 箭头函数
 
 **箭头函数**表达式的语法比函数表达式更简洁，并且没有自己的 `this`，`arguments`，`super` 或 `new.target`。箭头函数表达式更适用于那些本来需要匿名函数的地方，并且它不能用作构造函数。
 
@@ -447,7 +449,7 @@ person.sayHiAsync()
 
 更多箭头函数参考[MDN 箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
-### 对象字面量增强
+## 对象字面量增强
 
 ```
 const bar = '345'
@@ -479,7 +481,7 @@ obj[Math.random()] = 123
 
 ```
 
-### 对象扩展方法
+## 对象扩展方法
 
 - Object.assign
 
@@ -541,7 +543,7 @@ Object.is() 方法判断两个值是否为同一个值。
 
 更多 Object 参考[MDN Object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
-### Proxy
+## Proxy
 
 以前如果我们想监控某个对象的读写，我们可以使用 ES5 的[Object.defineProperty](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)方法来为我们对象添加属性，这样我们就可以捕获对象的读写过程，vue3.0 就是使用这种方法实现双向数据绑定。
 
@@ -609,7 +611,8 @@ console.log(person)
 ```
 
 除此之外还有很多其他的对象操作都能被监视到
-pic
+
+![](syntax&API/proxy.png)
 
 - 优势 2：Proxy 可以很方便的监视数组操作
 
@@ -683,7 +686,7 @@ console.log(person.name)
 
 更多关于[Proxy](https://es6.ruanyifeng.com/#docs/proxy)
 
-### Reflect
+## Reflect
 
 **`Reflect`统一对象操作的 API**,`Reflect`属于一个静态类，不能使用`new Reflect()`构建一个静态对象，只能够调用静态类的静态方法。
 
@@ -726,11 +729,11 @@ console.log(Reflect.deleteProperty(obj, 'age'))
 console.log(Reflect.ownKeys(obj))
 ```
 
-### Promise
+## Promise
 
 解决了传统异步编程中回调函数嵌套过深的问题， 具体参考 JavaScript 异步编程有更详细的介绍
 
-### Class
+## Class
 
 ```
 class Person {
@@ -795,7 +798,7 @@ const s = new Student('jack', '100')
 s.hello()
 ```
 
-### Set
+## Set
 
 ES2015 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
 
@@ -836,7 +839,7 @@ console.log(result) //[ 1, 2, 3, 4 ]
 
 还存在弱引用版本 **WeakSet**, 差异就是 **Set** 中会对所使用到的数据产生引用,即便这个数据在外面被消耗，但是由于 **Set** 引用了这个数据，所以依然不会回收,而 **WeakSet** 的特点就是不会产生引用，一旦数据销毁，就可以被回收，所以不会产生内存泄漏问题。
 
-### Map
+## Map
 
 JavaScript 的对象（Object），本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。这给它的使用带来了很大的限制。
 
@@ -876,7 +879,7 @@ m.clear()
 
 弱引用版本 `WeakMap`，差异就是 `Map` 中会对所使用到的数据产生引用，即便这个数据在外面被消耗，但是由于 `Map` 引用了这个数据，所以依然不会回收，而 `WeakMap` 的特点就是不会产生引用，一旦数据销毁，就可以被回收，所以不会产生内存泄漏问题。
 
-### Symbol
+## Symbol
 
 ES5 的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin 模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入 `Symbol` 的原因。
 
@@ -970,7 +973,7 @@ person.say()
 
 **Symbol 最主要的作用就是为对象添加独一无二的属性名**
 
-### for...of 循环
+## for...of 循环
 
 ES2015 引入一种全新的遍历方式，**for...of 循环**，可以作为遍历所有数据结构的统一方式。
 
@@ -1012,7 +1015,7 @@ for (const item of obj) {
 
 ```
 
-### 可迭代接口
+## 可迭代接口
 
 ES 中能够表示有结构的数据类型越来越多，为了给各种各样的数据结构提供统一的遍历方式， ES2015 提供了`Iterable`接口，实现 Iterable 接口就是`for...of`的前提，也就是说只要实现了`Iterable`接口的数据结构，就能被`for...of`遍历。
 
@@ -1132,7 +1135,7 @@ for (const item of todos.work) {
 
 ```
 
-### 生成器(Generator)
+## 生成器(Generator)
 
 ```
 function * foo1 () {
@@ -1201,11 +1204,11 @@ for (const item of todos) {
 
 ```
 
-### ES Modules
+## ES Modules
 
 语言层面的模块化标准
 
-### ES2016
+## ES2016 新增特性
 
 - Array.protoType.includes 查看数组中是否包含某元素
 
@@ -1221,7 +1224,7 @@ for (const item of todos) {
   console.log(2 ** 10) // 1024
 ```
 
-### ES2017
+## ES2017 新增特性
 
 - Object.values
 - Object.entries
