@@ -18,7 +18,8 @@ module.exports = {
             'Javascript异步编程',
             'promise源码实现',
             'Promise.all()有哪些具体应用',
-            'Promise.race()有哪些具体应用'
+            'Promise.race()有哪些具体应用',
+            'JavaScript类型系统'
         ],
         'Typescript': [
             'introduction',
@@ -31,6 +32,9 @@ module.exports = {
             'generic',
             'inference',
             'advance'
+        ],
+        'Flow': [
+            '关于Flow'
         ]
     },
     // 网络与通讯
