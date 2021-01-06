@@ -37,8 +37,12 @@ npm install flow-bin --save-dev
 
 vscode 安装`Flow Language Support`插件在在写代码的时候就提示报错
 
+## Flow 语法
+
+[参考 demo](https://github.com/licop/What_is_FE/tree/master/examples/Flow)
+
 ## 更多参考
 
 [类型文档](https://www.saltycrane.com/cheat-sheets/flow-type/latest/)
-[官方类型文档]https://flow.org/en/docs/types/
+[官方类型文档](https://flow.org/en/docs/types/)
 [中文文档](https://zhenyong.github.io/flowtype/)

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  <div id='skip' class="skip"></div>
+  <script>
+    var oBox = document.getElementById('skip');
+    function hasEle(ele, cls) {
+      return ele.className === cls
+    }
+    hasEle(oBox, 'skip')
+
+    var oBox = document.getElementById('skip');
+    function hasEle(ele, cls) {
+      var clsName = ele.className
+      return clsName === cls
+    }
+    hasEle(oBox, 'skip')
+
+  </script>
+
+</body>
+</html>

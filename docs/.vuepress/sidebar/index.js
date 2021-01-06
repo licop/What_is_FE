@@ -57,6 +57,9 @@ module.exports = {
     '/runnnig-monitoring/': {
         '安全': [
             'CSRF'
+        ],
+        '性能优化': [
+            'JavaSript性能优化'
         ]
     },
     // 前端框架

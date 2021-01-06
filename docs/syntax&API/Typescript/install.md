@@ -9,6 +9,7 @@
 - `tsc -V` 查看 typescript 版本
 - `tsc demo.ts` 编译出 demo.js
 - `tsc init` 生成 tscofig.json 编译配置文件
+- `tsc --local zh-CN` 编译使用中文报出错误信息
 
 ## 安装 ts-node
 
