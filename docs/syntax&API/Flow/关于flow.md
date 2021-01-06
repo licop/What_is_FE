@@ -43,6 +43,6 @@ vscode 安装`Flow Language Support`插件在在写代码的时候就提示报�
 
 ## 更多参考
 
-[类型文档](https://www.saltycrane.com/cheat-sheets/flow-type/latest/)
-[官方类型文档](https://flow.org/en/docs/types/)
-[中文文档](https://zhenyong.github.io/flowtype/)
+- [类型文档](https://www.saltycrane.com/cheat-sheets/flow-type/latest/)
+- [官方类型文档](https://flow.org/en/docs/types/)
+- [中文文档](https://zhenyong.github.io/flowtype/)
