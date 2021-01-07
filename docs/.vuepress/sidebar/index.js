@@ -14,12 +14,13 @@ module.exports = {
             'css单位中px和em,rem的区别'
         ],
         'ES语法': [
-            'ECMAScript语法',
+            'ECMAScript 2015 语法',
             'Javascript异步编程',
             'promise源码实现',
             'Promise.all()有哪些具体应用',
             'Promise.race()有哪些具体应用',
-            'JavaScript类型系统'
+            'JavaScript类型系统',
+            'JS值类型和引用类型'
         ],
         'Typescript': [
             'introduction',

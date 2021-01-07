@@ -6,7 +6,7 @@
 
 当我们打包 js 文件时，首先需要一个入口文件`（entry）`，然后提取文件中的依赖`（dependencies）`。
 
-使用`@babel/parser`将文件代买转入未抽象语法树（AST）,使用`@babel/traverse`从 `import`声明语句中提取依赖。
+使用`@babel/parser`将文件代码转入未抽象语法树（AST）,使用`@babel/traverse`从 `import`声明语句中提取依赖。
 
 使用`@babel/core`的`transformFromAst`方法将抽象语法树转化为浏览器可执行的 es5 代码
 

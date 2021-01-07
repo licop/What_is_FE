@@ -156,7 +156,7 @@ V8 引擎是一款主流的采用即时编译的 JavScript 执行引擎
 
 ### V8 垃圾回收策略
 
-V8 采用了一种分代回收的策略，将内存分为两个生代：新生代（new generation）和老生代（old generation）, 针对不同对象采用不同算法。
+V8 采用了一种分代回收的策略，将内存分为两个生代：新生代（new generation）和老生代（old generation）, 针对不同对象采用不同算法。可以减少了每次需遍历的对象，从而减少每次垃圾回收的耗时。
 
 ![](/running-monitoring/v8垃圾回收.png)
 
@@ -488,10 +488,9 @@ var test = (ele) = {
   addEvent(btn, 'click', console.log(this))
 ```
 
-### 采用事件绑定
-
 ## 更多参考
 
 - [MDN 内存管理](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_Management)
 - [chrome Performance 的使用](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance?hl=zh-cn)
 - [Chrome Devtool Performance 使用指南](https://zhuanlan.zhihu.com/p/29879682)
+- [从 4 个面试题了解「浏览器的垃圾回收」](https://blog.csdn.net/rexuejava/article/details/108112129?utm_source=app)
