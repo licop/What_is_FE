@@ -42,6 +42,11 @@ module.exports = {
     '/network/': {},
     // 前端工程化
     '/engineering/': {
+        '前端工程化': [
+            '前端工程化概述',
+            '脚手架工具',
+            '自动化构建'
+        ],
         "webpack": [
             "webpack基础学习",
             "webpack高级概念",
