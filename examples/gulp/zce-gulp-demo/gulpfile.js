@@ -2,9 +2,7 @@ const { src, dest, parallel, series, watch } = require('gulp')
 
 const del = require('del')
 const browserSync = require('browser-sync')
-
 const loadPlugins = require('gulp-load-plugins')
-
 const plugins = loadPlugins()
 const bs = browserSync.create()
 

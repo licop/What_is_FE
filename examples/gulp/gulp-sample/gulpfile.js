@@ -17,10 +17,10 @@ exports.default = done => {
   done()
 }
 
-// // v4.0 之前需要通过 gulp.task() 方法注册任务
-// const gulp = require('gulp')
+// v4.0 之前需要通过 gulp.task() 方法注册任务
+const gulp = require('gulp')
 
-// gulp.task('bar', done => {
-//   console.log('bar task working~')
-//   done()
-// })
+gulp.task('bar', done => {
+  console.log('bar task working~')
+  done()
+})
