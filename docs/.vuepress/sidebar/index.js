@@ -59,7 +59,9 @@ module.exports = {
             "createReactApp wepack配置分析"
         ],
         "babel": [],
-        "rollup": []
+        "rollup": [
+            "rollup"
+        ]
     },  
     // 运行与监控
     '/runnnig-monitoring/': {
