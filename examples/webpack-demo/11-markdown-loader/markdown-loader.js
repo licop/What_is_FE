@@ -8,6 +8,6 @@ module.exports = source => {
   // return `module.exports = "${html}"`
   // return `export default ${JSON.stringify(html)}`
 
-  // 返回 html 字符串交给下一个 loader 处理
+  // 返回 html 字符串交给下一个 loader(html-loader) 处理
   return html
 }

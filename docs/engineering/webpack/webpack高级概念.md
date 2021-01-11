@@ -6,21 +6,29 @@
 
 ### 使用
 
-一般来说，需要将`package.json`里添加`sideEffects`属性
-
-```
-   {
-       "sideEffects": false
-   }
-```
-
 如果 `mode` 配置为`development` 则 webpack 配置需要添加
 
 ```
-    mode: 'development',
-    optimization: {
-     usedExports: true,
-    }
+
+  mode: 'development',
+  optimization: {
+    usedExports: true, // 找到未引用的代码
+    mininize: true   // 压缩时删掉未引用的代码
+  }
+```
+
+确保项目里没有**副作用**（模块执行时除了导出成员之外所做的事情），将`package.json`里添加`sideEffects`属性
+
+```
+  // package.json
+  {
+    "sideEffects": false // 可以为文件数组，标记那些文件有副作用
+  }
+
+  // webapck.config.js
+  optimization: {
+    "sideEffects": true  //开启功能
+  }
 ```
 
 如果是生成环境 `mode` 配置为`production`，则 webpack 不用添加其他配置，webpack 会自动实现`tree shaking`
@@ -51,8 +59,10 @@ Webpack 4 下还有一个大改动，就是废弃了 `CommonsChunkPlugin`，引�
 
 > 默认 Webpack 4 只会对按需加载的代码做分割。`splitChunks.chunks`默认为`async`, 如果我们需要配置初始加载的代码也加入到代码分割中，可以设置 `splitChunks.chunks` 为 'all'。
 
+将所有的公共模块提取到单独的 bundler 当中
+
 ```
-    optimization: {
+  optimization: {
 		splitChunks: {
 			chunks: 'all'
 		}
@@ -145,6 +155,43 @@ module.exports = {
 ```
 
 [更多关于 shimming 的的参考](https://webpack.docschina.org/guides/shimming/)
+
+## 输出文件名 Hash
+
+为了解决客户端静态文件缓存过期时间过长，应用发生更新部署过后，客户端没有改变的问题。建议在生产模式下，文件名使用 Hash。
+
+webpack 对于文件名支持三种 Hash，效果各不相同。
+
+项目级别 Hash，每个文件的 hash 值都项目，一旦项目有任何改变，hash 值都会发生变化
+
+```
+{
+  output: {
+    filename: '[name]-[hash]-bundle.js'
+  }
+}
+```
+
+chunk 级别 Hash，同一 chunk 的 hash 值相同，文件改变时同一个 chunk 的 hash 值会发生变化
+
+```
+{
+  output: {
+    filename: '[name]-[chunkhash]-bundle.js'
+  }
+}
+```
+
+文件 级别 Hash，不同的文件有不同的 hash 值，文件变化更新当前文件的 hash 发生变化，最佳方案
+
+```
+// 将hash长度设置为8
+{
+  output: {
+    filename: '[name]-[contenthash:8]-bundle.js'
+  }
+}
+```
 
 ## webpack 分析工具
 

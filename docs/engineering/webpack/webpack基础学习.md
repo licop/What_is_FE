@@ -49,7 +49,7 @@ string = 'production': 'none' | 'development' | 'production'
 
 ### loader
 
-`loader`是 webpack 的核心特性,借助于 `loader` 就可以加载任何类型的资源 `webpack` 不能识别非 js 格式文件， 只能使用 `loader` 用于对模块的源代码进行转换。webpack 根据正则表达式，来确定应该查找哪些文件，并将其提供给指定的 `loader`。
+`loader`是 webpack 的核心特性,`loader`负责资源文件从输入到输出的转换, 对于同一资源可以依次使用多个 `loader`。借助于 `loader` 就可以加载任何类型的资源 `webpack` 不能识别非 js 格式文件， 只能使用 `loader` 用于对模块的源代码进行转换。webpack 根据正则表达式，来确定应该查找哪些文件，并将其提供给指定的 `loader`。
 
 webpack 支持使用 `loader` 对文件进行预处理。你可以构建包括 JavaScript 在内的任何静态资源。并且可以使用 Node.js 轻松编写自己的 `loader`。
 
@@ -133,7 +133,7 @@ webpack 支持使用 `loader` 对文件进行预处理。你可以构建包括 J
 
 ## plugins
 
-`plugin`可以在 webpack 运行到某个节点，帮你做一些事情，`plugin`目的在于解决 loader 无法实现的其他事。
+`plugin`可以在 webpack 运行到某个节点，帮我们实现前端打多工程化工作，`plugin`目的在于解决 loader 无法实现的其他事。
 
 ### HtmlWebpackPlugin
 
@@ -165,6 +165,26 @@ module.exports = {
 
 更多插件参考 [plugin](https://webpack.docschina.org/plugins/)
 
+### MiniCssExtractPlugin
+
+`MiniCssExtractPlugin`可以将 css 提取为一个单独的文件，一般当 css 文件超过 150kb 需要考虑是否将 css 提取。
+
+```
+module: {
+    rules: [{
+        test: /\.css$/i,
+        use: [
+            'MiniCssExtractPlugin.loader',
+            'css-loader'
+        ]
+    }]
+}
+plugins: [
+	new MiniCssExtractPlugin()
+
+]
+```
+
 ## entry & output
 
 打包的入口起点和输出， 即使可以存在多个 `entry` 起点，但只能指定一个 `output` 配置
@@ -177,7 +197,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/dist',
+    path: __dirname + '/dist', // 需要是绝对路径
     publicPath: 'http://cdn.com.cn',
   }
 };
@@ -204,13 +224,14 @@ module.exports = {
 - 开发环境下 `development`使用 `cheap-module-eval-source-map`，可以兼顾打包效率和精确度
 - 生产环境下 `production` 使用 `cheap-module-source-map`，提升精确度
 
+[不同 source 打包对比 demo](https://github.com/licop/What_is_FE/tree/master/examples/webpack-demo/22-devtool-diff)
 [更多关于 devtool 内容参考](https://webpack.docschina.org/configuration/devtool/)
 
 ## devServer
 
 在每次编译代码时，手动运行 `npm run build` 会显得很麻烦。
 
-`webpack-dev-server`会开启一个服务器，打开一个端口，可以帮助你在代码发生变化后自动编译代码。
+`webpack-dev-server`会开启一个服务器，打开一个端口，可以帮助你在代码发生变化后**自动编译代码**和**自动刷新浏览器**。
 
 webpack 没有提供自带的工具，我们需要自己安装
 
@@ -226,14 +247,20 @@ webpack 没有提供自带的工具，我们需要自己安装
 		compress: true,
 		port: 9000,
 		open: true
-	},
+	}
 ```
+
+### devServer 静态资源访问
+
+`contentBase`可以额外为开发服务器指定查找资源目录
 
 ### 转发代理
 
 当拥有单独的 API 后端开发服务器并且希望在同一域上发送 API 请求时，我们可以使用`webpack-dev-server`对请求转发进行代理。
 
 使用后端在 `localhost:3000` 上，可以使用它来启用代理
+
+现在，对 `/api/users` 的请求会将请求代理到 `http://localhost:3000/api/users`。
 
 ```
    module.exports = {
@@ -245,7 +272,25 @@ webpack 没有提供自带的工具，我们需要自己安装
     };
 ```
 
-现在，对 `/api/users` 的请求会将请求代理到 `http://localhost:3000/api/users`。
+将请求`/api/users`代理到 https://api.github.com/users
+
+```
+devServer: {
+    contentBase: './public',
+    proxy: {
+      '/api': {
+        // http://localhost:8080/api/users -> https://api.github.com/api/users
+        target: 'https://api.github.com',
+        // http://localhost:8080/api/users -> https://api.github.com/users
+        pathRewrite: {
+          '^/api': ''
+        },
+        // 不能使用 localhost:8080 作为请求 GitHub 的主机名
+        changeOrigin: true
+      }
+    }
+  },
+```
 
 ### 实现一个简易的 webpackserver
 
@@ -320,7 +365,7 @@ webpack 没有提供自带的工具，我们需要自己安装
 
 ### hrm 使用
 
-`webpack` 配置
+hrm 继承在在 webpack-dev-server 中
 
 ```
     devServer: {
@@ -333,9 +378,10 @@ webpack 没有提供自带的工具，我们需要自己安装
 	}
 ```
 
-当更新 js 文件时，可以在 js 文件中添加如下方法，实现某个模块的热替换
+当更新 js 文件时，Webpack 中的 hmr 需要手动处理模块热替换逻辑，可以在 js 文件中添加如下方法，实现某个模块的热替换
 
 ```
+    // 使用HMR API
     if (module.hot) {
         module.hot.accept('./print.js', function() {
             printMe();
@@ -344,6 +390,8 @@ webpack 没有提供自带的工具，我们需要自己安装
 ```
 
 当更新 css 文件时，`style-loader`帮我们自动完成了热替换；当它通过 HMR 接收到更新，它会使用新的样式替换旧的样式。
+
+通用脚手架创建的项目内部都继承了 HMR 方案。
 
 - [模块热替换(hot module replacement)](https://webpack.docschina.org/concepts/hot-module-replacement/)
 - [Hot Module Replacement API](https://webpack.docschina.org/api/hot-module-replacement/)
