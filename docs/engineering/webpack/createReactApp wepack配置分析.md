@@ -2,7 +2,7 @@
 
 `creactReactApp`是最流行的`React`脚手架工具,可以满足各种不同的需求项目的开发和打包， 通过阅读学习`creactReactApp`这种脚手架项目`webpack`配置，可以更多的了解到关于`webpack`的一些细节和深层次的东西，并且学会了如何配置大型项目的`wepbapck`。
 
-执行`npm run eject`之后目录生成`scripts`和`config`两个文件家，`scripts`文件夹包含`npm`命令文件，`config`文件夹则是`webpack`配置相关的文件。
+执行`npm run eject`之后目录生成`scripts`和`config`两个文件夹，`scripts`文件夹包含`npm`命令文件，`config`文件夹则是`webpack`配置相关的文件。
 
 `config`文件夹下包含以下文件和具体作用
 
@@ -103,13 +103,13 @@ webpack 开发模式`delvploment`和生产模式`production`很多配置是不�
 
 - common
   - strictExportPresence // 引入模块必须明确导出自己的内容
-- rules
-  - js|mjs|jsx|ts|tsx 先进行 eslint 语法检测
-  - /.bmp/, /\.gif/, /.jpe?g/, /\.png/ url-loader 解析
-  - js|mjs|jsx|ts|tsx babel-loader，cacheDirectory: true 开启缓存
-  - /.css\$/ style-loader MiniCssExtractPlugin css-loader postcss-loader
-  - /.module.css\$/ 开启 cssmodule
-  - 同时也支持 sass 和 sassmodule
+  - rules
+    - js|mjs|jsx|ts|tsx 先进行 eslint 语法检测
+    - /.bmp/, /\.gif/, /.jpe?g/, /\.png/ url-loader 解析
+    - js|mjs|jsx|ts|tsx babel-loader，cacheDirectory: true 开启缓存
+    - /.css\$/ style-loader MiniCssExtractPlugin css-loader postcss-loader
+    - /.module.css\$/ 开启 cssmodule
+    - 同时也支持 sass 和 sassmodule
 
 ### plugins
 
