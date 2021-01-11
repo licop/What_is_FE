@@ -2,7 +2,7 @@
 
 ## 什么是 webpack
 
-**核心定义:** webpack 是一个静态模块打包工具(module bundler)
+**核心定义:** webpack 是一个静态模块打包工具(module bundler),可以解决前端整体的模块化，并不单指 JavaScript 模块化。
 
 **模块 module:** 在模块化编程中，开发者将程序分解为功能离散的 chunk，并称之*模块*。
 
@@ -11,7 +11,8 @@
 - ES Module import 语句
 - commonJS `require()` 语句
 - AMD `define`和`require` 语句
-- stylesheet url(） 或者 HTML <img src=''> 文件中的图片链接
+- 样式代码 stylesheet url(）
+- HTML <img src=''> 文件中的图片链接
 - WebAssembly 模块
 
 ### 通过 _loader_ 支持的模块
@@ -25,6 +26,12 @@
 - Elm
 
 > 当使用 webpack 打包 ES6 模块时，webpack 可以识别`import`和`export`语法，但是注意，如果使用其他的 ES6+ 特性，仍然需要引入 babel。
+
+**核心工作原理**
+
+在我们的项目中会散落着各种各样的代码和资源文件，webpack 会根据配置找到文件作为打包入口，一般情况下都会是一个 javascript 文件，然后会找到代码中 import 和 require 之类的语句，解析推断出文件所依赖的资源模块，然后解析每个资源模块对应的依赖，最后形成整个项目所有用到文件之间的依赖树，webpack 会递归这个依赖树，然后找到每个节点所对应的资源文件，根据配置文件中的 rules 属性找到模块所对应的加载器，交给对应的加载器加载这个模块，最后会把加载到的结果放到 bundle.js 中，完成这个**打包**过程
+
+![](/engineering/webpack_bundle.png)
 
 ## webpack 安装
 
@@ -42,7 +49,7 @@ string = 'production': 'none' | 'development' | 'production'
 
 ### loader
 
-`webpack` 不能识别非 js 格式文件， 只能使用 `loader` 用于对模块的源代码进行转换。webpack 根据正则表达式，来确定应该查找哪些文件，并将其提供给指定的 `loader`。
+`loader`是 webpack 的核心特性,借助于 `loader` 就可以加载任何类型的资源 `webpack` 不能识别非 js 格式文件， 只能使用 `loader` 用于对模块的源代码进行转换。webpack 根据正则表达式，来确定应该查找哪些文件，并将其提供给指定的 `loader`。
 
 webpack 支持使用 `loader` 对文件进行预处理。你可以构建包括 JavaScript 在内的任何静态资源。并且可以使用 Node.js 轻松编写自己的 `loader`。
 
@@ -120,6 +127,8 @@ webpack 支持使用 `loader` 对文件进行预处理。你可以构建包括 J
     }
 ```
 
+![](/engineering/webpack_static.png)
+
 更多文件格式的参考 [loader](https://webpack.docschina.org/loaders/)
 
 ## plugins
@@ -177,7 +186,7 @@ module.exports = {
 
 ```
 
-`publicPath` 支持文件路径使用 cdn 地址
+`publicPath` 用于指定外部资源（如图片、文件等）的路径，支持文件路径使用 cdn 地址
 
 ## Devtool
 
