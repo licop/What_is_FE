@@ -467,7 +467,7 @@ var test = (ele) = {
   function addEvent(obj, type, fn) {
     if(obj.addEventListener) {
       obj.addEventListener(type, fn, false)
-    } else if() {
+    } else if(obj.attachEvent) {
       obj.attachEvent('on' + type, fn)
     } else {
       obj['on' + type] = fn;
@@ -477,7 +477,7 @@ var test = (ele) = {
   function addEvent(obj, type, fn) {
     if(obj.addEventListener) {
       addEvent = obj.addEventListener(type, fn, false)
-    } else if() {
+    } else if(obj.attachEvent) {
       addEvent = obj.attachEvent('on' + type, fn)
     } else {
       addEvent = obj['on' + type] = fn;

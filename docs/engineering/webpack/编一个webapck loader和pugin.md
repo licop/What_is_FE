@@ -26,7 +26,7 @@ webapck 的 loader 加载资源的过程有点类似于一个工作管道，可�
 
 ## plugin 编写
 
-`plugin` 通过钩子机制实现，webpack 工作过程中很多环节，便于 webpack 的扩展几乎给每个环节都埋下了一个钩子(hooks)，我们给每个节点挂载不同的任务，就可以通过`plugin`扩展 webpack 的能力。与 `loader` 是一个函数不同，`plugin` 是一个 `class` 类
+`plugin` 通过钩子机制实现，webpack 工作过程中很多环节，便于 webpack 的扩展几乎给每个环节都埋下了一个钩子(hooks)，我们给每个节点挂载不同的任务，就可以通过`plugin`扩展 webpack 的能力。与 `loader` 是一个函数不同，`plugin` 是一个带有 `apply` 方法的 `class` 类
 
 `Compiler` 模块是 `webpack` 的主要引擎，它通过 CLI 传递的所有选项， 或者 `Node API`，创建出一个 `compilation` 实例。 它扩展(extend)自 `Tapable` 类，用来注册和调用插件。 大多数面向用户的插件会首先在 `Compiler` 上注册。
 
