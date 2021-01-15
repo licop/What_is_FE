@@ -575,9 +575,9 @@ const personProxy = new Proxy(person, {
   set (target, property, value) {
     // target参数表示所要拦截的目标对象
     // property为监视的属性，当属性有设置操作会被监视
-    // value的值
+    // value的值为更改的值
     console.log(target, property, value)
-    // 监视age属性当不是ini数字类型是报错
+    // 监视age属性当不是int数字类型是报错
     if (property === 'age') {
       if (!Number.isInteger(value)) {
         throw new TypeError(`${value} is not an int`)
@@ -592,7 +592,7 @@ personProxy.age = 100
 personProxy.gender = true
 
 console.log(personProxy.age)  // 100
-console.log(personProxy.xxx)  // defaul
+console.log(personProxy.xxx)  // default
 console.log(person)  // { name: 'zce', age: 100, gender: true }
 ```
 
