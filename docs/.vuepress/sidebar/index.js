@@ -77,7 +77,9 @@ module.exports = {
         'React': [
             '关于react-hook'
         ],
-        'Vue': []
+        'Vue': [
+            'vue-router实现原理'
+        ]
     },
     // 开发流程
     '/development-process/': {

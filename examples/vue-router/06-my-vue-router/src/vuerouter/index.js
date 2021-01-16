@@ -27,10 +27,9 @@ export default class VueRouter {
     this.options = options
     this.routeMap = {}
     this.mode = options.mode || 'hash'
-    console.log(this.mode, 30)
     // 让一个对象可响应。Vue 内部会用它来处理 data 函数返回的对象。
     this.data = _Vue.observable({
-      current: '#/' // this.mode === 'history' ? this.getPathname() : this.getHash()
+      current: '/'
     })
     this.init()
   }
@@ -112,16 +111,6 @@ export default class VueRouter {
     })
   }
 
-  // 获取当前hash串
-  getHash () {
-    return window.location.hash.slice(1)
-  }
-
-  // 获取当前的pathname
-  getPathname () {
-    return window.location.pathname
-  }
-
   initEvent () {
     if (this.mode === 'hash') {
       window.addEventListener('load', () => {
@@ -129,22 +118,32 @@ export default class VueRouter {
         if (!window.location.hash) {
           window.location.hash = '/'
         }
-        this.data.current = this.getHash()
+        this.data.current = getHash()
       })
       // 监听hashchange事件
       window.addEventListener('hashchange', () => {
-        this.data.current = this.getHash()
+        this.data.current = getHash()
       })
     } else if (this.mode === 'history') {
       window.addEventListener('load', () => {
-        this.data.current = this.getPathname()
+        this.data.current = getPathname()
       })
       // 监听popstate事件，后退、前进事件改变路径
       window.addEventListener('popstate', () => {
-        this.data.current = this.getPathname()
+        this.data.current = getPathname()
       })
     }
   }
+}
+
+// 获取当前hash串
+function getHash () {
+  return window.location.hash.slice(1)
+}
+
+// 获取当前的pathname
+function getPathname () {
+  return window.location.pathname
 }
 
 function pushState (url, replace = false) {
