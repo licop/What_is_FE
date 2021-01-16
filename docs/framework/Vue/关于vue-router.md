@@ -60,3 +60,8 @@ location / {
   try_files $uri $uri/ /index.html;
 }
 ```
+
+## vue-router 源码实现
+
+`vue-router`是`Vue`的一个[插件](https://cn.vuejs.org/v2/guide/plugins.html)，通过全局方法`Vue.use( plugin )`来安装插件。
+根据`Vue`开发插件的方式和`vue-router`的功能需求, `vue-router`是需要一个类，而且有一个静态的`install`方法。
