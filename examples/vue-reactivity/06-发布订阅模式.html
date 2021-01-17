@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布订阅模式</title>
+</head>
+<body>
+  <script>
+    // 事件触发器
+    class EventEmitter {
+      constructor() {
+        // { eventType: [ handler1, handler2 ] }
+        this.subs = Object.create(null)
+      }
+      // 注册事件
+      $on(eventTpye, handler) {
+        this.subs[eventTpye] = this.subs[eventTpye] || [];
+        this.subs[eventTpye].push(handler)
+      }
+      // 触发事件
+      $emit() {
+        // 第一个参数是对应的 event 值，直接用数组的 shift 方法取出
+        let eventTpye = [].shift.call(arguments);
+        if(this.subs[eventTpye]) {
+          this.subs[eventTpye].forEach(handler => {
+            handler.apply(this, arguments)
+          })
+        }
+      }
+    }
+    
+    const em = new EventEmitter()
+
+    em.$on('click', () => {
+      console.log('click 1')
+    })
+    em.$on('click', (content) => {
+      console.log('click 2', content)
+    })
+    em.$emit('click', 'emit')
+  </script>
+</body>
+</html>

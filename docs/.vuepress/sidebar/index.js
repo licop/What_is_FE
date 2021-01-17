@@ -78,7 +78,8 @@ module.exports = {
             '关于react-hook'
         ],
         'Vue': [
-            'vue-router实现原理'
+            'vue-router实现原理',
+            'vue数据响应式原理'
         ]
     },
     // 开发流程
