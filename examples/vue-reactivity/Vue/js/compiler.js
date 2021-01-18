@@ -64,6 +64,10 @@ class Compiler {
   // 处理v-html指令
   htmlUpdater = (node, key) => {
     node.innerHTML = this.vm[key]
+    
+    new Watcher(this.vm, key, () => {
+      node.innerHTML = this.vm[key]
+    })
   }
   
   // 处理v-on指令
@@ -88,7 +92,7 @@ class Compiler {
       } else {
         args = []
       }
-      node.addEventListener(event, () => { this.vm.$options.methods && this.vm.$options.methods[fnKey](...args) });
+      node.addEventListener(event, () => { this.vm.$methods && this.vm.$methods[fnKey](...args) });
     }
   }
 

@@ -2,7 +2,7 @@ class Observer {
   constructor (data) {
     this.walk(data)
   }
-
+  
   walk (data) {
     // 判断data是否是对象
     if(!data || typeof data !== 'object') {
@@ -26,7 +26,7 @@ class Observer {
       configurable: true,
       // 如果返回obj[key]会造成死递归，因为每次访问obj[key]都会调用get方法，造成堆栈溢出
       get () {
-        // 收集依赖
+        // 收集依赖，Dep.target为Watcher实例
         Dep.target && dep.addSub(Dep.target)
         return val
       },
@@ -37,7 +37,7 @@ class Observer {
         val = newValue
         // 如果属性被赋予新的值是对象，newValue内部属性转化为响应式
         that.walk(newValue)
-        // 发送通知
+        // 向Watcher实例发送通知，更新update()
         dep.notify()
       }
     })

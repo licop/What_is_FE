@@ -17,7 +17,8 @@
     <input type="text" v-model="msg">
     <input type="text" v-model="count">
     <p v-html="html"></p>
-    <button v-on:click="print(count, 10, 'licop')">点击</button>
+    <button v-on:click="changeColor()">点击改变color</button>
+    <button v-on:click="print(count, 10, 'licop')">点击打印count</button>
   </div>
   <script src="./js/dep.js"></script>
   <script src="./js/watcher.js"></script>
@@ -39,12 +40,19 @@
       methods: {
         print(count, num, str) {
           console.log(count, num, str)
+          console.log(this.msg)
+        },
+        changeColor: function () {
+          this.html = '<span style="color: blue">blue</span>'
         }
       }
     })
-    // vm.msg = {
-    //   test: true
-    // }
+    vm.msg = {
+      test: {
+        try: 'try'
+      }
+    }
+    vm.person.age = 16
     console.log(vm.msg, 31)
   </script>
 </body>

@@ -1,3 +1,4 @@
+// 收集依赖发送消息
 class Dep {
   constructor () {
     // 存储所有的观察者

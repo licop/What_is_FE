@@ -1,3 +1,4 @@
+// 页面中所有依赖数据的地方都需要创建一个Watcher对象负责更新视图
 class Watcher {
   constructor (vm, key, cb) {
     this.vm = vm
