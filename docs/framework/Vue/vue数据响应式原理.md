@@ -14,21 +14,21 @@ Vue.js 一个核心思想是**数据驱动**。所谓数据驱动，是指视图
 
 代码模拟
 
-```
+```js
 // 模拟 Vue 中的 data 选项
 let data = {
-  msg: 'hello',
-  count: 10
-}
+  msg: "hello",
+  count: 10,
+};
 
 // 模拟 Vue 的实例
-let vm = {}
+let vm = {};
 
-proxyData(data)
+proxyData(data);
 
 function proxyData(data) {
   // 遍历 data 对象的所有属性
-  Object.keys(data).forEach(key => {
+  Object.keys(data).forEach((key) => {
     // 数据劫持：当访问或者设置 vm 中的成员的时候，做一些干预操作
     // 把 data 中的属性，转换成 vm 的 setter/setter
     Object.defineProperty(vm, key, {
@@ -37,64 +37,64 @@ function proxyData(data) {
       // 可配置（可以使用 delete 删除，可以通过 defineProperty 重新定义）
       configurable: true,
       // 当获取值的时候执行
-      get () {
-        console.log('get: ', key, data[key])
-        return data[key]
+      get() {
+        console.log("get: ", key, data[key]);
+        return data[key];
       },
       // 当设置值的时候执行
-      set (newValue) {
-        console.log('set: ', key, newValue)
+      set(newValue) {
+        console.log("set: ", key, newValue);
         if (newValue === data[key]) {
-          return
+          return;
         }
-        data[key] = newValue
+        data[key] = newValue;
         // 数据更改，更新 DOM 的值
-        document.querySelector('#app').textContent = data[key]
-      }
-    })
-  })
+        document.querySelector("#app").textContent = data[key];
+      },
+    });
+  });
 }
 
 // 测试
-vm.msg = 'Hello World'
-vm.count = '9'
-console.log(vm.msg)  // 'Hello World'
-console.log(data.msg) // 'Hello World'
+vm.msg = "Hello World";
+vm.count = "9";
+console.log(vm.msg); // 'Hello World'
+console.log(data.msg); // 'Hello World'
 ```
 
 在 vue3.0 中则使用`proxy`代替`Object.defineProperty`进行数据劫持，直接监听对象，而非属性，所以不用遍历对象。`proxy`是 ES 6 中新增的特性，性能由浏览器优化，所以比`Object.defineProperty`更快一点。更多关于`proxy`的介绍参考[Proxy](https://what-is-fe.licop.cn/syntax&API/ES%E8%AF%AD%E6%B3%95/ECMAScript%202015%20%E8%AF%AD%E6%B3%95.html#proxy)
 
 代码模拟
 
-```
+```js
 // 模拟 Vue 中的 data 选项
 let data = {
-  msg: 'hello',
-  count: 0
-}
+  msg: "hello",
+  count: 0,
+};
 
 // 模拟 Vue 实例
 let vm = new Proxy(data, {
   // 执行代理行为的函数
   // 当访问 vm 的成员会执行
-  get (target, key) {
-    console.log('get, key: ', key, target[key])
-    return target[key]
+  get(target, key) {
+    console.log("get, key: ", key, target[key]);
+    return target[key];
   },
   // 当设置 vm 的成员会执行
-  set (target, key, newValue) {
-    console.log('set, key: ', key, newValue)
+  set(target, key, newValue) {
+    console.log("set, key: ", key, newValue);
     if (target[key] === newValue) {
-      return
+      return;
     }
-    target[key] = newValue
-    document.querySelector('#app').textContent = target[key]
-  }
-})
+    target[key] = newValue;
+    document.querySelector("#app").textContent = target[key];
+  },
+});
 
 // 测试
-vm.msg = 'Hello World'
-console.log(vm.msg)
+vm.msg = "Hello World";
+console.log(vm.msg);
 ```
 
 ## 发布订阅模式和观察者模式
@@ -105,7 +105,7 @@ console.log(vm.msg)
 
 vue 中的兄弟组件通信过程就是发布订阅模式, B 组件向消息中心**订阅**了`add-todo`信号，并注册了执行函数`this.addTodo`,然后在 A 组件中**发布**`add-todo`信号，并传递了参数，B 组件通过事件中心`eventHub`接收到信号，然后开始执行`this.addTodo`接受 A 组件传递过来的参数，完成组件件的通信。
 
-```
+```js
 // eventBus.js
 // 事件中心
 let eventHub = new Vue()
@@ -128,39 +128,39 @@ created: function () {
 
 代码实现事件中心，实现发布订阅机制
 
-```
+```js
 // 事件触发器
 class EventEmitter {
   constructor() {
     // { eventType: [ handler1, handler2 ] }
-    this.subs = Object.create(null)
+    this.subs = Object.create(null);
   }
   // 注册事件
   $on(eventTpye, handler) {
     this.subs[eventTpye] = this.subs[eventTpye] || [];
-    this.subs[eventTpye].push(handler)
+    this.subs[eventTpye].push(handler);
   }
   // 触发事件
   $emit() {
     // 第一个参数是对应的 event 值，直接用数组的 shift 方法取出
     let eventTpye = [].shift.call(arguments);
-    if(this.subs[eventTpye]) {
-      this.subs[eventTpye].forEach(handler => {
-        handler.apply(this, arguments)
-      })
+    if (this.subs[eventTpye]) {
+      this.subs[eventTpye].forEach((handler) => {
+        handler.apply(this, arguments);
+      });
     }
   }
 }
 
-const em = new EventEmitter()
+const em = new EventEmitter();
 
-em.$on('click', () => {
-  console.log('click 1')
-})
-em.$on('click', (content) => {
-  console.log('click 2', content)
-})
-em.$emit('click', 'emit')
+em.$on("click", () => {
+  console.log("click 1");
+});
+em.$on("click", (content) => {
+  console.log("click 2", content);
+});
+em.$emit("click", "emit");
 ```
 
 **什么是观察者模式？**
@@ -179,46 +179,46 @@ em.$emit('click', 'emit')
   - addSub():添加观察者
   - notify():当事件发生，调用所有观察者的 update() 方法
 
-```
- // 发布者-目标
+```js
+// 发布者-目标
 class Dep {
-  constructor () {
+  constructor() {
     // 记录所有的订阅者
-    this.subs = []
+    this.subs = [];
   }
   // 添加订阅者
-  addSub (sub) {
+  addSub(sub) {
     if (sub && sub.update) {
-      this.subs.push(sub)
+      this.subs.push(sub);
     }
   }
   // 发布通知
-  notify () {
-    this.subs.forEach(sub => {
-      sub.update()
-    })
+  notify() {
+    this.subs.forEach((sub) => {
+      sub.update();
+    });
   }
 }
 // 订阅者-观察者
 class Watcher1 {
-  update () {
-    console.log('Watcher1')
+  update() {
+    console.log("Watcher1");
   }
 }
 class Watcher2 {
-  update () {
-    console.log('Watcher2')
+  update() {
+    console.log("Watcher2");
   }
 }
 
 // 测试
-let dep = new Dep()
-let watcher1 = new Watcher1()
-let watcher2 = new Watcher2()
-dep.addSub(watcher1)
-dep.addSub(watcher2)
+let dep = new Dep();
+let watcher1 = new Watcher1();
+let watcher2 = new Watcher2();
+dep.addSub(watcher1);
+dep.addSub(watcher2);
 
-dep.notify()
+dep.notify();
 ```
 
 **发布订阅和观察者模式之间的区别**
@@ -236,52 +236,52 @@ dep.notify()
 
 - Vue 支持`el`，`data`，`methods`选项
 - `data`数据变成响应式, 改变数据，视图也随之改变
-- 模板编译**差值表达式**
+- 模板编译**插值表达式**
 - 实现`v-text`,`v-modal`,`v-on`和`v-html`指令
 - `v-modal`实现双向绑定语法糖，改变视图，数据也会随之改变
 - `methods`中的方法绑定`this`指向 Vue 实例
 
-```
+```html
 <div id="app">
-  <h1>差值表达式</h1>
+  <h1>插值表达式</h1>
   <h3>{{ msg }}</h3>
   <h3>{{ count }}</h3>
   <h1>v-text</h1>
   <div v-text="msg"></div>
   <h1>v-model</h1>
-  <input type="text" v-model="msg">
-  <input type="text" v-model="count">
+  <input type="text" v-model="msg" />
+  <input type="text" v-model="count" />
   <p v-html="html"></p>
   <button v-on:click="changeColor()">点击改变color</button>
   <button v-on:click="print(count, 10, 'licop')">点击打印count</button>
 </div>
 <script>
   let vm = new Vue({
-    el: '#app',
+    el: "#app",
     data: {
-      msg: 'Hello Vue',
+      msg: "Hello Vue",
       count: 20,
       person: {
-        name: 'licop'
+        name: "licop",
       },
       html: '<span style="color: red">red</span>',
-      items: ['a', 'b', 'c']
+      items: ["a", "b", "c"],
     },
     methods: {
       print(count, num, str) {
-        console.log(count, num, str)
-        console.log(this.msg)
+        console.log(count, num, str);
+        console.log(this.msg);
       },
-      changeColor: function () {
-        this.html = '<span style="color: blue">blue</span>'
-      }
-    }
-  })
+      changeColor: function() {
+        this.html = '<span style="color: blue">blue</span>';
+      },
+    },
+  });
+
   // vm.msg = {
   //   test: 'try'
   // }
 </script>
-
 ```
 
 ### 整体结构
@@ -313,51 +313,53 @@ Vue 响应式是通过**数据拦截**和**观察者模式**实现的，外加**
 
 **代码**
 
-```
+```js
 class Vue {
-  constructor (options) {
+  constructor(options) {
     // 通过属性保存选项中的数据
     this.$options = options || {};
     this.$data = options.data || {};
-    this.$methods= options.methods || {};
-    this.$el = typeof options.el === 'string' ? document.querySelector(options.el) : options.el
+    this.$methods = options.methods || {};
+    this.$el =
+      typeof options.el === "string"
+        ? document.querySelector(options.el)
+        : options.el;
 
     // 把data中的成员转换成getter和setter，注入到vue实例中
-    this._proxyData(this.$data)
+    this._proxyData(this.$data);
     // 将methods里的方法this绑定到Vue实例，使其能够获取Vue的属性和方法
-    this._bindMethods(options.methods)
+    this._bindMethods(options.methods);
     // 调用observer对象，使用getter和setter监听数据读取和变更
-    new Observer(this.$data)
-    // 调用compiler对象，解析指令和差值表达式
-    new Compiler(this)
+    new Observer(this.$data);
+    // 调用compiler对象，解析指令和插值表达式
+    new Compiler(this);
   }
 
-  _proxyData (data) {
+  _proxyData(data) {
     // 遍历data中的所有属性
-    Object.keys(data).forEach(key => {
+    Object.keys(data).forEach((key) => {
       Object.defineProperty(this, key, {
         enumerable: true,
         configurable: true,
-        get () {
-          return data[key]
+        get() {
+          return data[key];
         },
-        set (newValue) {
-          if(newValue === data[key]) {
-            return
+        set(newValue) {
+          if (newValue === data[key]) {
+            return;
           }
-          data[key] = newValue
-        }
-      })
-    })
+          data[key] = newValue;
+        },
+      });
+    });
   }
 
-  _bindMethods (methods) {
-    Object.keys(methods).forEach(key => {
-      this.$methods[key] = methods[key].bind(this)
-    })
+  _bindMethods(methods) {
+    Object.keys(methods).forEach((key) => {
+      this.$methods[key] = methods[key].bind(this);
+    });
   }
 }
-
 ```
 
 ### Observer
@@ -378,50 +380,50 @@ class Vue {
 
 **代码**
 
-```
+```js
 class Observer {
-  constructor (data) {
-    this.walk(data)
+  constructor(data) {
+    this.walk(data);
   }
 
-  walk (data) {
+  walk(data) {
     // 判断data是否是对象
-    if(!data || typeof data !== 'object') {
-      return
+    if (!data || typeof data !== "object") {
+      return;
     }
     // 遍历data对象所有属性
-    Object.keys(data).forEach(key => {
-      this.defineReactive(data, key, data[key])
-    })
+    Object.keys(data).forEach((key) => {
+      this.defineReactive(data, key, data[key]);
+    });
   }
 
-  defineReactive (obj, key, val) {
-    let that = this
+  defineReactive(obj, key, val) {
+    let that = this;
     // dep负责收集依赖，并发送通知
-    let dep = new Dep()
+    let dep = new Dep();
     // 如果val是对象，把val内部的属性转化为响应式数据
-    this.walk(val)
+    this.walk(val);
 
     Object.defineProperty(obj, key, {
       enumerable: true,
       configurable: true,
       // 如果返回obj[key]会造成死递归，因为每次访问obj[key]都会调用get方法，造成堆栈溢出
-      get () {
+      get() {
         // 收集依赖，Dep.target为Watcher实例
-        Dep.target && dep.addSub(Dep.target)
-        return val
+        Dep.target && dep.addSub(Dep.target);
+        return val;
       },
-      set (newValue) {
-        if(newValue === val) {
-          return
+      set(newValue) {
+        if (newValue === val) {
+          return;
         }
-        val = newValue
+        val = newValue;
         // 如果属性被赋予新的值是对象，newValue内部属性转化为响应式
-        that.walk(newValue)
+        that.walk(newValue);
         // 向Watcher实例发送通知，更新update()
-        dep.notify()
-      }
-    })
+        dep.notify();
+      },
+    });
   }
 }
 ```
@@ -432,132 +434,134 @@ class Observer {
 - 负责页面的首次渲染
 - 在数据变化，视图需要改变的地方，添加 `Wathcher` 实例，当数据变化后执行回调函数，重新渲染视图
 
-```
+```js
 class Compiler {
-  constructor (vm) {
-    this.el = vm.$el
-    this.vm = vm
-    this.compile(this.el)
+  constructor(vm) {
+    this.el = vm.$el;
+    this.vm = vm;
+    this.compile(this.el);
   }
   // 编译模板，处理本文节点和元素节点
-  compile (el) {
+  compile(el) {
     let childNodes = el.childNodes;
     // 伪数组变成数组
-    Array.from(childNodes).forEach(node => {
-      if(this.isTextNode(node)) {
-        this.compileText(node)
-      } else if(this.isElementNode(node)) {
-        this.compileElement(node)
+    Array.from(childNodes).forEach((node) => {
+      if (this.isTextNode(node)) {
+        this.compileText(node);
+      } else if (this.isElementNode(node)) {
+        this.compileElement(node);
       }
       // 判断node是否有子节点，如果有递归调用compiler
-      if(node.childNodes && node.childNodes.length !== 0) {
-        this.compile(node)
+      if (node.childNodes && node.childNodes.length !== 0) {
+        this.compile(node);
       }
-    })
+    });
   }
   // 编译元素节点，处理指令
-  compileElement (node) {
+  compileElement(node) {
     // 遍历所有的属性节点，判断是否是指令
-    Array.from(node.attributes).forEach(attr => {
+    Array.from(node.attributes).forEach((attr) => {
       // 判断是否是指令
-      let attrName = attr.name
-      if(this.isDirective(attrName)) {
+      let attrName = attr.name;
+      if (this.isDirective(attrName)) {
         // v-text --> text
-        attrName = attrName.substr(2)
-        let key = attr.value
-        this.update(node, key, attrName)
+        attrName = attrName.substr(2);
+        let key = attr.value;
+        this.update(node, key, attrName);
       }
-    })
+    });
   }
 
-  update (node, key, attrName) {
-    let updateFn = this[attrName.split(':')[0] + 'Updater']
-    updateFn && updateFn(node, key, attrName)
+  update(node, key, attrName) {
+    let updateFn = this[attrName.split(":")[0] + "Updater"];
+    updateFn && updateFn(node, key, attrName);
   }
 
   // 处理v-text指令
   textUpdater = (node, key) => {
-    node.textContent = this.vm[key]
+    node.textContent = this.vm[key];
     new Watcher(this.vm, key, () => {
-      node.textContent = this.vm[key]
-    })
-  }
+      node.textContent = this.vm[key];
+    });
+  };
 
   // 处理v-model指令
   modelUpdater = (node, key) => {
-    node.value = this.vm[key]
+    node.value = this.vm[key];
     new Watcher(this.vm, key, () => {
-      node.value = this.vm[key]
-    })
+      node.value = this.vm[key];
+    });
 
     // 双向绑定, 语法糖
-    node.addEventListener('input', () => {
-      this.vm[key] = node.value
-    })
-  }
+    node.addEventListener("input", () => {
+      this.vm[key] = node.value;
+    });
+  };
 
   // 处理v-html指令
   htmlUpdater = (node, key) => {
-    node.innerHTML = this.vm[key]
+    node.innerHTML = this.vm[key];
 
     new Watcher(this.vm, key, () => {
-      node.innerHTML = this.vm[key]
-    })
-  }
+      node.innerHTML = this.vm[key];
+    });
+  };
 
   // 处理v-on指令
   onUpdater = (node, key, attrName) => {
-    const event = attrName.split(':')[1]
+    const event = attrName.split(":")[1];
     // 匹配函数名和参数
-    const reg = /(.+?)\((.+?|\s?)\)/
-    if(reg.test(key)) {
-      let fnKey = RegExp.$1.trim()
-      let args = RegExp.$2.trim()
-      if(args) {
-        args = args.split(',').map(arg => {
-          let _arg = arg.replace(/\s+/, '')
-           // todo 这里只实现了参数是数字，字符串和data里属性的情形
-          if(_arg.startsWith('"') ||  _arg.startsWith("'")) {
-            return _arg.slice(1, _arg.length - 1)
-          } else if(Number(_arg)) {
-              return Number(_arg)
+    const reg = /(.+?)\((.+?|\s?)\)/;
+    if (reg.test(key)) {
+      let fnKey = RegExp.$1.trim();
+      let args = RegExp.$2.trim();
+      if (args) {
+        args = args.split(",").map((arg) => {
+          let _arg = arg.replace(/\s+/, "");
+          // todo 这里只实现了参数是数字，字符串和data里属性的情形
+          if (_arg.startsWith('"') || _arg.startsWith("'")) {
+            return _arg.slice(1, _arg.length - 1);
+          } else if (Number(_arg)) {
+            return Number(_arg);
           }
-          return this.vm.$data[_arg]
-        })
+          return this.vm.$data[_arg];
+        });
       } else {
-        args = []
+        args = [];
       }
-      node.addEventListener(event, () => { this.vm.$methods && this.vm.$methods[fnKey](...args) });
+      node.addEventListener(event, () => {
+        this.vm.$methods && this.vm.$methods[fnKey](...args);
+      });
     }
-  }
+  };
 
-  // 编译文本节点，处理差值表达式 {{ msg }}
-  compileText (node) {
-    let reg = /\{\{(.+?)\}\}/
-    let value = node.textContent
+  // 编译文本节点，处理插值表达式 {{ msg }}
+  compileText(node) {
+    let reg = /\{\{(.+?)\}\}/;
+    let value = node.textContent;
     if (reg.test(value)) {
       // 将花括号里的值提取出来,正则表达式里使用小括号包裹
-      let key = RegExp.$1.trim()
-      node.textContent = value.replace(reg, this.vm[key])
+      let key = RegExp.$1.trim();
+      node.textContent = value.replace(reg, this.vm[key]);
 
       // 创建watcher对象，当数据改变更新视图
       new Watcher(this.vm, key, (newValue) => {
         console.log(key, newValue);
-        node.textContent = newValue
-      })
+        node.textContent = newValue;
+      });
     }
   }
   // 判断元素属性是否是执行
-  isDirective (attrName) {
-    return attrName.startsWith('v-')
+  isDirective(attrName) {
+    return attrName.startsWith("v-");
   }
   // 判断节点是否是本文节点
-  isTextNode (node) {
-    return node.nodeType === 3
+  isTextNode(node) {
+    return node.nodeType === 3;
   }
   // 判断节点是否是元素节点
-  isElementNode (node) {
-    return node.nodeType === 1
+  isElementNode(node) {
+    return node.nodeType === 1;
   }
 }
 ```
@@ -572,24 +576,23 @@ class Compiler {
 
 **代码**
 
-```
+```js
 class Dep {
-  constructor () {
+  constructor() {
     // 存储所有的观察者
-    this.subs = []
-
+    this.subs = [];
   }
   // 添加观察者
-  addSub (sub) {
+  addSub(sub) {
     if (sub && sub.update) {
-      this.subs.push(sub)
+      this.subs.push(sub);
     }
   }
   // 发送通知
-  notify () {
-    this.subs.forEach(sub => {
-      sub.update()
-    })
+  notify() {
+    this.subs.forEach((sub) => {
+      sub.update();
+    });
   }
 }
 ```
@@ -603,31 +606,31 @@ class Dep {
 - 当数据变化触发依赖， `dep`通知所有的 `Watcher` 实例更新视图
 - `Watcher`必须拥有一个`update`方法，当值发生变化的时候触发回调函数
 
-```
+```js
 class Watcher {
-  constructor (vm, key, cb) {
-    this.vm = vm
+  constructor(vm, key, cb) {
+    this.vm = vm;
     // data中的属性名称
-    this.key = key
+    this.key = key;
     // 回调函数负责更新视图
-    this.cb = cb
+    this.cb = cb;
 
     // 把watcher对象记录到Dep类的静态属性target中 ?为何添加到Dep中，添加到Watcher也可工作
     Dep.target = this;
     // 触发get方法，在get方法中调用addSub
-    this.oldValue = vm[key]
+    this.oldValue = vm[key];
 
     Dep.target = null;
   }
 
   // 当数据发生变化的时候更新视图
-  update () {
-    let newValue = this.vm[this.key]
+  update() {
+    let newValue = this.vm[this.key];
     if (this.oldValue === newValue) {
-      return
+      return;
     }
     // 更新视图
-    this.cb(newValue)
+    this.cb(newValue);
   }
 }
 ```

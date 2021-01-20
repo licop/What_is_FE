@@ -20,23 +20,22 @@
 
 在 `package.json` 里使用它
 
-```
-  {
-    "scripts": {
-        "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.js"
-    }
+```json
+{
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.js"
   }
+}
 ```
 
 传递 JSON 字符串（例如，使用`ts-loader`时）
 
-```
-  {
-    "scripts": {
-        "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} node some_file.test.ts"
-    }
+```json
+{
+  "scripts": {
+    "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} node some_file.test.ts"
   }
-
+}
 ```
 
 要特别注意三倍反斜线(\\\)之前的 双引号(")和缺少的单引号(')。为了同时在 `Windows` 和 `UNIX`上运行，必须同时满足这两个条件。

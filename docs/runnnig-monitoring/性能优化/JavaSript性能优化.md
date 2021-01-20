@@ -5,13 +5,13 @@
 - **内存**: 有可读写的单元组成，表示一片可操作的空间
 - **内存管理**： 开发者主动申请空间，使用空间，释放空间
 
-```
-  // 申请
-  let obj = {}
-  // 使用
-  obj.name = 'lg'
-  // 释放
-  obj = null
+```js
+// 申请
+let obj = {};
+// 使用
+obj.name = "lg";
+// 释放
+obj = null;
 ```
 
 ## Javacript 垃圾回收
@@ -29,19 +29,19 @@ JavaScript 中**内存管理**是自动的，而且是不可见的。我们创�
 - 可达的标准就是从**跟**上出发是否能够被找到
 - JavaScript 中的**根**就可以理解为是**全局变量对象**
 
-```
+```js
 function objGroup(obj1, obj2) {
-    obj1.next = obj2
-    obj2.prev = obj1
+  obj1.next = obj2;
+  obj2.prev = obj1;
 
-    return {
-        o1: obj1,
-        o2: obj2
-    }
+  return {
+    o1: obj1,
+    o2: obj2,
+  };
 }
 
-let obj = objGroup({name: 'obj1'}, {name: 'obj2'})
-console.log(obj)
+let obj = objGroup({ name: "obj1" }, { name: "obj2" });
+console.log(obj);
 ```
 
 使用图示对上面代码进行说明，obj1 和 obj2 进行相互的引用，目前所有对象都是可达对象。
@@ -79,28 +79,27 @@ GC 就是**垃圾回收机制**的简写，GC 可以找到内存中的垃圾、�
 
 **示例**
 
-```
+```js
 var o = {
   a: {
-    b:2
-  }
+    b: 2,
+  },
 };
 // 两个对象被创建，一个作为另一个的属性被引用，另一个被分配给变量o
 // 很显然，没有一个可以被垃圾收集
 
-
 var o2 = o; // o2变量是第二个对“这个对象”的引用
 
-o = 1;      // 现在，“这个对象”只有一个o2变量的引用了，“这个对象”的原始引用o已经没有
+o = 1; // 现在，“这个对象”只有一个o2变量的引用了，“这个对象”的原始引用o已经没有
 
 var oa = o2.a; // 引用“这个对象”的a属性
-               // 现在，“这个对象”有两个引用了，一个是o2，一个是oa
+// 现在，“这个对象”有两个引用了，一个是o2，一个是oa
 
 o2 = "yo"; // 虽然最初的对象现在已经是零引用了，可以被垃圾回收了
-           // 但是它的属性a的对象还在被oa引用，所以还不能回收
+// 但是它的属性a的对象还在被oa引用，所以还不能回收
 
 oa = null; // a属性的那个对象现在也是零引用了
-           // 它可以被垃圾回收了
+// 它可以被垃圾回收了
 ```
 
 **优点**
@@ -236,17 +235,17 @@ v8 内部内存被分为两个区域，左侧存储老生代对象，右侧存�
 
 以下代码 tmpEle 为**分离 DOM**
 
-```
-  var tmpEle;
-  function fn() {
-    var ul = document.createElement('ul');
-    for(var i = 0; i < 10; i++) {
-      var li = document.createElement('li');
-      ul.appendChild(li)
+```js
+var tmpEle;
+function fn() {
+  var ul = document.createElement("ul");
+  for (var i = 0; i < 10; i++) {
+    var li = document.createElement("li");
+    ul.appendChild(li);
 
-      tmpEle = ul;
-    }
+    tmpEle = ul;
   }
+}
 ```
 
 使用开发者工具 内存， 勾选堆快照
@@ -281,20 +280,20 @@ v8 内部内存被分为两个区域，左侧存储老生代对象，右侧存�
 - 外部具有指向内部的引用
 - 在外部作用域访问内部作用域的数据
 
-```
-  // 此时的a引用了内部的fn
-  // a在调用时外部作用域访问了内部的a
-  // 发生了闭包
-  function foo() {
-    let name = 'licop';
+```js
+// 此时的a引用了内部的fn
+// a在调用时外部作用域访问了内部的a
+// 发生了闭包
+function foo() {
+  let name = "licop";
 
-    return function fn() {
-      console.log(name)
-    }
-  }
+  return function fn() {
+    console.log(name);
+  };
+}
 
-  var a = foo()
-  a();
+var a = foo();
+a();
 ```
 
 闭包是一个强大的语法，闭包使用不当很容易造成出现内存泄露，不要为了闭包而闭包。
@@ -307,36 +306,36 @@ v8 内部内存被分为两个区域，左侧存储老生代对象，右侧存�
 
 **对数组的长度进行提前保存, 减少循环体中的活动**
 
-```
-  for(var i = 0; i < arr.length; i++) {
-    console.log(i)
-  }
+```js
+for (var i = 0; i < arr.length; i++) {
+  console.log(i);
+}
 
-  // 更优
-  let let =  arr.length
-  for(var i = 0; i < len; i++) {
-    console.log(i)
-  }
+// 更优
+let let = arr.length;
+for (var i = 0; i < len; i++) {
+  console.log(i);
+}
 ```
 
 **对比遍历方式**
 
-```
-var arrList = new Array(1, 2, 3, 4, 5)
+```js
+var arrList = new Array(1, 2, 3, 4, 5);
 
 // 最快
 arrList.forEach(function(item) {
-  console.log(item)
-})
+  console.log(item);
+});
 
 // 相对较慢
 for (var i = arrList.length; i; i--) {
-  console.log(arrList[i])
+  console.log(arrList[i]);
 }
 
 // 很快
 for (var i in arrList) {
-  console.log(arrList[i])
+  console.log(arrList[i]);
 }
 ```
 
@@ -344,52 +343,52 @@ for (var i in arrList) {
 
 通过文档碎片优化节点添加
 
-```
+```js
 for (var i = 0; i < 10; i++) {
-  var oP = document.createElement('p')
-  oP.innerHTML = i
-  document.body.appendChild(oP)
+  var oP = document.createElement("p");
+  oP.innerHTML = i;
+  document.body.appendChild(oP);
 }
 
 // 相对较快
-const fragEle = document.createDocumentFragment()
+const fragEle = document.createDocumentFragment();
 for (var i = 0; i < 10; i++) {
-  var oP = document.createElement('p')
-  oP.innerHTML = i
-  fragEle.appendChild(oP)
+  var oP = document.createElement("p");
+  oP.innerHTML = i;
+  fragEle.appendChild(oP);
 }
 
-document.body.appendChild(fragEle)
+document.body.appendChild(fragEle);
 ```
 
 通过克隆节点优化节点操作
 
-```
+```js
 for (var i = 0; i < 3; i++) {
-  var oP = document.createElement('p')
-  oP.innerHTML = i
-  document.body.appendChild(oP)
+  var oP = document.createElement("p");
+  oP.innerHTML = i;
+  document.body.appendChild(oP);
 }
 // 相对较快
-var oldP = document.getElementById('box1')
+var oldP = document.getElementById("box1");
 for (var i = 0; i < 3; i++) {
-  var newP = oldP.cloneNode(false)
-  newP.innerHTML = i
-  document.body.appendChild(newP)
+  var newP = oldP.cloneNode(false);
+  newP.innerHTML = i;
+  document.body.appendChild(newP);
 }
 ```
 
 ### 直接量替换 new object 构造式
 
-```
+```js
 // 较快
-var a = [1, 2, 3]
+var a = [1, 2, 3];
 
 // 较慢
-var a1 = new Array(3)
-a1[0] = 1
-a1[1] = 2
-a1[2] = 3
+var a1 = new Array(3);
+a1[0] = 1;
+a1[1] = 2;
+a1[2] = 3;
 ```
 
 ### 减少判断层级
@@ -398,56 +397,56 @@ a1[2] = 3
 
 ### 减少作用链查找层级
 
-```
-var name = 'licop';
-function  foo() {
-    name = 'licop1' // 这里的name属于全局的
+```js
+var name = "licop";
+function foo() {
+  name = "licop1"; // 这里的name属于全局的
 
-    function baz() {
-        let age = 18;
-        console.log(name, age)
-    }
-    baz()
+  function baz() {
+    let age = 18;
+    console.log(name, age);
+  }
+  baz();
 }
-foo()
+foo();
 
 // 更优
-var name = 'licop';
-function  foo() {
-    let name = 'licop1'
+var name = "licop";
+function foo() {
+  let name = "licop1";
 
-    function baz() {
-        let age = 18;
-        console.log(name, age)
-    }
-    baz()
+  function baz() {
+    let age = 18;
+    console.log(name, age);
+  }
+  baz();
 }
-foo()
+foo();
 ```
 
 ### 减少数据读取次数
 
 把频繁使用的值提前缓存变量，使用空间换时间
 
-```
-var oBox = document.getElementById('skip');
+```js
+var oBox = document.getElementById("skip");
 function hasEle(ele, cls) {
-  return ele.className === cls
+  return ele.className === cls;
 }
-hasEle(oBox, 'skip')
+hasEle(oBox, "skip");
 
 // 更优
-var oBox = document.getElementById('skip');
+var oBox = document.getElementById("skip");
 function hasEle(ele, cls) {
-  var clsName = ele.className
-  return clsName === cls
+  var clsName = ele.className;
+  return clsName === cls;
 }
-hasEle(oBox, 'skip')
+hasEle(oBox, "skip");
 ```
 
 ### 减少声明及语句数
 
-```
+```js
 var test = (ele) = {
   let w = ele.offsetWidth;
   let h = ele.offsetHeight;
@@ -463,29 +462,29 @@ var test = (ele) = {
 
 ### 惰性函数与性能
 
-```
-  function addEvent(obj, type, fn) {
-    if(obj.addEventListener) {
-      obj.addEventListener(type, fn, false)
-    } else if(obj.attachEvent) {
-      obj.attachEvent('on' + type, fn)
-    } else {
-      obj['on' + type] = fn;
-    }
+```js
+function addEvent(obj, type, fn) {
+  if (obj.addEventListener) {
+    obj.addEventListener(type, fn, false);
+  } else if (obj.attachEvent) {
+    obj.attachEvent("on" + type, fn);
+  } else {
+    obj["on" + type] = fn;
   }
-  // 更优
-  function addEvent(obj, type, fn) {
-    if(obj.addEventListener) {
-      addEvent = obj.addEventListener(type, fn, false)
-    } else if(obj.attachEvent) {
-      addEvent = obj.attachEvent('on' + type, fn)
-    } else {
-      addEvent = obj['on' + type] = fn;
-    }
-    return addEvent;
+}
+// 更优
+function addEvent(obj, type, fn) {
+  if (obj.addEventListener) {
+    addEvent = obj.addEventListener(type, fn, false);
+  } else if (obj.attachEvent) {
+    addEvent = obj.attachEvent("on" + type, fn);
+  } else {
+    addEvent = obj["on" + type] = fn;
   }
+  return addEvent;
+}
 
-  addEvent(btn, 'click', console.log(this))
+addEvent(btn, "click", console.log(this));
 ```
 
 ## 更多参考

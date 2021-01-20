@@ -40,45 +40,47 @@ Web 框架（如`Axios`）通常都会包含一些类似的 CSRF 防范技巧。
 
 ### 同源判断
 
-```
+```js
 export function isURLSameOrigin(requestURL) {
-  const parsedOrigin = resolveURL(requestURL)
+  const parsedOrigin = resolveURL(requestURL);
   return (
-    parsedOrigin.protocol === currentOrigin.protocol && parsedOrigin.host === currentOrigin.host
-  )
+    parsedOrigin.protocol === currentOrigin.protocol &&
+    parsedOrigin.host === currentOrigin.host
+  );
 }
 
-const urlParsingNode = document.createElement('a')
-const currentOrigin = resolveURL(window.location.href)
+const urlParsingNode = document.createElement("a");
+const currentOrigin = resolveURL(window.location.href);
 
 function resolveURL(url) {
-  urlParsingNode.setAttribute('href', url)
-  const { protocol, host } = urlParsingNode
+  urlParsingNode.setAttribute("href", url);
+  const { protocol, host } = urlParsingNode;
 
   return {
     protocol,
-    host
-  }
+    host,
+  };
 }
-
 ```
 
 ### 读取 `token`
 
-```
-    const cookie = {
-        read(name) {
-            const match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'))
-            return match ? decodeURIComponent(match[3]) : null
-        }
-    }
+```js
+const cookie = {
+  read(name) {
+    const match = document.cookie.match(
+      new RegExp("(^|;\\s*)(" + name + ")=([^;]*)")
+    );
+    return match ? decodeURIComponent(match[3]) : null;
+  },
+};
 
-    export default cookie
+export default cookie;
 ```
 
 ### 将 `token`添加到 请求 `headers` 中
 
-```
+```js
 if ((withCredentials || isURLSameOrigin(url!)) && xsrfCookieName){
     const xsrfValue = cookie.read(xsrfCookieName);
     if (xsrfValue) {

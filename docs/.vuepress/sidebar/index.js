@@ -79,7 +79,8 @@ module.exports = {
         ],
         'Vue': [
             'vue-router实现原理',
-            'vue数据响应式原理'
+            'vue数据响应式原理',
+            'Virtual DOM 介绍以及 Snabbdom 源码解析'
         ]
     },
     // 开发流程

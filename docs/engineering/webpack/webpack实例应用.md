@@ -8,7 +8,7 @@ webpack 除了可以打包一个业务项目应用程序，还可以打包一些
 
 当我们打包`library`时，我们希望使用者有多种方式可以引用它，例如`ES2015 module import`, `Commonjs Module require`, `AMD Module require`, `script标签`等引用方法，，需要在 output 中添加 `library`和`libraryTarget` 属性。
 
-```
+```js
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'libary.js',
@@ -27,7 +27,7 @@ webpack 除了可以打包一个业务项目应用程序，还可以打包一些
 
 具有外部依赖(external dependency)的 bundle 可以在各种模块上下文(module context)中使用，例如 CommonJS, AMD, 全局变量和 ES2015 模块。外部 library 可能是以下任何一种形式：
 
-```
+```js
     externals: {
         lodash: {
             commonjs: 'lodash',
@@ -52,16 +52,16 @@ webpack 除了可以打包一个业务项目应用程序，还可以打包一些
 
 使用 `ts-loader` 对 tsx 文件进行打包
 
-```
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/
-        }
-      ]
-    }
+```js
+module: {
+  rules: [
+    {
+      test: /\.tsx?$/,
+      use: "ts-loader",
+      exclude: /node_modules/,
+    },
+  ];
+}
 ```
 
 [更多 typescript 参考](https://webpack.docschina.org/guides/typescript/)
@@ -72,29 +72,31 @@ webpack 除了可以打包一个业务项目应用程序，还可以打包一些
 
 使用 `workbox-webpack-plugin`可以实现 PWA 功能。
 
-```
-    // plugins 配置
-    new WorkboxPlugin.GenerateSW({
-       // 这些选项帮助快速启用 ServiceWorkers
-       // 不允许遗留任何“旧的” ServiceWorkers
-       clientsClaim: true,
-       skipWaiting: true,
-     })
+```js
+// plugins 配置
+new WorkboxPlugin.GenerateSW({
+  // 这些选项帮助快速启用 ServiceWorkers
+  // 不允许遗留任何“旧的” ServiceWorkers
+  clientsClaim: true,
+  skipWaiting: true,
+});
 ```
 
 这是打包会发现生成一个`service-worker.js`文件，接下来我们注册 Service Worker
 
-```
-  if ('serviceWorker' in navigator) {
-   window.addEventListener('load', () => {
-     navigator.serviceWorker.register('/service-worker.js').then(registration => {
-       console.log('SW registered: ', registration);
-     }).catch(registrationError => {
-       console.log('SW registration failed: ', registrationError);
-     });
-   });
- }
-
+```js
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log("SW registered: ", registration);
+      })
+      .catch((registrationError) => {
+        console.log("SW registration failed: ", registrationError);
+      });
+  });
+}
 ```
 
 接下来我们停止 `server` 并刷新页面，我们会发现依然可以访问到页面。

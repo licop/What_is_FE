@@ -20,8 +20,8 @@ body {font-size: 62.5%; } /* 公式 16px*62.5%=10px \*/
 
 例子如下：
 
-```
-<div class="font1" style='font-size:1.6em'>我是1.6em</div>
+```html
+<div class="font1" style="font-size:1.6em">我是1.6em</div>
 ```
 
 运行效果为：
@@ -38,17 +38,23 @@ body {font-size: 62.5%; } /* 公式 16px*62.5%=10px \*/
 
 例如：
 
-```
+```html
 <div class="big">
-    我是大字体
-   <div class="small">我是小字体</div>
+  我是大字体
+  <div class="small">我是小字体</div>
 </div>
 样式为
 
 <style>
-     body {font-size: 62.5%; } /*  公式:16px*62.5%=10px  */
-    .big{font-size: 1.2em}
-    .small{font-size: 1.2em}
+  body {
+    font-size: 62.5%;
+  } /*  公式:16px*62.5%=10px  */
+  .big {
+    font-size: 1.2em;
+  }
+  .small {
+    font-size: 1.2em;
+  }
 </style>
 ```
 
@@ -75,8 +81,8 @@ html {font-size: 62.5%; } /* 公式 16px*62.5%=10px \*/
 
 例子如下：
 
-```
-<div class="font1" style='font-size:1.6rem'>我是1.6rem=16px</div>
+```html
+<div class="font1" style="font-size:1.6rem">我是1.6rem=16px</div>
 ```
 
 运行效果为：
@@ -93,16 +99,23 @@ html {font-size: 62.5%; } /* 公式 16px*62.5%=10px \*/
 
 例如：
 
-```
+```html
 <div class="big">
-    我是14px=1.4rem<div class="small">我是12px=1.2rem</div>
+  我是14px=1.4rem
+  <div class="small">我是12px=1.2rem</div>
 </div>
 样式为：
 
 <style>
-    html {font-size: 10px;  } /*  公式16px*62.5%=10px  */
-    .big{font-size: 1.4rem}
-    .small{font-size: 1.2rem}
+  html {
+    font-size: 10px;
+  } /*  公式16px*62.5%=10px  */
+  .big {
+    font-size: 1.4rem;
+  }
+  .small {
+    font-size: 1.2rem;
+  }
 </style>
 ```
 

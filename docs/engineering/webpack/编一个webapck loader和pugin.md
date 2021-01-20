@@ -6,14 +6,13 @@
 
 以下例子可以将文件里的所有`console.log`打包变成`console.error`
 
-```
-    const loaderUtils = require('loader-utils');
+```js
+const loaderUtils = require("loader-utils");
 
-    module.exports = function(source) {
-        const options = loaderUtils.getOptions(this);
-        return source.replace('console.log', 'console.error');
-    }
-
+module.exports = function(source) {
+  const options = loaderUtils.getOptions(this);
+  return source.replace("console.log", "console.error");
+};
 ```
 
 我们可以编写 loader 对想要的文件源代码进行包装，比如添加全局的异常监控，国际化等等
@@ -34,30 +33,29 @@ webapck 的 loader 加载资源的过程有点类似于一个工作管道，可�
 
 以下例子打包之后生成一个版权文件
 
-```
+```js
 class CopyrightWebpackPlugin {
-
-	apply(compiler) {
-
-		compiler.hooks.compile.tap('CopyrightWebpackPlugin', (compilation) => {
-			console.log('compiler');
-		})
-        // emit是一个钩子，即将往输出目录输出文件时执行
-		compiler.hooks.emit.tapAsync('CopyrightWebpackPlugin', (compilation, cb) => {
-			compilation.assets['copyright.txt']= {
-				source: function() {
-					return 'copyright by licop'
-				},
-				size: function() {
-					return 17;
-				}
-			};
-			cb();
-		})
-	}
-
+  apply(compiler) {
+    compiler.hooks.compile.tap("CopyrightWebpackPlugin", (compilation) => {
+      console.log("compiler");
+    });
+    // emit是一个钩子，即将往输出目录输出文件时执行
+    compiler.hooks.emit.tapAsync(
+      "CopyrightWebpackPlugin",
+      (compilation, cb) => {
+        compilation.assets["copyright.txt"] = {
+          source: function() {
+            return "copyright by licop";
+          },
+          size: function() {
+            return 17;
+          },
+        };
+        cb();
+      }
+    );
+  }
 }
-
 ```
 
 [示例完整的 plugin 源码](https://github.com/licop/webpack4.0_learn/tree/master/%E7%BC%96%E5%86%99plugin/plugin)

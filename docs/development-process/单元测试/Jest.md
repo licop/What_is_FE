@@ -22,7 +22,7 @@ npm install --save-dev jest
 
 将下面的配置部分添加到你的 `package.json` 里面：
 
-```
+```json
 {
   "scripts": {
     "test": "jest"
@@ -34,7 +34,7 @@ npm install --save-dev jest
 
 以下是`Jest`一些常用的配置，可以定义在`package.json`中，也可以新建文件`jest.config.js`or `jest.config.ts`配置文件
 
-```
+```json
 "jest": {
   "transform": {
     ".(ts|tsx)": "ts-jest"

@@ -16,11 +16,13 @@
 - Hash 模式
   - Vue Router **默认**使用的是 hash 模式，使用 hash 来模拟一个完整的 URL，#号后面的内容作为路径,通过 `onhashchange` 监听路径的变化
 - History 模式
+
   - 基于 DOM window 对象提供的 [history](https://developer.mozilla.org/zh-CN/docs/Web/API/History_API) 对象(IE10 以后才兼容)，通过 `history.pushState()`方法改变地址栏，并把当前地址记录在浏览器访问历史中，并不会想服务器发送请求，监听 [popstate](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/onpopstate) 事件，根据当前路由地址找到对应组件进行重新渲染。
-  ```
-    history.pushState()
-    history.replaceState()
-    history.go()
+
+  ```js
+  history.pushState();
+  history.replaceState();
+  history.go();
   ```
 
 > 注意：调用 `history.pushState()`或者 `history.replaceState()`不会触发 `popstate` 事件. `popstate` 事件只会在浏览器某些行为下触发, 比如点击后退、前进按钮(或者在 JavaScript 中调用 `history.back()`、`history.forward()`、`history.go()`方法)，此外，a 标签的锚点也会触发该事件.
@@ -31,28 +33,28 @@
 
 - nodejs 服务器配置, 使用 [connect-history-api-fallback 中间件](https://github.com/bripkens/connect-history-api-fallback),可以解决单页面应用切换路由刷新浏览器后找不到页面的问题。
 
-```
-const path = require('path')
+```js
+const path = require("path");
 // 导入处理 history 模式的模块
-const history = require('connect-history-api-fallback')
+const history = require("connect-history-api-fallback");
 // 导入 express
-const express = require('express')
+const express = require("express");
 
-const app = express()
+const app = express();
 // 注册处理 history 模式的中间件
-app.use(history())
+app.use(history());
 // 处理静态资源的中间件，网站根目录 ../web
-app.use(express.static(path.join(__dirname, '../web')))
+app.use(express.static(path.join(__dirname, "../web")));
 
 // 开启服务器，端口是 3000
 app.listen(3000, () => {
-  console.log('服务器开启，端口：3000')
-})
+  console.log("服务器开启，端口：3000");
+});
 ```
 
 - nignx 服务器配置
 
-```
+```bash
 location / {
   try_files $uri $uri/ /index.html;
 }
@@ -64,7 +66,7 @@ location / {
 
 首先我们来看一下，`vue-router`如何和`Vue`结合使用的。
 
-```
+```js
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
@@ -117,7 +119,7 @@ new Vue({
 
 `install`方法是一个静态方法，接收一个`Vue`实例作为参数，通过 `Vue.mixin()`全局混入 `beforeCreate` 生命周期钩子,通过`this.$options`获取`Vue`初始化选项将`router`实例添加为 Vue 的方法。
 
-```
+```js
 static install (Vue) {
     // 1. 判断当前插件是否已经被安装
     if (VueRouter.install.installed) {
@@ -144,7 +146,7 @@ static install (Vue) {
 
 初始化`options`、`routeMap`、`mode`和`data`属性,执行初始化方法`init()`
 
-```
+```js
 constructor (options) {
   this.options = options
   this.routeMap = {}
@@ -161,7 +163,7 @@ constructor (options) {
 
 遍历传入 `vue-router` 的路由规则，转化成键值对的形式存到 `routeMap` 中去,`routeMap` key 为路由地址，value 为对应的组件
 
-```
+```js
 createRouteMap () {
   this.options.routes.forEach(route => {
     this.routeMap[route.path] = route.component
@@ -179,7 +181,7 @@ createRouteMap () {
 
 > 注意: 这里渲染组件最好使用[渲染函数](https://cn.vuejs.org/v2/guide/render-function.html)渲染组件而不是`template`,因为**运行时**状态模板不会编译，如果想要使用`template`则需要将`vue-cli`中的[runtimeCompiler](https://cli.vuejs.org/zh/config/#runtimecompiler)设置为 true
 
-```
+```js
 initComponents (Vue) {
   const self = this
   Vue.component('router-link', {
@@ -229,7 +231,7 @@ initComponents (Vue) {
 
 `push`和`replace`根据不同模式改变浏览器路径地址，如果是`mode`为`hash`改变`location.hash`的值，如果`mode`为`history`调用`pushState`和`replaceState`方法，根据 url 改变响应式数据 current 属性
 
-```
+```js
   push (url) {
     if (this.mode === 'hash') {
       location.hash = url
@@ -262,7 +264,7 @@ initComponents (Vue) {
 
 监听事件，hash 模式监听`load`事件将地址末尾加上'#/',监听`hashchange`当 hash 改变时，将`current`设置为当前 hash 地址；history 模式监听 popstate 事件，后退、前进事件改变路径，将`current`设置为当前 pathname。
 
-```
+```js
 initEvent () {
   if (this.mode === 'hash') {
     window.addEventListener('load', () => {

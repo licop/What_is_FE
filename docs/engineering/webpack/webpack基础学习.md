@@ -59,20 +59,22 @@ webpack 支持使用 `loader` 对文件进行预处理。你可以构建包括 J
 
 #### 打包图片
 
-```
-    module: {
-        rules: [{
-            test: /\.(jpe?g|png|gif)$/i,
-            use: {
-                loader: 'url-loader', // 'file-loader'
-                options: {
-                    // 占位符
-                    name: 'image/[contenthash].[ext]',
-                    limit: 10240
-                }
-            }
-        }]
-    }
+```js
+module: {
+  rules: [
+    {
+      test: /\.(jpe?g|png|gif)$/i,
+      use: {
+        loader: "url-loader", // 'file-loader'
+        options: {
+          // 占位符
+          name: "image/[contenthash].[ext]",
+          limit: 10240,
+        },
+      },
+    },
+  ];
+}
 ```
 
 > `url-loader` 与 `file-loader` 类似, 用于打包文件，不过`url-loader`会将文件小于`limit`的值的的图片打包成 base64 格式的文件
@@ -84,47 +86,51 @@ webpack 支持使用 `loader` 对文件进行预处理。你可以构建包括 J
 - **sass-loader 作用** 把 sass 文件翻译成 css
 - **postcss-loader** 用来自动添加 css 浏览器商家前缀，可在`post.config.js`中进行配置
 
-```
-    module: {
-        rules: [{
-            test: /\.scss$/i,
-            use: [
-                'style-loader',
-				{
-                    loader: 'css-loader',
-                    options: {
-                        // 处理scss文件里引入其他scss文件，引入的scss文件也要走两个loader
-                        importLoaders: 2,
-                        // 是否开启css module打包
-                        modules: true
-                    }
-                },
-				'sass-loader',
-				'postcss-loader'
-            ]
-        }]
-    }
+```js
+module: {
+  rules: [
+    {
+      test: /\.scss$/i,
+      use: [
+        "style-loader",
+        {
+          loader: "css-loader",
+          options: {
+            // 处理scss文件里引入其他scss文件，引入的scss文件也要走两个loader
+            importLoaders: 2,
+            // 是否开启css module打包
+            modules: true,
+          },
+        },
+        "sass-loader",
+        "postcss-loader",
+      ],
+    },
+  ];
+}
 ```
 
 在[css-loader](https://webpack.docschina.org/loaders/css-loader/)的`options`将`module`设置成`true`,可以使用`CSS Modules`组织样式，避免 css 全局污染, `CSS Modules`使用方式如下：
 
-```
- import style from './style/index.scss'
+```js
+import style from "./style/index.scss";
 ```
 
 > 注：use 数组里编译的顺序是从上到下，从右到左，如果不注意先后顺序打包时可能会报错
 
 ### 打包 iconfont 文件
 
-```
-  module: {
-        rules: [{
-            test: /\.(eot|ttf|svg)$/,
-			use: {
-				loader: 'file-loader'
-			}
-        }]
-    }
+```js
+module: {
+  rules: [
+    {
+      test: /\.(eot|ttf|svg)$/,
+      use: {
+        loader: "file-loader",
+      },
+    },
+  ];
+}
 ```
 
 ![](/engineering/webpack_static.png)
@@ -139,28 +145,23 @@ webpack 支持使用 `loader` 对文件进行预处理。你可以构建包括 J
 
 `HtmlWebpackPlugin` 会在打包结束后自动生成一个 html 文件，并把打包生成 js 自动引入到这个 html 文件中, 在文件被打包之后执行
 
-```
+```js
 module.exports = {
-    entry: 'index.js',
-    output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: 'index_bundle.js'
-    },
-    plugins: [
-      new HtmlWebpackPlugin({template: 'src/index.html'})
-    ]
+  entry: "index.js",
+  output: {
+    path: path.resolve(__dirname, "./dist"),
+    filename: "index_bundle.js",
+  },
+  plugins: [new HtmlWebpackPlugin({ template: "src/index.html" })],
 };
-
 ```
 
 ### CleanWebpackPlugin
 
 `CleanWebpackPlugin` 在打包之前，帮你清理删除某个文件夹
 
-```
-    plugins: [
-		new CleanWebpackPlugin(['dist'])
-	]
+```js
+plugins: [new CleanWebpackPlugin(["dist"])];
 ```
 
 更多插件参考 [plugin](https://webpack.docschina.org/plugins/)
@@ -169,41 +170,36 @@ module.exports = {
 
 `MiniCssExtractPlugin`可以将 css 提取为一个单独的文件，一般当 css 文件超过 150kb 需要考虑是否将 css 提取。
 
-```
+```js
 module: {
-    rules: [{
-        test: /\.css$/i,
-        use: [
-            'MiniCssExtractPlugin.loader',
-            'css-loader'
-        ]
-    }]
+  rules: [
+    {
+      test: /\.css$/i,
+      use: ["MiniCssExtractPlugin.loader", "css-loader"],
+    },
+  ];
 }
-plugins: [
-	new MiniCssExtractPlugin()
-
-]
+plugins: [new MiniCssExtractPlugin()];
 ```
 
 ## entry & output
 
 打包的入口起点和输出， 即使可以存在多个 `entry` 起点，但只能指定一个 `output` 配置
 
-```
- module.exports = {
+```js
+module.exports = {
   entry: {
-    app: './src/app.js',
-    search: './src/search.js'
+    app: "./src/app.js",
+    search: "./src/search.js",
   },
   output: {
-    filename: '[name].js',
-    path: __dirname + '/dist', // 需要是绝对路径
-    publicPath: 'http://cdn.com.cn',
-  }
+    filename: "[name].js",
+    path: __dirname + "/dist", // 需要是绝对路径
+    publicPath: "http://cdn.com.cn",
+  },
 };
 
 // 写入到硬盘：./dist/app.js, ./dist/search.js
-
 ```
 
 `publicPath` 用于指定外部资源（如图片、文件等）的路径，支持文件路径使用 cdn 地址
@@ -241,7 +237,7 @@ webpack 没有提供自带的工具，我们需要自己安装
 
 以下配置告知 `webpack-dev-server`，将 dist 目录下的文件 serve 到 localhost:9000 下。
 
-```
+```js
    devServer: {
 		contentBase: path.join(__dirname, 'dist'),
 		compress: true,
@@ -262,19 +258,19 @@ webpack 没有提供自带的工具，我们需要自己安装
 
 现在，对 `/api/users` 的请求会将请求代理到 `http://localhost:3000/api/users`。
 
-```
-   module.exports = {
-        devServer: {
-            proxy: {
-            '/api': 'http://localhost:3000'
-            }
-        }
-    };
+```js
+module.exports = {
+  devServer: {
+    proxy: {
+      "/api": "http://localhost:3000",
+    },
+  },
+};
 ```
 
 将请求`/api/users`代理到 https://api.github.com/users
 
-```
+```js
 devServer: {
     contentBase: './public',
     proxy: {
@@ -298,27 +294,27 @@ devServer: {
 
 新建一个 `server.js`文件，然后执行`node server.js`
 
-```
-    const express = require('express');
-    const webpack = require('webpack');
-    const webpackDevMiddleware = require('webpack-dev-middleware');
+```js
+const express = require("express");
+const webpack = require("webpack");
+const webpackDevMiddleware = require("webpack-dev-middleware");
 
-    const app = express();
-    const config = require('./webpack.config.js');
-    const compiler = webpack(config);
+const app = express();
+const config = require("./webpack.config.js");
+const compiler = webpack(config);
 
-    // 告知 express 使用 webpack-dev-middleware，
-    // 以及将 webpack.config.js 配置文件作为基础配置。
-    app.use(
-    webpackDevMiddleware(compiler, {
-        publicPath: config.output.publicPath,
-    })
-    );
+// 告知 express 使用 webpack-dev-middleware，
+// 以及将 webpack.config.js 配置文件作为基础配置。
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+  })
+);
 
-    // 将文件 serve 到 port 3000。
-    app.listen(3000, function () {
-    console.log('Example app listening on port 3000!\n');
-    });
+// 将文件 serve 到 port 3000。
+app.listen(3000, function() {
+  console.log("Example app listening on port 3000!\n");
+});
 ```
 
 更多 [webpack-dev-server 配置](https://webpack.docschina.org/configuration/dev-server/) 参考
@@ -331,24 +327,23 @@ devServer: {
 
 例如，一些位于 src/ 文件夹下的常用模块：
 
-```
-    const path = require('path');
+```js
+const path = require("path");
 
-    module.exports = {
-
-    resolve: {
-        alias: {
-        Utilities: path.resolve(__dirname, 'src/utilities/'),
-        Templates: path.resolve(__dirname, 'src/templates/'),
-        },
+module.exports = {
+  resolve: {
+    alias: {
+      Utilities: path.resolve(__dirname, "src/utilities/"),
+      Templates: path.resolve(__dirname, "src/templates/"),
     },
-    };
+  },
+};
 ```
 
 可以这样使用别名
 
-```
-  import Utility from 'Utilities/utility';
+```js
+import Utility from "Utilities/utility";
 ```
 
 [更多 resolve 参考](https://webpack.docschina.org/configuration/resolve/)
@@ -367,7 +362,7 @@ devServer: {
 
 hrm 继承在在 webpack-dev-server 中
 
-```
+```js
     devServer: {
 		contentBase: path.join(__dirname, 'dist'),
 		port: 9000,
@@ -380,13 +375,13 @@ hrm 继承在在 webpack-dev-server 中
 
 当更新 js 文件时，Webpack 中的 hmr 需要手动处理模块热替换逻辑，可以在 js 文件中添加如下方法，实现某个模块的热替换
 
-```
-    // 使用HMR API
-    if (module.hot) {
-        module.hot.accept('./print.js', function() {
-            printMe();
-        })
-    }
+```js
+// 使用HMR API
+if (module.hot) {
+  module.hot.accept("./print.js", function() {
+    printMe();
+  });
+}
 ```
 
 当更新 css 文件时，`style-loader`帮我们自动完成了热替换；当它通过 HMR 接收到更新，它会使用新的样式替换旧的样式。
@@ -402,14 +397,16 @@ hrm 继承在在 webpack-dev-server 中
 
 webpack 引入`babel-loader`, 并且新建`.babelrc`文件对 babel 进行配置
 
-```
-    module: {
-		rules: [{
-			test: /\.js$/,
-			exclude: /node_modules/,
-			loader: 'babel-loader',
-		}]
-    }
+```js
+module: {
+  rules: [
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: "babel-loader",
+    },
+  ];
+}
 ```
 
 如果对 react 项目进行打包，需用使用`@babel/preset-react`对文件进行处理，是的`jsx`格式语法能够被翻译

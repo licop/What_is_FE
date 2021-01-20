@@ -25,9 +25,9 @@ npm install flow-bin --save-dev
 - 安装 `@babel/core` `@babel/cli` `@babel/preset-flow`
 - 新建`.babelrc`文件
 
-```
+```json
 {
-    "presets": ["@babel/preset-flow"]
+  "presets": ["@babel/preset-flow"]
 }
 ```
 

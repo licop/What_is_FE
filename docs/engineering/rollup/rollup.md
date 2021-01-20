@@ -8,7 +8,7 @@
 
 插件是 rollup 唯一的扩展途径
 
-```
+```js
 // rollup.config.js文件
 import json from 'rollup-plugin-json'
 import resolve from 'rollup-plugin-node-resolve'

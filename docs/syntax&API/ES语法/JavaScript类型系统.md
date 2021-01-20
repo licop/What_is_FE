@@ -4,7 +4,7 @@
 
 **强类型**语言层面限制函数的实参类型必须与形参类型相同。
 
-```
+```js
 class Main {
     static void foo(int num) {
         System.out.println(num)
@@ -19,14 +19,14 @@ class Main {
 
 **弱类型**语言层面层面不会限制实参的类型。
 
-```
+```js
 function foo(num) {
-    console.log(num)
+  console.log(num);
 }
 
-foo(100)  // ok
-foo('100') // ok
-foo(parseInt('100')) // ok
+foo(100); // ok
+foo("100"); // ok
+foo(parseInt("100")); // ok
 ```
 
 **强类型**有更强的类型约束，而**弱类型**中几乎没有约束
@@ -39,11 +39,11 @@ foo(parseInt('100')) // ok
 
 **动态类型**运行阶段才能够明确变量类型，而且变量的类型可以随时发生变化, 动态类型语言中变量是没有类型的，变量中存放的值是有类型的
 
-```
-var foo = 100
-foo = 'bar'
+```js
+var foo = 100;
+foo = "bar";
 
-console.log(foo)
+console.log(foo);
 ```
 
 ![](/syntax&API/language_type.png)
@@ -60,37 +60,37 @@ JavaScript 是门灵活多变的弱类型和动态类型的语言，且缺失类
 
 ### 1. 异常需要等到运行时才能发现
 
-```
-const obj = {}
+```js
+const obj = {};
 
 // obj.foo()
 
 setTimeout(() => {
-  obj.foo()
-}, 1000000)
+  obj.foo();
+}, 1000000);
 ```
 
 ### 2. 函数功能可能发生改变
 
-```
-function sum (a, b) {
-   return a + b
+```js
+function sum(a, b) {
+  return a + b;
 }
 
-console.log(sum(100, 100))
-console.log(sum(100, '100')) // "100100"
+console.log(sum(100, 100));
+console.log(sum(100, "100")); // "100100"
 ```
 
 ### 3. 对象索引器的错误用法
 
 对象的属性值自动转换为字符串
 
-```
-const obj = {}
+```js
+const obj = {};
 
-obj[true] = 100 // 属性名会自动转换为字符串
+obj[true] = 100; // 属性名会自动转换为字符串
 
-console.log(obj['true']) // 100
+console.log(obj["true"]); // 100
 ```
 
 ## 强类型的优势

@@ -21,7 +21,7 @@
 
 ## 使用 State Hook
 
-```
+```js
  1:  import React, { useState } from 'react';
  2:
  3:  function Example() {
@@ -69,7 +69,7 @@ _useEffect_ 会在每次渲染后都执行，默认情况下，它在第一次�
 
 `useEffect()`接受两个参数，一个参数为 effect 函数，第二个参数为一个只读的数组，我们在数组中存入 state 的值，只用在数组中的 state 发生变化时，effect 才会执行。当第二参数参数为空数组是，只用挂载和卸载的时候才会执行，相当于 _componentDidMount_ 和*componentWillUnmount*
 
-```
+```js
 componentDidUpdate(prevProps, prevState) {
   if (prevState.count !== this.state.count) {
     document.title = `You clicked ${this.state.count} times`;
@@ -110,8 +110,8 @@ useEffect(() => {
 
 > demo 参考 react-hook-demo 中的`ThemeContext`
 
-```
-  const value = useContext(MyContext);
+```js
+const value = useContext(MyContext);
 ```
 
 接收一个 `context`对象（`React.createContext` 的返回值）并返回该 `context`的当前值。当前的 `context` 值由上层组件中距离当前组件最近的 `<MyContext.Provider>` 的 value prop 决定。
@@ -120,8 +120,8 @@ useEffect(() => {
 
 > demo 参考 react-hook-demo 中的 LikeButton 组件
 
-```
- const refContainer = useRef(initialValue);
+```js
+const refContainer = useRef(initialValue);
 ```
 
 `useRef` 返回一个可变的 ref 对象，其`.current` 属性被初始化为传入的参数`（initialValue）`。返回的 ref 对象在组件的整个生命周期内保持不变。

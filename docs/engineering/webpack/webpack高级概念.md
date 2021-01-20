@@ -8,8 +8,7 @@
 
 如果 `mode` 配置为`development` 则 webpack 配置需要添加
 
-```
-
+```js
   mode: 'development',
   optimization: {
     usedExports: true, // 找到未引用的代码
@@ -19,7 +18,7 @@
 
 确保项目里没有**副作用**（模块执行时除了导出成员之外所做的事情），将`package.json`里添加`sideEffects`属性
 
-```
+```js
   // package.json
   {
     "sideEffects": false // 可以为文件数组，标记那些文件有副作用
@@ -61,12 +60,12 @@ Webpack 4 下还有一个大改动，就是废弃了 `CommonsChunkPlugin`，引�
 
 将所有的公共模块提取到单独的 bundler 当中
 
-```
-  optimization: {
-		splitChunks: {
-			chunks: 'all'
-		}
-	}
+```js
+optimization: {
+  splitChunks: {
+    chunks: "all";
+  }
+}
 ```
 
 Webpack 4 的 `Code Splitting` 最大的特点就是配置简单（0 配置起步），和**基于内置规则自动拆分**。内置的代码切分的规则是这样的：
@@ -106,10 +105,10 @@ Webpack 4 的 `Code Splitting` 最大的特点就是配置简单（0 配置起�
 
 下面这个 `prefetch` 的简单示例中，有一个 `HomePage` 组件，其内部渲染一个 `LoginButton` 组件，然后在点击后按需加载 `LoginModal` 组件。
 
-```
-LoginButton.js
+```js
+LoginButton.js;
 
-import(/* webpackPrefetch: true */ './path/to/LoginModal.js');
+import(/* webpackPrefetch: true */ "./path/to/LoginModal.js");
 ```
 
 [更多 prefetch/preload 关于参考](https://webpack.docschina.org/guides/code-splitting/)
@@ -120,8 +119,8 @@ webpack 会默认将 css 打包到 js 文件中，所谓的`css in js`
 
 `MiniCssExtractPlugin`插件会将 CSS 提取到单独的文件中，为每个包含 CSS 的 JS 文件创建一个 CSS 文件，并且支持 CSS 和 SourceMaps 的按需加载。 webpack5 已经支持了热更新，多用于`production`环境下生成。
 
-```
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+```js
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   plugins: [new MiniCssExtractPlugin()],
@@ -129,12 +128,11 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
   },
 };
-
 ```
 
 使用`css-minimizer-webpack-plugin`插件对样式进行压缩
@@ -145,13 +143,13 @@ module.exports = {
 
 使用`ProvidePlugin`可以全局自动加载模块，而不必在任何地方`import`或`require`这些模块
 
-```
-  plugins: [
-		new webpack.ProvidePlugin({
-			$: 'jquery',
-			_join: ['lodash', 'join']
-		}),
-	]
+```js
+plugins: [
+  new webpack.ProvidePlugin({
+    $: "jquery",
+    _join: ["lodash", "join"],
+  }),
+];
 ```
 
 [更多关于 shimming 的的参考](https://webpack.docschina.org/guides/shimming/)
@@ -164,31 +162,31 @@ webpack 对于文件名支持三种 Hash，效果各不相同。
 
 项目级别 Hash，每个文件的 hash 值都项目，一旦项目有任何改变，hash 值都会发生变化
 
-```
+```js
 {
   output: {
-    filename: '[name]-[hash]-bundle.js'
+    filename: "[name]-[hash]-bundle.js";
   }
 }
 ```
 
 chunk 级别 Hash，同一 chunk 的 hash 值相同，文件改变时同一个 chunk 的 hash 值会发生变化
 
-```
+```js
 {
   output: {
-    filename: '[name]-[chunkhash]-bundle.js'
+    filename: "[name]-[chunkhash]-bundle.js";
   }
 }
 ```
 
 文件 级别 Hash，不同的文件有不同的 hash 值，文件变化更新当前文件的 hash 发生变化，最佳方案
 
-```
+```js
 // 将hash长度设置为8
 {
   output: {
-    filename: '[name]-[contenthash:8]-bundle.js'
+    filename: "[name]-[contenthash:8]-bundle.js";
   }
 }
 ```

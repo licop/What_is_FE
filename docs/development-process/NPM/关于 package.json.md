@@ -24,7 +24,7 @@
 
 例如以下，项目会使用宿主已经安装好 `react`和`react-dom`库，如果版本小于`16.8.0`则会 warning 提醒版本过低
 
-```
+```json
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"

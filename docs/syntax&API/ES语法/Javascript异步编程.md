@@ -101,22 +101,22 @@ JS 引擎(chrome 浏览器中和 node.js 中使用的 V8 引擎)中主要由两�
 
 回调函数是所有异步编程方案的根基，但是直接使用传统回调的方式去完成复杂的异步流程，无法避免大量的回调函数嵌套，造成地狱回调问题
 
-```
-  $.get('/url1', function (data1) {
-  $.get('/url2', data1, function (data2) {
-    $.get('/url3', data2, function (data3) {
-      $.get('/url4', data3, function (data4) {
-        $.get('/url5', data4, function (data5) {
-          $.get('/url6', data5, function (data6) {
-            $.get('/url7', data6, function (data7) {
+```js
+$.get("/url1", function(data1) {
+  $.get("/url2", data1, function(data2) {
+    $.get("/url3", data2, function(data3) {
+      $.get("/url4", data3, function(data4) {
+        $.get("/url5", data4, function(data5) {
+          $.get("/url6", data5, function(data6) {
+            $.get("/url7", data6, function(data7) {
               // 略微夸张了一点点
-            })
-          })
-        })
-      })
-    })
-  })
-})
+            });
+          });
+        });
+      });
+    });
+  });
+});
 ```
 
 ## Promise 异步方案
@@ -133,61 +133,66 @@ Promise 对象代表一个异步操作，有三种状态：`pending（进行中`
 
 ### 基本用法
 
-```
-const promise = new Promise(function (resolve, reject) {
+```js
+const promise = new Promise(function(resolve, reject) {
   // 这里用于“兑现”承诺
 
   // resolve(100) // 承诺达成
 
-  reject(new Error('promise rejected')) // 承诺失败
-})
+  reject(new Error("promise rejected")); // 承诺失败
+});
 
-promise.then(function (value) {
-  // 即便没有异步操作，then 方法中传入的回调仍然会被放入队列，等待下一轮执行
-  console.log('resolved', value)
-}, function (error) {
-  console.log('rejected', error)
-})
+promise.then(
+  function(value) {
+    // 即便没有异步操作，then 方法中传入的回调仍然会被放入队列，等待下一轮执行
+    console.log("resolved", value);
+  },
+  function(error) {
+    console.log("rejected", error);
+  }
+);
 
-console.log('end')
-
+console.log("end");
 ```
 
 定义了一个函数 sleep，它的作用是等候传入参数指定的时长。
 
-```
-  function sleep(duration) {
-     return new Promise(function(resolve, reject) {
-        setTimeout(resolve, duration);
-     })
-  }
-  sleep(1000).then(() => console.log("finished"));
+```js
+function sleep(duration) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(resolve, duration);
+  });
+}
+sleep(1000).then(() => console.log("finished"));
 ```
 
 使用 Promise 封装 ajax
 
-```
-function ajax (url) {
-  return new Promise(function (resolve, reject) {
-    var xhr = new XMLHttpRequest()
-    xhr.open('GET', url)
-    xhr.responseType = 'json'
-    xhr.onload = function () {
+```js
+function ajax(url) {
+  return new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.responseType = "json";
+    xhr.onload = function() {
       if (this.status === 200) {
-        resolve(this.response)
+        resolve(this.response);
       } else {
-        reject(new Error(this.statusText))
+        reject(new Error(this.statusText));
       }
-    }
-    xhr.send()
-  })
+    };
+    xhr.send();
+  });
 }
 
-ajax('/api/foo.json').then(function (res) {
-  console.log(res)
-}, function (error) {
-  console.log(error)
-})
+ajax("/api/foo.json").then(
+  function(res) {
+    console.log(res);
+  },
+  function(error) {
+    console.log(error);
+  }
+);
 ```
 
 ### 链式调用
@@ -196,21 +201,21 @@ ajax('/api/foo.json').then(function (res) {
 
 `promise.then`方法返回一个新的 promise 的对象。每一个 then 方法实际上都是为上一个 then 返回的 `promise` 对象添加状态明确过后的回调,可以尽量保证代码的扁平化。
 
-```
-ajax('/api/users.json')
-  .then(function (value) {
-    console.log(1111)
-    return ajax('/api/urls.json')
+```js
+ajax("/api/users.json")
+  .then(function(value) {
+    console.log(1111);
+    return ajax("/api/urls.json");
   }) // => Promise
-  .then(function (value) {
-    console.log(2222)
-    console.log(value)
-    return ajax('/api/urls.json')
+  .then(function(value) {
+    console.log(2222);
+    console.log(value);
+    return ajax("/api/urls.json");
   }) // => Promise
-  .then(function (value) {
-    console.log(3333)
-    return ajax('/api/urls.json')
-  })
+  .then(function(value) {
+    console.log(3333);
+    return ajax("/api/urls.json");
+  });
 ```
 
 - 前面 then 方法中回调函数的返回值会作为后面 then 方法回调的参数
@@ -225,27 +230,29 @@ Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log)
 
 promise 的异常处理有两种方法
 
-```
+```js
 // 同时注册的 onRejected 只是给当前 Promise 对象注册的失败回调
 // 它只能捕获到当前 Promise 对象的异常
-ajax('/api/users.json')
-  .then(function onFulfilled (value) {
-    console.log('onFulfilled', value)
-    return ajax('/error-url')
-  }, function onRejected (error) {
-    console.log('onRejected', error)
-  })
+ajax("/api/users.json").then(
+  function onFulfilled(value) {
+    console.log("onFulfilled", value);
+    return ajax("/error-url");
+  },
+  function onRejected(error) {
+    console.log("onRejected", error);
+  }
+);
 
 // 因为 Promise 链条上的任何一个异常都会被一直向后传递，直至被捕获
 // 分开注册的 onRejected 相当于给整个 Promise 链条注册失败回调
-ajax('/api/users.json')
-  .then(function onFulfilled (value) {
-    console.log('onFulfilled', value)
-    return ajax('/error-url')
+ajax("/api/users.json")
+  .then(function onFulfilled(value) {
+    console.log("onFulfilled", value);
+    return ajax("/error-url");
   }) // => Promise {}
-    .catch(function onRejected (error) {
-       console.log('onRejected', error)
-    })
+  .catch(function onRejected(error) {
+    console.log("onRejected", error);
+  });
 ```
 
 对于链式调用，建议使用第二种`catch`方案。promise 链条上的任何一个异常都会被一直向后传递，直至被捕获，更像给 promise 链条添加的失败回调，相对来讲更通用一些。
@@ -258,44 +265,40 @@ ajax('/api/users.json')
 - **Promise.reject()** 快速创建一个一定失败的 Promise 对象, 将失败信息传递给处理方法
 - **Promise.all()** 方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。所有 promise 方法成功后才执行回调函数。
 
-```
-ajax('/api/users.json')
-ajax('/api/posts.json')
+```js
+ajax("/api/users.json");
+ajax("/api/posts.json");
 
-var promise = Promise.all([
-  ajax('/api/users.json'),
-  ajax('/api/posts.json')
-])
+var promise = Promise.all([ajax("/api/users.json"), ajax("/api/posts.json")]);
 
-promise.then(function (values) {
-  console.log(values)
-}).catch(function (error) {
-  console.log(error)
-})
+promise
+  .then(function(values) {
+    console.log(values);
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
 ```
 
 [更多关于 Promise.all 使用]()
 
 - **Promise.race()** 方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。其中一个 promise 方法状态改变，则整个返回的 promise 状态跟着改变
 
-```
- // Promise.race 实现超时控制
+```js
+// Promise.race 实现超时控制
 
-const request = ajax('/api/posts.json')
+const request = ajax("/api/posts.json");
 const timeout = new Promise((resolve, reject) => {
-  setTimeout(() => reject(new Error('timeout')), 500)
-})
+  setTimeout(() => reject(new Error("timeout")), 500);
+});
 
-Promise.race([
-  request,
-  timeout
-])
-.then(value => {
-  console.log(value)
-})
-.catch(error => {
-  console.log(error)
-})
+Promise.race([request, timeout])
+  .then((value) => {
+    console.log(value);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 ```
 
 [更多关于 Promise.race 使用](<Promise.race()有哪些具体应用.html>)
@@ -317,13 +320,13 @@ Promise.race([
 
 下面我们来研究一些 Promise 函数中的执行顺序，我们来看一段代码示例：
 
-```
-  var r = new Promise(function(resolve, reject) {
-     console.log("a");
-     resolve()
-  })
-  r.then(() => console.log("c"));
-  console.log("b");
+```js
+var r = new Promise(function(resolve, reject) {
+  console.log("a");
+  resolve();
+});
+r.then(() => console.log("c"));
+console.log("b");
 ```
 
 我们执行这段代码后，注意输出的顺序是 a b c。在进入 console.log(“b”) 之前，毫无疑问 r 已经得到了 resolve，但是 Promise 的 resolve 始终是异步操作，所以 c 无法出现在 b 之前。
@@ -332,7 +335,7 @@ Promise.race([
 
 在这段代码中，我设置了两段互不相干的异步操作：通过 setTimeout 执行 console.log(“d”)，通过 Promise 执行 console.log(“c”)。
 
-```
+```js
    var r = new Promise(function(resolve, reject) {
      console.log("a");
      resolve()
@@ -346,19 +349,21 @@ Promise.race([
 
 为了理解微任务始终先于宏任务，我们设计一个实验：执行一个耗时 1 秒的 Promise。
 
-```
-  setTimeout(() => console.log(d), 0);
-  var r = new Promise(function(resolve, reject){
-     resolve()
-  });
-  r.then(() => {
-     var begin = Date.now();
-     while(Data.now() - begin < 1000);
-     console.log("c1");
-     new Promise(function(resolve, reject){
-        resolve()
-     }.then(() => console.log("c2")))
-  })
+```js
+setTimeout(() => console.log(d), 0);
+var r = new Promise(function(resolve, reject) {
+  resolve();
+});
+r.then(() => {
+  var begin = Date.now();
+  while (Data.now() - begin < 1000);
+  console.log("c1");
+  new Promise(
+    function(resolve, reject) {
+      resolve();
+    }.then(() => console.log("c2"))
+  );
+});
 ```
 
 这里我们强制了 1 秒的执行耗时，这样，我们可以确保任务 c2 是在 d 之后被添加到任务队列。我们可以看到，即使耗时一秒的 c1 执行完毕，再执行 的 c2，仍然先于 d 执行了，这很好地解释了微任务优先的原理。
@@ -373,7 +378,7 @@ Promise.race([
 
 我们再来看一个稍微复杂的例子：
 
-```
+```js
   function sleep(duration) {
      retrun new Promise(fucntion(resolve, reject)) {
         console.log("b");
@@ -402,39 +407,41 @@ setTimeout 后，第二个宏观任务执行调用了 resolve，然后 then 中�
 
 Generator 可以将异步调用写成同步代码的体验。
 
-```
-function * main () {
+```js
+function* main() {
   try {
-    const users = yield ajax('/api/users.json')
-    console.log(users)
+    const users = yield ajax("/api/users.json");
+    console.log(users);
 
-    const posts = yield ajax('/api/posts.json')
-    console.log(posts)
+    const posts = yield ajax("/api/posts.json");
+    console.log(posts);
 
-    const urls = yield ajax('/api/urls11.json')
-    console.log(urls)
+    const urls = yield ajax("/api/urls11.json");
+    console.log(urls);
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 }
 
-function co (generator) {
-  const g = generator()
+function co(generator) {
+  const g = generator();
 
-  function handleResult (result) {
-    if (result.done) return // 生成器函数结束
-    result.value.then(data => {
-      handleResult(g.next(data))
-    }, error => {
-      g.throw(error)
-    })
+  function handleResult(result) {
+    if (result.done) return; // 生成器函数结束
+    result.value.then(
+      (data) => {
+        handleResult(g.next(data));
+      },
+      (error) => {
+        g.throw(error);
+      }
+    );
   }
 
-  handleResult(g.next())
+  handleResult(g.next());
 }
 
-co(main)
-
+co(main);
 ```
 
 ## Async/Await
@@ -445,35 +452,35 @@ async 函数必定返回 Promise，我们把所有返回 Promise 的函数都可
 
 async 函数是一种特殊语法，特征实在 function 关键字之前加上 async 关键字，这样就定义了一个 async 函数，我们可以再其中使用 await 来等待一个 Promise。
 
-```
-  function sleep(duration) {
-      return new Promise(function(resolve, reject) {
-         setTimeout(resolve, duration)
-      })
-  }
-  async function foo(){
-    console.log("a");
-    await sleep(2000);
-    console.log("b")
-  }
+```js
+function sleep(duration) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(resolve, duration);
+  });
+}
+async function foo() {
+  console.log("a");
+  await sleep(2000);
+  console.log("b");
+}
 ```
 
 这段代码利用了我们之前定义的 sleep 函数。在异步函数 foo 中，我们调用 sleep。async 函数强大之处在于，它是可以嵌套的。我们在定义了一批原子操作的情况下，可以利用 async 函数组合出新的 async 函数。
 
-```
-  function sleep(duration) {
-      return new Promise(function(resolve, reject) {
-         setTimeout(resolve, duration)
-      })
-  }
-  async function foo(name){
-    await sleep(2000);
-    console.log(name)
-  }
-  async function foo2(){
-      await foo("a");
-      await foo("b");
-   }
+```js
+function sleep(duration) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(resolve, duration);
+  });
+}
+async function foo(name) {
+  await sleep(2000);
+  console.log(name);
+}
+async function foo2() {
+  await foo("a");
+  await foo("b");
+}
 ```
 
 这里 foo2 用 await 调用了两次异步函数 foo，可以看到，如果我们把 sleep 这样的异步操作放入某一个框架或者库中，使用者几乎不需要了解 Promise 的概念即可进行异步编程了。
@@ -482,7 +489,7 @@ async 函数是一种特殊语法，特征实在 function 关键字之前加上 
 
 我们现在要实现一个红绿灯，把一个圆形 div 按照绿色 3 秒，黄色 1 秒，红色 2 秒循环改变背景色，你会怎样编写这个代码呢？
 
-```
+```js
    function sleep(duration) {
        return new Promise(function(resolve){
           setTimeout(resolve， duration)；
