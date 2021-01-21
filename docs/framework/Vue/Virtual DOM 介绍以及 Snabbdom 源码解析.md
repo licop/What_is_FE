@@ -128,24 +128,24 @@ let vnode = h(
 
 **常用模块**
 
-- 官方提供了 6 个模块
+官方提供了 6 个模块
 
-  - **attributes**
-    - 设置 DOM 元素的属性，使用 `setAttribute`()
-    - 处理布尔类型的属性
-  - **props**
-    - 和 `attributes` 模块相似，设置 DOM 元素的属性 `element[attr] = value`
-    - 不处理布尔类型的属性
-  - **class**
-    - 切换类样式
-    - 注意：给元素设置类样式是通过 `sel` 选择器
-  - **dataset**
-    - 设置 `data-*` 的自定义属性
-  - **eventlisteners**
-    - 注册和移除事件
-  - **style**
-    - 设置行内样式，支持动画
-    - delayed/remove/destroy
+- **attributes**
+  - 设置 DOM 元素的属性，使用 `setAttribute`()
+  - 处理布尔类型的属性
+- **props**
+  - 和 `attributes` 模块相似，设置 DOM 元素的属性 `element[attr] = value`
+  - 不处理布尔类型的属性
+- **class**
+  - 切换类样式
+  - 注意：给元素设置类样式是通过 `sel` 选择器
+- **dataset**
+  - 设置 `data-*` 的自定义属性
+- **eventlisteners**
+  - 注册和移除事件
+- **style**
+  - 设置行内样式，支持动画
+  - delayed/remove/destroy
 
 **模块使用**
 
@@ -322,6 +322,9 @@ export function vnode(
   return { sel, data, children, text, elm, key };
 }
 ```
+
+vnode 数据结构
+![](/framework/image-20200103213351869.png)
 
 ### init()函数
 
