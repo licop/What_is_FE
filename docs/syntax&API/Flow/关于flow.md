@@ -37,6 +37,8 @@ npm install flow-bin --save-dev
 
 vscode 安装`Flow Language Support`插件在在写代码的时候就提示报错
 
+如果正在调试和学习一些源码，vscode 在 js 文件中使用 flow 校验提示错误，可以在`settings`中搜索`javascript validate`然后关闭
+
 ## Flow 语法
 
 [参考 demo](https://github.com/licop/What_is_FE/tree/master/examples/Flow)
