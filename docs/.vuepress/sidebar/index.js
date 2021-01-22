@@ -80,7 +80,11 @@ module.exports = {
         'Vue': [
             'vue-router实现原理',
             'vue数据响应式原理',
-            'Virtual DOM 介绍以及 Snabbdom 源码解析'
+            'Virtual DOM 介绍以及 Snabbdom 源码解析',
+            'Vue 源码解析--Vue 初始化和首次渲染',
+            'Vue 源码解析--数据响应式原理',
+            'Vue 源码解析--虚拟 Dom',
+            'Vue 源码解析--模板编译'
         ]
     },
     // 开发流程
