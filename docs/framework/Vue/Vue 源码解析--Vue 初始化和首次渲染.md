@@ -47,8 +47,8 @@ package.json 文件中的 dev 脚本中添加参数 --sourcemap
 
 - **完整版：** 同时包含编译器和运行时版本
 - **编译器：** 用来将模板字符串编译成为 JavaScript 渲染函数的代码，体积大、效率低。
-- **运行时：**用来创建 Vue 实例、渲染并处理虚拟 DOM 等的代码，体积小、效率高。基本上就是除 去编译器的代码。
-- **UMD**:UMD 版本通用的模块版本，支持多种模块方式。 默认文件就是运行时 + 编译器的 UMD 版本
+- **运行时：** 用来创建 Vue 实例、渲染并处理虚拟 DOM 等的代码，体积小、效率高。基本上就是除 去编译器的代码。
+- **UMD**: UMD 版本通用的模块版本，支持多种模块方式。 默认文件就是运行时 + 编译器的 UMD 版本
 - **CommonJS(cjs)**: CommonJS 版本用来配合老的打包工具比如 Browserify 或 webpack 1。
 - **ES Module**: 从 2.6 开始 Vue 会提供两个 ES Modules (ESM) 构建文件，为现代打包工具提供的版本。
   - ESM 格式被设计为可以被静态分析，所以打包工具可以利用这一点来进行“tree-shaking”并 将用不到的代码排除出最终的包。
@@ -532,7 +532,7 @@ export function mountComponent(
 
 - 每个组件对应一个 `Watcher`, 创建完 `Watcher` 会调用 get 方法
 - get 方法中调用`updateComponent`方法
-- `vm._update`中调用`vm.__patch__`挂载真实 dom
+- `vm._update`中调用`vm.__patch__`挂载真实 dom,完成首次渲染
 
 ```js
 // src/core/observer/watcher.js
