@@ -543,7 +543,7 @@ export function queueWatcher(watcher: Watcher) {
 
 ## 关于响应式的实例方法
 
-### vm.\$set
+### `vm.$set`
 
 **功能**
 
@@ -612,7 +612,7 @@ export function set(target: Array<any> | Object, key: any, val: any): any {
 
 > 回顾 `defineReactive` 中的 childOb，给每一个响应式对象设置一个 ob 调用 \$set 的时候，会获取 ob 对象，并通过 `ob.dep.notify()` 发送通知
 
-## vm.\$delete
+### `vm.$delete`
 
 **功能**
 
@@ -835,7 +835,7 @@ export function nextTick(cb?: Function, ctx?: Object) {
 }
 ```
 
-### vm.\$watch 和三种 watcher
+### `vm.$watch` 和三种 watcher
 
 `vm.$watch( expOrFn, callback, [options] )`
 
