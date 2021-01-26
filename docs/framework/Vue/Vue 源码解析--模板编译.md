@@ -345,3 +345,71 @@ function genStatic(el: ASTElement, state: CodegenState): string {
 ![](/framework/模板编译过程.png)
 
 ## 组件化机制
+
+一个 Vue 组件就是一个拥有预定义选项的的一个 Vue 实例，一个组件可以组成一个页面上一个功能完备的区域，组件可以包含脚本，样式，模板。
+
+**组件化**可以让我们方便的把页面拆分成多个可重用的组件。 组件是独立的，系统内可重用，组件之间可以嵌套， 有了组件可以像搭积木一样开发网页。
+
+### 组件注册过程
+
+Vue 组件注册可以分为两种，**全局注册**和**局部注册**。 具体使用方法可以查看[Vue 文档 组件注册](https://cn.vuejs.org/v2/guide/components-registration.html)
+
+**全局组件**的定义方式：
+
+```js
+Vue.component("comp", { template: "<h1>hello</h1>" });
+```
+
+初始化 Vue.component() 入口方法`initAssetRegisters()`
+使用`Vue.extend`创建组件的构造函数，挂载到 Vue 实例的 `vm.options.component.componentName = Ctor`, 从这里可以看出组件实际上就是 Vue 的一个实例。
+
+```js
+// src\core\global-api\assets.js
+export function initAssetRegisters(Vue: GlobalAPI) {
+  // 遍历 ASSET_TYPES 数组，为 Vue 定义相应方法
+  // ASSET_TYPES 包括了directive、 component、filter
+  ASSET_TYPES.forEach((type) => {
+    Vue[type] = function(
+      id: string,
+      definition: Function | Object
+    ): Function | Object | void {
+      if (!definition) {
+        return this.options[type + "s"][id];
+      } else {
+        if (process.env.NODE_ENV !== "production" && type === "component") {
+          validateComponentName(id);
+        }
+        // Vue.component('comp', { template: '' })
+        if (type === "component" && isPlainObject(definition)) {
+          definition.name = definition.name || id;
+          // this.options._base == Vue
+          // 把组件配置转换为组件的构造函数
+          definition = this.options._base.extend(definition);
+        }
+        // 如果是指令
+        if (type === "directive" && typeof definition === "function") {
+          definition = { bind: definition, update: definition };
+        }
+        // 全局注册，存储资源并赋值
+        this.options[type + "s"][id] = definition;
+        return definition;
+      }
+    };
+  });
+}
+```
+
+### 组件创建和挂载
+
+**组件 VNode 的创建过程**
+
+- 创建根组件，首次 `_render()` 时，会得到整棵树的 VNode 结构
+- 整体流程:`new Vue()` --> `$mount()` --> `vm._render()` --> `createElement()` --> `createComponent()`（路径：src\core\vdom\create-component.js）
+- 创建组件的 VNode，初始化组件的 hook 钩子函数
+
+**组件实例的创建和挂载**
+
+- 组件的实例对象是在`init`钩子函数中创建的
+- 组件挂载流程：`Vue._update()` --> `patch()` --> `createElm()` --> `createComponent()`(路径：src\core\vdom\patch.js)
+- 组件实例的创建过程是从上而下，父节点先创建，子节点后创建
+- 组件实例的挂载过程是从下而上，子节点先挂载，父节点后挂载
