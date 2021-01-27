@@ -627,7 +627,11 @@ function patchVnode(
 
 以上是 Vue 文档中对 key 的作用的解释，理解了虚拟 Dom 和 diff 算法如何排序的我们会更深刻理解这句话。
 
-在 patch 函数中，调用 patchVnode 之前，会首先调用 `sameVnode()`判断当前的新老 VNode 是否是相同节点，`sameVnode()` 中会首先判断 key 是否相同。如果没有传递 key,才会 tag 相同也会被判断为相同节点，在列表中大多数都是相同 tag 的子节点，根据 diff 算法，会依次从开始和结尾遍历新老节点，会得到节点都相同的结果，然后 patchVnode 对比两个节点，当子节点顺序发生变化的时候，会增加产生大量的 Dom 操作。如果传递 key 在遍历新老节点的时候，加入子节点的顺序发生变化，由于 key 值不同，在对比首末节点的时候会判断为不同节点，然后根据 key 值去找对应的新老节点，如果子节点没有发生改变则不做任何操作，从而减少 Dom 操作的数量。
+在列表中通过三种节点操作新旧节点进行更新：插入，移动和删除，在没有 key 值的列表 diff 中，只能通过按顺序进行每个元素的对比，更新，插入与删除，在数据量较大的情况下，diff 效率低下；用户设置 key 属性的方式调整 diff 更新中默认的排序方式，就能够快速识别新旧列表之间的变化内容，提升 diff 效率。
+
+![](/framework/diff_key.jpg)
+
+在 `updateChildren` 函数中，调用 `patchVnode` 之前，会首先调用 `sameVnode()`判断当前的新老 VNode 是否是相同节点，`sameVnode()` 中会首先判断 key 是否相同。如果没有传递 key,才会 tag 相同也会被判断为相同节点，在列表中大多数都是相同 tag 的子节点，根据 diff 算法，会依次从开始和结尾遍历新老节点，会得到节点都相同的结果，然后 `patchVnode` 对比两个节点，当子节点顺序发生变化的时候，会增加产生大量的 Dom 操作。如果传递 key 在遍历新老节点的时候，加入子节点的顺序发生变化，由于 key 值不同，在对比首末节点的时候会判断为不同节点，然后根据 key 值去找对应的新老节点，如果子节点没有发生改变则不做任何操作，从而减少 Dom 操作的数量。
 
 ```js
 function sameVnode(a, b) {
@@ -670,6 +674,8 @@ function sameVnode(a, b) {
 ```
 
 - 当没有设置 key 的时候
-  在 updateChildren 中比较子节点的时候，会做三次更新 DOM 操作和一次插入 DOM 的操作
+  在 `updateChildren` 中比较子节点的时候，会做三次更新 DOM 操作和一次插入 DOM 的操作
 - 当设置 key 的时候
-  在 updateChildren 中比较子节点的时候，因为 oldVnode 的子节点的 b,c,d 和 newVnode 的 x,b,c 的 key 相同，所以只做比较，没有更新 DOM 的操作，当遍历完毕后，会再把 x 插入到 DOM 上 DOM 操作只有一次插入操作。
+  在 `updateChildren` 中比较子节点的时候，因为 `oldVnode` 的子节点的 b,c,d 和 `newVnode` 的 x,b,c 的 key 相同，所以只做比较，没有更新 DOM 的操作，当遍历完毕后，会再把 x 插入到 DOM 上 DOM 操作只有一次插入操作。
+
+##

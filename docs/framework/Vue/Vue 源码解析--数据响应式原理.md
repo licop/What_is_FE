@@ -955,3 +955,5 @@ Vue.prototype.$watch = function (
 
 - [Vue 文档 异步更新队列](https://cn.vuejs.org/v2/guide/reactivity.html#%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97)
 - [Vue.js 异步更新及 nextTick](https://juejin.cn/post/6844903666420318216#heading-5)
+- [你真的理解\$nextTick 么](https://juejin.cn/post/6844903843197616136)
+- [Vue 声明周期和钩子函数](https://ustbhuangyi.github.io/vue-analysis/v2/components/lifecycle.html#beforecreate-created)

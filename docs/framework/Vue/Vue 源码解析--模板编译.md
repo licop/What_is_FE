@@ -202,7 +202,9 @@ export const createCompiler = createCompilerCreator(function baseCompile(
 
 可以通过在线[astexplorer](https://astexplorer.net/)查看得到的 Vue 模板的 AST tree 。
 
-Vue 的将 HTML 模板转化为抽象语法树是通过`/core/compiler/parser/index.js`中的 parser 函数完成的。依次遍历 HTML 模板字符串，把 HTML 模板字符串转化为 AST 对象，HTML 中的属性和指令都会记录在 AST 的响应属性上。
+Vue 的将 HTML 模板转化为抽象语法树是通过`/core/compiler/parser/index.js`中的 parser 函数完成的。依次遍历 HTML 模板字符串，把 HTML 模板字符串转化为 AST 对象，HTML 中的属性和指令都会记录在 AST 的相应属性上。
+
+解析器（parser）的原理是一小段一小段的去截取字符串，然后维护一个 stack 用来保存 DOM 深度，每截取到一段标签的开始就 push 到 stack 中，当所有字符串都截取完之后也就解析出了一个完整的 AST。具体如果实现这里不做过多解释，具体参考这篇文章[Vue 模板编译原理](https://github.com/berwin/Blog/issues/18)
 
 ### 优化 - optimize
 
@@ -293,7 +295,9 @@ function markStaticRoots(node: ASTNode, isInFor: boolean) {
 
 ### 生成 - generate
 
-`generate`函数把静态节点标记后的抽象语法树，转换为 render 渲染函数的字符串形式
+`generate`函数把静态节点标记后的抽象语法树，转换为 render 渲染函数的字符串形式.
+
+`generator`的原理也是通过递归去拼一个函数执行代码的字符串，递归的过程根据不同的节点类型调用不同的生成方法，如果发现是一颗元素节点就拼一个 \_c(tagName, data, children) 的函数调用字符串，然后 data 和 children 也是使用 AST 中的属性去拼字符串。
 
 ```js
 export function generate(
@@ -343,6 +347,8 @@ function genStatic(el: ASTElement, state: CodegenState): string {
 **模板编译过程**
 
 ![](/framework/模板编译过程.png)
+
+![](/framework/vue编译模板流程.png)
 
 ## 组件化机制
 
@@ -413,3 +419,7 @@ export function initAssetRegisters(Vue: GlobalAPI) {
 - 组件挂载流程：`Vue._update()` --> `patch()` --> `createElm()` --> `createComponent()`(路径：src\core\vdom\patch.js)
 - 组件实例的创建过程是从上而下，父节点先创建，子节点后创建
 - 组件实例的挂载过程是从下而上，子节点先挂载，父节点后挂载
+
+## 更多参考
+
+- [Vue 模板编译原理](https://github.com/berwin/Blog/issues/18)

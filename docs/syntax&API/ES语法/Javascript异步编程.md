@@ -6,12 +6,12 @@ Javascript 采用**单线程**模式工作,即 JS 执行环境中负责执行代
 
 **单线程**的模式的优点是更安全，更简单，缺点是如果遇到特别耗时的任务后面的任务都要排队等待任务结束。
 
-```
- console.log('foo');
- for(let i = 0; i< 10000; i++) {
-    console.log('耗时操作')
- }
- console.log('等待耗时结束')
+```js
+console.log("foo");
+for (let i = 0; i < 10000; i++) {
+  console.log("耗时操作");
+}
+console.log("等待耗时结束");
 ```
 
 为了解决耗时任务**阻塞**执行的问题, Javascript 将任务的执行模式分为了两种。
@@ -25,44 +25,43 @@ Javascript 采用**单线程**模式工作,即 JS 执行环境中负责执行代
 
 程序的执行顺序与程序的编码顺序一致，在单线程模式下大多数任务都会以**同步模式**执行
 
-```
-console.log('global begin')
+```js
+console.log("global begin");
 
-function bar () {
-  console.log('bar task')
+function bar() {
+  console.log("bar task");
 }
 
-function foo () {
-  console.log('foo task')
-  bar()
+function foo() {
+  console.log("foo task");
+  bar();
 }
 
-foo()
+foo();
 
-console.log('global end')
-
+console.log("global end");
 ```
 
 ### 异步模式
 
 不同于同步模式，异步模式的 Api 不会等待这个任务的结束才开始下一个任务，耗时操作开始过后就立即往后执行下一个任务，耗时操作的后续逻辑一般会通过回调函数的方式定义，耗时任务完成后会自动执行传入的回调函数。
 
-```
-console.log('global begin')
+```js
+console.log("global begin");
 
-setTimeout(function timer1 () {
-  console.log('timer1 invoke')
-}, 1800)
+setTimeout(function timer1() {
+  console.log("timer1 invoke");
+}, 1800);
 
-setTimeout(function timer2 () {
-  console.log('timer2 invoke')
+setTimeout(function timer2() {
+  console.log("timer2 invoke");
 
-  setTimeout(function inner () {
-    console.log('inner invoke')
-  }, 1000)
-}, 1000)
+  setTimeout(function inner() {
+    console.log("inner invoke");
+  }, 1000);
+}, 1000);
 
-console.log('global end')
+console.log("global end");
 
 // global begin
 // global end
@@ -96,6 +95,247 @@ JS 引擎(chrome 浏览器中和 node.js 中使用的 V8 引擎)中主要由两�
 上图中的 stack 表示我们所说的执行栈，web apis 则是代表一些异步事件，而 callback queue 即事件队列。
 
 ![](/syntax&API/async1.png)
+
+## 宏任务和微任务
+
+**宏任务** 可以理解为每次执行栈执行的代码就是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）。
+浏览器为了让 JS 内部宏任务 与 DOM 操作能够有序的执行，会在一个宏任务执行结束后，在下一个宏任务执行开始前，对页面进行重新渲染。
+
+宏任务包含：script(整体代码)、`setTimeout`、`setInterval`、`I/O`、`UI 交互事件`、`MessageChannel` 等
+
+**微任务** 可以理解是在当前任务执行结束后需要立即执行的任务。也就是说，在当前任务后，在渲染之前，执行清空微任务。所以它的响应速度相比宏任务会更快，因为无需等待 UI 渲染。
+
+微任务包含：`Promise.then`、`MutaionObserver`、`process.nextTick(Node.js 环境)`等
+
+> 这里要重点说明一下，**宏任务**并非全是异步任务，主代码块就是属于**宏任务**的一种（Promises/A+规范）。
+
+它们之间区别如下：
+
+- **宏任务**是每次**执行栈**执行的代码（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）
+- 浏览器为了能够使得 **JS 引擎线程**与 **GUI 渲染线程**有序切换，会在当前**宏任务**结束之后，下一个**宏任务**执行开始之前，对页面进行重新渲染（宏任务 > 渲染 > 宏任务 > ...）
+- **微任务**是在当前**宏任务**执行结束之后立即执行的任务（在当前宏任务执行之后，UI 渲染之前执行的任务）。**微任务**的响应速度相比 setTimeout（下一个宏任务）会更快，因为无需等待 UI 渲染。
+- 当前**宏任务**执行后，会将在它执行期间产生的所有**微任务**都执行一遍。
+
+在一个**事件循环**中，异步事件返回结果后会被放到一个**任务队列**中。然而，根据这个异步事件的类型，这个事件实际上会被对应的**宏任务**队列或者**微任务**队列中去。并且在当前**执行栈**为空的时候，主线程会查看**微任务**队列是否有事件存在。如果不存在，那么再去**宏任务**队列中取出一个事件并把对应的回到加入当前**执行栈**；如果存在，则会依次执行队列中事件对应的回调，直到**微任务**队列为空，然后去**宏任务**队列中取出最前面的一个事件，把对应的回调加入当前**执行栈**...如此反复，进入循环。
+
+我们只需记住当前执行栈执行完毕时会立刻先处理所有**微任务**队列中的事件，然后再去宏任务队列中取出一个事件。同一次事件循环中，**微任务**永远在**宏任务**之前执行。
+
+举个栗子，表述了 **JS 引擎线程**的执行流程.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .outer {
+        height: 200px;
+        background-color: red;
+        padding: 10px;
+      }
+      .inner {
+        height: 100px;
+        background-color: blue;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner"></div>
+    </div>
+  </body>
+
+  <script>
+    let inner = document.querySelector(".inner");
+    let outer = document.querySelector(".outer");
+
+    // 监听outer元素的attribute变化
+    new MutationObserver(function() {
+      console.log("mutate");
+    }).observe(outer, {
+      attributes: true,
+    });
+
+    // click监听事件
+    function onClick() {
+      console.log("click");
+      setTimeout(function() {
+        console.log("timeout");
+      }, 0);
+      Promise.resolve().then(function() {
+        console.log("promise");
+      });
+      outer.setAttribute("data-random", Math.random());
+    }
+
+    inner.addEventListener("click", onClick);
+  </script>
+</html>
+```
+
+点击`inner`元素打印的顺序是：click、promise、mutate、timeout
+
+触发的 click 事件会加入**宏任务**队列，`MutationObserver`和`Promise`的回调会加入**微任务**队列，`setTimeout`加入到**宏任务**队列，对应的任务用对象直观的表述一下
+
+```js
+{
+  // tasks是宏任务队列
+  tasks: [
+    {
+      script: "主代码块",
+    },
+    {
+      script: "click回调函数",
+      // microtasks是微任务队列
+      microtasks: [
+        {
+          script: "Promise",
+        },
+        {
+          script: "MutationObserver",
+        },
+      ],
+    },
+    {
+      script: "setTimeout",
+    },
+  ];
+}
+```
+
+稍微增加一下代码的复杂度，在原有的基础上给 outer 元素新增一个 click 监听事件：
+
+```js
+outer.addEventListener("click", onClick);
+```
+
+点击 inner 元素打印的顺序是：click、promise、mutate、click、promise、mutate
+
+由于冒泡，click 函数再一次执行了，对应的任务用对象直观的表述一下
+
+```js
+{
+  tasks: [
+    {
+      script: "主代码块",
+    },
+    {
+      script: "inter的click回调函数",
+      microtasks: [
+        {
+          script: "Promise",
+        },
+        {
+          script: "MutationObserver",
+        },
+      ],
+    },
+    {
+      script: "outer的click回调函数",
+      microtasks: [
+        {
+          script: "Promise",
+        },
+        {
+          script: "MutationObserver",
+        },
+      ],
+    },
+    {
+      script: "setTimeout",
+    },
+    {
+      script: "setTimeout",
+    },
+  ];
+}
+```
+
+下面我们来研究一些 Promise 函数中的执行顺序，我们来看一段代码示例：
+
+```js
+var r = new Promise(function(resolve, reject) {
+  console.log("a");
+  resolve();
+});
+r.then(() => console.log("c"));
+console.log("b");
+```
+
+我们执行这段代码后，注意输出的顺序是 a b c。在进入 console.log(“b”) 之前，毫无疑问 r 已经得到了 resolve，但是 Promise 的 resolve 始终是异步操作，所以 c 无法出现在 b 之前。
+
+接下来我们试试跟 setTimeout 混用的 Promise。
+
+在这段代码中，我设置了两段互不相干的异步操作：通过 setTimeout 执行 console.log(“d”)，通过 Promise 执行 console.log(“c”)。
+
+```js
+   var r = new Promise(function(resolve, reject) {
+     console.log("a");
+     resolve()
+  })
+  setTimeout(()=>console.log("d"), 0)；
+  r.then(() => console.log("c"));
+  console.log("b");
+```
+
+我们发现，不论代码顺序如何，d 必定发生在 c 之后，**因为 Promise 产生的是 JavaScript 引擎内部的微任务，而 setTimeout 是浏览器 API，它产生宏任务。**
+
+为了理解微任务始终先于宏任务，我们设计一个实验：执行一个耗时 1 秒的 Promise。
+
+```js
+setTimeout(() => console.log(d), 0);
+var r = new Promise(function(resolve, reject) {
+  resolve();
+});
+r.then(() => {
+  var begin = Date.now();
+  while (Data.now() - begin < 1000);
+  console.log("c1");
+  new Promise(
+    function(resolve, reject) {
+      resolve();
+    }.then(() => console.log("c2"))
+  );
+});
+```
+
+这里我们强制了 1 秒的执行耗时，这样，我们可以确保任务 c2 是在 d 之后被添加到任务队列。我们可以看到，即使耗时一秒的 c1 执行完毕，再执行 的 c2，仍然先于 d 执行了，这很好地解释了**微任务**优先的原理。
+
+通过一系列的实验，我们可以总结一下如何分析异步执行的顺序：
+
+- 首先我们分析有多少个**宏任务**；
+- 在每个**宏任务**中，分析有多少个**微任务**；
+- 根据调用次序，确定**宏任务**中的**微任务**执行次序
+- 根据**宏任务**的触发规则和调用次序，确定**宏任务**的执行次序；
+- 确定整个顺序；
+
+我们再来看一个稍微复杂的例子：
+
+```js
+  function sleep(duration) {
+     retrun new Promise(fucntion(resolve, reject)) {
+        console.log("b");
+        setTimeout(resolve, duration);
+     }
+  }
+  console.log("a");
+  sleep(5000).then(() => console.log("c"));
+```
+
+这是一段非常常用的封装方法，利用 Promise 把 setTimeout 封装成可以用于异步的函数。
+
+我们首先来看，setTimeout 把整个代码分割成了 2 个宏观任务，这里不论是 5 秒还是 0 秒，都是一样的。
+
+第一个宏观任务中，包含了先后同步执行的 console.log(“a”); 和 console.log(“b”);。
+setTimeout 后，第二个宏观任务执行调用了 resolve，然后 then 中的代码异步得到执行，所以调用了 console.log(“c”)，最终输出的顺序才是： a b c。
+
+![](/syntax&API/macro&micro.jpg)
+
+更多关于宏任务微任务参考 [Tasks, microtasks, queues and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)
 
 ## 回调函数
 
@@ -302,106 +542,6 @@ Promise.race([request, timeout])
 ```
 
 [更多关于 Promise.race 使用](<Promise.race()有哪些具体应用.html>)
-
-## 宏任务和微任务
-
-**宏任务**可以理解为每次执行栈执行的代码就是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）。
-浏览器为了让 JS 内部宏任务 与 DOM 操作能够有序的执行，会在一个宏任务执行结束后，在下一个宏任务执行开始前，对页面进行重新渲染。
-
-宏任务包含：script(整体代码)、setTimeout、setInterval、I/O、UI 交互事件、MessageChannel 等
-
-**微任务**可以理解是在当前任务执行结束后需要立即执行的任务。也就是说，在当前任务后，在渲染之前，执行清空微任务。所以它的响应速度相比宏任务会更快，因为无需等待 UI 渲染。
-
-微任务包含：Promise.then、MutaionObserver、process.nextTick(Node.js 环境)等
-
-在一个事件循环中，异步事件返回结果后会被放到一个任务队列中。然而，根据这个异步事件的类型，这个事件实际上会被对应的宏任务队列或者微任务队列中去。并且在当前执行栈为空的时候，主线程会 查看微任务队列是否有事件存在。如果不存在，那么再去宏任务队列中取出一个事件并把对应的回到加入当前执行栈；如果存在，则会依次执行队列中事件对应的回调，直到微任务队列为空，然后去宏任务队列中取出最前面的一个事件，把对应的回调加入当前执行栈...如此反复，进入循环。
-
-我们只需记住当前执行栈执行完毕时会立刻先处理所有微任务队列中的事件，然后再去宏任务队列中取出一个事件。同一次事件循环中，微任务永远在宏任务之前执行。
-
-下面我们来研究一些 Promise 函数中的执行顺序，我们来看一段代码示例：
-
-```js
-var r = new Promise(function(resolve, reject) {
-  console.log("a");
-  resolve();
-});
-r.then(() => console.log("c"));
-console.log("b");
-```
-
-我们执行这段代码后，注意输出的顺序是 a b c。在进入 console.log(“b”) 之前，毫无疑问 r 已经得到了 resolve，但是 Promise 的 resolve 始终是异步操作，所以 c 无法出现在 b 之前。
-
-接下来我们试试跟 setTimeout 混用的 Promise。
-
-在这段代码中，我设置了两段互不相干的异步操作：通过 setTimeout 执行 console.log(“d”)，通过 Promise 执行 console.log(“c”)。
-
-```js
-   var r = new Promise(function(resolve, reject) {
-     console.log("a");
-     resolve()
-  })
-  setTimeout(()=>console.log("d"), 0)；
-  r.then(() => console.log("c"));
-  console.log("b");
-```
-
-我们发现，不论代码顺序如何，d 必定发生在 c 之后，**因为 Promise 产生的是 JavaScript 引擎内部的微任务，而 setTimeout 是浏览器 API，它产生宏任务。**
-
-为了理解微任务始终先于宏任务，我们设计一个实验：执行一个耗时 1 秒的 Promise。
-
-```js
-setTimeout(() => console.log(d), 0);
-var r = new Promise(function(resolve, reject) {
-  resolve();
-});
-r.then(() => {
-  var begin = Date.now();
-  while (Data.now() - begin < 1000);
-  console.log("c1");
-  new Promise(
-    function(resolve, reject) {
-      resolve();
-    }.then(() => console.log("c2"))
-  );
-});
-```
-
-这里我们强制了 1 秒的执行耗时，这样，我们可以确保任务 c2 是在 d 之后被添加到任务队列。我们可以看到，即使耗时一秒的 c1 执行完毕，再执行 的 c2，仍然先于 d 执行了，这很好地解释了微任务优先的原理。
-
-通过一系列的实验，我们可以总结一下如何分析异步执行的顺序：
-
-- 首先我们分析有多少个宏任务；
-- 在每个宏任务中，分析有多少个微任务；
-- 根据调用次序，确定宏任务中的微任务执行次序
-- 根据宏任务的触发规则和调用次序，确定宏任务的执行次序；
-- 确定整个顺序；
-
-我们再来看一个稍微复杂的例子：
-
-```js
-  function sleep(duration) {
-     retrun new Promise(fucntion(resolve, reject)) {
-        console.log("b");
-        setTimeout(resolve, duration);
-     }
-  }
-  console.log("a");
-  sleep(5000).then(() => console.log("c"));
-```
-
-这是一段非常常用的封装方法，利用 Promise 把 setTimeout 封装成可以用于异步的函数。
-
-我们首先来看，setTimeout 把整个代码分割成了 2 个宏观任务，这里不论是 5 秒还是 0 秒，都是一样的。
-
-第一个宏观任务中，包含了先后同步执行的 console.log(“a”); 和 console.log(“b”);。
-setTimeout 后，第二个宏观任务执行调用了 resolve，然后 then 中的代码异步得到执行，所以调用了 console.log(“c”)，最终输出的顺序才是： a b c。
-
-![](/syntax&API/macro&micro.jpg)
-
-- 常见宏任务包括：setTimeout，setInterval，requestAnimationFrame
-- 常见微任务包括：Promise.then .catch .finally，process.nextTick，MutationObserver
-
-更多关于宏任务微任务参考 [Tasks, microtasks, queues and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)
 
 ## Generator 异步方案
 
