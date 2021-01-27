@@ -950,10 +950,17 @@ Vue.prototype.$watch = function (
 - 创建和执行的顺序都是 计算属性 Watcher(computed)、用户 Watcher (侦听器)、渲染 Watcher
 - 计算属性`computed`也是一种 Watcher，不过`lazy`是 true, 没有直接调用 Watcher 的 get 方法更新 Dom。从而实现了计算属性基于它们的**响应式依赖**进行缓存；只在相关响应式依赖发生改变时它们才会重新求值。
 - vue 实例的`_watchers`是包含着三种 watcher 的数组，当`user`为 true 是用户 Watcher (侦听器); `lazy`为 true 时是计算属性 Watcher(computed)；一个实例可以有多个计算属性 Watcher(computed)和用户 Watcher (侦听器)，但是只有一个渲染 Watcher
+- 用户 Wacher 执行过程： 通过实例化 `watcher` 的方式，一旦我们 watch 的数据发送变化，会触发属性的 `setter` 方法，它最终会执行 `watcher` 的 run 方法，执行回调函数 cb，并且如果我们设置了 `immediate` 为 true，则直接会执行回调函数 cb。即设置 `immediate` 属性为 true 的时候，第一次 watch 绑定的时候就可以执行。
+
+**computed 和 watch 用法异同**
+
+**相同**： `computed` 和 `watch` 都起到监听/依赖一个数据，并进行处理的作用
+**异同**：它们其实都是 vue 对监听器的实现，只不过 `computed` 主要用于对同步数据的处理，`watch` 则主要用于观测某个值的变化去完成一段开销较大的复杂业务逻辑。能用 `computed` 的时候优先用 `computed`，避免了多个数据影响其中某个数据时多次调用 `watch` 的尴尬情况。
 
 ## 更多参考
 
 - [Vue 文档 异步更新队列](https://cn.vuejs.org/v2/guide/reactivity.html#%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97)
 - [Vue.js 异步更新及 nextTick](https://juejin.cn/post/6844903666420318216#heading-5)
-- [你真的理解\$nextTick 么](https://juejin.cn/post/6844903843197616136)
+- [你真的理解 nextTick 么](https://juejin.cn/post/6844903843197616136)
 - [Vue 声明周期和钩子函数](https://ustbhuangyi.github.io/vue-analysis/v2/components/lifecycle.html#beforecreate-created)
+- [Vue.js 的 computed 和 watch 是如何工作的？](https://juejin.cn/post/6844903667884097543)
