@@ -150,6 +150,9 @@ Vue.prototype.$mount = function(
     // 调用编译器将template转换成render函数
     if (template) {
       ...
+    } else if (el) {
+      // 如果没有 template，获取el的 outerHTML 作为模板
+      template = getOuterHTML(el)
     }
   }
   // 调用mount方法渲染dom
@@ -165,6 +168,7 @@ Vue.compile = compileToFunctions;
 - el 选项 不能是 body 或者 html 标签
 - 如果没有 `render`，把 `template` 转换成 `render` 函数; 如果有 `render` 方法，直接调用 `mount` 挂载 DOM
 - `Vue.compile`在完整版时可以手动调用将`template`转化成`render`渲染函数
+- 如果没有 template，获取 el 的 outerHTML 作为模板
 
 从 `src/platforms/web/entry-runtime-with-compiler.js`可以看到 Vue 从`src/platform/web/runtime/index`引入
 

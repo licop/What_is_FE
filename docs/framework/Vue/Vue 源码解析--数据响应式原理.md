@@ -957,6 +957,118 @@ Vue.prototype.$watch = function (
 **相同**： `computed` 和 `watch` 都起到监听/依赖一个数据，并进行处理的作用
 **异同**：它们其实都是 vue 对监听器的实现，只不过 `computed` 主要用于对同步数据的处理，`watch` 则主要用于观测某个值的变化去完成一段开销较大的复杂业务逻辑。能用 `computed` 的时候优先用 `computed`，避免了多个数据影响其中某个数据时多次调用 `watch` 的尴尬情况。
 
+**computed 是如何实现缓存的**
+
+> **计算属性是基于它们的响应式依赖进行缓存的**。只在相关响应式依赖发生改变时它们才会重新求值。相比之下，每当触发重新渲染时，调用方法将**总会**再次执行函数。
+
+上面这句话来自 Vue 官方文档计算属性和方法的比较一节，推荐大家在在需要做大量计算的属性时候使用计算属性，因为计算属性当视图重新，渲染 watcher 更新，如果计算属性依赖的属性没有发生变化则不会重新计算，从而节省性能。那么`computed`是如何实现所谓的**缓存**的呢？可以通过查看源码的来一探究竟。
+
+我们找到初始化计算属性的方法`initComputed`，调用了`defineComputed(vm, key, userDef)`方法将 computed 每个属性都挂载到 vm 实例上，并设置 getter 方法。
+
+```js
+const computedWatcherOptions = { lazy: true };
+
+function initComputed(vm: Component, computed: Object) {
+  const watchers = (vm._computedWatchers = Object.create(null));
+  const isSSR = isServerRendering();
+
+  for (const key in computed) {
+    const userDef = computed[key];
+    const getter = typeof userDef === "function" ? userDef : userDef.get;
+
+    if (!isSSR) {
+      // 创建计算属性watcher
+      watchers[key] = new Watcher(
+        vm,
+        getter || noop,
+        noop,
+        computedWatcherOptions
+      );
+    }
+
+    if (!(key in vm)) {
+      // 如果computed中的key没有设置到vm中，通过defineComputed函数挂载上去
+      defineComputed(vm, key, userDef);
+    } else if (process.env.NODE_ENV !== "production") {
+      ...
+    }
+  }
+}
+
+export function defineComputed(
+  target: any,
+  key: string,
+  userDef: Object | Function
+) {
+  const shouldCache = !isServerRendering();
+  if (typeof userDef === "function") {
+    sharedPropertyDefinition.get = shouldCache
+      ? createComputedGetter(key)
+      : createGetterInvoker(userDef);
+    sharedPropertyDefinition.set = noop;
+  } else {
+    ...
+  }
+  ...
+
+  // 定义getter方法，将compute属性绑定到vue实例
+  Object.defineProperty(target, key, sharedPropertyDefinition);
+}
+```
+
+这里可以看出计算属性的**缓存**效果主要是 watcher 的`dirty`属性和`evaluate`方法合作实现的。
+
+当页面**首次渲染**的时候，初始化计算属性，创建一个 watcher 实例，将 computed 属性 绑定到 vue 实例，触发属性的 get 方法，获取计算的值，并将创建的计算属性 Watcher 添加到用到的属性的 dep，完成页面的渲染。并通过`evaluate()`方法将 dirty 设置为 true。
+
+当计算属性依赖的属性改变时，触发属性的 setter 方法，计算 watcher 和渲染 watcher 的 update 依次执行，计算 watcher 的 dirty 设置为 true，当访问到计算属性时重新计算获取值。
+
+当其他非依赖的属性访问时，计算 watcher 的 update 则不执行，dirty 仍是 fasle，所以当访问到计算属性值没有执行`watcher.evaluate()`重复计算。实现了**缓存**的效果。
+
+```js
+// src/core/instance/state.js
+// 计算属性的getter方法
+function createComputedGetter(key) {
+  return function computedGetter() {
+    const watcher = this._computedWatchers && this._computedWatchers[key];
+    if (watcher) {
+      // 使用dirty属性实现缓存，当其他属性变化时，compute watcher没有update，dirty为false，所以不会调用evaluate求值
+      // 当compute watcher内依赖的缓存变化时，发送通知，执行update，dirty为true，调用evaluate求值
+      if (watcher.dirty) {
+        watcher.evaluate();
+      }
+      // 收集依赖
+      if (Dep.target) {
+        watcher.depend();
+      }
+      // 返回计算结果
+      return watcher.value;
+    }
+  };
+}
+```
+
+```js
+// src/core/observer/watcher.js
+// 获取计算属性的值
+evaluate () {
+  this.value = this.get()
+  this.dirty = false
+}
+// watcher的update方法
+update () {
+  /* istanbul ignore else */
+  if (this.lazy) {
+    this.dirty = true
+  } else if (this.sync) {
+    this.run()
+  } else {
+    // 渲染watcher直接执行queueWatcher
+    // 把当前watcher放进一个队列
+    queueWatcher(this)
+  }
+}
+```
+
 ## 更多参考
 
 - [Vue 文档 异步更新队列](https://cn.vuejs.org/v2/guide/reactivity.html#%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97)
