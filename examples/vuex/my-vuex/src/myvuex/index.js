@@ -7,6 +7,7 @@ class Store {
       mutations = {},
       actions = {}
     } = options
+    // 另一种getters和state响应式的实现
     // this.state = Vue.observable(state)
     // this.getters = Object.create(null)
     // // 没有实现缓存机制
@@ -35,17 +36,20 @@ class Store {
   }
 }
 
+// 新建Vue对象使用Vue内部的响应式实现注册state以及computed
 function initStoreVM (store, state) {
   const oldVm = store._vm
   const getters = store._getters
   const computed = {}
   store.getters = {}
+  // 通过Object.defineProperty为每一个getter方法设置get方法
+  // 比如获取this.$store.getters.test的时候获取的是store._vm.test，也就是Vue对象的computed属性
   Object.keys(getters).forEach(key => {
     const fn = getters[key]
     computed[key] = partial(fn, state)
     Object.defineProperty(store.getters, key, {
       get: () => store._vm[key],
-      enumerable: true // for local getters
+      enumerable: true
     })
   })
 

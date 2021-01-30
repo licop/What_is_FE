@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Vuex 介绍及源码解析 | What is FE</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.ef8495e9.css" as="style"><link rel="preload" href="/assets/js/app.da4d7989.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/40.c902ec66.js" as="script"><link rel="preload" href="/assets/js/3.b304fdc1.js" as="script"><link rel="prefetch" href="/assets/js/10.591f96cb.js"><link rel="prefetch" href="/assets/js/11.460b07fa.js"><link rel="prefetch" href="/assets/js/12.b66bac79.js"><link rel="prefetch" href="/assets/js/13.8b715855.js"><link rel="prefetch" href="/assets/js/14.6bac40a6.js"><link rel="prefetch" href="/assets/js/15.e9a85e67.js"><link rel="prefetch" href="/assets/js/16.7c578722.js"><link rel="prefetch" href="/assets/js/17.7bdb8b53.js"><link rel="prefetch" href="/assets/js/18.77de363b.js"><link rel="prefetch" href="/assets/js/19.d7334e03.js"><link rel="prefetch" href="/assets/js/20.23bf02a5.js"><link rel="prefetch" href="/assets/js/21.b0c634aa.js"><link rel="prefetch" href="/assets/js/22.49076df9.js"><link rel="prefetch" href="/assets/js/23.f2019cb9.js"><link rel="prefetch" href="/assets/js/24.43ad3e81.js"><link rel="prefetch" href="/assets/js/25.40572b65.js"><link rel="prefetch" href="/assets/js/26.8c1df242.js"><link rel="prefetch" href="/assets/js/27.7b630f19.js"><link rel="prefetch" href="/assets/js/28.3287ba71.js"><link rel="prefetch" href="/assets/js/29.f914a730.js"><link rel="prefetch" href="/assets/js/30.78d17318.js"><link rel="prefetch" href="/assets/js/31.85e2dd03.js"><link rel="prefetch" href="/assets/js/32.15bfc016.js"><link rel="prefetch" href="/assets/js/33.3dbc8cef.js"><link rel="prefetch" href="/assets/js/34.0c377332.js"><link rel="prefetch" href="/assets/js/35.990fa00d.js"><link rel="prefetch" href="/assets/js/36.f5400109.js"><link rel="prefetch" href="/assets/js/37.4b54cd91.js"><link rel="prefetch" href="/assets/js/38.713c46ea.js"><link rel="prefetch" href="/assets/js/39.e9be3f7a.js"><link rel="prefetch" href="/assets/js/4.5f016dda.js"><link rel="prefetch" href="/assets/js/41.d1285b1c.js"><link rel="prefetch" href="/assets/js/42.e30202c3.js"><link rel="prefetch" href="/assets/js/43.31104a9f.js"><link rel="prefetch" href="/assets/js/44.05c5276a.js"><link rel="prefetch" href="/assets/js/45.194807b2.js"><link rel="prefetch" href="/assets/js/46.7671e121.js"><link rel="prefetch" href="/assets/js/47.91111ac2.js"><link rel="prefetch" href="/assets/js/48.6bd62965.js"><link rel="prefetch" href="/assets/js/49.6e5d8894.js"><link rel="prefetch" href="/assets/js/5.f8f27f75.js"><link rel="prefetch" href="/assets/js/50.181256f8.js"><link rel="prefetch" href="/assets/js/51.2dd6fa37.js"><link rel="prefetch" href="/assets/js/52.04679dc9.js"><link rel="prefetch" href="/assets/js/53.14d62e99.js"><link rel="prefetch" href="/assets/js/54.c8b21ae6.js"><link rel="prefetch" href="/assets/js/55.628c5836.js"><link rel="prefetch" href="/assets/js/56.e1df5ea2.js"><link rel="prefetch" href="/assets/js/57.fa55ee4f.js"><link rel="prefetch" href="/assets/js/58.f046efc0.js"><link rel="prefetch" href="/assets/js/59.3c5f8ceb.js"><link rel="prefetch" href="/assets/js/6.5d0f7064.js"><link rel="prefetch" href="/assets/js/60.2a77e3cf.js"><link rel="prefetch" href="/assets/js/61.e1513d2e.js"><link rel="prefetch" href="/assets/js/62.684714ab.js"><link rel="prefetch" href="/assets/js/63.f9fea9a2.js"><link rel="prefetch" href="/assets/js/64.0fe171ad.js"><link rel="prefetch" href="/assets/js/65.3750bb7f.js"><link rel="prefetch" href="/assets/js/66.e972fbe0.js"><link rel="prefetch" href="/assets/js/67.d8c71cf3.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/8.626e669d.js"><link rel="prefetch" href="/assets/js/9.4b9e5ca6.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.ef8495e9.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is FE</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/cross-env/关于cross-env.html" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/cross-env/关于cross-env.html" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>React</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/framework/React/关于react-hook.html" class="sidebar-link">关于 react hook</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Vue</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/framework/Vue/vue-router实现原理.html" class="sidebar-link">vue-router 实现原理</a></li><li><a href="/framework/Vue/vue数据响应式原理.html" class="sidebar-link">vue 数据响应式原理</a></li><li><a href="/framework/Vue/Virtual DOM 介绍以及 Snabbdom 源码解析.html" class="sidebar-link">Virtual DOM 介绍以及 Snabbdom 源码解析</a></li><li><a href="/framework/Vue/Vue 源码解析--Vue 初始化和首次渲染.html" class="sidebar-link">Vue 源码解析--Vue 初始化和首次渲染</a></li><li><a href="/framework/Vue/Vue 源码解析--数据响应式原理.html" class="sidebar-link">Vue 源码解析--数据响应式原理</a></li><li><a href="/framework/Vue/Vue 源码解析--虚拟 Dom.html" class="sidebar-link">Vue 源码解析--虚拟 Dom</a></li><li><a href="/framework/Vue/Vue 源码解析--模板编译.html" class="sidebar-link">Vue 源码解析--模板编译和组件化</a></li><li><a href="/framework/Vue/Vue 源码解析--一些工具方法.html" class="sidebar-link">Vue 源码解析--一些工具方法</a></li><li><a href="/framework/Vue/Vuex 介绍及源码解析.html" class="active sidebar-link">Vuex 介绍及源码解析</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/framework/Vue/Vuex 介绍及源码解析.html#vuex-介绍" class="sidebar-link">Vuex 介绍</a></li><li class="sidebar-sub-header"><a href="/framework/Vue/Vuex 介绍及源码解析.html#vuex-核心概念" class="sidebar-link">Vuex 核心概念</a></li><li class="sidebar-sub-header"><a href="/framework/Vue/Vuex 介绍及源码解析.html#vuex-源码解析" class="sidebar-link">Vuex 源码解析</a></li><li class="sidebar-sub-header"><a href="/framework/Vue/Vuex 介绍及源码解析.html#实现一个简易的-vuex" class="sidebar-link">实现一个简易的 Vuex</a></li><li class="sidebar-sub-header"><a href="/framework/Vue/Vuex 介绍及源码解析.html#更多参考" class="sidebar-link">更多参考</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="vuex-介绍及源码解析"><a href="#vuex-介绍及源码解析" class="header-anchor">#</a> Vuex 介绍及源码解析</h1> <h2 id="vuex-介绍"><a href="#vuex-介绍" class="header-anchor">#</a> Vuex 介绍</h2> <p>在 Vue 中多个组件之间要共享状态(数据)，可以使用 Vue 常用组件间通信方式实现，但是比较麻烦，而且多个组件之间互相传值很难跟踪数据的变化，如果出现问题很难定位问题。当遇到多个组件需要共享状态的时候，典型的场景:购物车。我们如果使用上述的方案都不合适，我们会遇到以下的问题:</p> <ul><li>多个视图依赖于同一状态。</li> <li>来自不同视图的行为需要变更同一状态。</li></ul> <p>对于问题一，传参的方法对于多层嵌套的组件将会非常繁琐，并且对于兄弟组件间的状态传递无能为力。
+对于问题二，我们经常会采用父子组件直接引用或者通过事件来变更和同步状态的多份拷贝。以上的这些模式非常脆弱，通常会导致无法维护的代码。</p> <p>因此，我们为什么不把组件的共享状态抽取出来，以一个<strong>全局单例模式</strong>管理呢?在这种模式下，我们的组件树构成了一个巨大的“视图”，不管在树的哪个位置，任何组件都能获取状态或者触发行为!我们可以把多个组件的状态，或者整个程序的状态放到一个集中的位置存储，并且可以检测到数据的更改。这就是 Vuex 背后的基本思想。</p> <p>这里我们先以一种简单的方式来实现</p> <ul><li>首先创建一个共享的仓库 store 对象</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  debug<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  state<span class="token operator">:</span> <span class="token punctuation">{</span>
+    user<span class="token operator">:</span> <span class="token punctuation">{</span>
+      name<span class="token operator">:</span> <span class="token string">&quot;xiaomao&quot;</span><span class="token punctuation">,</span>
+      age<span class="token operator">:</span> <span class="token number">18</span><span class="token punctuation">,</span>
+      sex<span class="token operator">:</span> <span class="token string">&quot;男&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">setUserNameAction</span><span class="token punctuation">(</span><span class="token parameter">name</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>debug<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;setUserNameAction triggered:&quot;</span><span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>user<span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>把共享的仓库 store 对象，存储到需要共享状态的组件的 data 中</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> store <span class="token keyword">from</span> <span class="token string">&quot;./store&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  methods<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 点击按钮的时候通过 action 修改状态</span>
+    <span class="token function">change</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      store<span class="token punctuation">.</span><span class="token function">setUserNameAction</span><span class="token punctuation">(</span><span class="token string">&quot;componentB&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      privateState<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      sharedState<span class="token operator">:</span> store<span class="token punctuation">.</span>state<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>接着我们继续延伸约定，组件不允许直接变更属于 <code>store</code> 对象的 <code>state</code>，而应执行 <code>action</code> 来分发 (dispatch) 事件通知 <code>store</code>去改变，这样最终的样子跟 Vuex 的结构就类似了。这样约定的好处是，我们能够记录所有 <code>store</code> 中发生的 <code>state</code> 变更，同时实现能做到记录变更、保存状态快照、历史回滚/时光旅行的先进的调试工具。</p> <p>Vuex 是一个专为 Vue 服务，用于管理页面数据状态、提供统一数据操作的生态系统。它集中于 MVC 模式中的 Model 层，规定所有的数据操作必须通过 <code>action - mutation - state change</code> 的流程来进行，再结合 Vue 的数据视图双向绑定特性来实现页面的展示更新。统一的页面状态管理以及操作处理，可以让复杂的组件交互变得简单清晰，同时可在调试模式下使用时光穿梭的倒退前进操作，查看数据改变过程，使 debug 更加方便。</p> <p>Vuex 实现了一个单向数据流，在全局拥有一个 <code>State</code> 存放数据，所有修改 <code>State</code> 的操作必须通过 <code>Mutation</code> 进行，<code>Mutation</code> 的同时提供了订阅者模式供外部插件调用获取 <code>State</code> 数据的更新。所有<strong>异步接口</strong>需要走 <code>Action</code>，常见于调用后端接口异步获取更新数据，而 <code>Action</code> 也是无法直接修改 <code>State</code> 的，还是需要通过 <code>Mutation</code> 来修改 <code>State</code> 的数据。最后，根据 <code>State</code> 的变化，渲染到视图上。Vuex 运行依赖 Vue 内部数据双向绑定机制，需要 new 一个 Vue 对象来实现“响应式化”和<code>getters</code>计算属性的缓存，Vuex 也是通过 Vue 插件机制实现的一个插件，所以 Vuex 是一个专门为 Vue.js 设计的状态管理库。</p> <h3 id="什么情况下使用-vuex"><a href="#什么情况下使用-vuex" class="header-anchor">#</a> 什么情况下使用 Vuex</h3> <p>正如官方文档所说：</p> <blockquote><p>Vuex 可以帮助我们管理共享状态，并附带了更多的概念和框架。这需要对短期和长期效益进行权衡。
+如果您不打算开发大型单页应用，使用 Vuex 可能是繁琐冗余的。确实是如此——如果您的应用 够简单，您最好不要使用 Vuex。一个简单的 store 模式就足够您所需了。但是，如果您需要构建 一个中大型单页应用，您很可能会考虑如何更好地在组件外部管理状态，Vuex 将会成为自然而然 的选择。引用 Redux 的作者 Dan Abramov 的话说就是: <strong>Flux 架构就像眼镜:您自会知道什么时候需要它</strong>。</p></blockquote> <p>当你的应用中具有以下需求场景的时候:</p> <ul><li>多个视图依赖于同一状态</li> <li>来自不同视图的行为需要变更同一状态</li></ul> <p>建议符合这种场景的业务使用 Vuex 来进行数据管理</p> <h2 id="vuex-核心概念"><a href="#vuex-核心概念" class="header-anchor">#</a> Vuex 核心概念</h2> <p>Vuex 的数据流程图
+<img src="/framework/vuex%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt=""></p> <p>如上边 Vuex 的数据流程图示，Vuex 为 Vue Components 建立起了一个完整的生态圈，包括开发中的 API 调用一环。围绕这个生态圈，简要介绍一下各模块在核心流程中的主要功能：</p> <h3 id="vue-components"><a href="#vue-components" class="header-anchor">#</a> Vue Components</h3> <p>Vue 组件。HTML 页面上，负责接收用户操作等交互行为，执行 <code>dispatch</code> 方法触发对应 <code>action</code> 进行回应。</p> <h3 id="state"><a href="#state" class="header-anchor">#</a> State</h3> <p>页面状态管理容器对象。Vuex 使用<strong>单一状态树</strong>，用一个对象就包含了全部的应用层级状态。集中存储 <code>Vue components</code> 中 data 对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用 Vue 的细粒度数据响应机制来进行高效的状态更新。</p> <p>使用 <code>mapState</code> 简化 <code>State</code> 在视图中的使用，<code>mapState</code> 返回计算属性</p> <p><code>mapState</code> 有两种使用的方式:</p> <ul><li>接收数组参数</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 该方法是 vuex 提供的，所以使用前要先导入</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> mapState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+<span class="token comment">// mapState 返回名称为 count 和 msg 的计算属性</span>
+<span class="token comment">// 在模板中直接使用 count 和 msg</span>
+computed<span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token function">mapState</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'count'</span><span class="token punctuation">,</span> <span class="token string">'msg'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>接收对象参数,如果当前视图中已经有了 count 和 msg，如果使用上述方式的话会有命名冲突，解决的方式:</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 该方法是 vuex 提供的，所以使用前要先导入</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> mapState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+<span class="token comment">// 通过传入对象，可以重命名返回的计算属性</span>
+<span class="token comment">// 在模板中直接使用 num 和 message</span>
+computed<span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token function">mapState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function-variable function">num</span><span class="token operator">:</span> <span class="token parameter">state</span> <span class="token operator">=&gt;</span> state<span class="token punctuation">.</span>count<span class="token punctuation">,</span>
+    <span class="token function-variable function">message</span><span class="token operator">:</span> <span class="token parameter">state</span> <span class="token operator">=&gt;</span> state<span class="token punctuation">.</span>msg
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="dispatch"><a href="#dispatch" class="header-anchor">#</a> dispatch</h3> <p>操作行为触发方法，是唯一能执行 <code>action</code> 的方法。</p> <h3 id="actions"><a href="#actions" class="header-anchor">#</a> Actions</h3> <p>操作行为处理模块。负责处理 <code>Vue Components</code> 接收到的所有交互行为, 包含同步/异步操作。向后台 API 请求的操作就在这个模块中进行，包括触发其他 <code>action</code> 以及提交 <code>mutation</code> 的操作。该模块提供了 <code>Promise</code> 的封装，以支持 <code>action</code> 的链式触发。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> mapActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+methods<span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token function">mapActions</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'increate'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token comment">// 传对象解决重名的问题</span>
+  <span class="token operator">...</span><span class="token function">mapActions</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    increateAction<span class="token operator">:</span> <span class="token string">'increate'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="commit"><a href="#commit" class="header-anchor">#</a> commit</h3> <p>状态改变提交操作方法。对 <code>mutation</code> 进行提交，是唯一能执行 <code>mutation</code>的方法。</p> <h3 id="mutations"><a href="#mutations" class="header-anchor">#</a> Mutations</h3> <p>状态改变操作方法。是 Vuex 修改 <code>state</code> 的唯一推荐方法，其他修改方式在<strong>严格模式</strong>下将会报错。该方法只能进行<strong>同步</strong>操作，且方法名只能全局唯一。
+Vuex 中的 <code>mutation</code> 非常类似于事件: 每个 <code>mutation</code> 都有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 <code>state</code> 作为第一个参数。
+使用 <code>Mutation</code> 改变状态的好处是，集中的一个位置对状态修改，不管在什么地方修改，都可以追踪到状态的修改。可以实现高级的 time-travel 调试功能。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> mapMutations <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+
+methods<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span><span class="token function">mapMutations</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'increate'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token comment">// 传对象解决重名的问题</span>
+    <span class="token operator">...</span><span class="token function">mapMutations</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      increateMut<span class="token operator">:</span> <span class="token string">'increate'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="getters"><a href="#getters" class="header-anchor">#</a> Getters</h3> <p><code>state</code> 对象读取方法。就像计算属性一样，<code>getter</code> 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。
+使用 <code>mapGetter</code> 简化视图中的使用</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> mapGetter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+
+computed<span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token function">mapGetter</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'reverseMsg'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token comment">// 改名，在模板中使用 reverse</span>
+  <span class="token operator">...</span><span class="token function">mapGetter</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    reverse<span class="token operator">:</span> <span class="token string">'reverseMsg'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="modules"><a href="#modules" class="header-anchor">#</a> Modules</h3> <p>由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，<code>store</code> 对象就有可能变得相当臃肿。
+为了解决以上问题，Vuex 允许我们将 <code>store</code> 分割成<strong>模块(module)</strong>。每个模块拥有自己的 <code>state</code>、 <code>mutation</code>、<code>action</code>、<code>getter</code>、甚至是嵌套子模块。</p> <h2 id="vuex-源码解析"><a href="#vuex-源码解析" class="header-anchor">#</a> Vuex 源码解析</h2> <p>Vuex 代码量不多且结构清晰，非常适合研究学习其内部实现。下面我们将带着问题对 Vuex 源码进行解析，这样使得学习和研究更加有针对性。<a href="https://github.com/licop/vuex" target="_blank" rel="noopener noreferrer">Vuex 源码解析注释<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>在这里。</p> <p><strong>1.<em>store 是如何注入到组件中的，为何子组件也能访问到 store？</em></strong></p> <p><code>Vue.use(Vuex)</code> 方法执行的是 install 方法</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 暴露给外部的插件install方法，供Vue.use调用安装插件</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">install</span><span class="token punctuation">(</span><span class="token parameter">_Vue</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 避免重复安装（Vue.use内部也会检测一次是否重复安装同一个插件）</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>Vue <span class="token operator">&amp;&amp;</span> _Vue <span class="token operator">===</span> Vue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>__DEV__<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>
+        <span class="token string">&quot;[vuex] already installed. Vue.use(Vuex) should be called only once.&quot;</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 保存Vue，同时用于检测是否重复安装</span>
+  Vue <span class="token operator">=</span> _Vue<span class="token punctuation">;</span>
+  <span class="token comment">// 将vuexInit混淆进Vue的beforeCreate(Vue2.0)或_init方法(Vue1.0)</span>
+  <span class="token function">applyMixin</span><span class="token punctuation">(</span>Vue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><code>vuexInit</code> 会尝试从 <code>options</code> 中获取 <code>store</code>，如果当前组件是根组件（Root 节点），则 <code>options</code> 中会存在 <code>store</code>，直接获取赋值给<code>$store</code>即可。如果当前组件非根组件，则通过<code>options</code>中的<code>parent</code>获取父组件的<code>$store</code> 引用。这样一来，所有的组件都获取到了同一份内存地址的 <code>Store</code> 实例，于是我们可以在每一个组件中通过 <code>this.$store</code> 愉快地访问全局的 <code>Store</code> 实例了。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/* Vuex的init钩子，会存入每一个Vue实例等钩子列表 */</span>
+<span class="token keyword">function</span> <span class="token function">vuexInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> options <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">;</span>
+  <span class="token comment">// store injection</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* 存在store其实代表的就是Root节点，直接执行store（function时）或者使用store（非function）*/</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>$store <span class="token operator">=</span>
+      <span class="token keyword">typeof</span> options<span class="token punctuation">.</span>store <span class="token operator">===</span> <span class="token string">&quot;function&quot;</span> <span class="token operator">?</span> options<span class="token punctuation">.</span><span class="token function">store</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> options<span class="token punctuation">.</span>store<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>parent <span class="token operator">&amp;&amp;</span> options<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>$store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* 子组件直接从父组件中获取$store，这样就保证了所有组件都公用了全局的同一份store */</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>$store <span class="token operator">=</span> options<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>$store<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><strong>2. <em>state 是如何实现响应式的，以及 getters 如何实现计算缓存的？</em></strong></p> <p>在实例 store 初始化的时候调用<code>resetStoreVM</code>，在其内部 new 一个 Vue 实例，并挂载到 store 实例上，将 state 作为 data 数据传入，实现了 state 数据响应式，在实例的 get 方法中返回<code>this._vm._data.$$state</code>。</p> <p>Vuex 的<code>getters</code>和 Vue 的<code>computed</code>功能几乎一致，Vuex 也是利用 Vue 的<code>computed</code>实现的，遍历传入<code>getters</code>使用<code>Object.defineProperty</code>使其访问的只为<code>store._vm[key]</code>也就是 Vue 实例的计算属性。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 通过vm重设store，新建Vue对象使用Vue内部的响应式实现注册state以及computed</span>
+<span class="token keyword">function</span> <span class="token function">resetStoreVM</span><span class="token punctuation">(</span><span class="token parameter">store<span class="token punctuation">,</span> state<span class="token punctuation">,</span> hot</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 存放之前的vm对象</span>
+  <span class="token keyword">const</span> oldVm <span class="token operator">=</span> store<span class="token punctuation">.</span>_vm<span class="token punctuation">;</span>
+
+  <span class="token comment">// bind store public getters</span>
+  store<span class="token punctuation">.</span>getters <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token comment">// reset local getters cache</span>
+  store<span class="token punctuation">.</span>_makeLocalGettersCache <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> wrappedGetters <span class="token operator">=</span> store<span class="token punctuation">.</span>_wrappedGetters<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> computed <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 通过Object.defineProperty为每一个getter方法设置get方法</span>
+  <span class="token comment">// 比如获取this.$store.getters.test的时候获取的是store._vm.test，也就是Vue对象的computed属性</span>
+  <span class="token function">forEachValue</span><span class="token punctuation">(</span>wrappedGetters<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// use computed to leverage its lazy-caching mechanism</span>
+    <span class="token comment">// direct inline function use will lead to closure preserving oldVm.</span>
+    <span class="token comment">// using partial to return function with only arguments preserved in closure environment.</span>
+    <span class="token comment">// 使用计算来利用其延迟缓存机制</span>
+    computed<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">partial</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> store<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>store<span class="token punctuation">.</span>getters<span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token function-variable function">get</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> store<span class="token punctuation">.</span>_vm<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      enumerable<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// for local getters</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> silent <span class="token operator">=</span> Vue<span class="token punctuation">.</span>config<span class="token punctuation">.</span>silent<span class="token punctuation">;</span>
+  <span class="token comment">// Vue.config.silent暂时设置为true的目的是在new一个Vue实例的过程中不会报出一切警告</span>
+  Vue<span class="token punctuation">.</span>config<span class="token punctuation">.</span>silent <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token comment">// 这里new了一个Vue对象，运用Vue内部的响应式实现注册state以及computed</span>
+  store<span class="token punctuation">.</span>_vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    data<span class="token operator">:</span> <span class="token punctuation">{</span>
+      $$state<span class="token operator">:</span> state<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    computed<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  Vue<span class="token punctuation">.</span>config<span class="token punctuation">.</span>silent <span class="token operator">=</span> silent<span class="token punctuation">;</span>
+
+  <span class="token comment">// 使严格模式，保证修改store只能通过mutation</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>store<span class="token punctuation">.</span>strict<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">enableStrictMode</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>oldVm<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 解除旧vm的state的引用，以及销毁旧的Vue对象</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>hot<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      store<span class="token punctuation">.</span><span class="token function">_withCommit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        oldVm<span class="token punctuation">.</span>_data<span class="token punctuation">.</span>$$state <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    Vue<span class="token punctuation">.</span><span class="token function">nextTick</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> oldVm<span class="token punctuation">.</span><span class="token function">$destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">get</span> <span class="token function">state</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_vm<span class="token punctuation">.</span>_data<span class="token punctuation">.</span>$$state
+<span class="token punctuation">}</span>
+</code></pre></div><p><strong>3. <em>严格模式是如何实现的，Vuex 如何区分 state 是外部直接修改，还是通过 mutation 方法修改的？</em></strong></p> <p>Vuex 的 Store 构造类的 option 有一个 strict 的参数，可以控制 Vuex 执行严格模式，严格模式下，所有修改 state 的操作必须通过 mutation 实现，否则会抛出错误。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 严格模式</span>
+<span class="token keyword">function</span> <span class="token function">enableStrictMode</span><span class="token punctuation">(</span><span class="token parameter">store</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  store<span class="token punctuation">.</span>_vm<span class="token punctuation">.</span><span class="token function">$watch</span><span class="token punctuation">(</span>
+    <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_data<span class="token punctuation">.</span>$$state<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">&quot;production&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/* 检测store中的_committing的值，如果是false代表不是通过mutation的方法修改的 */</span>
+        <span class="token function">assert</span><span class="token punctuation">(</span>
+          store<span class="token punctuation">.</span>_committing<span class="token punctuation">,</span>
+          <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Do not mutate vuex store state outside mutation handlers.</span><span class="token template-punctuation string">`</span></span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> deep<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> sync<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>首先，在严格模式下，Vuex 会利用 vm 的<code>$watch</code> 方法来观察<code>$$state</code>，也就是 Store 的 state，在它被修改的时候进入回调。我们发现，回调中只有一句话，用 assert 断言来检测 <code>store._committing</code>，当 <code>store._committing</code> 为 false 的时候会触发断言，抛出异常。</p> <p>我们发现，Store 的 commit 方法中，执行 mutation 的语句是这样的。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_withCommit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  entry<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">commitIterator</span><span class="token punctuation">(</span><span class="token parameter">handler</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">handler</span><span class="token punctuation">(</span>payload<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>再来看看<code>_withCommit</code> 的实现。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token function">_withCommit</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 调用withCommit修改state的值时会将store的committing值置为true，内部会有断言检查该值，</span>
+  <span class="token comment">// 在严格模式下只允许使用mutation来修改store中的值，而不允许直接修改store的数值</span>
+  <span class="token keyword">const</span> committing <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_committing
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_committing <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_committing <span class="token operator">=</span> committing
+<span class="token punctuation">}</span>
+</code></pre></div><p>我们发现，通过 commit（mutation）修改 state 数据的时候，会在调用 mutation 方法之前将 <code>committing</code> 置为 true，接下来再通过 mutation 函数修改 state 中的数据，这时候触发<code>$watch</code>中的回调断言 <code>committing</code> 是不会抛出异常的（此时 <code>committing</code> 为 true）。而当我们直接修改 state 的数据时，触发<code>$watch</code> 的回调执行断言，这时 <code>committing</code> 为 false，则会抛出异常。这就是 Vuex 的严格模式的实现。</p> <p><strong>4. <em>store.subscribe 在哪个节点调用？</em></strong></p> <p>我们发现在<code>commit</code>中遍历了通知了所有订阅者，并将<code>mutation</code>和当前的<code>state</code>传递过去，所以每次我们<code>commit</code>的时候都会通知椅子订阅者，我们可以利用<code>subscribe</code>来编写插件实现用于外部地数据持久化、记录或调试功能</p> <div class="language-js extra-class"><pre class="language-js"><code> <span class="token comment">// 调用mutation的commit方法</span>
+  <span class="token function">commit</span> <span class="token punctuation">(</span><span class="token parameter">_type<span class="token punctuation">,</span> _payload<span class="token punctuation">,</span> _options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    <span class="token comment">// 通知所有订阅者</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_subscribers
+      <span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">sub</span> <span class="token operator">=&gt;</span> <span class="token function">sub</span><span class="token punctuation">(</span>mutation<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">}</span>
+</code></pre></div><p><strong>5. <em>调试时的”时空穿梭”功能是如何实现的？</em></strong></p> <p><code>devtoolPlugin</code> 中提供了此功能。因为 dev 模式下所有的 state change 都会被记录下来，'时空穿梭' 功能其实就是将当前的 state 替换为记录中某个时刻的 state 状态，利用 <code>store.replaceState(targetState)</code> 方法将执行替换 store 的根状态实现。</p> <div class="language-js extra-class"><pre class="language-js"><code>  <span class="token comment">// 替换 store 的根状态，仅用状态合并或时光旅行调试</span>
+  <span class="token function">replaceState</span> <span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_withCommit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>_vm<span class="token punctuation">.</span>_data<span class="token punctuation">.</span>$$state <span class="token operator">=</span> state
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+</code></pre></div><h2 id="实现一个简易的-vuex"><a href="#实现一个简易的-vuex" class="header-anchor">#</a> 实现一个简易的 Vuex</h2> <p>下面我们实现一个简易的 Vuex，没有 module 功能的实现</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">let</span> Vue <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">Store</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> state <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> getters <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> mutations <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> actions <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">}</span> <span class="token operator">=</span> options<span class="token punctuation">;</span>
+
+    <span class="token comment">// 另一种getters和state响应式的实现, getter没有实现缓存机制</span>
+    <span class="token comment">// this.state = Vue.observable(state)</span>
+    <span class="token comment">// this.getters = Object.create(null)</span>
+    <span class="token comment">// Object.keys(getters).forEach(key =&gt; {</span>
+    <span class="token comment">//   Object.defineProperty(this.getters, key, {</span>
+    <span class="token comment">//     get: () =&gt; getters[key](state)</span>
+    <span class="token comment">//   })</span>
+    <span class="token comment">// })</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_mutations <span class="token operator">=</span> mutations<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_actions <span class="token operator">=</span> actions<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_getters <span class="token operator">=</span> getters<span class="token punctuation">;</span>
+
+    <span class="token function">initStoreVM</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">get</span> <span class="token function">state</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_vm<span class="token punctuation">.</span>_data<span class="token punctuation">.</span>$$state<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">commit</span><span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> payload</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_mutations<span class="token punctuation">[</span>type<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">,</span> payload<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> payload</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_actions<span class="token punctuation">[</span>type<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> payload<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 新建Vue对象使用Vue内部的响应式实现注册state以及computed</span>
+<span class="token keyword">function</span> <span class="token function">initStoreVM</span><span class="token punctuation">(</span><span class="token parameter">store<span class="token punctuation">,</span> state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> oldVm <span class="token operator">=</span> store<span class="token punctuation">.</span>_vm<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> getters <span class="token operator">=</span> store<span class="token punctuation">.</span>_getters<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> computed <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  store<span class="token punctuation">.</span>getters <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token comment">// 通过Object.defineProperty为每一个getter方法设置get方法</span>
+  <span class="token comment">// 比如获取this.$store.getters.test的时候获取的是store._vm.test，也就是Vue对象的computed属性</span>
+  Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>getters<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">key</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> fn <span class="token operator">=</span> getters<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    computed<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">partial</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>store<span class="token punctuation">.</span>getters<span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token function-variable function">get</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> store<span class="token punctuation">.</span>_vm<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      enumerable<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> silent <span class="token operator">=</span> Vue<span class="token punctuation">.</span>config<span class="token punctuation">.</span>silent<span class="token punctuation">;</span>
+  <span class="token comment">// Vue.config.silent暂时设置为true的目的是在new一个Vue实例的过程中不会报出一切警告</span>
+  Vue<span class="token punctuation">.</span>config<span class="token punctuation">.</span>silent <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token comment">// 这里new了一个Vue对象，运用Vue内部的响应式实现注册state以及computed</span>
+  store<span class="token punctuation">.</span>_vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    data<span class="token operator">:</span> <span class="token punctuation">{</span>
+      $$state<span class="token operator">:</span> state<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    computed<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  Vue<span class="token punctuation">.</span>config<span class="token punctuation">.</span>silent <span class="token operator">=</span> silent<span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>store<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>oldVm<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 解除旧vm的state的引用，以及销毁旧的Vue对象</span>
+    Vue<span class="token punctuation">.</span><span class="token function">nextTick</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> oldVm<span class="token punctuation">.</span><span class="token function">$destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">partial</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> arg</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">fn</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">install</span><span class="token punctuation">(</span><span class="token parameter">_Vue</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  Vue <span class="token operator">=</span> _Vue<span class="token punctuation">;</span>
+  Vue<span class="token punctuation">.</span><span class="token function">mixin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">beforeCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> options <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">;</span>
+      <span class="token comment">// store injection</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/* 存在store其实代表的就是Root节点，直接执行store（function时）或者使用store（非function） */</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>$store <span class="token operator">=</span>
+          <span class="token keyword">typeof</span> options<span class="token punctuation">.</span>store <span class="token operator">===</span> <span class="token string">&quot;function&quot;</span> <span class="token operator">?</span> options<span class="token punctuation">.</span><span class="token function">store</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> options<span class="token punctuation">.</span>store<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>parent <span class="token operator">&amp;&amp;</span> options<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>$store<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/* 子组件直接从父组件中获取$store，这样就保证了所有组件都公用了全局的同一份store */</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>$store <span class="token operator">=</span> options<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>$store<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// 挂载到原型方法上，使其每个实例都有store对象</span>
+      <span class="token comment">// 不合理: 会对Vue实例造成污染, 应该挂载到根实例上。然后让其子组件也依次挂载store</span>
+      <span class="token comment">// if (options.store) {</span>
+      <span class="token comment">//   _Vue.prototype.$store = options.store</span>
+      <span class="token comment">// }</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><a href="https://github.com/licop/What_is_FE/tree/master/examples/vuex/my-vuex" target="_blank" rel="noopener noreferrer">完整源码参考<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h2 id="更多参考"><a href="#更多参考" class="header-anchor">#</a> 更多参考</h2> <ul><li><a href="https://vuex.vuejs.org/zh/guide/" target="_blank" rel="noopener noreferrer">Vuex 官方文档<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://github.com/licop/What_is_FE/tree/master/examples/vuex/vuex-cart-demo" target="_blank" rel="noopener noreferrer">Vuex 实现购物车<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://github.com/answershuto/learnVue/blob/master/docs/Vuex%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.MarkDown" target="_blank" rel="noopener noreferrer">Vuex 源码解析<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://tech.meituan.com/2017/04/27/vuex-code-analysis.html" target="_blank" rel="noopener noreferrer">Vuex 框架原理与源码分析<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/framework/Vue/Vue 源码解析--一些工具方法.html" class="prev">
+        Vue 源码解析--一些工具方法
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.da4d7989.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/40.c902ec66.js" defer></script><script src="/assets/js/3.b304fdc1.js" defer></script>
+  </body>
+</html>
