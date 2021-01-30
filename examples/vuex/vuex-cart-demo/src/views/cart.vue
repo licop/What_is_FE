@@ -42,7 +42,7 @@
       <el-table-column
         prop="count"
         label="数量">
-        <template v-slot="scope">
+        <template v-slot='scope'>
           <el-input-number :value="scope.row.count" @change="updateProduct({
             prodId: scope.row.id,
             count: $event
@@ -55,8 +55,8 @@
       </el-table-column>
       <el-table-column
         label="操作">
-        <template>
-          <el-button size="mini">删除</el-button>
+        <template v-slot="scope">
+          <el-button @click="deleteFromCart(scope.row.id)" size="mini">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -68,12 +68,12 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 export default {
   name: 'Cart',
   computed: {
-    ...mapState('cart', ['cartProducts']),
-    ...mapGetters('cart', ['checkedCount', 'checkedPrice']),
+    ...mapState('carts', ['cartProducts']),
+    ...mapGetters('carts', ['checkedCount', 'checkedPrice']),
     checkedAll: {
       get () {
         return this.cartProducts.every(prod => prod.isChecked)
@@ -84,10 +84,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('cart', [
+    ...mapMutations('carts', [
       'updateAllProductChecked',
       'updateProductChecked',
-      'updateProduct'
+      'updateProduct',
+      'deleteFromCart'
     ])
   }
 }

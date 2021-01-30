@@ -18,7 +18,6 @@
       <el-table-column
         prop="address"
         label="操作">
-        <!-- <template slot-scope="scope"> -->
         <template v-slot="scope">
           <el-button @click="addToCart(scope.row)">加入购物车</el-button>
         </template>
@@ -32,11 +31,12 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   name: 'ProductList',
   computed: {
+    // 参数分别是命名空间和属性
     ...mapState('products', ['products'])
   },
   methods: {
     ...mapActions('products', ['getProducts']),
-    ...mapMutations('cart', ['addToCart'])
+    ...mapMutations('carts', ['addToCart'])
   },
   created () {
     this.getProducts()

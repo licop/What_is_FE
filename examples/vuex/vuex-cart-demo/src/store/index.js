@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import products from './modules/products'
-import cart from './modules/cart'
+import carts from './modules/carts'
 
 Vue.use(Vuex)
 
 const myPlugin = store => {
   store.subscribe((mutation, state) => {
-    if (mutation.type.startsWith('cart/')) {
-      window.localStorage.setItem('cart-products', JSON.stringify(state.cart.cartProducts))
+    console.log(mutation, 10)
+    if (mutation.type.startsWith('carts/')) {
+      window.localStorage.setItem('cart-products', JSON.stringify(state.carts.cartProducts))
     }
   })
 }
@@ -22,7 +23,7 @@ export default new Vuex.Store({
   },
   modules: {
     products,
-    cart
+    carts
   },
   plugins: [myPlugin]
 })

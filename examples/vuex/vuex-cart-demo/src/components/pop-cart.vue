@@ -14,7 +14,7 @@
       </el-table-column>
     </el-table>
     <div>
-      <p>共 {{ totalCount }} 件商品 共计¥{{ totalPrice }}</p>
+      <p>共 {{ totalCount }} 件商品 共计{{ totalPrice }}</p>
       <el-button size="mini" type="danger" @click="$router.push({ name: 'cart' })">去购物车</el-button>
     </div>
     <el-badge :value="totalCount" class="item" slot="reference">
@@ -28,11 +28,11 @@ import { mapState, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'PopCart',
   computed: {
-    ...mapState('cart', ['cartProducts']),
-    ...mapGetters('cart', ['totalCount', 'totalPrice'])
+    ...mapState('carts', ['cartProducts']),
+    ...mapGetters('carts', ['totalCount', 'totalPrice'])
   },
   methods: {
-    ...mapMutations('cart', ['deleteFromCart'])
+    ...mapMutations('carts', ['deleteFromCart'])
   }
 }
 </script>
