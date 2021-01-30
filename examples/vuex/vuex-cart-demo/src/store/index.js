@@ -5,9 +5,10 @@ import carts from './modules/carts'
 
 Vue.use(Vuex)
 
+// 插件用于本地存储
 const myPlugin = store => {
+  // 订阅 store 的 mutation,在每个commit时执行
   store.subscribe((mutation, state) => {
-    console.log(mutation, 10)
     if (mutation.type.startsWith('carts/')) {
       window.localStorage.setItem('cart-products', JSON.stringify(state.carts.cartProducts))
     }

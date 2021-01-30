@@ -1,4 +1,4 @@
-let _Vue = null
+let Vue = null
 class Store {
   constructor (options) {
     const {
@@ -7,16 +7,23 @@ class Store {
       mutations = {},
       actions = {}
     } = options
-    this.state = _Vue.observable(state)
-    this.getters = Object.create(null)
-    // 没有实现缓存机制
-    Object.keys(getters).forEach(key => {
-      Object.defineProperty(this.getters, key, {
-        get: () => getters[key](state)
-      })
-    })
+    // this.state = Vue.observable(state)
+    // this.getters = Object.create(null)
+    // // 没有实现缓存机制
+    // Object.keys(getters).forEach(key => {
+    //   Object.defineProperty(this.getters, key, {
+    //     get: () => getters[key](state)
+    //   })
+    // })
     this._mutations = mutations
     this._actions = actions
+    this._getters = getters
+
+    initStoreVM(this, state)
+  }
+
+  get state () {
+    return this._vm._data.$$state
   }
 
   commit (type, payload) {
@@ -28,9 +35,48 @@ class Store {
   }
 }
 
-function install (Vue) {
-  _Vue = Vue
-  _Vue.mixin({
+function initStoreVM (store, state) {
+  const oldVm = store._vm
+  const getters = store._getters
+  const computed = {}
+  store.getters = {}
+  Object.keys(getters).forEach(key => {
+    const fn = getters[key]
+    computed[key] = partial(fn, state)
+    Object.defineProperty(store.getters, key, {
+      get: () => store._vm[key],
+      enumerable: true // for local getters
+    })
+  })
+
+  const silent = Vue.config.silent
+  // Vue.config.silent暂时设置为true的目的是在new一个Vue实例的过程中不会报出一切警告
+  Vue.config.silent = true
+  // 这里new了一个Vue对象，运用Vue内部的响应式实现注册state以及computed
+  store._vm = new Vue({
+    data: {
+      $$state: state
+    },
+    computed
+  })
+  Vue.config.silent = silent
+  console.log(store)
+
+  if (oldVm) {
+    // 解除旧vm的state的引用，以及销毁旧的Vue对象
+    Vue.nextTick(() => oldVm.$destroy())
+  }
+}
+
+function partial (fn, arg) {
+  return function () {
+    return fn(arg)
+  }
+}
+
+function install (_Vue) {
+  Vue = _Vue
+  Vue.mixin({
     beforeCreate () {
       const options = this.$options
       // store injection

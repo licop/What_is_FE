@@ -547,7 +547,7 @@ export function queueWatcher(watcher: Watcher) {
 
 **功能**
 
-向响应式对象中添加一个属性，并确保这个新属性同样是响应式的，且触发视图更新。它必须用于 向响应式对象上添加新属性，因为 Vue 无法探测普通的新增属性 (比如 this.myObject.newProperty = 'hi')
+向响应式对象中添加一个属性，并确保这个新属性同样是响应式的，且触发视图更新。它必须用于向响应式对象上添加新属性，因为 Vue 无法探测普通的新增属性 (比如 this.myObject.newProperty = 'hi')
 
 > 注意:对象不能是 Vue 实例，或者 Vue 实例的根数据对象。
 
