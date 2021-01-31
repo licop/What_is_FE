@@ -351,7 +351,7 @@ _withCommit (fn) {
 
 **4. _store.subscribe 在哪个节点调用？_**
 
-我们发现在`commit`中遍历了通知了所有订阅者，并将`mutation`和当前的`state`传递过去，所以每次我们`commit`的时候都会通知椅子订阅者，我们可以利用`subscribe`来编写插件实现用于外部地数据持久化、记录或调试功能
+我们发现在`commit`中遍历了通知了所有订阅者，并将`mutation`和当前的`state`传递过去，所以每次我们`commit`的时候都会通知全部订阅者，我们可以利用`subscribe`来编写插件实现用于外部地数据持久化、记录或调试功能
 
 ```js
  // 调用mutation的commit方法
@@ -435,7 +435,6 @@ function initStoreVM(store, state) {
   });
 
   const silent = Vue.config.silent;
-  // Vue.config.silent暂时设置为true的目的是在new一个Vue实例的过程中不会报出一切警告
   Vue.config.silent = true;
   // 这里new了一个Vue对象，运用Vue内部的响应式实现注册state以及computed
   store._vm = new Vue({
