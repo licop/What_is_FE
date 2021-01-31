@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { normalizeURL, decode } from '@nuxt/ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _37045626 = () => interopDefault(import('..\\pages\\about.vue' /* webpackChunkName: "pages_about" */))
-const _0435afb2 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+const _1faacba6 = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
+const _0fe274f2 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -17,24 +18,46 @@ Vue.use(Router)
 
 export const routerOptions = {
   mode: 'history',
-  base: decodeURI('/'),
+  base: '/',
   linkActiveClass: 'nuxt-link-active',
   linkExactActiveClass: 'nuxt-link-exact-active',
   scrollBehavior,
 
   routes: [{
     path: "/about",
-    component: _37045626,
+    component: _1faacba6,
     name: "about"
   }, {
     path: "/",
-    component: _0435afb2,
+    component: _0fe274f2,
     name: "index"
   }],
 
   fallback: false
 }
 
+function decodeObj(obj) {
+  for (const key in obj) {
+    if (typeof obj[key] === 'string') {
+      obj[key] = decode(obj[key])
+    }
+  }
+}
+
 export function createRouter () {
-  return new Router(routerOptions)
+  const router = new Router(routerOptions)
+
+  const resolve = router.resolve.bind(router)
+  router.resolve = (to, current, append) => {
+    if (typeof to === 'string') {
+      to = normalizeURL(to)
+    }
+    const r = resolve(to, current, append)
+    if (r && r.resolved && r.resolved.query) {
+      decodeObj(r.resolved.query)
+    }
+    return r
+  }
+
+  return router
 }

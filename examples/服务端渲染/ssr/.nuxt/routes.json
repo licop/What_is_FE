@@ -1,0 +1,16 @@
+[
+  {
+    "name": "about",
+    "path": "/about",
+    "component": "/Users/licop/Documents/GitHub/What_is_FE/examples/服务端渲染/ssr/pages/about.vue",
+    "chunkName": "pages/about",
+    "_name": "_1faacba6"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/licop/Documents/GitHub/What_is_FE/examples/服务端渲染/ssr/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_0fe274f2"
+  }
+]

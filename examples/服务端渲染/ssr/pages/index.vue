@@ -16,7 +16,7 @@ import axios from 'axios'
 export default {
   name: 'HomePage',
   components: {},
-  // Nuxt 中特殊提供的一个钩子函数，专门用于获取页面服务端渲染的数据
+  // asyncData是Nuxt 中特殊提供的一个钩子函数，专门用于获取页面服务端渲染的数据
   async asyncData () {
     const { data } = await axios({
       method: 'GET',
@@ -30,6 +30,7 @@ export default {
     //   posts: data.posts
     // }
   }
+
   // data () {
   //   return {
   //     title: '',
