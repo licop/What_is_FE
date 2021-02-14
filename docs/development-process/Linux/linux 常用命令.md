@@ -105,6 +105,12 @@ cat 主要有三大功能：
 
 查看文件的位置
 
+```
+whereis node
+whereis npm
+whereis pm2
+```
+
 ## kill 命令
 
 ```
@@ -145,6 +151,29 @@ scp 是 secure copy 的缩写, scp 是 linux 系统下基于 ssh 登陆进行安
 
   vi /usr/local/nginx/conf/nginx.conf 打开修改nginx配置文件
 
+```
+
+## ln 命令
+
+某一个文件在另外一个位置建立一个同步的链接
+
+**软链接**：
+
+1. 软链接，以路径的形式存在。类似于 Windows 操作系统中的快捷方式
+2. 软链接可以 跨文件系统 ，硬链接不可以
+3. 软链接可以对一个不存在的文件名进行链接
+4. 软链接可以对目录进行链接
+5. ln -s 参数创建软连接
+
+**硬链接**：
+
+1. 硬链接，以文件副本的形式存在。但不占用实际空间。
+2. 不允许给目录创建硬链接
+3. 硬链接只有在同一个文件系统中才能创建
+
+```
+sudo ln -s /usr/local/node/bin/npm  /usr/bin/npm
+sudo ln -s /usr/local/node/bin/node /usr/bin/node
 ```
 
 ## 更多参考

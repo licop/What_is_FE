@@ -2,18 +2,18 @@
 
 Git 提交代码的流程如下图
 
-![git_flow](/git_flow.png)
+![git_flow](/development-process/git_flow.png)
 
 几个专用名词的译名如下。
 
-- Workspace：工作区
-- Index / Stage：暂存区
-- Repository：仓库区（或本地仓库）
-- Remote：远程仓库
+- **Workspace**：工作区
+- **Index / Stage**：暂存区
+- **Repository**：仓库区（或本地仓库）
+- **Remote**：远程仓库
 
 ## 一、新建代码库
 
-```
+```sh
 # 在当前目录新建一个Git代码库
 $ git init
 
@@ -28,7 +28,7 @@ $ git clone [url]
 
 Git 的设置文件为`.gitconfig`，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
 
-```
+```sh
 # 显示当前的Git配置
 $ git config --list
 
@@ -42,7 +42,7 @@ $ git config [--global] user.email "[email address]"
 
 ## 三、增加/删除文件
 
-```
+```sh
  # 添加指定文件到暂存区
  $ git add [file1] [file2] ...
 
@@ -68,7 +68,7 @@ $ git config [--global] user.email "[email address]"
 
 ## 四、代码提交
 
-```
+```sh
   # 提交暂存区到仓库区
  $ git commit -m [message]
 
@@ -91,7 +91,7 @@ $ git config [--global] user.email "[email address]"
 
 ## 五、分支
 
-```
+```sh
 # 列出所有本地分支
 $ git branch
 
@@ -138,7 +138,7 @@ $ git branch -dr [remote/branch]
 
 ## 六、标签
 
-```
+```sh
  # 列出所有tag
  $ git tag
 
@@ -169,7 +169,7 @@ $ git branch -dr [remote/branch]
 
 ## 七、查看信息
 
-```
+```sh
 # 列出所有tag
 $ git tag
 
@@ -262,7 +262,7 @@ $ git reflog
 
 ## 八、远程同步
 
-```
+```sh
  # 下载远程仓库的所有变动
  $ git fetch [remote]
 
@@ -290,7 +290,7 @@ $ git reflog
 
 ## 九. 撤销
 
-```
+```sh
   # 恢复暂存区的指定文件到工作区
 $ git checkout [file]
 

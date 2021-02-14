@@ -61,7 +61,7 @@ src
 
 除此之外，还会自动修改`package.json`，添加相关依赖和 scripts
 
-```
+```json
 {
   "storybook": "start-storybook -p 6006 -s public",
   "build-storybook": "build-storybook -s public"
@@ -81,7 +81,7 @@ default 导出为页面配置(组件、标题)
 
 export 导出为组件的每种 Props 枚举的样式，可添加多种展示方式。
 
-```
+```js
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
@@ -111,7 +111,7 @@ Secondary.args = {
 
 首先配置组件默认导出，必填项为`title`
 
-```
+```js
   export default {
       title: 'Example/Button',
       component: Button,
@@ -125,37 +125,41 @@ Secondary.args = {
 
 - 可直接导出组件
 
-```
-  export const Menu: React.VFC = (props) => {
+```js
+export const Menu: React.VFC = (props) => {
   return (
-    <Menu defaultIndex='0' onSelect={(index) => {action(`clicked ${index} item`)}} >
-    </Menu>
-  )
-}
+    <Menu
+      defaultIndex="0"
+      onSelect={(index) => {
+        action(`clicked ${index} item`);
+      }}
+    ></Menu>
+  );
+};
 ```
 
 > 参数增加 props 可出现 Props 控制选项，不加则没有
 
 - 使用 Args 方式导出（推荐）
 
-```
-  const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+```js
+const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
-  export const Primary = Template.bind({});
-  Primary.args = {
-     primary: true,
-     label: 'Button',
-  };
+export const Primary = Template.bind({});
+Primary.args = {
+  primary: true,
+  label: "Button",
+};
 ```
 
 使用 Args 导出模式可自动添加 Props 相关控制选项，并且重用 Props 很方便
 
-```
- const Secondary = ButtonStory.bind({});
- Secondary.args = {
-    ...Primary.args,
-    primary: false,
-  };
+```js
+const Secondary = ButtonStory.bind({});
+Secondary.args = {
+  ...Primary.args,
+  primary: false,
+};
 ```
 
 ## 自定义组件文档
@@ -165,16 +169,16 @@ MDX = Markdown + JSX
 
 首先需要先定义菜单名称和相关组件（类似`.stories.tsx`的默认导出）
 
-```
-import { Meta, Canvas, Story } from '@storybook/addon-docs/blocks';
-import { Button } from './Button';
+```js
+import { Meta, Canvas, Story } from "@storybook/addon-docs/blocks";
+import { Button } from "./Button";
 
 <Meta title="Documents/Button" component={Button} />;
 ```
 
 接下来可以使用 Markdown 语法和 Canvas、Story 等 JSX 标记编写文档
 
-```
+```js
 export const Template = (args) => <Button {...args} />;
 
 # 按钮组件
@@ -205,7 +209,7 @@ export const Template = (args) => <Button {...args} />;
 
 此段代码生成如下效果
 
-![](/storybook-custom-doc.png)
+![](/development-process/storybook-custom-doc.png)
 
 > 每个 Story 块生成一个子项，多个子项共用一个文档
 
@@ -215,16 +219,16 @@ export const Template = (args) => <Button {...args} />;
 
 组件行首注释（用于生成文档的组件描述文字）
 
-```
- import React from 'react';
+```js
+import React from "react";
 
- export interface ButtonProps {
+export interface ButtonProps {
   /** 是否为主按钮 */
   primary?: boolean;
   /** 按钮背景颜色 */
   backgroundColor?: string;
   /** 按钮大小 */
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   /** 按钮文字 */
   label: string;
   /** 点击回调函数 */
@@ -234,7 +238,7 @@ export const Template = (args) => <Button {...args} />;
 /** 这是一个按钮 */
 export const Button: React.FC<ButtonProps> = ({
   primary = false,
-  size = 'medium',
+  size = "medium",
   backgroundColor,
   label,
   ...props
@@ -243,10 +247,10 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       type="button"
       className={[
-        'storybook-button',
+        "storybook-button",
         `storybook-button--${size}`,
-        primary ? 'storybook-button--primary' : 'storybook-button--secondary',
-      ].join(' ')}
+        primary ? "storybook-button--primary" : "storybook-button--secondary",
+      ].join(" ")}
       style={{ backgroundColor }}
       {...props}
     >
@@ -258,7 +262,7 @@ export const Button: React.FC<ButtonProps> = ({
 
 此段代码生成如下效果（注意红框内的文字）
 
-![](/story-jsx-doc.png)
+![](/development-process/story-jsx-doc.png)
 
 ## 常用配置
 
@@ -268,18 +272,18 @@ Storybook 配置可分别指定作用范围，分为组件配置、Story 文件�
 
 `.storybook/preview.js`
 
-```
+```js
 export const parameters = {
   backgrounds: {
-    default: 'twitter',
+    default: "twitter",
     values: [
       {
-        name: 'twitter',
-        value: '#00aced',
+        name: "twitter",
+        value: "#00aced",
       },
       {
-        name: 'facebook',
-        value: '#3b5998',
+        name: "facebook",
+        value: "#3b5998",
       },
     ],
   },
@@ -290,15 +294,15 @@ export const parameters = {
 
 `Button.stories.js`
 
-```
-  export default {
-  title: 'Button',
+```js
+export default {
+  title: "Button",
   parameters: {
     backgrounds: {
-      default: 'twitter',
+      default: "twitter",
       values: [
-        { name: 'twitter', value: '#00aced' },
-        { name: 'facebook', value: '#3b5998' },
+        { name: "twitter", value: "#00aced" },
+        { name: "facebook", value: "#3b5998" },
       ],
     },
   },
@@ -307,7 +311,7 @@ export const parameters = {
 
 - 组件配置
 
-```
+```js
   export const Primary = …
   Primary.decorators = [(Story) => <div style={{ padding: '3em' }}><Story/></div>]
 ```
@@ -318,21 +322,21 @@ export const parameters = {
 
 `.stories.tsx`
 
-```
-  export default {
-  title: 'Button',
+```js
+export default {
+  title: "Button",
   component: Button,
   argTypes: {
-    backgroundColor: { control: 'color' },
+    backgroundColor: { control: "color" },
     loadingState: {
       control: {
-        type: 'inline-radio',
-        options: ['loading', 'error', 'ready'],
+        type: "inline-radio",
+        options: ["loading", "error", "ready"],
       },
     },
     width: {
       control: {
-        type: 'range',
+        type: "range",
         min: 400,
         max: 1200,
         step: 50,
@@ -350,8 +354,8 @@ Story 可以覆盖默认的 Props 描述（来自静态代码分析）
 
 还可以添加大段文字，以说明 Props 的用途
 
-```
-  export default {
+```js
+export default {
   title: 'Example/Button',
   component: Button,
   argTypes: {
@@ -394,8 +398,8 @@ Story 可以覆盖默认的 Props 描述（来自静态代码分析）
 1. 安装插件：yarn add --dev @storybook/addon-storyshots react-test-renderer
 2. 在 src/stories 中新建文件 snapshoot.test.ts
 
-```
-import initStoryshots from '@storybook/addon-storyshots';
+```js
+import initStoryshots from "@storybook/addon-storyshots";
 
 initStoryshots();
 ```

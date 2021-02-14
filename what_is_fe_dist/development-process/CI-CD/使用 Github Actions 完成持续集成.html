@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>使用 Github Actions 完成持续集成 | What is FE</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.41761744.css" as="style"><link rel="preload" href="/assets/js/app.63d40b47.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/10.6851ab8d.js" as="script"><link rel="preload" href="/assets/js/3.b304fdc1.js" as="script"><link rel="prefetch" href="/assets/js/11.e2c35893.js"><link rel="prefetch" href="/assets/js/12.90928e9f.js"><link rel="prefetch" href="/assets/js/13.bd759679.js"><link rel="prefetch" href="/assets/js/14.f43c3d10.js"><link rel="prefetch" href="/assets/js/15.65010b44.js"><link rel="prefetch" href="/assets/js/16.863ec29e.js"><link rel="prefetch" href="/assets/js/17.f8efe825.js"><link rel="prefetch" href="/assets/js/18.1142b109.js"><link rel="prefetch" href="/assets/js/19.f2a50fde.js"><link rel="prefetch" href="/assets/js/20.43106a54.js"><link rel="prefetch" href="/assets/js/21.29ef67c8.js"><link rel="prefetch" href="/assets/js/22.d0c70b78.js"><link rel="prefetch" href="/assets/js/23.a94619bb.js"><link rel="prefetch" href="/assets/js/24.fd790b73.js"><link rel="prefetch" href="/assets/js/25.2a662817.js"><link rel="prefetch" href="/assets/js/26.ce4d8e12.js"><link rel="prefetch" href="/assets/js/27.07860a78.js"><link rel="prefetch" href="/assets/js/28.93551d23.js"><link rel="prefetch" href="/assets/js/29.5703dc3b.js"><link rel="prefetch" href="/assets/js/30.75e3ebcc.js"><link rel="prefetch" href="/assets/js/31.3fc139e1.js"><link rel="prefetch" href="/assets/js/32.6bc4b008.js"><link rel="prefetch" href="/assets/js/33.732ae685.js"><link rel="prefetch" href="/assets/js/34.4fa55018.js"><link rel="prefetch" href="/assets/js/35.a2dc28c1.js"><link rel="prefetch" href="/assets/js/36.01700f2d.js"><link rel="prefetch" href="/assets/js/37.632f0d73.js"><link rel="prefetch" href="/assets/js/38.76320434.js"><link rel="prefetch" href="/assets/js/39.6ffb4231.js"><link rel="prefetch" href="/assets/js/4.acb8acb9.js"><link rel="prefetch" href="/assets/js/40.d7582b55.js"><link rel="prefetch" href="/assets/js/41.313972cf.js"><link rel="prefetch" href="/assets/js/42.a3b8fd22.js"><link rel="prefetch" href="/assets/js/43.afa31b61.js"><link rel="prefetch" href="/assets/js/44.109f56dd.js"><link rel="prefetch" href="/assets/js/45.bbf7be32.js"><link rel="prefetch" href="/assets/js/46.be3cc1be.js"><link rel="prefetch" href="/assets/js/47.9caf4798.js"><link rel="prefetch" href="/assets/js/48.66bc0d91.js"><link rel="prefetch" href="/assets/js/49.916abd30.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/50.3dd6be72.js"><link rel="prefetch" href="/assets/js/51.316231ab.js"><link rel="prefetch" href="/assets/js/52.e0466ad8.js"><link rel="prefetch" href="/assets/js/53.40d13823.js"><link rel="prefetch" href="/assets/js/54.f1662c86.js"><link rel="prefetch" href="/assets/js/55.114b19e7.js"><link rel="prefetch" href="/assets/js/56.ada8490b.js"><link rel="prefetch" href="/assets/js/57.7692b5a5.js"><link rel="prefetch" href="/assets/js/58.bc73fcf5.js"><link rel="prefetch" href="/assets/js/59.9e1f353c.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/60.54c825ef.js"><link rel="prefetch" href="/assets/js/61.0c23ecd8.js"><link rel="prefetch" href="/assets/js/62.a1f97050.js"><link rel="prefetch" href="/assets/js/63.96d734c0.js"><link rel="prefetch" href="/assets/js/64.7be8e358.js"><link rel="prefetch" href="/assets/js/65.eb038144.js"><link rel="prefetch" href="/assets/js/66.99fcf917.js"><link rel="prefetch" href="/assets/js/67.d4ca4b36.js"><link rel="prefetch" href="/assets/js/68.2d11c041.js"><link rel="prefetch" href="/assets/js/69.5a2d69aa.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/70.add7def6.js"><link rel="prefetch" href="/assets/js/71.0e03e17d.js"><link rel="prefetch" href="/assets/js/8.f847aa7a.js"><link rel="prefetch" href="/assets/js/9.df139318.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.41761744.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is FE</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/cross-env/关于cross-env.html" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/ssr/服务器端渲染.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/cross-env/关于cross-env.html" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/ssr/服务器端渲染.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Git</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/Git/git命令.html" class="sidebar-link">常用 git 命令</a></li><li><a href="/development-process/Git/使用omyzsh git插件的别名.html" class="sidebar-link">使用 omyzsh git 插件的别名 Aliases</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Linux</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/Linux/linux 常用命令.html" class="sidebar-link">linux 常用命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>mock</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/mock/在线 mock server.html" class="sidebar-link">在线 mock server</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>NPM</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/NPM/关于 package.json.html" class="sidebar-link">关于 package.json</a></li><li><a href="/development-process/NPM/关于npx.html" class="sidebar-link">关于 npx</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>CI-CD</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/CI-CD/CI-CD以及travis的使用.html" class="sidebar-link">CI/CD 以及 travis 的使用</a></li><li><a href="/development-process/CI-CD/使用 Github Actions 完成持续集成.html" class="active sidebar-link">使用 Github Actions 完成持续集成</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/development-process/CI-CD/使用 Github Actions 完成持续集成.html#基本概念" class="sidebar-link">基本概念</a></li><li class="sidebar-sub-header"><a href="/development-process/CI-CD/使用 Github Actions 完成持续集成.html#workflow-文件" class="sidebar-link">workflow 文件</a></li><li class="sidebar-sub-header"><a href="/development-process/CI-CD/使用 Github Actions 完成持续集成.html#实例-nuxtjs-realworld-项目自动部署到阿里云服务器" class="sidebar-link">实例: Nuxtjs realworld 项目自动部署到阿里云服务器</a></li><li class="sidebar-sub-header"><a href="/development-process/CI-CD/使用 Github Actions 完成持续集成.html#更多参考" class="sidebar-link">更多参考</a></li></ul></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>单元测试</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/单元测试/Jest.html" class="sidebar-link">Jest</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>文档</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/文档/storybook.html" class="sidebar-link">Storybook 使用</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="使用-github-actions-完成持续集成"><a href="#使用-github-actions-完成持续集成" class="header-anchor">#</a> 使用 Github Actions 完成持续集成</h1> <p>除了 <code>Travis CI</code>，Github 也有自带的持续集成服务<code>GitHub Actions</code>, 功能同样十分强大。我们可以使用它抓取代码、运行测试、登录远程服务器，发布到第三方服务等等。GitHub 把这些操作就称为 <code>actions</code>。</p> <p>很多操作在不同项目里面是类似的，完全可以共享。如果你需要某个 action，不必自己写复杂的脚本，直接引用他人写好的 action 即可.</p> <p>GitHub 做了一个官方市场，可以搜索到他人提交的 <a href="https://github.com/actions" target="_blank" rel="noopener noreferrer">actions<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>。 另外，还有一个<a href="https://github.com/sdras/awesome-actions" target="_blank" rel="noopener noreferrer">awesome actions<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>的仓库，也可以找到不少 action。</p> <h2 id="基本概念"><a href="#基本概念" class="header-anchor">#</a> 基本概念</h2> <p><code>GitHub Actions</code> 有一些自己的术语。</p> <ol><li><p><strong>workflow （工作流程）</strong>：持续集成一次运行的过程，就是一个 workflow。</p></li> <li><p><strong>job （任务）</strong>：一个 workflow 由一个或多个 jobs 构成，含义是一次持续集成的运行，可以完成多个任务。</p></li> <li><p><strong>step（步骤）</strong>：每个 job 由多个 step 构成，一步步完成。</p></li> <li><p><strong>action （动作）</strong>：每个 step 可以依次执行一个或多个命令（action）。</p></li></ol> <h2 id="workflow-文件"><a href="#workflow-文件" class="header-anchor">#</a> workflow 文件</h2> <p>GitHub Actions 的配置文件叫做 workflow 文件，存放在代码仓库的<code>.github/workflows</code>目录。</p> <p>workflow 文件采用 YAML 格式，文件名可以任意取，但是后缀名统一为.yml，比如 foo.yml。一个库可以有多个 workflow 文件。GitHub 只要发现<code>.github/workflows</code> 目录里面有.yml 文件，就会自动运行该文件。</p> <p>workflow 文件的配置字段非常多，详见<a href="https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions" target="_blank" rel="noopener noreferrer">官方文档<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>。</p> <h2 id="实例-nuxtjs-realworld-项目自动部署到阿里云服务器"><a href="#实例-nuxtjs-realworld-项目自动部署到阿里云服务器" class="header-anchor">#</a> 实例: Nuxtjs realworld 项目自动部署到阿里云服务器</h2> <p>将 nuxtjs 实现的 realworld 项目发布部署到<a href="https://github.com/licop/nuxtjs-realworld" target="_blank" rel="noopener noreferrer">nuxtjs-realworld<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>阿里云服务器, 网址 https://realworld.licop.cn/</p> <h3 id="配置-github-access-token"><a href="#配置-github-access-token" class="header-anchor">#</a> 配置 Github Access Token</h3> <p>在<code>Settings Developer/settings</code>生成一个新的 token,然后拷贝生成的 token，这里的 token 只能显示一次</p> <p><img src="/development-process/gitaction1.png" alt=""></p> <h3 id="配置项目的-secrets"><a href="#配置项目的-secrets" class="header-anchor">#</a> 配置项目的 Secrets</h3> <p>然后，将这个 token 密钥储存到当前仓库的 <code>Settings/Secrets</code> 里面, 顺便将服务的地址，端口，用户名 root, 密码也配置在项目的 Secrets 中，在 workflow 文件中提取，用于部署到服务器。</p> <p><img src="/development-process/gitaction2.png" alt=""></p> <h3 id="新建-workflow-文件"><a href="#新建-workflow-文件" class="header-anchor">#</a> 新建 workflow 文件</h3> <p>workflow 文件可以分为 5 个关键的 action</p> <ol><li>下载源码</li> <li>安装依赖，打包构建，将部署用到的文件、目录打包压缩包</li> <li>发布 Release</li> <li>上传构建结果到 Release</li> <li>部署到服务器,找到项目路径、解压、安装依赖、使用 pm2 运行项目</li></ol> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">name</span><span class="token punctuation">:</span> Publish And Deploy Demo
+<span class="token key atrule">on</span><span class="token punctuation">:</span>
+  <span class="token key atrule">push</span><span class="token punctuation">:</span>
+    <span class="token key atrule">tags</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;v*&quot;</span>
+
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">build-and-deploy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token comment"># 下载源码</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@master
+
+      <span class="token comment"># 打包构建</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Build
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/setup<span class="token punctuation">-</span>node@master
+      <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> npm install
+      <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> npm run build
+      <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> tar <span class="token punctuation">-</span>zcvf release.tgz .nuxt static nuxt.config.js package.json pm2.config.json
+
+      <span class="token comment"># 发布 Release</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Create Release
+        <span class="token key atrule">id</span><span class="token punctuation">:</span> create_release
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/create<span class="token punctuation">-</span>release@master
+        <span class="token key atrule">env</span><span class="token punctuation">:</span>
+          <span class="token key atrule">GITHUB_TOKEN</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.TOKEN <span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">tag_name</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> github.ref <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">release_name</span><span class="token punctuation">:</span> Release $<span class="token punctuation">{</span><span class="token punctuation">{</span> github.ref <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">draft</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+          <span class="token key atrule">prerelease</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+
+      <span class="token comment"># 上传构建结果到 Release</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Upload Release Asset
+        <span class="token key atrule">id</span><span class="token punctuation">:</span> upload<span class="token punctuation">-</span>release<span class="token punctuation">-</span>asset
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/upload<span class="token punctuation">-</span>release<span class="token punctuation">-</span>asset@master
+        <span class="token key atrule">env</span><span class="token punctuation">:</span>
+          <span class="token key atrule">GITHUB_TOKEN</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.TOKEN <span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">upload_url</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> steps.create_release.outputs.upload_url <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">asset_path</span><span class="token punctuation">:</span> ./release.tgz
+          <span class="token key atrule">asset_name</span><span class="token punctuation">:</span> release.tgz
+          <span class="token key atrule">asset_content_type</span><span class="token punctuation">:</span> application/x<span class="token punctuation">-</span>tgz
+
+      <span class="token comment"># 部署到服务器</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> appleboy/ssh<span class="token punctuation">-</span>action@master
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">host</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.HOST <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">username</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.USERNAME <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">password</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.PASSWORD <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">port</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.PORT <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">script</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+            cd /root/nuxtjs-realworld
+            wget https://github.com/licop/nuxtjs-realworld/releases/latest/download/release.tgz -O release.tgz
+            tar zxvf release.tgz
+            npm install --production
+            pm2 reload pm2.config.json</span>
+</code></pre></div><p><strong>CI/CD 流程</strong></p> <p><img src="/development-process/cicd1.png" alt=""></p> <h3 id="发布-部署"><a href="#发布-部署" class="header-anchor">#</a> 发布&amp;部署</h3> <p><code>push</code> 事件触发 workflow, 上面代码指定，push tag 并且 tag 名称是 v 开头的，可以触发 workflow。</p> <div class="language- extra-class"><pre class="language-text"><code>git add .
+git tag v0.1.0
+git push origin v0.1.0
+</code></pre></div><p>之后我们就可以在项目的 Actions 里查看，构建和发布是否成功</p> <p><img src="/development-process/gitaction3.png" alt=""></p> <p>在 release 查看发布的内容</p> <p><img src="/development-process/gitaction4.png" alt=""></p> <h2 id="更多参考"><a href="#更多参考" class="header-anchor">#</a> 更多参考</h2> <ul><li><a href="http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html" target="_blank" rel="noopener noreferrer">GitHub Actions 入门教程<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/development-process/CI-CD/CI-CD以及travis的使用.html" class="prev">
+        CI/CD 以及 travis 的使用
+      </a></span> <span class="next"><a href="/development-process/单元测试/Jest.html">
+        Jest
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.63d40b47.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/10.6851ab8d.js" defer></script><script src="/assets/js/3.b304fdc1.js" defer></script>
+  </body>
+</html>

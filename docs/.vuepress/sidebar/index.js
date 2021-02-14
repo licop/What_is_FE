@@ -106,7 +106,8 @@ module.exports = {
             '关于npx'
         ],
         'CI-CD': [
-            'CI-CD以及travis的使用'
+            'CI-CD以及travis的使用',
+            '使用 Github Actions 完成持续集成'
         ],
         '单元测试': [
             'Jest'
@@ -126,7 +127,8 @@ module.exports = {
     // 服务器端
     '/server/': {
         'ssr': [
-            '服务器端渲染'
+            '服务器端渲染',
+            '关于 Nuxtjs'
         ]
     },
     // 技术广度

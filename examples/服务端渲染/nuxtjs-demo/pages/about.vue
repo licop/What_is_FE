@@ -1,5 +1,11 @@
 <template>
-  <h1>About Page</h1>
+  <div>
+    <h1>About Page</h1>
+    <nuxt-link to="/">home</nuxt-link>
+  </div>
+  
+
+
 </template>
 
 <script>

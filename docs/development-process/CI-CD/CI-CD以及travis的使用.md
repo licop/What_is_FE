@@ -15,7 +15,7 @@
 - 频繁的将软件的新版本，交付给质量团队或者用户
 - 代码通过评审以后，自动部署到生产环境
 
-![cicd](/cicd.png)
+![cicd](/development-process/cicd.png)
 
 ## 使用 Travis CI
 
