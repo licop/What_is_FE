@@ -86,7 +86,8 @@ module.exports = {
             'Vue 源码解析--虚拟 Dom',
             'Vue 源码解析--模板编译',
             'Vue 源码解析--一些工具方法',
-            'Vuex 介绍及源码解析'
+            'Vuex 介绍及源码解析',
+            '使用 vue-server-renderer 开发一个 Vue 服务端渲染项目'
         ]
     },
     // 开发流程
