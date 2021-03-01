@@ -7,7 +7,7 @@
 </head>
 <body>
   <script type="module">
-    import { reactive, effect } from './reactivity/index.js'
+    import { reactive, effect } from './reactivity/index1.js'
 
     const product = reactive({
       name: 'iPhone',
@@ -15,6 +15,7 @@
       count: 3
     })
     let total = 0 
+    // 和watchEffect功能类似
     effect(() => {
       total = product.price * product.count
     })

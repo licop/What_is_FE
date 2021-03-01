@@ -8,6 +8,7 @@
 <body>
   <script>
     'use strict'
+    // vue3.0中使用Reflect统一API
     // 问题1： set 和 deleteProperty 中需要返回布尔类型的值
     //        在严格模式下，如果返回 false 的话会出现 Type Error 的异常
     // const target = {
@@ -23,6 +24,7 @@
     //   },
     //   set (target, key, value, receiver) {
     //     // target[key] = value
+    //     console.log(target, key, value, receiver, 27)
     //     return Reflect.set(target, key, value, receiver)
     //   },
     //   deleteProperty (target, key) {
@@ -32,7 +34,7 @@
     // })
 
     // proxy.foo = 'zzz'
-    // // delete proxy.foo
+    // delete proxy.foo
 
 
     // 问题2：Proxy 和 Reflect 中使用的 receiver
@@ -42,20 +44,22 @@
 
     const obj = {
       get foo() {
+        // 如果Reflect中传入receiver，this指向receiver；如果没传入指向obj
         console.log(this)
         return this.bar
       }
     }
-
+    
     const proxy = new Proxy(obj, {
       get (target, key, receiver) {
+        console.log(target, key, receiver, 54)
         if (key === 'bar') { 
           return 'value - bar' 
         }
         return Reflect.get(target, key, receiver)
       }
     })
-    console.log(proxy.foo)
+    console.log(proxy.foo, 61)
   </script>
 </body>
 </html>

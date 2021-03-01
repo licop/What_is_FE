@@ -7,13 +7,14 @@ const compilerSFC = require('@vue/compiler-sfc')
 
 const app = new Koa()
 
+// 将文件流转换为字符串
 const streamToString = stream => new Promise((resolve, reject) => {
   const chunks = []
   stream.on('data', chunk => chunks.push(chunk))
   stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')))
   stream.on('error', reject)
 })
-
+// 把字符串转换成流
 const stringToStream = text => {
   const stream = new Readable()
   stream.push(text)
@@ -43,6 +44,7 @@ app.use(async (ctx, next) => {
 app.use(async (ctx, next) => {
   if (ctx.path.endsWith('.vue')) {
     const contents = await streamToString(ctx.body)
+    // 使用compilerSFC编译单文件组件
     const { descriptor } = compilerSFC.parse(contents)
     let code
     if (!ctx.query.type) {
@@ -55,6 +57,7 @@ app.use(async (ctx, next) => {
       export default __script
       `
     } else if (ctx.query.type === 'template') {
+      // 编译模板
       const templateRender = compilerSFC.compileTemplate({ source: descriptor.template.content })
       code = templateRender.code
     }
@@ -69,7 +72,6 @@ app.use(async (ctx, next) => {
   if (ctx.type === 'application/javascript') {
     const contents = await streamToString(ctx.body)
     // import vue from 'vue'
-    // import App from './App.vue'
     ctx.body = contents
       .replace(/(from\s+['"])(?![\.\/])/g, '$1/@modules/')
       .replace(/process\.env\.NODE_ENV/g, '"development"')
