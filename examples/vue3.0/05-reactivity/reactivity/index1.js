@@ -3,6 +3,7 @@ const convert = target => isObject(target) ? reactive(target) : target
 const hasOwnProperty = Object.prototype.hasOwnProperty
 const hasOwn = (target, key) => hasOwnProperty.call(target, key)
 
+// reactive 方法
 export function reactive (target) {
   if(!isObject(target)) return target
 
@@ -32,11 +33,8 @@ export function reactive (target) {
       }
       return result
     }
-
   }
-
   return new Proxy(target, handler)
-
 }
 
 let activeEffect = null
@@ -123,6 +121,7 @@ function toProxyRef(proxy, key) {
   return r
 }
 
+// 计算属性
 export function computed(getter) {
   const result = ref()
 

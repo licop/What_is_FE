@@ -635,7 +635,7 @@ listProxy.push(100);
 listProxy.push(100);
 ```
 
-- 优势 3：Proxy 是以非入侵的方式监管的对象的读写
+- 优势 3：Proxy 是以非入侵的方式监管的对象的读写，Proxy 返回的是一个新对象,我们可以只操作新的对象达到目的,而 Object.defineProperty 只能遍历对象属性直接修改；
 
 ```js
 const person = {};
