@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Storybook 使用 | What is FE</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.41761744.css" as="style"><link rel="preload" href="/assets/js/app.238842fe.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/19.f2a50fde.js" as="script"><link rel="preload" href="/assets/js/3.b304fdc1.js" as="script"><link rel="prefetch" href="/assets/js/10.6851ab8d.js"><link rel="prefetch" href="/assets/js/11.a2a61a88.js"><link rel="prefetch" href="/assets/js/12.d3bf7b11.js"><link rel="prefetch" href="/assets/js/13.e46e0125.js"><link rel="prefetch" href="/assets/js/14.2c89a43b.js"><link rel="prefetch" href="/assets/js/15.99c0eafd.js"><link rel="prefetch" href="/assets/js/16.8d7bee9a.js"><link rel="prefetch" href="/assets/js/17.f8efe825.js"><link rel="prefetch" href="/assets/js/18.c5a51319.js"><link rel="prefetch" href="/assets/js/20.43106a54.js"><link rel="prefetch" href="/assets/js/21.29ef67c8.js"><link rel="prefetch" href="/assets/js/22.c8338677.js"><link rel="prefetch" href="/assets/js/23.82f3b7e9.js"><link rel="prefetch" href="/assets/js/24.6d10721e.js"><link rel="prefetch" href="/assets/js/25.9b1760a8.js"><link rel="prefetch" href="/assets/js/26.4cca9138.js"><link rel="prefetch" href="/assets/js/27.f68cc1a8.js"><link rel="prefetch" href="/assets/js/28.a10966fe.js"><link rel="prefetch" href="/assets/js/29.4934d0b3.js"><link rel="prefetch" href="/assets/js/30.75e3ebcc.js"><link rel="prefetch" href="/assets/js/31.e1b5f426.js"><link rel="prefetch" href="/assets/js/32.bf0b6009.js"><link rel="prefetch" href="/assets/js/33.75156274.js"><link rel="prefetch" href="/assets/js/34.4fa55018.js"><link rel="prefetch" href="/assets/js/35.63254c31.js"><link rel="prefetch" href="/assets/js/36.d1e3f074.js"><link rel="prefetch" href="/assets/js/37.38aa7903.js"><link rel="prefetch" href="/assets/js/38.9f34ffc2.js"><link rel="prefetch" href="/assets/js/39.2487d966.js"><link rel="prefetch" href="/assets/js/4.226c83f7.js"><link rel="prefetch" href="/assets/js/40.639269c7.js"><link rel="prefetch" href="/assets/js/41.6a20a228.js"><link rel="prefetch" href="/assets/js/42.daa81e44.js"><link rel="prefetch" href="/assets/js/43.e1f0dc7c.js"><link rel="prefetch" href="/assets/js/44.547ce508.js"><link rel="prefetch" href="/assets/js/45.221172ca.js"><link rel="prefetch" href="/assets/js/46.5b7d1b1b.js"><link rel="prefetch" href="/assets/js/47.aa31f2e2.js"><link rel="prefetch" href="/assets/js/48.e8f7f854.js"><link rel="prefetch" href="/assets/js/49.2f2a6766.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/50.a4602ee7.js"><link rel="prefetch" href="/assets/js/51.13036941.js"><link rel="prefetch" href="/assets/js/52.667c2438.js"><link rel="prefetch" href="/assets/js/53.505f430c.js"><link rel="prefetch" href="/assets/js/54.b9639c4b.js"><link rel="prefetch" href="/assets/js/55.4bb308fb.js"><link rel="prefetch" href="/assets/js/56.d947e947.js"><link rel="prefetch" href="/assets/js/57.a6a256d3.js"><link rel="prefetch" href="/assets/js/58.6c3e7abc.js"><link rel="prefetch" href="/assets/js/59.54d3d41e.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/60.a1c19a11.js"><link rel="prefetch" href="/assets/js/61.5a1f39fc.js"><link rel="prefetch" href="/assets/js/62.83b0cd90.js"><link rel="prefetch" href="/assets/js/63.2d96484c.js"><link rel="prefetch" href="/assets/js/64.e5535aba.js"><link rel="prefetch" href="/assets/js/65.c31e46be.js"><link rel="prefetch" href="/assets/js/66.e99d7654.js"><link rel="prefetch" href="/assets/js/67.7d8c4261.js"><link rel="prefetch" href="/assets/js/68.6f166901.js"><link rel="prefetch" href="/assets/js/69.0f91ea8d.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/70.fda26c2d.js"><link rel="prefetch" href="/assets/js/71.b342c467.js"><link rel="prefetch" href="/assets/js/72.50ec7d9a.js"><link rel="prefetch" href="/assets/js/73.3c6928c2.js"><link rel="prefetch" href="/assets/js/8.dcb4cdc7.js"><link rel="prefetch" href="/assets/js/9.a301b122.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.41761744.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is FE</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/cross-env/关于cross-env.html" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/ssr/服务器端渲染.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/cross-env/关于cross-env.html" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/ssr/服务器端渲染.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Git</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/Git/git命令.html" class="sidebar-link">常用 git 命令</a></li><li><a href="/development-process/Git/使用omyzsh git插件的别名.html" class="sidebar-link">使用 omyzsh git 插件的别名 Aliases</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Linux</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/Linux/linux 常用命令.html" class="sidebar-link">linux 常用命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>mock</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/mock/在线 mock server.html" class="sidebar-link">在线 mock server</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>NPM</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/NPM/关于 package.json.html" class="sidebar-link">关于 package.json</a></li><li><a href="/development-process/NPM/关于npx.html" class="sidebar-link">关于 npx</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>CI-CD</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/CI-CD/CI-CD以及travis的使用.html" class="sidebar-link">CI/CD 以及 travis 的使用</a></li><li><a href="/development-process/CI-CD/使用 Github Actions 完成持续集成.html" class="sidebar-link">使用 Github Actions 完成持续集成</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>单元测试</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/单元测试/Jest.html" class="sidebar-link">Jest</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>文档</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/development-process/文档/storybook.html" class="active sidebar-link">Storybook 使用</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#storybook-是什么" class="sidebar-link">Storybook 是什么</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#storybook-优点" class="sidebar-link">Storybook 优点</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#安装" class="sidebar-link">安装</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#编写-stories" class="sidebar-link">编写 Stories</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#自定义组件文档" class="sidebar-link">自定义组件文档</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#组件注释方法" class="sidebar-link">组件注释方法</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#常用配置" class="sidebar-link">常用配置</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#自定义-controls-类型" class="sidebar-link">自定义 Controls 类型</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#自定义-props-描述" class="sidebar-link">自定义 Props 描述</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#插件系统" class="sidebar-link">插件系统</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#快照测试" class="sidebar-link">快照测试</a></li><li class="sidebar-sub-header"><a href="/development-process/文档/storybook.html#更多参考" class="sidebar-link">更多参考</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="storybook-使用"><a href="#storybook-使用" class="header-anchor">#</a> Storybook 使用</h1> <h2 id="storybook-是什么"><a href="#storybook-是什么" class="header-anchor">#</a> Storybook 是什么</h2> <p>使用 Storybook 可以为你的项目一键生成样式指南(Style Guide)页面。</p> <p>使用 <strong>组件驱动开发(CDD)</strong> 的模式，首先完成基础组件，通过组件复用的方式构建功能模块和页面。
+使用 CDD 开发有如下好处：</p> <ol><li>开发和设计更方便交流，更快速的迭代产品原型</li> <li>UI 与业务分离，基础组件中间无依赖，可以并行开发</li> <li>组件拆分更合理、规范，整体风格由基础组件决定，可以保证 UI 风格的统一性</li> <li>组件包含文档和样例，方便其他人员开始使用</li></ol> <h2 id="storybook-优点"><a href="#storybook-优点" class="header-anchor">#</a> Storybook 优点</h2> <ol><li>环境配置简单快捷，一条命令即可完成配置 (CRA 基础上)。</li> <li>样式指南编写简单，可自动提取 Props 定义、组件名称等，无需繁琐步骤即可使用。</li> <li>提供插件机制，功能可扩展，默认支持响应式设计，预览背景，实时属性更改，自动化文档等。</li> <li>支持 MDX 格式，可编写带组件预览的 Markdown 文档，亦可作为纯文档使用。</li> <li>可以独立打包成 App，作为 UI 文档发布。</li></ol> <h2 id="安装"><a href="#安装" class="header-anchor">#</a> 安装</h2> <p>在项目中运行</p> <div class="language- extra-class"><pre class="language-text"><code>  npx sb init
+</code></pre></div><p>会在项目中生成如下文件</p> <div class="language- extra-class"><pre class="language-text"><code>.storybook
+├── main.js     // stories 路径和插件配置
+└── preview.js  // 全局组件预览配置
+
+src
+├── index.tsx
+└── stories     // 默认生成的 Demo
+    ├── Button.stories.tsx
+    ├── Button.tsx
+    ├── Header.stories.tsx
+    ├── Header.tsx
+    ├── Introduction.stories.mdx
+    ├── Page.stories.tsx
+    ├── Page.tsx
+    ├── assets
+    │   ├── code-brackets.svg
+    │   ├── colors.svg
+    │   ├── comments.svg
+    │   ├── direction.svg
+    │   ├── flow.svg
+    │   ├── plugin.svg
+    │   ├── repo.svg
+    │   └── stackalt.svg
+    ├── button.css
+    ├── header.css
+    └── page.css
+</code></pre></div><p>除此之外，还会自动修改<code>package.json</code>，添加相关依赖和 scripts</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;storybook&quot;</span><span class="token operator">:</span> <span class="token string">&quot;start-storybook -p 6006 -s public&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;build-storybook&quot;</span><span class="token operator">:</span> <span class="token string">&quot;build-storybook -s public&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>运行<code>yarn storybook</code>即可直接预览 Demo</p> <h2 id="编写-stories"><a href="#编写-stories" class="header-anchor">#</a> 编写 Stories</h2> <h3 id="概述"><a href="#概述" class="header-anchor">#</a> 概述</h3> <p>Story 文件以.stories.tsx 结尾， 如存在自定义文档，则以.stories.mdx 结尾。
+每个 story 为一个菜单项，通过 ESModule 的形式导出。</p> <p>default 导出为页面配置(组件、标题)</p> <p>export 导出为组件的每种 Props 枚举的样式，可添加多种展示方式。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Story<span class="token punctuation">,</span> Meta <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@storybook/react/types-6-0'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Button<span class="token punctuation">,</span> ButtonProps <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./Button'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  title<span class="token operator">:</span> <span class="token string">'Example/Button'</span><span class="token punctuation">,</span>
+  component<span class="token operator">:</span> Button<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">as</span> Meta<span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> Template<span class="token operator">:</span> Story<span class="token operator">&lt;</span>ButtonProps<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">args</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token operator">&lt;</span>Button <span class="token punctuation">{</span><span class="token operator">...</span>args<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> Primary <span class="token operator">=</span> <span class="token function">Template</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Primary<span class="token punctuation">.</span>args <span class="token operator">=</span> <span class="token punctuation">{</span>
+  primary<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  label<span class="token operator">:</span> <span class="token string">'Button'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> Secondary <span class="token operator">=</span> <span class="token function">Template</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Secondary<span class="token punctuation">.</span>args <span class="token operator">=</span> <span class="token punctuation">{</span>
+  label<span class="token operator">:</span> <span class="token string">'Button'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+</code></pre></div><h3 id="组件预览页面"><a href="#组件预览页面" class="header-anchor">#</a> 组件预览页面</h3> <p>首先配置组件默认导出，必填项为<code>title</code></p> <div class="language-js extra-class"><pre class="language-js"><code>  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+      title<span class="token operator">:</span> <span class="token string">'Example/Button'</span><span class="token punctuation">,</span>
+      component<span class="token operator">:</span> Button<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span> <span class="token keyword">as</span> Meta<span class="token punctuation">;</span>
+</code></pre></div><ul><li>title: 用于组织菜单层次结构，可以通过/创建子目录（如：Example/Component/Button）</li> <li>component: Story 相关的组件（用于自动生成文档等）</li></ul> <p>导出每个组件有两种方式:</p> <ul><li>可直接导出组件</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">const</span> Menu<span class="token operator">:</span> React<span class="token punctuation">.</span><span class="token function-variable function">VFC</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>Menu
+      defaultIndex<span class="token operator">=</span><span class="token string">&quot;0&quot;</span>
+      onSelect<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token parameter">index</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">action</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">clicked </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>index<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> item</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>Menu<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><blockquote><p>参数增加 props 可出现 Props 控制选项，不加则没有</p></blockquote> <ul><li>使用 Args 方式导出（推荐）</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> Template<span class="token operator">:</span> Story<span class="token operator">&lt;</span>ButtonProps<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">args</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token operator">&lt;</span>Button <span class="token punctuation">{</span><span class="token operator">...</span>args<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> Primary <span class="token operator">=</span> <span class="token function">Template</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Primary<span class="token punctuation">.</span>args <span class="token operator">=</span> <span class="token punctuation">{</span>
+  primary<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  label<span class="token operator">:</span> <span class="token string">&quot;Button&quot;</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>使用 Args 导出模式可自动添加 Props 相关控制选项，并且重用 Props 很方便</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> Secondary <span class="token operator">=</span> <span class="token function">ButtonStory</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Secondary<span class="token punctuation">.</span>args <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>Primary<span class="token punctuation">.</span>args<span class="token punctuation">,</span>
+  primary<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="自定义组件文档"><a href="#自定义组件文档" class="header-anchor">#</a> 自定义组件文档</h2> <p>Storybook 支持自行编写组件相关文档，文件后缀名为<code>.stories.mdx</code>
+MDX = Markdown + JSX</p> <p>首先需要先定义菜单名称和相关组件（类似<code>.stories.tsx</code>的默认导出）</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> Meta<span class="token punctuation">,</span> Canvas<span class="token punctuation">,</span> Story <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;@storybook/addon-docs/blocks&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Button <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;./Button&quot;</span><span class="token punctuation">;</span>
+
+<span class="token operator">&lt;</span>Meta title<span class="token operator">=</span><span class="token string">&quot;Documents/Button&quot;</span> component<span class="token operator">=</span><span class="token punctuation">{</span>Button<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+</code></pre></div><p>接下来可以使用 Markdown 语法和 Canvas、Story 等 JSX 标记编写文档</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">Template</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">args</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token operator">&lt;</span>Button <span class="token punctuation">{</span><span class="token operator">...</span>args<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+
+# 按钮组件
+
+<span class="token operator">-</span> 这是一个按钮
+<span class="token operator">-</span> 好看的按钮
+
+## Primary 按钮
+
+<span class="token operator">&lt;</span>Story name<span class="token operator">=</span><span class="token string">&quot;Primary&quot;</span> args<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> primary<span class="token punctuation">,</span> label<span class="token operator">:</span> <span class="token string">'Button'</span> <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&gt;</span>
+<span class="token punctuation">{</span><span class="token function">Template</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>Story<span class="token operator">&gt;</span>
+
+## 大与小
+
+<span class="token operator">&lt;</span>Canvas<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>Story name<span class="token operator">=</span><span class="token string">&quot;Large&quot;</span> args<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> size<span class="token operator">:</span> <span class="token string">'large'</span><span class="token punctuation">,</span> label<span class="token operator">:</span> <span class="token string">'Button'</span> <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&gt;</span>
+    <span class="token punctuation">{</span><span class="token function">Template</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>Story<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>Story name<span class="token operator">=</span><span class="token string">&quot;Small&quot;</span> args<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> size<span class="token operator">:</span> <span class="token string">'small'</span><span class="token punctuation">,</span> label<span class="token operator">:</span> <span class="token string">'Button'</span> <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&gt;</span>
+    <span class="token punctuation">{</span><span class="token function">Template</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>Story<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>Canvas<span class="token operator">&gt;</span>
+</code></pre></div><ul><li><code>Story:</code> 组件展示</li> <li><code>Canvas:</code> 包含代码片段展示块</li></ul> <p>此段代码生成如下效果</p> <p><img src="/development-process/storybook-custom-doc.png" alt=""></p> <blockquote><p>每个 Story 块生成一个子项，多个子项共用一个文档</p></blockquote> <h2 id="组件注释方法"><a href="#组件注释方法" class="header-anchor">#</a> 组件注释方法</h2> <p>组件 Props 注释（用于生成文档的 Props 描述文字）</p> <p>组件行首注释（用于生成文档的组件描述文字）</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">ButtonProps</span> <span class="token punctuation">{</span>
+  <span class="token comment">/** 是否为主按钮 */</span>
+  primary<span class="token operator">?</span><span class="token operator">:</span> boolean<span class="token punctuation">;</span>
+  <span class="token comment">/** 按钮背景颜色 */</span>
+  backgroundColor<span class="token operator">?</span><span class="token operator">:</span> string<span class="token punctuation">;</span>
+  <span class="token comment">/** 按钮大小 */</span>
+  size<span class="token operator">?</span><span class="token operator">:</span> <span class="token string">&quot;small&quot;</span> <span class="token operator">|</span> <span class="token string">&quot;medium&quot;</span> <span class="token operator">|</span> <span class="token string">&quot;large&quot;</span><span class="token punctuation">;</span>
+  <span class="token comment">/** 按钮文字 */</span>
+  label<span class="token operator">:</span> string<span class="token punctuation">;</span>
+  <span class="token comment">/** 点击回调函数 */</span>
+  onClick<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/** 这是一个按钮 */</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Button<span class="token operator">:</span> React<span class="token punctuation">.</span><span class="token constant">FC</span><span class="token operator">&lt;</span>ButtonProps<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+  primary <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  size <span class="token operator">=</span> <span class="token string">&quot;medium&quot;</span><span class="token punctuation">,</span>
+  backgroundColor<span class="token punctuation">,</span>
+  label<span class="token punctuation">,</span>
+  <span class="token operator">...</span>props
+<span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>button
+      type<span class="token operator">=</span><span class="token string">&quot;button&quot;</span>
+      className<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>
+        <span class="token string">&quot;storybook-button&quot;</span><span class="token punctuation">,</span>
+        <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">storybook-button--</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>size<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        primary <span class="token operator">?</span> <span class="token string">&quot;storybook-button--primary&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;storybook-button--secondary&quot;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">&quot; &quot;</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+      style<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> backgroundColor <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span><span class="token operator">...</span>props<span class="token punctuation">}</span>
+    <span class="token operator">&gt;</span>
+      <span class="token punctuation">{</span>label<span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>此段代码生成如下效果（注意红框内的文字）</p> <p><img src="/development-process/story-jsx-doc.png" alt=""></p> <h2 id="常用配置"><a href="#常用配置" class="header-anchor">#</a> 常用配置</h2> <p>Storybook 配置可分别指定作用范围，分为组件配置、Story 文件配置、全局配置，继承关系如下：</p> <ul><li>全局配置</li></ul> <p><code>.storybook/preview.js</code></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">const</span> parameters <span class="token operator">=</span> <span class="token punctuation">{</span>
+  backgrounds<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token keyword">default</span><span class="token operator">:</span> <span class="token string">&quot;twitter&quot;</span><span class="token punctuation">,</span>
+    values<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        name<span class="token operator">:</span> <span class="token string">&quot;twitter&quot;</span><span class="token punctuation">,</span>
+        value<span class="token operator">:</span> <span class="token string">&quot;#00aced&quot;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        name<span class="token operator">:</span> <span class="token string">&quot;facebook&quot;</span><span class="token punctuation">,</span>
+        value<span class="token operator">:</span> <span class="token string">&quot;#3b5998&quot;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>Story 文件配置</li></ul> <p><code>Button.stories.js</code></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  title<span class="token operator">:</span> <span class="token string">&quot;Button&quot;</span><span class="token punctuation">,</span>
+  parameters<span class="token operator">:</span> <span class="token punctuation">{</span>
+    backgrounds<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">default</span><span class="token operator">:</span> <span class="token string">&quot;twitter&quot;</span><span class="token punctuation">,</span>
+      values<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">&quot;twitter&quot;</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token string">&quot;#00aced&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">&quot;facebook&quot;</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token string">&quot;#3b5998&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>组件配置</li></ul> <div class="language-js extra-class"><pre class="language-js"><code>  <span class="token keyword">export</span> <span class="token keyword">const</span> Primary <span class="token operator">=</span> …
+  Primary<span class="token punctuation">.</span>decorators <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token parameter">Story</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token operator">&lt;</span>div style<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> padding<span class="token operator">:</span> <span class="token string">'3em'</span> <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span>Story<span class="token operator">/</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span class="token punctuation">]</span>
+</code></pre></div><h2 id="自定义-controls-类型"><a href="#自定义-controls-类型" class="header-anchor">#</a> 自定义 Controls 类型</h2> <p>在 Controls 面板中，Storybook 会自动通过 Props 的类型选择合适的控件，也可以手动指定需要的控件。</p> <p><code>.stories.tsx</code></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  title<span class="token operator">:</span> <span class="token string">&quot;Button&quot;</span><span class="token punctuation">,</span>
+  component<span class="token operator">:</span> Button<span class="token punctuation">,</span>
+  argTypes<span class="token operator">:</span> <span class="token punctuation">{</span>
+    backgroundColor<span class="token operator">:</span> <span class="token punctuation">{</span> control<span class="token operator">:</span> <span class="token string">&quot;color&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    loadingState<span class="token operator">:</span> <span class="token punctuation">{</span>
+      control<span class="token operator">:</span> <span class="token punctuation">{</span>
+        type<span class="token operator">:</span> <span class="token string">&quot;inline-radio&quot;</span><span class="token punctuation">,</span>
+        options<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;loading&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;error&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;ready&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    width<span class="token operator">:</span> <span class="token punctuation">{</span>
+      control<span class="token operator">:</span> <span class="token punctuation">{</span>
+        type<span class="token operator">:</span> <span class="token string">&quot;range&quot;</span><span class="token punctuation">,</span>
+        min<span class="token operator">:</span> <span class="token number">400</span><span class="token punctuation">,</span>
+        max<span class="token operator">:</span> <span class="token number">1200</span><span class="token punctuation">,</span>
+        step<span class="token operator">:</span> <span class="token number">50</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p><code>argTypes</code>属性可以指定某个 Props 使用指定的控件。更多<code>Control</code>属性参考文档</p> <h2 id="自定义-props-描述"><a href="#自定义-props-描述" class="header-anchor">#</a> 自定义 Props 描述</h2> <p>Story 可以覆盖默认的 Props 描述（来自静态代码分析）</p> <p>还可以添加大段文字，以说明 Props 的用途</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  title<span class="token operator">:</span> <span class="token string">'Example/Button'</span><span class="token punctuation">,</span>
+  component<span class="token operator">:</span> Button<span class="token punctuation">,</span>
+  argTypes<span class="token operator">:</span> <span class="token punctuation">{</span>
+    label<span class="token operator">:</span> <span class="token punctuation">{</span>
+      name<span class="token operator">:</span> <span class="token string">'标签'</span><span class="token punctuation">,</span>
+      type<span class="token operator">:</span> <span class="token punctuation">{</span>
+        required<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      description<span class="token operator">:</span> <span class="token string">'overwritten description'</span><span class="token punctuation">,</span>
+      table<span class="token operator">:</span> <span class="token punctuation">{</span>
+        type<span class="token operator">:</span> <span class="token punctuation">{</span>
+          summary<span class="token operator">:</span> <span class="token string">'something short'</span><span class="token punctuation">,</span>
+          detail<span class="token operator">:</span> <span class="token string">'something really really long'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        defaultValue<span class="token operator">:</span> <span class="token punctuation">{</span>
+          summary<span class="token operator">:</span> <span class="token string">'default summary'</span><span class="token punctuation">,</span>
+          detail<span class="token operator">:</span> <span class="token string">'default detail'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      control<span class="token operator">:</span> <span class="token punctuation">{</span>
+        type<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">as</span> Meta<span class="token punctuation">;</span>
+</code></pre></div><h2 id="插件系统"><a href="#插件系统" class="header-anchor">#</a> 插件系统</h2> <p>官方插件列表：https://github.com/storybookjs/storybook/tree/master/addons</p> <p>添加插件的一般步骤</p> <ol><li>使用 yarn 或 npm 安装相关依赖</li> <li>修改<code>.storybook/main.js</code>中的<code>addons</code>字段，添加插件</li> <li>在<code>.storybook/preview.js</code>中添加相关配置（可选）</li></ol> <h2 id="快照测试"><a href="#快照测试" class="header-anchor">#</a> 快照测试</h2> <ol><li>安装插件：yarn add --dev @storybook/addon-storyshots react-test-renderer</li> <li>在 src/stories 中新建文件 snapshoot.test.ts</li></ol> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> initStoryshots <span class="token keyword">from</span> <span class="token string">&quot;@storybook/addon-storyshots&quot;</span><span class="token punctuation">;</span>
+
+<span class="token function">initStoryshots</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ol start="3"><li>运行 yarn test 即可在 src/stories 中生成<strong>snapshots</strong>文件夹，包含 stories 中组件的快照</li></ol> <h2 id="更多参考"><a href="#更多参考" class="header-anchor">#</a> 更多参考</h2> <p><a href="https://storybook.js.org/docs/react/get-started/introduction" target="_blank" rel="noopener noreferrer">官方文档<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/development-process/单元测试/Jest.html" class="prev">
+        Jest
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.238842fe.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/19.f2a50fde.js" defer></script><script src="/assets/js/3.b304fdc1.js" defer></script>
+  </body>
+</html>

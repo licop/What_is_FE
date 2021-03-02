@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>关于模块化 | What is FE</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.41761744.css" as="style"><link rel="preload" href="/assets/js/app.238842fe.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/29.4934d0b3.js" as="script"><link rel="preload" href="/assets/js/3.b304fdc1.js" as="script"><link rel="prefetch" href="/assets/js/10.6851ab8d.js"><link rel="prefetch" href="/assets/js/11.a2a61a88.js"><link rel="prefetch" href="/assets/js/12.d3bf7b11.js"><link rel="prefetch" href="/assets/js/13.e46e0125.js"><link rel="prefetch" href="/assets/js/14.2c89a43b.js"><link rel="prefetch" href="/assets/js/15.99c0eafd.js"><link rel="prefetch" href="/assets/js/16.8d7bee9a.js"><link rel="prefetch" href="/assets/js/17.f8efe825.js"><link rel="prefetch" href="/assets/js/18.c5a51319.js"><link rel="prefetch" href="/assets/js/19.f2a50fde.js"><link rel="prefetch" href="/assets/js/20.43106a54.js"><link rel="prefetch" href="/assets/js/21.29ef67c8.js"><link rel="prefetch" href="/assets/js/22.c8338677.js"><link rel="prefetch" href="/assets/js/23.82f3b7e9.js"><link rel="prefetch" href="/assets/js/24.6d10721e.js"><link rel="prefetch" href="/assets/js/25.9b1760a8.js"><link rel="prefetch" href="/assets/js/26.4cca9138.js"><link rel="prefetch" href="/assets/js/27.f68cc1a8.js"><link rel="prefetch" href="/assets/js/28.a10966fe.js"><link rel="prefetch" href="/assets/js/30.75e3ebcc.js"><link rel="prefetch" href="/assets/js/31.e1b5f426.js"><link rel="prefetch" href="/assets/js/32.bf0b6009.js"><link rel="prefetch" href="/assets/js/33.75156274.js"><link rel="prefetch" href="/assets/js/34.4fa55018.js"><link rel="prefetch" href="/assets/js/35.63254c31.js"><link rel="prefetch" href="/assets/js/36.d1e3f074.js"><link rel="prefetch" href="/assets/js/37.38aa7903.js"><link rel="prefetch" href="/assets/js/38.9f34ffc2.js"><link rel="prefetch" href="/assets/js/39.2487d966.js"><link rel="prefetch" href="/assets/js/4.226c83f7.js"><link rel="prefetch" href="/assets/js/40.639269c7.js"><link rel="prefetch" href="/assets/js/41.6a20a228.js"><link rel="prefetch" href="/assets/js/42.daa81e44.js"><link rel="prefetch" href="/assets/js/43.e1f0dc7c.js"><link rel="prefetch" href="/assets/js/44.547ce508.js"><link rel="prefetch" href="/assets/js/45.221172ca.js"><link rel="prefetch" href="/assets/js/46.5b7d1b1b.js"><link rel="prefetch" href="/assets/js/47.aa31f2e2.js"><link rel="prefetch" href="/assets/js/48.e8f7f854.js"><link rel="prefetch" href="/assets/js/49.2f2a6766.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/50.a4602ee7.js"><link rel="prefetch" href="/assets/js/51.13036941.js"><link rel="prefetch" href="/assets/js/52.667c2438.js"><link rel="prefetch" href="/assets/js/53.505f430c.js"><link rel="prefetch" href="/assets/js/54.b9639c4b.js"><link rel="prefetch" href="/assets/js/55.4bb308fb.js"><link rel="prefetch" href="/assets/js/56.d947e947.js"><link rel="prefetch" href="/assets/js/57.a6a256d3.js"><link rel="prefetch" href="/assets/js/58.6c3e7abc.js"><link rel="prefetch" href="/assets/js/59.54d3d41e.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/60.a1c19a11.js"><link rel="prefetch" href="/assets/js/61.5a1f39fc.js"><link rel="prefetch" href="/assets/js/62.83b0cd90.js"><link rel="prefetch" href="/assets/js/63.2d96484c.js"><link rel="prefetch" href="/assets/js/64.e5535aba.js"><link rel="prefetch" href="/assets/js/65.c31e46be.js"><link rel="prefetch" href="/assets/js/66.e99d7654.js"><link rel="prefetch" href="/assets/js/67.7d8c4261.js"><link rel="prefetch" href="/assets/js/68.6f166901.js"><link rel="prefetch" href="/assets/js/69.0f91ea8d.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/70.fda26c2d.js"><link rel="prefetch" href="/assets/js/71.b342c467.js"><link rel="prefetch" href="/assets/js/72.50ec7d9a.js"><link rel="prefetch" href="/assets/js/73.3c6928c2.js"><link rel="prefetch" href="/assets/js/8.dcb4cdc7.js"><link rel="prefetch" href="/assets/js/9.a301b122.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.41761744.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is FE</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/cross-env/关于cross-env.html" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/ssr/服务器端渲染.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/关于react-hook.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;plugin/cross-env/关于cross-env.html" class="nav-link">
+  常用工具与插件
+</a></div><div class="nav-item"><a href="/server/ssr/服务器端渲染.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>前端工程化</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/engineering/前端工程化/模块化.html" class="active sidebar-link">关于模块化</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/engineering/前端工程化/模块化.html#模块化的早期演进过程" class="sidebar-link">模块化的早期演进过程</a></li><li class="sidebar-sub-header"><a href="/engineering/前端工程化/模块化.html#commonjs" class="sidebar-link">CommonJS</a></li><li class="sidebar-sub-header"><a href="/engineering/前端工程化/模块化.html#amd" class="sidebar-link">AMD</a></li><li class="sidebar-sub-header"><a href="/engineering/前端工程化/模块化.html#es-modules" class="sidebar-link">ES Modules</a></li><li class="sidebar-sub-header"><a href="/engineering/前端工程化/模块化.html#es-modules-in-node-js" class="sidebar-link">ES Modules in Node.js</a></li><li class="sidebar-sub-header"><a href="/engineering/前端工程化/模块化.html#es-modules-babel-兼容方案" class="sidebar-link">ES Modules Babel 兼容方案</a></li></ul></li><li><a href="/engineering/前端工程化/规范化.html" class="sidebar-link">关于规范化</a></li><li><a href="/engineering/前端工程化/前端工程化概述.html" class="sidebar-link">前端工程化概述</a></li><li><a href="/engineering/前端工程化/脚手架工具.html" class="sidebar-link">脚手架工具</a></li><li><a href="/engineering/前端工程化/自动化构建.html" class="sidebar-link">自动化构建</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>webpack</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/engineering/webpack/webpack基础学习.html" class="sidebar-link">webpack 基础学习</a></li><li><a href="/engineering/webpack/webpack高级概念.html" class="sidebar-link">webpack 高级概念</a></li><li><a href="/engineering/webpack/webpack实例应用.html" class="sidebar-link">webpack 实例应用</a></li><li><a href="/engineering/webpack/webpack性能优化.html" class="sidebar-link">webpack 性能优化</a></li><li><a href="/engineering/webpack/编一个webapck loader和pugin.html" class="sidebar-link">编写一个简单的 loader 和 plugin</a></li><li><a href="/engineering/webpack/bundler源码编写.html" class="sidebar-link">简易的 bundler 源码编写</a></li><li><a href="/engineering/webpack/createReactApp wepack配置分析.html" class="sidebar-link">creactReactApp webapck 配置分析</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>babel</span> <!----></p> <!----></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>rollup</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/engineering/rollup/rollup.html" class="sidebar-link">rollup</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="关于模块化"><a href="#关于模块化" class="header-anchor">#</a> 关于模块化</h1> <h2 id="模块化的早期演进过程"><a href="#模块化的早期演进过程" class="header-anchor">#</a> 模块化的早期演进过程</h2> <h3 id="state1-文件划分方式"><a href="#state1-文件划分方式" class="header-anchor">#</a> State1-文件划分方式</h3> <p><strong>具体做法</strong></p> <p>将每个功能及其相关状态数据各自单独放到不同的文件中，约定每个文件就是一个独立的模块，使用某个模块就是将这个模块引入到页面中，然后直接调用模块中的成员（变量 / 函数）</p> <p><strong>特点</strong>：</p> <ul><li>所有模块都直接在全局工作，没有私有空间，所有成员都可以在模块外部被访问或者修改，</li> <li>而且模块一段多了过后，容易产生命名冲突，</li> <li>另外无法管理模块与模块之间的依赖关系</li></ul> <h3 id="state2-命名空间方式"><a href="#state2-命名空间方式" class="header-anchor">#</a> State2-命名空间方式</h3> <p>每个模块只暴露一个全局对象，所有模块成员都挂载到这个对象中</p> <p><strong>具体做法</strong></p> <p>在第一阶段的基础上，通过将每个模块「包裹」为一个全局对象的形式实现，有点类似于为模块内的成员添加了「命名空间」的感觉。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// module a 相关状态数据和功能函数</span>
+
+<span class="token keyword">var</span> moduleA <span class="token operator">=</span> <span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">&quot;module-a&quot;</span><span class="token punctuation">,</span>
+
+  <span class="token function-variable function">method1</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">+</span> <span class="token string">&quot;#method1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token function-variable function">method2</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">+</span> <span class="token string">&quot;#method2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p><strong>特点</strong></p> <ul><li>通过「命名空间」减小了命名冲突的可能，</li> <li>但是同样没有私有空间，所有模块成员也可以在模块外部被访问或者修改，</li> <li>而且也无法管理模块之间的依赖关系。</li></ul> <h3 id="state3-iife"><a href="#state3-iife" class="header-anchor">#</a> State3-IIFE</h3> <p>使用立即执行函数表达式（IIFE：Immediately-Invoked Function Expression）为模块提供私有空间。</p> <p><strong>具体做法</strong></p> <p>将每个模块成员放在一个函数提供的私有作用域中，对于需要暴露给外部的成员，通过挂载到全局对象的方式实现</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// module a 相关状态数据和功能函数</span>
+
+<span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">&quot;module-a&quot;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">function</span> <span class="token function">method1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name <span class="token operator">+</span> <span class="token string">&quot;#method1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">function</span> <span class="token function">method2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name <span class="token operator">+</span> <span class="token string">&quot;#method2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  window<span class="token punctuation">.</span>moduleA <span class="token operator">=</span> <span class="token punctuation">{</span>
+    method1<span class="token operator">:</span> method1<span class="token punctuation">,</span>
+    method2<span class="token operator">:</span> method2<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><strong>特点</strong></p> <ul><li>有了私有成员的概念，私有成员只能在模块成员内通过闭包的形式访问。</li></ul> <p>上述做法就是我们模块化的基础，为了减少项目开发时的引用模块时造成的麻烦，提高开发效率，我们需要代码帮我们按照一定标准自动加载模块，此后模块化的标准逐渐形成，通行的 JavaScript 模块规范主要有三种：<strong>CommonJS</strong>、<strong>AMD</strong>、<strong>ES Modules</strong></p> <h2 id="commonjs"><a href="#commonjs" class="header-anchor">#</a> CommonJS</h2> <p>CommonJS 是 nodejs 提出的一套规范，在 nodejs 中必须遵循这套规范。</p> <p><strong>CommonJS 约定</strong></p> <ul><li>一个文件就是一个模块</li> <li>每个模块都有单独的作用域</li> <li>通过 module.exports 导出成员</li> <li>通过 require 函数载入模块</li></ul> <p>来看下面代码：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">//模块定义 myModel.js</span>
+<span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">&quot;licop&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">consoleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  consoleName<span class="token operator">:</span> consoleName<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">//加载模块</span>
+<span class="token keyword">var</span> nameModule <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;./myModel.js&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+nameModule<span class="token punctuation">.</span><span class="token function">consoleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>CommonJS 是以<strong>同步方式</strong>加载模块，node 的执行机制是在启动时加载模块，在执行时是不需要加载的。但是在浏览器端使用每次页面加载都会导致大量的同步请求出现， 会导致效率低下。</p> <h2 id="amd"><a href="#amd" class="header-anchor">#</a> AMD</h2> <p>犹豫 Commonjs 规范在浏览器端的，所以在早期的前端的模块化规范并没有使用 CommonJS 规范，而是结合浏览器的特点设计了新的规范 AMD(Asynchronous Module Definition)。</p> <p><code>requirejs</code>实现了 AMD 规范，而且是一个强大的模块加载器。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 使用define定义一个模块</span>
+<span class="token comment">// 第一个参数为模块的名字</span>
+<span class="token comment">// 第二个参数是一个数组用来声明模块的依赖项</span>
+<span class="token comment">// 第三个参数是一个函数，参数与前端依赖项一一对应，为当前某块提供私有的空间</span>
+<span class="token function">define</span><span class="token punctuation">(</span><span class="token string">&quot;module1&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&quot;jquery&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;./module2&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">$<span class="token punctuation">,</span> module2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">start</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">&quot;body&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">animate</span><span class="token punctuation">(</span><span class="token punctuation">{</span> margin<span class="token operator">:</span> <span class="token string">&quot;200px&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">module2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 使用require载入一个模块</span>
+<span class="token function">require</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&quot;./modules/module1&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">module1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  module1<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>当<code>requirejs</code>需要加载一个模块的话，会自动创建一个 script 标签，发送文件请求。</p> <p>目前绝大多数第三方库都支持 AMD 规范。</p> <p>但是 AMD 使用也有一些缺点：</p> <ul><li>AMD 使用起来相对复杂</li> <li>模块 js 文件请求频繁</li></ul> <h2 id="es-modules"><a href="#es-modules" class="header-anchor">#</a> ES Modules</h2> <p>模块化最佳实践</p> <ul><li>浏览器端使用 ES Modules 规范</li> <li>nodejs 使用 CommonJS 规范</li></ul> <p>目前市面上大多数浏览器已经支持了 ES Module
+<img src="/engineering/es6_module.png" alt=""></p> <h3 id="es-modules-基本特性"><a href="#es-modules-基本特性" class="header-anchor">#</a> ES Modules 基本特性</h3> <ul><li>自动采用严格模式，忽略'use strict'</li> <li>每个 ESM 模块都是单独的作用域</li> <li>ESM 是通过 CORS 去请求外部作用域的</li> <li>ESM 的 script 标签会延迟执行脚本</li></ul> <div class="language-js extra-class"><pre class="language-js"><code> <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 通过给 script 添加 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">type = module</span><span class="token template-punctuation string">`</span></span> 的属性，就可以以 <span class="token constant">ES</span> Module 的标准执行其中的 <span class="token constant">JS</span> 代码了 <span class="token operator">--</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">&quot;module&quot;</span><span class="token operator">&gt;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'this is es module'</span><span class="token punctuation">)</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 只能在不支持<span class="token constant">ES</span> Module的浏览器下执行 <span class="token operator">--</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">&quot;module&quot;</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>script nomodule<span class="token operator">&gt;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'this is es module'</span><span class="token punctuation">)</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+
+
+  <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> <span class="token number">1.</span> <span class="token constant">ESM</span> 自动采用严格模式，忽略 <span class="token string">'use strict'</span> <span class="token operator">--</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">&quot;module&quot;</span><span class="token operator">&gt;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token comment">// undefined</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+
+  <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> <span class="token number">2.</span> 每个 <span class="token constant">ES</span> Module 都是运行在单独的私有作用域中 <span class="token operator">--</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">&quot;module&quot;</span><span class="token operator">&gt;</span>
+    <span class="token keyword">var</span> foo <span class="token operator">=</span> <span class="token number">100</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>foo<span class="token punctuation">)</span>  <span class="token comment">// 100</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">&quot;module&quot;</span><span class="token operator">&gt;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>foo<span class="token punctuation">)</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+
+  <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> <span class="token number">3.</span> <span class="token constant">ESM</span> 是通过 <span class="token constant">CORS</span> 的方式请求外部 <span class="token constant">JS</span> 模块的 <span class="token operator">--</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">&quot;module&quot;</span> src<span class="token operator">=</span><span class="token string">&quot;https://unpkg.com/jquery@3.4.1/dist/jquery.min.js&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+
+  <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> <span class="token number">4.</span> <span class="token constant">ESM</span> 的 script 标签会延迟执行脚本 和defer属性功能相同，等待网页渲染完成之后再去执行脚本 <span class="token operator">--</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">&quot;module&quot;</span> src<span class="token operator">=</span><span class="token string">&quot;demo.js&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>script defer src<span class="token operator">=</span><span class="token string">&quot;demo.js&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+
+</code></pre></div><h3 id="es-modules-的导入导出"><a href="#es-modules-的导入导出" class="header-anchor">#</a> ES Modules 的导入导出</h3> <p>使用 export 导出模块</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">&quot;foo module&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token comment">// 导出成员</span>
+<span class="token comment">// 这里的`{ name, hello, Person }`不是对象字面量，只是语法上的规则而已</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> name<span class="token punctuation">,</span> hello<span class="token punctuation">,</span> Person <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 使用别名</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> hello <span class="token keyword">as</span> fooHello <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">// 导出默认</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> name<span class="token punctuation">;</span>
+</code></pre></div><p>使用 import 导入模块</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 导入模块时如果没有使用打包工具，import应该使用完成路径导入</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> name <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./module.js'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> lowercase <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./utils/index.js'</span>
+
+
+<span class="token comment">// 加载模块并不提取它</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./module.js'</span>
+<span class="token keyword">import</span> <span class="token string">'./module.js'</span>
+
+<span class="token comment">// 提出模块导出的所有成员</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token string">'./module.js'</span>
+<span class="token comment">// 将导出成员放在一个对象中</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> mod <span class="token keyword">from</span> <span class="token string">'./module.js'</span>
+
+
+<span class="token comment">// import路径不能使用变量</span>
+<span class="token keyword">var</span> modulePath <span class="token operator">=</span> <span class="token string">'./module.js'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>name<span class="token punctuation">}</span> <span class="token keyword">from</span> modulePath
+<span class="token comment">// import只能出现在最外部的作用域，下面错误使用方法</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">import</span> <span class="token punctuation">{</span>name<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./module.js'</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 动态导入模块</span>
+<span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'./module.js'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">moudle</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>module<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 提取默认成员</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> name<span class="token punctuation">,</span> age<span class="token punctuation">,</span> <span class="token keyword">default</span> <span class="token keyword">as</span> abc <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./module.js'</span>
+<span class="token keyword">import</span> abc<span class="token punctuation">,</span> <span class="token punctuation">{</span> name<span class="token punctuation">,</span> age <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./module.js'</span>
+</code></pre></div><p>导出导入成员</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token punctuation">{</span> <span class="token keyword">default</span> <span class="token keyword">as</span> Button <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;./button.js&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> Avatar <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;./avatar.js&quot;</span><span class="token punctuation">;</span>
+</code></pre></div><p><strong>注意事项</strong></p> <ul><li>这里的无论是导入导出的花括号不使用 default 的情况是都<code>{ name, hello, Person }</code>不是对象字面量，只是语法上的规则而已</li> <li>导入模块成员变量是只读的常量,导入后不能修改，但是需要注意如果导入的是一个对象，对象的属性读写不受影响</li> <li>导入成员并不是复制一个副本，而是直接导入模块成员的引用地址，也就是说 import 得到的变量与 export 导入的变量在内存中是同一块空间。</li></ul> <h2 id="es-modules-in-node-js"><a href="#es-modules-in-node-js" class="header-anchor">#</a> ES Modules in Node.js</h2> <p>Node.js 在 8.5 版本过后内部已经以实验的特性支持了 ES Modules。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 第一，将文件的扩展名由 .js 改为 .mjs；</span>
+<span class="token comment">// 第二，启动时需要额外添加 `--experimental-modules` 参数；</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">{</span> foo<span class="token punctuation">,</span> bar <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;./module.mjs&quot;</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>foo<span class="token punctuation">,</span> bar<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 此时我们也可以通过 esm 加载内置模块了</span>
+<span class="token keyword">import</span> fs <span class="token keyword">from</span> <span class="token string">&quot;fs&quot;</span><span class="token punctuation">;</span>
+fs<span class="token punctuation">.</span><span class="token function">writeFileSync</span><span class="token punctuation">(</span><span class="token string">&quot;./foo.txt&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;es module working&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 也可以直接提取模块内的成员，内置模块兼容了 ESM 的提取成员方式</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> writeFileSync <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;fs&quot;</span><span class="token punctuation">;</span>
+<span class="token function">writeFileSync</span><span class="token punctuation">(</span><span class="token string">&quot;./bar.txt&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;es module working&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 对于第三方的 NPM 模块也可以通过 esm 加载</span>
+<span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">&quot;lodash&quot;</span><span class="token punctuation">;</span>
+_<span class="token punctuation">.</span><span class="token function">camelCase</span><span class="token punctuation">(</span><span class="token string">&quot;ES Module&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 不支持，因为第三方模块都是导出默认成员</span>
+<span class="token comment">// import { camelCase } from 'lodash'</span>
+<span class="token comment">// console.log(camelCase('ES Module'))</span>
+</code></pre></div><p>Node v12 之后的版本，可以通过 package.json 中添加 type 字段为 module，将默认模块系统修改为 ES Module,此时就不需要修改文件扩展名为 .mjs 了,不过如果此时要使用 commonjs 规范文件扩展名为需改为.cjs。</p> <p>在 node 中同时使用 ES Modules 和 Commonjs 要注意:</p> <ul><li>ES Modules 中可以导入 Commonjs 模块</li> <li>CommonJS 中不能导入 ES Modules 模块</li> <li>Commonjs 始终只会导出一个默认成员</li> <li>ES Modules 不能使用 CommonJS 的模块全局成员 require(加载模块函数)、exports(导出对象别名)、module(模块对象)、__filename(当前文件的绝对路径)、__dirname(当前文件的所在的目录）</li></ul> <h2 id="es-modules-babel-兼容方案"><a href="#es-modules-babel-兼容方案" class="header-anchor">#</a> ES Modules Babel 兼容方案</h2> <p><strong>安装 Babel 和预设插件</strong></p> <div class="language- extra-class"><pre class="language-text"><code>npm install @babel/node @babel/core @babel/preset-env
+</code></pre></div><p><strong>配置.babelrc</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// .babelrc</span>
+<span class="token punctuation">{</span>
+    <span class="token string">'presets'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;@babel/preset-env&quot;</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>babel 是基于插件机制实现的，核心模块并不会转换代码，而是通过插件来实现的，需要一个插件来转化代码中的一个特性，而<code>@babel/preset-env</code> 是插件的集合，包含了 javascript 标准里所有的新特性。</p> <p><img src="/engineering/babel%E6%8F%92%E4%BB%B6%E6%9C%BA%E5%88%B6.png" alt=""></p> <p>所以可也可以单独使用插件<code>@babel/transform-modules-commonjs</code>来代替<code>@babel/preset-env</code></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// .babelrc</span>
+<span class="token punctuation">{</span>
+<span class="token string">'plugins'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;@babel/transform-modules-commonjs&quot;</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/engineering/前端工程化/规范化.html">
+        关于规范化
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.238842fe.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/29.4934d0b3.js" defer></script><script src="/assets/js/3.b304fdc1.js" defer></script>
+  </body>
+</html>

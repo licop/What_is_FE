@@ -1,10 +1,10 @@
-# 关于 Vue3.0
+# Vue3 的优化
 
 ## 源码组织方式
 
 为了提高代码的可维护性，Vue3.0 的源码全部采用 `TypeScript` 编写，使用`Monorepo`方式管理项目结构,**使用一个项目管理多个包**，把不同功能的代码放到不同的 packages 中管理，每个功能模块都可以单独测试单独发布。
 
-![](./framework/vue3_package.png)
+![](/framework/vue3_package.png)
 
 ## Composition API
 
@@ -219,7 +219,7 @@ vue3.0 中使用 `Reflect` 统一 API。 Proxy 中的 receiver 是 Proxy 或者�
 
 在依赖收集的过程中，会创建三个集合分别是`targetMap`，`depsMap`和`dep`; `targetMap`用来记录目标对象和和 `depsMap` 的映射，使用弱引用，当目标失去引用可以销毁; `depsMap` 记录目标对象的属性名称和 `dep` 的映射;dep 是一个 `set` 集合，记录该属性的多个 effect
 
-![](./framework/vue3.0_dep.png)
+![](/framework/vue3.0_dep.png)
 
 ```js
 let activeEffect = null;
@@ -435,5 +435,3 @@ Vite 是一个面向现代浏览器的一个更轻、更快的 web 应用开发�
 2. 零散的模块化会产生大量的 http 请求
 
 随着现代浏览器对 ES 标准支持的逐渐完善，第一个问题已经慢慢不存在了，现在绝大多数浏览器都是支持 ES Module 特性的，第二个问题 http2 可以通过**多路复用**帮我们解决
-
-![](./framework/vue3_package.png)
