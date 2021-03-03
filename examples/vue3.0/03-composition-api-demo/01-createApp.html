@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    x: {{ x }} <br>
+    y: {{ y }}
+  </div>
+  <script type="module">
+    import { createApp, reactive, onMounted, onUnmounted, toRefs } from './node_modules/vue/dist/vue.esm-browser.js'
+    
+    // 把一段功能逻辑集中在一起，查找方便，便于复用逻辑
+    function useMousePosition () {
+      // 使用reactive创建响应式对象
+      const position = reactive({
+        x: 0,
+        y: 0
+      })
+
+      const update = e => {
+        position.x = e.pageX
+        position.y = e.pageY
+      }
+
+      onMounted(() => {
+        window.addEventListener('mousemove', update)
+      })
+
+      onUnmounted(() => {
+        window.removeEventListener('mousemove', update)
+      })
+      // 把响应式对象的所有属性也转化为响应式的
+      // toRefs遍历参数的所有属性的值
+      // 使得对象可以进行解构的操作
+      return toRefs(position)
+    }
+
+    const app = createApp({
+
+      // 在组件解析完毕，组件实例被创建之前执行
+      // setup内部无法通过this获取组件实例
+      setup () {
+        // 第一个参数 props
+        // 第二个参数 context，attrs、emit、slots
+
+        // const position = useMousePosition()
+        const { x, y } = useMousePosition()
+        return {
+          x,
+          y
+        }
+      }
+    })
+    console.log(app)
+
+    app.mount('#app')
+  </script>
+</body>
+</html>
