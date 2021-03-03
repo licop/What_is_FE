@@ -135,6 +135,8 @@ Composition API 提供了新的组件选项 `setup`, 创建组件之前执行，
 
 更多关于 Composition API [Vue3.0 Composition API 文档](https://v3.cn.vuejs.org/guide/composition-api-introduction.html#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%84%E5%90%88%E5%BC%8F-api)
 
+使用 Composition API 完成 TodoMVC 项目[TodoMVC](https://github.com/licop/What_is_FE/tree/master/examples/vue3.0/04-composition-todolist)
+
 ## 响应系统原理
 
 从 Vue 3.0 开始，响应性现在可以在独立的包中使用，我们可以从 vue 中获取`reactive`、`ref`、`toRefs`等方法，来使数据变成响应式
@@ -507,18 +509,10 @@ export function computed(getter) {
 
 ## Vite
 
-Vite 是一个面向现代浏览器的一个更轻、更快的 web 应用开发工具，本质是一个 http 服务器,它基于 ECMAScript 标准原生模块系统(ES Modules)实现，可以解决 webpack-dev-server 启动应用时间过长和 webpack hmr 热更新反应速度慢的问题,可以提升开发者在开发过程中的体验
+`Vite` 是一个面向现代浏览器的一个更轻、更快的 web 应用开发工具，本质是一个 http 服务器, 它基于 ECMAScript 标准原生模块系统(ES Modules)实现，
+可以解决 webpack-dev-server 启动应用时间过长和 webpack hmr 热更新反应速度慢的问题,可以提升开发者在开发过程中的体验。
 
-- Vite 在开发模式下不需要打包可以直接运行
-- Vue-cli 开发模式下必须对项目打包才可以运行
-
-- Vite 在生产环境下使用 Rollup 打包，基于 ES Module 的方式打包
-- Vue-cli 使用 webpack 打包
-
-- Vite HMR 立即编译当前所修改的文件
-- Webpack HMR 会自动以这个文件为入口重现 build 一次，所有的涉及到的依赖也会被加载一遍
-
-快速冷启动、按需编译、模块热更新、开箱即用
+`Vite`具有**快速冷启动**、**按需编译**、**模块热更新**、**开箱即用**等特点。
 
 ### 核心功能
 
@@ -526,6 +520,17 @@ Vite 是一个面向现代浏览器的一个更轻、更快的 web 应用开发�
 - 编译单文件组件
   - 拦截浏览器不识别的模块，并处理
 - 通过 websocket 实现 HMR
+
+### Vite 和 Vue-cli 对比
+
+- `Vite` 在开发模式下不需要打包可以直接运行
+- `Vue-cli` 开发模式下必须对项目打包才可以运行
+
+- `Vite` 在生产环境下使用 Rollup 打包，基于 ES Module 的方式打包
+- `Vue-cli` 使用 webpack 打包
+
+- `Vite` HMR 立即编译当前所修改的文件
+- `Vue-cli` Webpack HMR 会自动以这个文件为入口重现 build 一次，所有的涉及到的依赖也会被加载一遍
 
 ### 打包 or 不打包
 
@@ -536,9 +541,121 @@ Vite 是一个面向现代浏览器的一个更轻、更快的 web 应用开发�
 
 随着现代浏览器对 ES 标准支持的逐渐完善，第一个问题已经慢慢不存在了，现在绝大多数浏览器都是支持 ES Module 特性的，第二个问题 http2 可以通过**多路复用**帮我们解决
 
-## 内置 Fragments， Teleport，suspense
+### Vite 原理
 
-Teleport 相当于 React <Portal>
+通过代码实现一个简易 Vite
+
+```js
+#!/usr/bin/env node
+const path = require("path");
+const { Readable } = require("stream");
+const Koa = require("koa");
+const send = require("koa-send");
+const compilerSFC = require("@vue/compiler-sfc");
+
+const app = new Koa();
+
+// 将文件流转换为字符串
+const streamToString = (stream) =>
+  new Promise((resolve, reject) => {
+    const chunks = [];
+    stream.on("data", (chunk) => chunks.push(chunk));
+    stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf-8")));
+    stream.on("error", reject);
+  });
+// 把字符串转换成流
+const stringToStream = (text) => {
+  const stream = new Readable();
+  stream.push(text);
+  stream.push(null);
+  return stream;
+};
+
+// 3. 加载第三方模块
+app.use(async (ctx, next) => {
+  // ctx.path --> /@modules/vue
+  if (ctx.path.startsWith("/@modules/")) {
+    const moduleName = ctx.path.substr(10);
+    const pkgPath = path.join(
+      process.cwd(),
+      "node_modules",
+      moduleName,
+      "package.json"
+    );
+    const pkg = require(pkgPath);
+    ctx.path = path.join("/node_modules", moduleName, pkg.module);
+  }
+  await next();
+});
+
+// 1. 静态文件服务器
+app.use(async (ctx, next) => {
+  await send(ctx, ctx.path, { root: process.cwd(), index: "index.html" });
+  await next();
+});
+
+// 4. 处理单文件组件
+app.use(async (ctx, next) => {
+  if (ctx.path.endsWith(".vue")) {
+    const contents = await streamToString(ctx.body);
+    // 使用compilerSFC编译单文件组件
+    const { descriptor } = compilerSFC.parse(contents);
+    let code;
+    if (!ctx.query.type) {
+      code = descriptor.script.content;
+      // console.log(code)
+      code = code.replace(/export\s+default\s+/g, "const __script = ");
+      code += `
+      import { render as __render } from "${ctx.path}?type=template"
+      __script.render = __render
+      export default __script
+      `;
+    } else if (ctx.query.type === "template") {
+      // 编译模板
+      const templateRender = compilerSFC.compileTemplate({
+        source: descriptor.template.content,
+      });
+      code = templateRender.code;
+    }
+    ctx.type = "application/javascript";
+    ctx.body = stringToStream(code);
+  }
+  await next();
+});
+
+// 2. 修改第三方模块的路径
+app.use(async (ctx, next) => {
+  if (ctx.type === "application/javascript") {
+    const contents = await streamToString(ctx.body);
+    // import vue from 'vue'
+    ctx.body = contents
+      .replace(/(from\s+['"])(?![\.\/])/g, "$1/@modules/")
+      .replace(/process\.env\.NODE_ENV/g, '"development"');
+  }
+});
+
+app.listen(3000);
+console.log("Server running @ http://localhost:3000");
+```
+
+## 内置 Fragments、 Teleport、Suspense
+
+### Fragments
+
+Vue3 中不在要求模版的跟节点必须是只能有一个节点。跟节点和和 render 函数返回的可以是纯文字、数组、单个节点，如果是数组，会自动转化为 `Fragments`。
+
+### Teleport
+
+对标 React Portal。可以做一些关于响应式的设计，如果屏幕宽度比较宽的时候，加入某些元素，屏幕变窄后移除。
+
+### Suspense
+
+等待嵌套的异步依赖。再把一个嵌套的组件树渲染到页面上之前，先在内存中进行渲染，并记录所有的存在异步依赖的组件。
+只有所有的异步依赖全部被 resolve 之后，才会把整个书渲染到 dom 中。当你的组件中有一个 async 的 setup 函数，这个组件可以被看作是一个 Async Component，
+只有当这个组件被 Resolve 之后，再把整个树渲染出来
+
+- async setup()
+- Async Component
 
 ## 更多参考
 
