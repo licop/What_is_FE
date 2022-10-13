@@ -1,4 +1,3 @@
-
 var arrList = []
 arrList[10000] = 'icoder'
 

@@ -23,7 +23,7 @@ console.log("等待耗时结束");
 
 ### 同步模式
 
-程序的执行顺序与程序的编码顺序一致，在单线程模式下大多数任务都会以**同步模式**执行
+程序的执行顺序与程序的编码顺序一致，在单线程模式下大多数任务都会以**同步模式**执行，同步模式并不是同事执行，而是排队执行。
 
 ```js
 console.log("global begin");
@@ -44,7 +44,7 @@ console.log("global end");
 
 ### 异步模式
 
-不同于同步模式，异步模式的 Api 不会等待这个任务的结束才开始下一个任务，耗时操作开始过后就立即往后执行下一个任务，耗时操作的后续逻辑一般会通过回调函数的方式定义，耗时任务完成后会自动执行传入的回调函数。
+不同于同步模式，异步模式的 Api 不会等待这个任务的结束才开始下一个任务，耗时操作开始过后就立即往后执行下一个任务，耗时操作的后续逻辑一般会通过回调函数的方式定义，耗时任务完成后会自动执行传入的回调函数。异步模式对 Javascript 非常重要，如果没有异步模式单线程的 Javascript 语言就无法同事处理大量的耗时任务。
 
 ```js
 console.log("global begin");
@@ -273,13 +273,14 @@ console.log("b");
 在这段代码中，我设置了两段互不相干的异步操作：通过 setTimeout 执行 console.log(“d”)，通过 Promise 执行 console.log(“c”)。
 
 ```js
-   var r = new Promise(function(resolve, reject) {
-     console.log("a");
-     resolve()
-  })
-  setTimeout(()=>console.log("d"), 0)；
-  r.then(() => console.log("c"));
-  console.log("b");
+// a b c d
+var r = new Promise(function(resolve, reject) {
+  console.log("a");
+  resolve();
+});
+setTimeout(() => console.log("d"), 0);
+r.then(() => console.log("c"));
+console.log("b");
 ```
 
 我们发现，不论代码顺序如何，d 必定发生在 c 之后，**因为 Promise 产生的是 JavaScript 引擎内部的微任务，而 setTimeout 是浏览器 API，它产生宏任务。**
@@ -287,19 +288,18 @@ console.log("b");
 为了理解微任务始终先于宏任务，我们设计一个实验：执行一个耗时 1 秒的 Promise。
 
 ```js
-setTimeout(() => console.log(d), 0);
+// c1, c2, d
+setTimeout(() => console.log("d"), 0);
 var r = new Promise(function(resolve, reject) {
   resolve();
 });
 r.then(() => {
   var begin = Date.now();
-  while (Data.now() - begin < 1000);
+  while (Date.now() - begin < 1000);
   console.log("c1");
-  new Promise(
-    function(resolve, reject) {
-      resolve();
-    }.then(() => console.log("c2"))
-  );
+  new Promise(function(resolve, reject) {
+    resolve();
+  }).then(() => console.log("c2"));
 });
 ```
 
@@ -459,7 +459,7 @@ ajax("/api/users.json")
 ```
 
 - 前面 then 方法中回调函数的返回值会作为后面 then 方法回调的参数
-- 如果回调中返回的事 Promise，那后面 then 方法的回调会等待它的结束
+- 如果回调中返回的是 Promise，那后面 then 方法的回调会等待它的结束
 
 ```
 Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log)
@@ -630,21 +630,21 @@ async function foo2() {
 我们现在要实现一个红绿灯，把一个圆形 div 按照绿色 3 秒，黄色 1 秒，红色 2 秒循环改变背景色，你会怎样编写这个代码呢？
 
 ```js
-   function sleep(duration) {
-       return new Promise(function(resolve){
-          setTimeout(resolve， duration)；
-       })
-   }
-   async function changeColor(duration, color) {
-      document.getElementById("traffic-light").style.background = color;
-      await sleep(duration);
-   }
-   async function main() {
-      while(true) {
-          await changeColor(3000, "green");
-          await changeColor(1000, "yellow");
-          await changeColor(2000, "red");
-      }
-   }
-   main();
+function sleep(duration) {
+  return new Promise(function(resolve) {
+    setTimeout(resolve, duration);
+  });
+}
+async function changeColor(duration, color) {
+  document.getElementById("traffic-light").style.background = color;
+  await sleep(duration);
+}
+async function main() {
+  while (true) {
+    await changeColor(3000, "green");
+    await changeColor(1000, "yellow");
+    await changeColor(2000, "red");
+  }
+}
+main();
 ```

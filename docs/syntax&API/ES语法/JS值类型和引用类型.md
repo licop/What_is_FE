@@ -88,7 +88,7 @@ const obj = { x: 100 };
 if (obj.a == null) {
 }
 // 相当于
-if (obj.a === null || obj.b === undefined) {
+if (obj.a === null || obj.a === undefined) {
 }
 ```
 

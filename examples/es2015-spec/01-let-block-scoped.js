@@ -13,12 +13,12 @@
 //   console.log('内层结束 i = ' + i)
 // }
 
-// for (var i = 0; i < 3; i++) {
-//   for (let i = 0; i < 3; i++) {
-//     console.log(i)
-//   }
-//   console.log('内层结束 i = ' + i)
-// }
+for (var i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
+    console.log(i)
+  }
+  console.log('内层结束 i = ' + i)
+}
 
 // let 应用场景：循环绑定事件，事件处理函数中获取正确索引 -----------------------------------------------------
 // 打印的i都是3，i是全局作用域中的, 所以打印的都是循环后累加的3
@@ -90,8 +90,8 @@ for (let i = 0; i < 3; i++) {
 // console.log(foo)
 // var foo = 'zce'
 
-console.log(foo)
-let foo = 'zce'
+// console.log(foo)
+// let foo = 'zce'
 
 // var a = []
 // for(let i = 0; i < 10; i++) {

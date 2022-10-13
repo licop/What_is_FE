@@ -22,9 +22,10 @@ JavaScript 语言本身指的就是 ECMAScript。
 
 ## ECMAScript 2015 新特性特点
 
-- 解决原有语法上的一些问题或者不足
-- 对原有语法进行增强
-- 全新的对象，全新的方法，全新的功能
+- 解决原有语法上的一些问题或者不足（例如：let 和 const 所提供的块级作用域等）
+- 对原有语法进行增强，变得更为便捷、易用（例如：解构、展开、参数默认值、模板字符串等）
+- 全新的对象，全新的方法，全新的功能（例如：Promise、Proxy、Object.assign 方法等）
+- 全新的数据类型和数据结构（Symbol、Set、Map 等）
 
 [ECMAScript 特性官方文档](https://www.ecma-international.org/ecma-262/6.0/)
 
@@ -306,20 +307,20 @@ const str = tag`hello ${name}`;
 一个复杂一点的例子，可以将变量提取出来使用，对模板字符串进行加工
 
 ```js
-const name = 'tom'
-const gender = false
+const name = "tom";
+const gender = false;
 
-function myTagFunc (strings, name, gender) {
-  [ 'hey, ', ' is a ', '.' ] tom false
-  console.log(strings, name, gender)
+function myTagFunc(strings, name, gender) {
+  // [ 'hey, ', ' is a ', '.' ] tom false
+  console.log(strings, name, gender);
 
-  const sex = gender ? 'man' : 'woman'
-  return strings[0] + name + strings[1] + sex + strings[2]
+  const sex = gender ? "man" : "woman";
+  return strings[0] + name + strings[1] + sex + strings[2];
 }
 
-const result = myTagFunc`hey, ${name} is a ${gender}.`
+const result = myTagFunc`hey, ${name} is a ${gender}.`;
 // hey, tom is a woman.
-console.log(result)
+console.log(result);
 ```
 
 可以使用这种功能实现多语言化，检查不安全字符之类的需求，甚至可以实现一个小型的模板引擎。
@@ -450,7 +451,12 @@ person.sayHi()
 person.sayHiAsync()
 ```
 
-更多箭头函数参考[MDN 箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+开发时出现下划线`_this`的情况, 可以使用箭头函数来避免。
+
+更多箭头函数参考
+
+- [MDN 箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+- [箭头函数与普通函数的区别](https://juejin.cn/post/7112279546434420772)
 
 ## 对象字面量增强
 
@@ -540,6 +546,7 @@ Object.is() 方法判断两个值是否为同一个值。
   false + // => false
     0) ===
   -0; // => true
+
 NaN === NaN; // => false
 Object.is(+0, -0); // => false
 Object.is(NaN, NaN); // => true
@@ -683,6 +690,7 @@ const personProxy = new Proxy(person2, {
 });
 
 personProxy.name = "jack";
+// jack
 console.log(person.name);
 ```
 
