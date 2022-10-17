@@ -47,6 +47,20 @@ console.log(obj1); // { x: 200 }
 console.log(obj2); // { x: 100, y: { x: 200 } }
 ```
 
+这里说明直接对对象进行更改重新赋值，则内存地址改变；对对象属性进行增加和改动在原有的堆内存里进行改变，内存地址不变。数组同样也是如此
+
+```js
+var arr = ["licop", "ali"];
+function foo(obj) {
+  obj[0] = "lic";
+  obj = ["学习"];
+  obj[1] = "大前端";
+  console.log(obj); // [ '学习', '大前端' ]
+}
+foo(arr);
+console.log(arr); // [ 'lic', 'ali' ]
+```
+
 ## typeof 运算符
 
 - 识别所有**值类型**
