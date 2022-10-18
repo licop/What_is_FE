@@ -69,7 +69,8 @@ module.exports = {
             'CSRF'
         ],
         '性能优化': [
-            'JavaSript性能优化'
+            'JavaSript性能优化',
+            '节流和防抖'
         ]
     },
     // 前端框架
