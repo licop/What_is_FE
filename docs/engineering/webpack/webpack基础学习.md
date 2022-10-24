@@ -29,7 +29,7 @@
 
 **核心工作原理**
 
-在我们的项目中会散落着各种各样的代码和资源文件，webpack 会根据配置找到文件作为打包入口，一般情况下都会是一个 javascript 文件，然后会找到代码中 import 和 require 之类的语句，解析推断出文件所依赖的资源模块，然后解析每个资源模块对应的依赖，最后形成整个项目所有用到文件之间的依赖树，webpack 会递归这个依赖树，然后找到每个节点所对应的资源文件，根据配置文件中的 rules 属性找到模块所对应的加载器，交给对应的加载器加载这个模块，最后会把加载到的结果放到 bundle.js 中，完成这个**打包**过程
+在我们的项目中会散落着各种各样的代码和资源文件，webpack 会根据配置找到文件作为打包入口，一般情况下都会是一个 javascript 文件，然后会找到代码中 import 和 require 之类的语句，解析推断出文件所依赖的资源模块，然后解析每个资源模块对应的依赖，最后形成整个项目所有用到文件之间的依赖树，webpack 会递归这个依赖树，然后找到每个节点所对应的资源文件，根据配置文件中的 rules 属性找到模块所对应的加载器，交给对应的加载器加载这个模块，最后会把加载到的结果放到 bundle.js 中，完成这个**打包**过程。
 
 ![](/engineering/webpack_bundle.png)
 
@@ -39,25 +39,31 @@
 
 ## webpack 配置
 
-### mode
+webpack4.0 以后得版本会支持零配置的方式直接启动打包，整个打包过程会按照约定将`src/index.js`作为打包的入口，打包的结果会存放在`dist/main.js`中。但是很多时候我们需要自定义配置，这个时候我们需要再`webpack.config.js`中添加配置项来自定义我们的打包。
+
+## mode
 
 - 提供 `mode` 配置选项，告知 webpack 使用相应模式的内置优化。
 
-string = 'production': 'none' | 'development' | 'production'
+string = 'mode': 'none' | 'development' | 'production'
+
+1. 生产模式下，Webpack 会自动优化打包结果；
+2. 开发模式下，Webpack 会自动优化打包速度，添加一些调试过程中的辅助；
+3. None 模式下，Webpack 就是运行最原始的打包，不做任何额外处理；
 
 - 使用`production`会对代码进行压缩，使用`development`不会
 
-### loader
+## loader
 
 `loader`是 webpack 的核心特性,`loader`负责资源文件从输入到输出的转换, 对于同一资源可以依次使用多个 `loader`。借助于 `loader` 就可以加载任何类型的资源 `webpack` 不能识别非 js 格式文件， 只能使用 `loader` 用于对模块的源代码进行转换。webpack 根据正则表达式，来确定应该查找哪些文件，并将其提供给指定的 `loader`。
 
 webpack 支持使用 `loader` 对文件进行预处理。你可以构建包括 JavaScript 在内的任何静态资源。并且可以使用 Node.js 轻松编写自己的 `loader`。
 
-如果一个静态文件不是 js 格式，则需要判断文件的结尾后缀，使用对应的文件格式的`loader`
+如果一个静态文件不是 js 格式，则需要判断文件的结尾后缀，使用对应的文件格式的`loader`。
 
 **常用配置方式**： `module.rules` 允许你在 webpack 配置中指定多个 loader。
 
-#### 打包图片
+### 打包图片
 
 ```js
 module: {
@@ -69,7 +75,7 @@ module: {
         options: {
           // 占位符
           name: "image/[contenthash].[ext]",
-          limit: 10240,
+          limit: 10240, // 10kb
         },
       },
     },
@@ -77,7 +83,12 @@ module: {
 }
 ```
 
-> `url-loader` 与 `file-loader` 类似, 用于打包文件，不过`url-loader`会将文件小于`limit`的值的的图片打包成 base64 格式的文件
+> `url-loader` 与 `file-loader` 类似, 用于打包文件，不过`url-loader`会将文件小于`limit`的值的的图片打包成 base64 格式的文件。base64 格式适合小体积文件打包。
+
+**最佳实践**
+
+- 小文件使用 Data URLs, 减少请求次数
+- 大文件单独提取存放，提高加载速度
 
 ### 打包样式文件
 
@@ -116,7 +127,27 @@ module: {
 import style from "./style/index.scss";
 ```
 
-> 注：use 数组里编译的顺序是从上到下，从右到左，如果不注意先后顺序打包时可能会报错
+> 注：use 数组里编译的顺序是从后往前执行，如果不注意先后顺序打包时可能会报错
+
+### 打包 ES2015 文件
+
+```js
+module: {
+  rules: [
+    {
+      test: /.js$/,
+      use: {
+        loader: "babel-loader",
+        options: {
+          presets: ["@babel/preset-env"],
+        },
+      },
+    },
+  ];
+}
+```
+
+Webpack 只是打包工具，因为模块打包需要，所以处理 import 和 export，但是没有对其他 ES2015 新特性进行编译，所以要为 js 配置额外的编译型 loader，例如 `babel-loader`。
 
 ### 打包 iconfont 文件
 
@@ -134,6 +165,14 @@ module: {
 ```
 
 ![](/engineering/webpack_static.png)
+
+webpack 鼓励根据代码需要动态导入资源，根据当前的代码加载需要的资源。使用 JavaScript 驱动前端应用，而在实现业务功能的过程当中可能需要图片、样式等等的资源文件，这样就建立了一种依赖关系。
+
+### 常用 loader 分类
+
+- 编译转换类 （css-loader）
+- 文件操作类 (file-loader: 把加载到文件拷贝到输出目录，同时导出文件的访问路径)
+- 代码检查类（eslint-loader）
 
 更多文件格式的参考 [loader](https://webpack.docschina.org/loaders/)
 
