@@ -178,7 +178,9 @@ webpack 鼓励根据代码需要动态导入资源，根据当前的代码加载
 
 ## plugins
 
-`plugin`可以在 webpack 运行到某个节点，帮我们实现前端打多工程化工作，`plugin`目的在于解决 loader 无法实现的其他事。
+`plugin`可以在 webpack 运行到某个节点，帮我们实现前端大多自动工程化工作，`plugin`目的在于解决 loader 无法实现的其他事。
+
+由于 webpack 的 plugin 选项过于强大，从而使得刚接触 webpack 的人就误以为 webpack 就是前端工程化工具。
 
 ### HtmlWebpackPlugin
 
@@ -188,10 +190,25 @@ webpack 鼓励根据代码需要动态导入资源，根据当前的代码加载
 module.exports = {
   entry: "index.js",
   output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "index_bundle.js",
+    filename: "bundle.js",
+    path: path.join(__dirname, "dist"),
+    // publicPath: 'dist/'
   },
-  plugins: [new HtmlWebpackPlugin({ template: "src/index.html" })],
+  plugins: [
+    // 用于生成 index.html
+    new HtmlWebpackPlugin({
+      title: "Webpack Plugin Sample",
+      meta: {
+        viewport: "width=device-width",
+      },
+      // 设置模版html
+      template: "./src/index.html",
+    }),
+    // 用于生成多个页面文件 about.html
+    new HtmlWebpackPlugin({
+      filename: "about.html",
+    }),
+  ],
 };
 ```
 
@@ -219,6 +236,19 @@ module: {
   ];
 }
 plugins: [new MiniCssExtractPlugin()];
+```
+
+### CopyWebpackPlugin
+
+将文件拷贝到输出的目录中
+
+```js
+plugins: [
+  new CopyWebpackPlugin([
+    // 'public/**'
+    "public",
+  ]);
+]
 ```
 
 ## entry & output
@@ -389,7 +419,7 @@ import Utility from "Utilities/utility";
 
 ## 热模块替换 hmr
 
-**模块热替换(HMR - hot module replacement)**功能会在应用程序运行过程中，替换、添加或删除 模块，而无需重新加载整个页面。
+**模块热替换(HMR - hot module replacement)**功能会在应用程序运行过程中，替换、添加或删除模块，而无需重新加载整个页面。
 
 ### hrm 作用
 

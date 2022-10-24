@@ -17,11 +17,11 @@ module.exports = function(source) {
 
 我们可以编写 loader 对想要的文件源代码进行包装，比如添加全局的异常监控，国际化等等
 
-webapck 的 loader 加载资源的过程有点类似于一个工作管道，可以在加载过程中依次使用多个 loader，要求管道工作过后的结果必须是一段 javascript 代码，否则打包的内容会报错。所以一个 loader 返回的结果要么要么是一段 javascript 代码，要么在找个一个其他的 loader 来处理这段结果。
+webapck 的 loader 加载资源的过程有点类似于一个工作管道，可以在加载过程中依次使用多个 loader，要求管道工作过后的结果必须是一段 javascript 代码，否则打包的内容会报错。所以一个 loader 返回的结果要么要么是一段 javascript 代码，要么再找个一个其他的 loader 来处理这段结果。
 
-[示例完整的 loader 源码](https://github.com/licop/webpack4.0_learn/tree/master/%E7%BC%96%E5%86%99loader/makeLoader)
-[编写一个 markdown 文件的 loader](https://github.com/licop/What_is_FE/tree/master/examples/webpack-demo/11-markdown-loader)
-[更多关于 loader 查看](https://webpack.docschina.org/api/loaders/)
+- [示例完整的 loader 源码](https://github.com/licop/webpack4.0_learn/tree/master/%E7%BC%96%E5%86%99loader/makeLoader)
+- [编写一个 markdown 文件的 loader](https://github.com/licop/What_is_FE/tree/master/examples/webpack-demo/11-markdown-loader)
+- [更多关于 loader 查看](https://webpack.docschina.org/api/loaders/)
 
 ## plugin 编写
 
@@ -58,6 +58,6 @@ class CopyrightWebpackPlugin {
 }
 ```
 
-[示例完整的 plugin 源码](https://github.com/licop/webpack4.0_learn/tree/master/%E7%BC%96%E5%86%99plugin/plugin)
-[编写一个删除注释的插件](https://github.com/licop/What_is_FE/tree/master/examples/webpack-demo/16-my-webpack-plugin)
-[更多关于 plugin 查看](https://webpack.docschina.org/api/plugins/)
+- [示例完整的 plugin 源码](https://github.com/licop/webpack4.0_learn/tree/master/%E7%BC%96%E5%86%99plugin/plugin)
+- [编写一个删除注释的插件](https://github.com/licop/What_is_FE/tree/master/examples/webpack-demo/16-my-webpack-plugin)
+- [更多关于 plugin 查看](https://webpack.docschina.org/api/plugins/)
