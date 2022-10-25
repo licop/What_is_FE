@@ -224,7 +224,7 @@ plugins: [new CleanWebpackPlugin(["dist"])];
 
 ### MiniCssExtractPlugin
 
-`MiniCssExtractPlugin`可以将 css 提取为一个单独的文件，一般当 css 文件超过 150kb 需要考虑是否将 css 提取。
+`MiniCssExtractPlugin`可以将 css 提取为一个单独的文件，一般当 css 文件超过 150kb 才需要考虑是否将 css 提取。
 
 ```js
 module: {
@@ -238,6 +238,20 @@ module: {
 plugins: [new MiniCssExtractPlugin()];
 ```
 
+### OptimizeCssAssetsWebpackPlugin
+
+`OptimizeCssAssetsWebpackPlugin`是压缩 css 的插件，将这个插件放在`optimization`的`minimizer`的数组里，只有在 `minimizer` 的特性开启时才工作，如果放在`plugins`中任何时候都工作。
+
+```js
+optimization: {
+  minimizer: [
+    // 内置的js压缩插件
+    new TerserWebpackPlugin(),
+    new OptimizeCssAssetsWebpackPlugin(),
+  ];
+}
+```
+
 ### CopyWebpackPlugin
 
 将文件拷贝到输出的目录中
@@ -249,6 +263,19 @@ plugins: [
     "public",
   ]);
 ]
+```
+
+### DefinePlugin
+
+为代码注入全局成员,用来注入代码中可能发生变化的值
+
+```js
+plugins: [
+  new webpack.DefinePlugin({
+    // 值要求的是一个代码片段
+    API_BASE_URL: JSON.stringify("https://api.example.com"),
+  }),
+];
 ```
 
 ## entry & output
@@ -282,15 +309,18 @@ module.exports = {
 - `inline-` source map 转换为 DataUrl 后添加到 bundle 中
 - `clean-` 没有列映射(column mapping)的 source map，可以提升构建速度
 - `eval-` 每个模块使用 eval() 执行，并且 source map 转换为 DataUrl 后添加到 eval() 中
-- `module-` 源自 loader 的 `source map` 会得到更好的处理结果
+- `module-` 打包出没有经过`loader`加工手写的源代码，打包出的效果更好
 
 ### 最佳实践
 
 - 开发环境下 `development`使用 `cheap-module-eval-source-map`，可以兼顾打包效率和精确度
-- 生产环境下 `production` 使用 `cheap-module-source-map`，提升精确度
+  - 我们的代码每行不会超过 80 个字符
+  - 我的代码经过 loader 转换后差异较大
+  - 首次打包速度慢无所谓，重写打包相对较快
+- 生产环境下 `production` 使用 `cheap-module-source-map`提升精确度， 或者为`none`不暴露 sourcemap
 
-[不同 source 打包对比 demo](https://github.com/licop/What_is_FE/tree/master/examples/webpack-demo/22-devtool-diff)
-[更多关于 devtool 内容参考](https://webpack.docschina.org/configuration/devtool/)
+* [不同 source 打包对比 demo](https://github.com/licop/What_is_FE/tree/master/examples/webpack-demo/22-devtool-diff)
+* [更多关于 devtool 内容参考](https://webpack.docschina.org/configuration/devtool/)
 
 ## devServer
 
@@ -417,32 +447,34 @@ import Utility from "Utilities/utility";
 
 [更多 resolve 参考](https://webpack.docschina.org/configuration/resolve/)
 
-## 热模块替换 hmr
+## 热模块替换 HMR
 
-**模块热替换(HMR - hot module replacement)**功能会在应用程序运行过程中，替换、添加或删除模块，而无需重新加载整个页面。
+**模块热替换(HMR - Hot Module Replacement)** 功能会在应用程序运行过程中，替换、添加或删除模块，而无需重新加载整个页面,不用担心页面整体自动刷新而导致页面状态丢失。
 
-### hrm 作用
+### HMR 作用
 
 - 保留在完全重新加载页面期间丢失的应用程序状态。
 - 只更新变更内容，以节省宝贵的开发时间。
 - 在源代码中 CSS/JS 产生修改时，会立刻在浏览器中进行更新，这几乎相当于在浏览器 devtools 直接更改样式。
 
-### hrm 使用
+### HMR 使用
 
-hrm 继承在在 webpack-dev-server 中
+HMR 集成在 webpack-dev-server 中，可以通过 `webpack-dev-server --hot` 开启这个特性，或者可以在配置文件中添加对应的配置
 
 ```js
-    devServer: {
-		contentBase: path.join(__dirname, 'dist'),
-		port: 9000,
-		open: true,
+devServer: {
+  contentBase: path.join(__dirname, 'dist'),
+  port: 9000,
+  open: true,
 
-		hot: true,
-		hotOnly: true
-	}
+  hot: true,
+  hotOnly: true // 只使用 HMR，不会 fallback 到 live reloading
+}
 ```
 
-当更新 js 文件时，Webpack 中的 hmr 需要手动处理模块热替换逻辑，可以在 js 文件中添加如下方法，实现某个模块的热替换
+当更新 css 文件时，`style-loader`帮我们自动完成了热替换；当它通过 HMR 接收到更新，它会使用新的样式替换旧的样式。
+
+当更新 js 文件时，Webpack 中的 HMR 需要手动处理模块热替换逻辑，可以在 js 文件中添加如下方法，实现某个模块的热替换。
 
 ```js
 // 使用HMR API
@@ -453,9 +485,7 @@ if (module.hot) {
 }
 ```
 
-当更新 css 文件时，`style-loader`帮我们自动完成了热替换；当它通过 HMR 接收到更新，它会使用新的样式替换旧的样式。
-
-通用脚手架创建的项目内部都继承了 HMR 方案。
+通用脚手架创建的项目内部都集成了 HMR 方案，不需要自己手动处理。
 
 - [模块热替换(hot module replacement)](https://webpack.docschina.org/concepts/hot-module-replacement/)
 - [Hot Module Replacement API](https://webpack.docschina.org/api/hot-module-replacement/)

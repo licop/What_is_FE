@@ -11,8 +11,13 @@
 ```js
   mode: 'development',
   optimization: {
-    usedExports: true, // 找到未引用的代码
-    mininize: true   // 压缩时删掉未引用的代码
+    // 找到未引用的代码，模块只导出被使用的成员
+    usedExports: true,
+    // 尽可能合并每一个模块到一个函数中
+    // 提升运行效率，又减少了代码的体积
+    concatenateModules: true,
+    // 压缩时删掉未引用的代码
+    mininize: true
   }
 ```
 
@@ -40,7 +45,69 @@
 
 比如`source map`在两种环境下需求不一样; `development`模式需要`热模块替换 HMR`和`Tree Shaking`配置,`production`则不需要。
 
-所以我们需要三个 webpack 配置，`webpack.common.js`， `webpack.dev.js`和`webpack.prod.js`, 然后使用`webpack-merge`插件将其不同环境下的特性和公用的部分合并。
+区分环境打包有两种解决办法：
+
+1. 配置文件根据环境不同导出不同配置
+
+```js
+// 执行 yarn webpack --env production就会以生产模式进行打包
+// env 通过cli传递的环境名参数
+// argv 通过cli传递的所有参数
+module.exports = (env, argv) => {
+  const config = {
+    mode: "development",
+    entry: "./src/main.js",
+    output: {
+      filename: "js/bundle.js",
+    },
+    devtool: "cheap-eval-module-source-map",
+    devServer: {
+      hot: true,
+      contentBase: "public",
+    },
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: ["style-loader", "css-loader"],
+        },
+        {
+          test: /\.(png|jpe?g|gif)$/,
+          use: {
+            loader: "file-loader",
+            options: {
+              outputPath: "img",
+              name: "[name].[ext]",
+            },
+          },
+        },
+      ],
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        title: "Webpack Tutorial",
+        template: "./src/index.html",
+      }),
+      new webpack.HotModuleReplacementPlugin(),
+    ],
+  };
+
+  if (env === "production") {
+    config.mode = "production";
+    config.devtool = false;
+    config.plugins = [
+      ...config.plugins,
+      new CleanWebpackPlugin(),
+      new CopyWebpackPlugin(["public"]),
+    ];
+  }
+
+  return config;
+};
+```
+
+2. 一个环境对应一个配置文件
+   - 我们需要三个 webpack 配置，`webpack.common.js`， `webpack.dev.js`和`webpack.prod.js`, 然后使用`webpack-merge`插件将其不同环境下的特性和公用的部分合并。
 
 ## 代码分割 code splitting
 
@@ -48,10 +115,10 @@
 
 代码分割，也就是 `Code Splitting` 一般需要做这些事情：
 
-- 为 `Vendor` 单独打包（Vendor 指第三方的库或者公共的基础组件，因为 Vendor 的变化比较少，单独打包利于缓存）
-- 为 `Manifest` （Webpack 的 Runtime 代码）单独打包
-- 为不同入口的业务代码打包，也就是代码分割异步加载（同理，也是为了缓存和加载速度）
-- 为异步公共加载的代码打一个的包
+1. 为 `Vendor` 单独打包（Vendor 指第三方的库或者公共的基础组件，因为 Vendor 的变化比较少，单独打包利于缓存）
+2. 为 `Manifest` （Webpack 的 Runtime 代码）单独打包
+3. 为不同入口的业务代码进行**多入口**打包，也就是代码分割异步加载（同理，也是为了缓存和加载速度）
+4. 将**公共模块**提取到一个 bundler 中
 
 Webpack 4 下还有一个大改动，就是废弃了 `CommonsChunkPlugin`，引入了 `optimization.splitChunks` 这个选项。
 `optimization.splitChunks` 默认是不用设置的。默认情况下`splitChunks`只对异步代码进行分割，
@@ -193,8 +260,8 @@ chunk 级别 Hash，同一 chunk 的 hash 值相同，文件改变时同一个 c
 
 ## webpack 分析工具
 
-[webpack-chart](https://alexkuz.github.io/webpack-chart/): webpack stats 可交互饼图。
-[webpack-visualizer](https://chrisbateman.github.io/webpack-visualizer/): 可视化并分析你的 bundle，检查哪些模块占用空间，哪些可能是重复使用的。
-[webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer)：一个 plugin 和 CLI 工具，它将 bundle 内容展示为一个便捷的、交互式、可缩放的树状图形式。
-[webpack bundle optimize helper](https://webpack.docschina.org/guides/code-splitting/)：这个工具会分析你的 bundle，并提供可操作的改进措施，以减少 bundle 的大小。
-[bundle-stats](https://webpack.docschina.org/guides/code-splitting/)：生成一个 bundle 报告（bundle 大小、资源、模块），并比较不同构建之间的结果。
+- [webpack-chart](https://alexkuz.github.io/webpack-chart/): webpack stats 可交互饼图。
+- [webpack-visualizer](https://chrisbateman.github.io/webpack-visualizer/): 可视化并分析你的 bundle，检查哪些模块占用空间，哪些可能是重复使用的。
+- [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer)：一个 plugin 和 CLI 工具，它将 bundle 内容展示为一个便捷的、交互式、可缩放的树状图形式。
+- [webpack bundle optimize helper](https://webpack.docschina.org/guides/code-splitting/)：这个工具会分析你的 bundle，并提供可操作的改进措施，以减少 bundle 的大小。
+- [bundle-stats](https://webpack.docschina.org/guides/code-splitting/)：生成一个 bundle 报告（bundle 大小、资源、模块），并比较不同构建之间的结果。

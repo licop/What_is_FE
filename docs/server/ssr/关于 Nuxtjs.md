@@ -20,7 +20,7 @@
 2. **从服务器到浏览器**
    浏览器使用生成的 HTML 从服务器接收呈现的页面。显示内容，Vue.js 开始渲染 dom。在此过程之后，页面是交互式的
 3. **浏览器到浏览器**
-   使用<NuxtLink>在页面之间导航是在客户端完成的，因此除非您强制刷新浏览器，否则您不会再次访问服务器
+   使用`<NuxtLink>`在页面之间导航是在客户端完成的，因此除非您强制刷新浏览器，否则您不会再次访问服务器
 
 具体参考文档[Server Side Rendering](https://nuxtjs.org/docs/2.x/concepts/server-side-rendering)
 
@@ -476,8 +476,3 @@ export const actions = {
 ## 使用 Nuxtjs 实现 realworld 项目
 
 使用 Nuxt.js 完成 realworld 项目，已部署到阿里云 https://realworld.licop.cn/
-
-## 更多参考
-
-- [Nuxtjs 官方文档](https://zh.nuxtjs.org/docs/2.x/get-started/installation)
-- [使用 Nusxjs 实现 realworld](https://github.com/licop/nuxtjs-realworld)
