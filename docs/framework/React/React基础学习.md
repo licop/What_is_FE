@@ -123,6 +123,7 @@ const persons = [
 ```js
 <ul>
   {persons.map((person) => (
+    // key属性的值是唯一的，可以帮助我们识别那些元素修改和删除了，减少dom操作，提高domm操作的性能
     <li key={person.id}>
       {" "}
       {person.name} {person.age}{" "}
@@ -182,6 +183,8 @@ import "./styles.css";
 ```
 
 ### 2.10 ref 属性
+
+通过 `ref` 属性可以获得组件的实例对象
 
 #### 2.10.1 createRef
 
@@ -502,13 +505,13 @@ const Person = (props) => {
 
 在组件完成更新之前需要做某种逻辑或者计算，就需要用到快照
 
-```react
+```js
 componentDidUpdate(prevProps, prevState, snapshot) {}
 ```
 
-getSnapshotBeforeUpdate 方法会在组件完成更新之前执行，用于执行某种逻辑或计算，返回值可以在 componentDidUpdate 方法中的第三个参数中获取，就是说在组件更新之后可以拿到这个值再去做其他事情。
+`getSnapshotBeforeUpdate` 方法会在组件完成更新之前执行，用于执行某种逻辑或计算，返回值可以在 `componentDidUpdate` 方法中的第三个参数中获取，就是说在组件更新之后可以拿到这个值再去做其他事情。
 
-```react
+```js
 getSnapshotBeforeUpdate(prevProps, prevState) {
   return 'snapshot'
 }
