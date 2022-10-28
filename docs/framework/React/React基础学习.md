@@ -1,6 +1,6 @@
 # React 基础学习
 
-## 1. React 介绍
+## React 介绍
 
 ![](/framework/react_base_1.png)
 
@@ -8,7 +8,7 @@ React 是一个用于构建用户界面的 JavaScript 库，它只负责应用�
 
 React 使用组件的方式构建用户界面。
 
-## 2. JSX 语法
+## JSX 语法
 
 在 React 中使用 JSX 语法描述用户界面，它是一种 JavaScript 语法扩展。
 
@@ -16,7 +16,9 @@ React 使用组件的方式构建用户界面。
 
 JSX 语法就是一种语法糖，让开发人员使用更加舒服的代码构建用户界面。
 
-### 2.1 在 JSX 中使用表达式
+### 在 JSX 中使用表达式
+
+在 JSX 语法中，你可以在大括号内放置任何有效的 JavaScript 表达式。
 
 ```js
 const user = {
@@ -40,7 +42,7 @@ function getGreeting(user) {
 }
 ```
 
-### 2.2 属性
+### 属性
 
 如果属性值为字符串类型，需要加引号，属性名称推荐采用驼峰式命名法。
 
@@ -55,7 +57,7 @@ const element = <img src={user.avatarUrl} />;
 // 注意大括号外面不能加引号，JSX 会将引号当中的内容识别为字符串而不是表达式
 ```
 
-### 2.3 JSX 单标记必须闭合
+### JSX 单标记必须闭合
 
 如果 JSX 是单标记，必须闭合，否则报错。
 
@@ -64,7 +66,7 @@ const element = <img src={user.avatarUrl} />;
 const element = <input type="text" />;
 ```
 
-### 2.4 className
+### className
 
 为 JSX 标记添加类名需要使用 className，而不是 class。
 
@@ -72,7 +74,7 @@ const element = <input type="text" />;
 const element = <img src={user.avatarUrl} className="rounded" />;
 ```
 
-### 2.5 JSX 自动展开数组
+### JSX 自动展开数组
 
 ```js
 const ary = [<p>哈哈</p>, <p>呵呵</p>, <p>嘿嘿</p>];
@@ -87,7 +89,7 @@ const element = <div>{ary}</div>;
 */
 ```
 
-### 2.6 三元运算
+### 三元运算
 
 ```js
 {
@@ -98,7 +100,7 @@ const element = <div>{ary}</div>;
 }
 ```
 
-### 2.7 循环
+### 循环
 
 ```js
 const persons = [
@@ -132,13 +134,18 @@ const persons = [
 </ul>
 ```
 
-### 2.8 事件
+### 事件
+
+React 元素的事件处理和 DOM 元素的很相似，但是有一点语法上的不同：
+
+- React 事件的命名采用小驼峰式（camelCase），而不是纯小写
+- 使用 JSX 语法时你需要传入一个函数作为事件处理函数，而不是一个字符串。
 
 ```js
 /* 第一个参数即是事件对象 不需传递 */
 <button onClick={this.eventHandler}>按钮</button>
 /* 需要传递事件对象 */
-<button onClick={e=>this.eventHandler('arg',e)}>按钮</button>
+<button onClick={e => this.eventHandler('arg',e)}>按钮</button>
 /* 最后一个参数即是事件对象 不需传递 */
 <button onClick={this.eventHandler.bind(null, 'arg')}>按钮</button>
 ```
@@ -151,9 +158,9 @@ eventHandler () {}
 <button onClick={this.eventHandler}>按钮</button>
 ```
 
-### 2.9 样式
+### 样式
 
-#### 2.9.1 行内样式
+#### 行内样式
 
 ```js
 class App extends Component {
@@ -164,7 +171,7 @@ class App extends Component {
 }
 ```
 
-#### 2.9.2 外链样式
+#### 外链样式
 
 ```js
 // Button.js
@@ -176,17 +183,17 @@ class Button extends Component {
 }
 ```
 
-#### 2.9.3 全局样式
+#### 全局样式
 
 ```js
 import "./styles.css";
 ```
 
-### 2.10 ref 属性
+### ref 属性
 
 通过 `ref` 属性可以获得组件的实例对象
 
-#### 2.10.1 createRef
+#### createRef
 
 ```js
 class Input extends Component {
@@ -208,7 +215,7 @@ class Input extends Component {
 }
 ```
 
-#### 2.10.2 函数参数
+#### 函数参数
 
 ```js
 class Input extends Component {
@@ -223,7 +230,7 @@ class Input extends Component {
 }
 ```
 
-#### 2.10.3 ref 字符串
+#### ref 字符串
 
 不推荐使用，在严格模式下报错。
 
@@ -240,7 +247,7 @@ class Input extends Component {
 }
 ```
 
-#### 2.10.4 获取组件实例
+#### 获取组件实例
 
 点击按钮让 input 文本框获取焦点。
 
@@ -286,17 +293,69 @@ class App extends Component {
 
 ![](/framework/react_base_5.gif)
 
-## 3. 组件
+### JSX 表示对象
 
-### 3.1 什么是组件
+Babel 会把 JSX 转译成一个名为 `React.createElement()` 函数调用。
+
+```js
+// 以下两种示例代码完全等效：
+const element = <h1 className="greeting">Hello, world!</h1>;
+
+const element = React.createElement(
+  "h1",
+  { className: "greeting" },
+  "Hello, world!"
+);
+```
+
+`React.createElement()` 会预先执行一些检查，以帮助你编写无错代码，但实际上它创建了一个这样的对象：
+
+```js
+// 注意：这是简化过的结构
+const element = {
+  type: "h1",
+  props: {
+    className: "greeting",
+    children: "Hello, world!",
+  },
+};
+```
+
+这些对象被称为 “React 元素”。它们描述了你希望在屏幕上看到的内容。React 通过读取这些对象，然后使用它们来构建 DOM 以及保持随时更新。
+
+## “根”Dom 节点
+
+假设你的 HTML 文件某处有一个 `<div>`：
+
+```html
+<div id="root"></div>
+```
+
+我们将其称为**根 DOM 节点**，因为该节点内的所有内容都将由 React DOM 管理。
+
+想要将一个 React 元素渲染到根 DOM 节点中，只需把它们一起传入 `ReactDOM.createRoot()`：
+
+```js
+const root = ReactDom.createRoot(document.getElementById('root'))
+const element = <h1>hello world<h1>
+root.render(element)
+```
+
+## 组件
+
+### 什么是组件
 
 React 是基于组件的方式进行用户界面开发的. 组件可以理解为对页面中某一块区域的封装。
 
+组件允许你将 UI 拆分成独立可复用的代码片段，并对每个片段进行独立构思。
+
+从概念上将类似于 JavaScript 函数，它接受任意的入参（即“props”）, 并返回用于描述页面展示内容的 React 元素。
+
 ![](/framework/react_base_2.png)
 
-### 3.2 创建组件
+### 创建组件
 
-#### 3.2.1 创建类组件
+#### 创建类组件
 
 ```js
 import React, { Component } from "react";
@@ -307,7 +366,7 @@ class App extends Component {
 }
 ```
 
-#### 3.2.2 创建函数组件
+#### 创建函数组件
 
 ```js
 const Person = () => {
@@ -320,9 +379,9 @@ const Person = () => {
 1. 组件名称首字母必须大写，用以区分组件和普通标签。
 2. jsx 语法外层必须有一个根元素
 
-### 3.3 组件 props
+### 组件 props
 
-#### 3.3.1 props 传递数据
+#### props 传递数据
 
 在调用组件时可以向组件内部传递数据，在组件中可以通过 props 对象获取外部传递进来的数据。
 
@@ -362,7 +421,7 @@ const Person = (props) => {
 1. props 对象中存储的数据是只读的，不能在组件内部被修改。
 2. 当 props 数据源中的数据被修改后，组件中的接收到的 props 数据会被同步更新。( 数据驱动 DOM )
 
-#### 3.3.2 设置 props 默认值
+#### 设置 props 默认值
 
 ```js
 class App extends Component {
@@ -378,7 +437,7 @@ ThemedButton.defaultProps = {
 };
 ```
 
-#### 3.3.3 组件 children
+#### children
 
 通过 props.children 属性可以获取到在调用组件时填充到组件标签内部的内容。
 
@@ -392,7 +451,7 @@ const Person = (props) => {
 };
 ```
 
-#### 3.3.4 单向数据流
+#### 单向数据流
 
 1.  在 React 中, 关于数据流动有一条原则, 就是单向数据流动, 自顶向下, 从父组件到子组件.
 
@@ -406,9 +465,11 @@ const Person = (props) => {
 
 ![](/framework/react_base_3.png)
 
-### 3.4 类组件状态 state
+### 类组件状态 state
 
-#### 3.4.1 定义组件状态
+如果你把一个以组件构成的树想象成一个 props 的数据瀑布的话，那么每一个组件的 state 就像是在任意一点上给瀑布增加额外的水源，但是它只能向下流动。
+
+#### 定义组件状态
 
 类组件除了能够从外部 (props) 接收状态数据以外还可以拥有自己的状态 (state)，此状态在组件内部可以被更新，状态更新 DOM 更新。
 
@@ -433,7 +494,7 @@ class App extends Component {
 }
 ```
 
-#### 3.4.2 更改组件状态
+#### 更改组件状态
 
 state 状态对象中的数据不可直接更改，如果直接更改 DOM 不会被更新，要更改 state 状态数据需要使用 setState 方法。
 
@@ -465,7 +526,7 @@ class App extends Component {
 }
 ```
 
-#### 3.4.3 双向数据绑定
+#### 双向数据绑定
 
 双向数据绑定是指，组件类中更新了状态，DOM 状态同步更新，DOM 更改了状态，组件类中同步更新。组件 <=> 视图。
 
@@ -499,7 +560,31 @@ const Person = (props) => {
 };
 ```
 
-### 3.5 类组件生命周期函数
+#### State 的更新可能是异步的
+
+出于性能考虑，React 可能会把多个 `setState()` 调用合并成一个调用。
+
+因为 this.props 和 this.state 可能会异步更新，所以你不要依赖他们的值来更新下一个状态。
+
+例如，此代码可能会无法更新计数器：
+
+```js
+// Wrong
+this.setState({
+  counter: this.state.counter + this.props.increment,
+});
+```
+
+要解决这个问题，可以让 `setState()` 接收一个函数而不是一个对象。这个函数用上一个 state 作为第一个参数，将此次更新被应用时的 props 做为第二个参数：
+
+```js
+// Correct
+this.setState((state, props) => ({
+  counter: state.counter + props.increment,
+}));
+```
+
+### 类组件生命周期函数
 
 ![](/framework/react_base_4.jpg)
 
@@ -517,7 +602,7 @@ getSnapshotBeforeUpdate(prevProps, prevState) {
 }
 ```
 
-### 3.6 Context
+### Context
 
 通过 Context 可以跨层级传递数据
 
@@ -586,9 +671,9 @@ export class C extends Component {
 }
 ```
 
-## 4. 表单
+## 表单
 
-### 4.1 受控表单
+### 受控表单
 
 表单控件中的值由组件的 state 对象来管理，state 对象中存储的值和表单控件中的值时同步状态的
 
@@ -617,7 +702,7 @@ class App extends Component {
 }
 ```
 
-### 4.2 非受控表单
+### 非受控表单
 
 表单元素的值由 DOM 元素本身管理。
 
@@ -638,123 +723,5 @@ class App extends Component {
 }
 ```
 
-## 5. 路由
-
-url 地址与组件之间的对应关系，访问不同的 url 地址显示不同的组件。
-
-下载：`npm install react-router-dom`
-
-### 5.1.1 路由基本使用
-
-```js
-// App.js
-import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-function Index() {
-  return <div>首页</div>;
-}
-function News() {
-  return <div>新闻</div>;
-}
-function App() {
-  return (
-    <Router>
-      <div>
-        <Link to="/index">首页</Link>
-        <Link to="/news">新闻</Link>
-      </div>
-      <div>
-        <Route path="/index" component={Index} />
-        <Route path="/news" component={News} />
-      </div>
-    </Router>
-  );
-}
-```
-
-### 5.1.2 路由嵌套
-
-```js
-function News(props) {
-  return (
-    <div>
-      <div>
-        <Link to={`${props.match.url}/company`}>公司新闻</Link>
-        <Link to={`${props.match.url}/industry`}>行业新闻</Link>
-      </div>
-      <div>
-        <Route path={`${props.match.path}/company`} component={CompanyNews} />
-        <Route path={`${props.match.path}/industry`} component={IndustryNews} />
-      </div>
-    </div>
-  );
-}
-
-function CompanyNews() {
-  return <div>公司新闻</div>;
-}
-function IndustryNews() {
-  return <div>行业新闻</div>;
-}
-```
-
-### 5.1.3 路由传参
-
-```js
-import url from 'url';
-class News extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: [{
-        id: 1,
-        title: '新闻1'
-      }, {
-        id: 2,
-        title: '新闻2'
-      }]
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <div>新闻列表组件</div>
-        <ul>
-          this.state.list.map((item, index) => {
-            return (
-              <li key={index}>
-                <Link to={`/detail?id=${item.id}`}>{item.title}</Link>
-              </li>
-            );
-          })
-        </ul>
-      </div>
-    );
-  }
-}
-class Detail extends Component {
-  constructor(props) {
-    super(props);
-  }
-	const { query } = url.parse(this.props.location.search, true);
-	console.log(query); // {id: 1}
-  render() {
-    return <div>新闻详情</div>
-  }
-}
-```
-
-### 5.1.4 路由重定向
-
-```js
-import { Redirect } from "react-router-dom";
-
-class Login extends Component {
-  render() {
-    if (this.state.isLogin) {
-      return <Redirect to="/" />;
-    }
-  }
-}
-```
+大多数情况下，你应该使用受控组件
+。
