@@ -6,7 +6,7 @@
 
 React 是一个用于构建用户界面的 JavaScript 库，它只负责应用的视图层，帮助开发人员构建快速且交互式的 web 应用程序。
 
-React 使用组件的方式构建用户界面。
+React 是**单向数据流**（也叫单向绑定）的思想，使得组件模块化，易于快速开发。React 使用组件的方式构建用户界面。
 
 ## JSX 语法
 
@@ -96,42 +96,22 @@ const element = <div>{ary}</div>;
   boolean ? <div>Hello React</div> : null;
 }
 {
+  // 如果boolean为true，则&&右边的元素被渲染
   boolean && <div>Hello React</div>;
 }
 ```
 
-### 循环
+### 阻止组件渲染
+
+`render`方法直接返回`null`, 而不进行任何渲染，可以直接隐藏组件
 
 ```js
-const persons = [
-  {
-    id: 1,
-    name: "张三",
-    age: 20,
-  },
-  {
-    id: 2,
-    name: "李四",
-    age: 15,
-  },
-  {
-    id: 3,
-    name: "王五",
-    age: 22,
-  },
-];
-```
-
-```js
-<ul>
-  {persons.map((person) => (
-    // key属性的值是唯一的，可以帮助我们识别那些元素修改和删除了，减少dom操作，提高domm操作的性能
-    <li key={person.id}>
-      {" "}
-      {person.name} {person.age}{" "}
-    </li>
-  ))}
-</ul>
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+  return <div className="warning">Warn</div>;
+}
 ```
 
 ### 事件
@@ -669,6 +649,119 @@ export class C extends Component {
     return <div>{this.context}</div>;
   }
 }
+```
+
+## 列表
+
+可以通过`map`方法将数组中的每个元素变成`<li>`标签
+
+```js
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) => (
+    <li key={number.toString()}>{number}</li>
+  ));
+  return <ul>{listItems}</ul>;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+```
+
+JSX 允许大括号里嵌入任何表达式，所以还可以写成下面这种形式
+
+```js
+function NumberList(props) {
+  const numbers = props.numbers;
+  return (
+    <ul>
+      {numbers.map((number) => (
+        <ListItem key={number.toString()} value={number} />
+      ))}
+    </ul>
+  );
+}
+```
+
+## key
+
+key 帮助 React 识别哪些元素改变了，比如被添加或删除，可以提高 React 渲染 Dom 的效率。因此你应当给数组中的每一个元素赋予一个确定的标识。
+
+一个元素的 key 最好是这个元素在列表中拥有的一个独一无二的字符串。通常，我们使用数据中的 id 来作为元素的 key：
+
+```js
+const todoItems = todos.map((todo) => <li key={todo.id}>{todo.text}</li>);
+```
+
+**注意事项**
+
+- 如果列表项目的顺序可能会变化，我们不建议使用索引来用作 key 值，因为这样做会导致性能变差，还可能引起组件状态的问题。
+- Key 应该具有稳定，可预测，以及列表内唯一的特质。不稳定的 key（比如通过 Math.random() 生成的）会导致许多组件实例和 DOM 节点被不必要地重新创建，这可能导致性能下降和子组件中的状态丢失
+
+### 用 key 提取组件
+
+元素的 key 只有放在就近的数组上下文中才有意义。
+
+比方说，如果你提取出一个 `ListItem` 组件，你应该把 `key` 保留在数组中的这个 `<ListItem />` 元素上，而不是放在 `ListItem` 组件中的 `<li>` 元素上。
+
+一个好的经验法则是：在 `map()` 方法中的元素需要设置 key 属性。
+
+```js
+function ListItem(props) {
+  // 正确！这里不需要指定 key：
+  return <li>{props.value}</li>;
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) => (
+    // 正确！key 应该在数组的上下文中被指定
+    <ListItem key={number.toString()} value={number} />
+  ));
+  return <ul>{listItems}</ul>;
+}
+```
+
+### key 值在兄弟节点之间必须唯一
+
+数组元素中使用的 key 在其兄弟节点之间应该是独一无二的。然而，它们不需要是全局唯一的。当我们生成两个不同的数组时，我们可以使用相同的 key 值：
+
+```js
+function Blog(props) {
+  const sidebar = (
+    <ul>
+      {props.posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
+  const content = props.posts.map((post) => (
+    <div key={post.id}>
+      <h3>{post.title}</h3>
+      <p>{post.content}</p>
+    </div>
+  ));
+  return (
+    <div>
+      {sidebar}
+      <hr />
+      {content}
+    </div>
+  );
+}
+
+const posts = [
+  { id: 1, title: "Hello World", content: "Welcome to learning React!" },
+  { id: 2, title: "Installation", content: "You can install React from npm." },
+];
+```
+
+key 会传递信息给 React ，但不会传递给你的组件。如果你的组件中需要使用 key 属性的值，请用其他属性名显式传递这个值：
+
+```js
+// Post 组件可以读出 props.id，但是不能读出 props.key
+const content = posts.map((post) => (
+  <Post key={post.id} id={post.id} title={post.title} />
+));
 ```
 
 ## 表单
