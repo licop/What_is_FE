@@ -79,7 +79,8 @@ module.exports = {
             'React基础学习',
             '关于react-hook',
             '编写React应用程序步骤',
-            '关于虚拟Dom和协调'
+            '关于虚拟Dom和协调',
+            '关于React和不可变数据'
         ],
         'Vue': [
             'vue-router实现原理',
