@@ -82,7 +82,8 @@ module.exports = {
             '关于虚拟Dom和协调',
             '关于React和不可变数据',
             '应用状态该用React组件状态还是Redux',
-            '自定义hooks和高阶组件'
+            '自定义hooks和高阶组件',
+            'React项目的文件目录结构'
         ],
         'Vue': [
             'vue-router实现原理',

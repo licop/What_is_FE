@@ -258,7 +258,6 @@ const EnhancedMovieList = enhance(MovieList);
 
 ```js
 export const LoggedInUserContext = React.createContext();
-
 function withLoggedInUserContext(WrappedComponent) {
   const LoggedInUserContainer = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
