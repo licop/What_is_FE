@@ -80,7 +80,9 @@ module.exports = {
             '关于react-hook',
             '编写React应用程序步骤',
             '关于虚拟Dom和协调',
-            '关于React和不可变数据'
+            '关于React和不可变数据',
+            '应用状态该用React组件状态还是Redux',
+            '自定义hooks和高阶组件'
         ],
         'Vue': [
             'vue-router实现原理',
