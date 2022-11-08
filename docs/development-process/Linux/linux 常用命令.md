@@ -178,4 +178,5 @@ sudo ln -s /usr/local/node/bin/node /usr/bin/node
 
 ## 更多参考
 
+- [全部 Linux 命令搜索查找](https://github.com/jaywcjlove/linux-command)
 - [Linux 常用命令学习](https://www.runoob.com/w3cnote/linux-common-command-2.html)

@@ -12,9 +12,31 @@ React 是**单向数据流**（也叫单向绑定）的思想，使得组件模�
 
 在 React 中使用 JSX 语法描述用户界面，它是一种 JavaScript 语法扩展。
 
-在 React 代码执行之前，Babel 会将 JSX 语法转换为标准的 JavaScript API。
+在 React 代码执行之前，Babel 会将 JSX 语法转换为标准的 React API。
 
-JSX 语法就是`createElement`函数的语法糖，浏览器本身不支持 JSX，所以在应用发布上线前，JSX 源码需要工具编译成由若干 `createElement` 函数组成的 JS 代码，然后才能在浏览器中正常执行。让开发人员使用更加舒服的代码构建用户界面。
+JSX 语法就是`createElement`函数的语法糖，浏览器本身不支持 JSX，所以在应用发布上线前，JSX 源码需要工具编译成由若干 `createElement` 函数组成的 JS 代码，然后才能在浏览器中正常执行,`createElement`函数方法用来创造 **VirtualDom 对象**。让开发人员使用更加舒服的代码构建用户界面。
+
+```js
+<div className="container">
+  <h3>Hello React</h3>
+  <p>React is great </p>
+</div>
+```
+
+```js
+React.createElement(
+  "div",
+  {
+    className: "container",
+  },
+  React.createElement("h3", null, "Hello React"),
+  React.createElement("p", null, "React is great")
+);
+```
+
+从两种语法对比来看，JSX 语法的出现是为了让 React 开发人员编写用户界面代码更加轻松。
+
+[Babel REPL](https://babeljs.io/repl)
 
 ### 在 JSX 中使用表达式
 
