@@ -45,6 +45,13 @@ ParentComponent 的 state A ：
 
 ## 什么时候使用 Redux？
 
+什么情况下情况下使用 Redux，Redux 官网是这样介绍的：
+
+- 应用中有很多 state 在多个组件中需要使用
+- 应用 state 会随着时间的推移而频繁更新
+- 更新 state 的逻辑很复杂
+- 中型和大型代码量的应用，很多人协同开发
+
 一般情况下，当你的 React 项目足够小，引入 Redux 的成本要大于收益。只有你**预期项目规模会逐渐增大，或者项目已经是大中型的体量了，这时可以考虑引入 Redux**。Redux 鼓励全局只有单一 store，所以比较适合管理全局状态。
 
 尤其有一种情况，当你发现，项目的逻辑越来越复杂，**你不得不把项目中大部分组件的 state 都提升到根组件上时，全局状态会不断膨胀**，那你就有可能亟需引入 Redux 了。
@@ -60,6 +67,8 @@ ParentComponent 的 state A ：
 - 业务状态倾向于放到 Redux store 里；
 - 交互状态倾向于放到 React state 里；
 - 必要时，可以把外部状态同步到 Redux store 里。
+
+大多数表单的 state 不应该保存在 Redux 中。 相反，在编辑表单的时候把数据存到表单组件中，当用户提交表单的时候再 dispatch action 来更新 store。
 
 在 React 中引入 Redux 后，不能将大大小小的状态都习惯性地往 Redux store 里放，这就是一种**路径依赖**了。这样做的后果也很容易想象得到：**Redux store 不堪重负，React 反而头重脚轻。**
 

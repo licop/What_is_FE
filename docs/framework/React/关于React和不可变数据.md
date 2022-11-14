@@ -59,6 +59,8 @@ console.log(student1, student2);
 
 这主要还是因为 React 是声明式的框架，为了更新用户看到的页面，我们需要让开发出来的 React 组件响应数据流的变化。这就是说无论开发者，还是 React 框架本身都关注 props、state、context 的数据是否有变化。**对 React 框架，不可变数据可以简化比对数据的实现，降低成本；对开发者，不可变数据在开发和调试过程中更容易被预测。**
 
+**同时在开发 Redux 时也 期望所有状态更新都是使用不可变的方式。**
+
 接下来看一下 React 在哪些环节会检查数据的变化。
 
 ### 协调过程中的数据对比
@@ -112,6 +114,10 @@ React.memo 仅检查 props 变更。如果函数组件被 `React.memo` 包裹，
 // 我们可以使用：.map, .filter或者.reduce去达成目标。这些APIs的共同特点就是不会改变原数组，而是产生并返回一个新数组
 const itemAdded = [...oldArray, newItem];
 const itemRemoved = oldArray.filter((item) => item !== newItem);
+// 创建 arr 的备份，并把 c 拼接到最后。
+const arr1 = arr.concat("c");
+// 可以对原来的数组创建复制体
+const arr2 = arr.slice();
 
 // 对象
 const newObj = { ...oldObj, b: "newValue" };
@@ -212,6 +218,44 @@ function App() {
   // ...
 ```
 
+### 使用 Redux Toolkit
+
+如果我们应用中使用了 Redux，手动编写不可变的更新逻辑确实繁琐，而且在 reducer 中意外改变状态是 Redux 用户最常犯的一个错误。
+推荐使用**Redux Toolkit**工具包。 Redux Toolkit 的 `createSlice` 函数可以让你以更简单的方式编写不可变更新！
+
+createSlice 内部使用 Immer 库。 Immer 使用一种称为 “Proxy” 的特殊 JS 工具来包装你提供的数据，当你尝试 ”mutate“ 这些数据的时候，奇迹发生了，**Immer 会跟踪你尝试进行的所有更改，然后使用该更改列表返回一个安全的、不可变的更新值**，就好像你手动编写了所有不可变的更新逻辑一样。
+
+所以下面的代码：
+
+```js
+function handwrittenReducer(state, action) {
+  return {
+    ...state,
+    first: {
+      ...state.first,
+      second: {
+        ...state.first.second,
+        [action.someId]: {
+          ...state.first.second[action.someId],
+          fourth: action.someValue,
+        },
+      },
+    },
+  };
+}
+```
+
+可以变成这样：
+
+```js
+function reducerWithImmer(state, action) {
+  state.first.second[action.someId].fourth = action.someValue;
+}
+```
+
+> 你只能在 Redux Toolkit 的 createSlice 和 createReducer 中编写 “mutation” 逻辑，因为它们在内部使用 Immer！如果你在没有 Immer 的 reducer 中编写 mutation 逻辑，它将改变状态并导致错误！
+
 ## 更多参考
 
 - [谈一谈前端“不可变数据”和函数式编程](https://juejin.cn/post/6844903470718255118)
+- [Redux 官方文档关于不可变数据](https://cn.redux.js.org/tutorials/essentials/part-2-app-structure/)
