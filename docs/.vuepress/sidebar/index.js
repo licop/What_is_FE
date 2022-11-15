@@ -128,8 +128,11 @@ module.exports = {
             'storybook'
         ]
     },
-    // 工具和插件
-    '/tool&plugin/': {
+    // 工具和方法
+    '/tool&method/': {
+        '常用方法代码总结': [
+           '封装fetch方法'
+        ],
         'axios': [],
         'lodash': [],
         'cross-env': [

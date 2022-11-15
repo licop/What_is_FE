@@ -88,6 +88,42 @@ Redux 有的一些核心术语，Action，Action Creator，Reducer, Store, Dispa
 
 ### 在 React 中使用 Redux
 
+#### 数据流基础
+
+- **Redux state 由 reducer 函数来更新:**
+  - Reducers 总是通过复制现有状态值，更新副本来不可变地生成新状态
+  - Redux Toolkit `createSlice` 函数为您生成“slice reducer”函数，并让您编写 “mutable 可变”代码，内部自动将其转变为安全的不可变更新
+  - 这些 slice 化 reducer 函数被添加到 `configureStore` 中的 `reducer` 字段中，并定义了 Redux store 中的数据和状态字段名称
+- **React 组件使用 useSelector 钩子从 store 读取数据**
+  - 选择器函数接收整个 state 对象，并且返回需要的部分数据
+  - 每当 Redux store 更新时，选择器将重新运行，如果它们返回的数据发生更改，则组件将重新渲染
+- **React 组件使用 useDispatch 钩子 dispatch action 来更新 store**
+
+  - `createSlice` 将为我们添加到 slice 的每个 reducer 函数生成 action creator 函数
+  - 在组件中调用 `dispatch(someActionCreator())` 来 dispatch action
+  - Reducers 将运行，检查此 action 是否相关，并在适当时返回新状态
+  - 表单输入值等临时数据应保留为 React 组件状态。当用户完成表单时，dispatch 一个 Redux action 来更新 store。
+
+#### 使用数据
+
+- **任意 React 组件都能从 Redux store 中拿到其需要的数据**
+  任意组件都能从 Redux Store 中读取任意数据
+  多个组件可以读取相同的数据，甚至在同一时刻读
+  组件应该根据其渲染所需，从 Redux Store 中读取最小量的数据
+  组件可以结合 props, state, Redux store 的数据去渲染。组件可以从 store 中读取多条数据，并根据需要重塑数据以进行显示。
+  任意组件都能通过 dispatch actions 引发状态更新（state updates）
+
+- **Redux action creators 可以使用一个正确的内容模板去构造（prepare）action 对象**
+
+  - createSlice 和 createAction 可以接受一个返回 action payload 的 "prepare callback"
+  - 诸如唯一的 ID 和一些随机值应该放在 action 里，而不是在 reducer 中去计算
+
+- **Reducers 内（仅）应该包含 state 的更新逻辑**
+  - Reducers 内可以包含计算新 state 所需的任意逻辑
+  - Action 对象内应该包含足够描述即将发生什么事的信息
+
+#### 异步逻辑与数据请求
+
 ### 更多参考
 
 - [Redux 官方网站](https://cn.redux.js.org/introduction/getting-started)
