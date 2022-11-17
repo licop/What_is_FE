@@ -133,6 +133,9 @@ module.exports = {
         '常用方法代码总结': [
            '封装fetch方法'
         ],
+        "前端mock工具": [
+           'MockServiceWorker'
+        ],
         'axios': [],
         'lodash': [],
         'cross-env': [
