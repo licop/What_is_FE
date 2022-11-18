@@ -88,6 +88,78 @@ Redux 有的一些核心术语，Action，Action Creator，Reducer, Store, Dispa
 
 ### 在 React 中使用 Redux
 
+**Reducers 规则**
+https://cn.redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers
+
+**Store**
+https://cn.redux.js.org/tutorials/fundamentals/part-4-store
+
+store 有以下几个职责：
+
+- 在内部保存当前应用程序 state
+- 通过 store.getState() 访问当前 state;
+- 通过 store.dispatch(action) 更新状态;
+- 通过 store.subscribe(listener) 注册监听器回调;
+- 通过 store.subscribe(listener) 返回的 unsubscribe 函数注销监听器
+
+**Redux 应用程序中只有一个 store， 每个 Reudx store 都有一个根 reducer 函数。**
+
+```js
+// miniReduxStore.js
+function createStore(reducer, preloadedState) {
+  let state = preloadedState;
+  const listeners = [];
+
+  function getState() {
+    return state;
+  }
+
+  function subscribe(listener) {
+    listeners.push(listener);
+    return function unsubscribe() {
+      const index = listeners.indexOf(listener);
+      listeners.splice(index, 1);
+    };
+  }
+
+  function dispatch(action) {
+    state = reducer(state, action);
+    listeners.forEach((listener) => listener());
+  }
+
+  dispatch({ type: "@@redux/INIT" });
+
+  return { dispatch, subscribe, getState };
+}
+```
+
+```js
+import { createStore } from "redux";
+import rootReducer from "./reducer";
+
+let preloadedState;
+const persistedTodosString = localStorage.getItem("todos");
+
+if (persistedTodosString) {
+  preloadedState = {
+    todos: JSON.parse(persistedTodosString),
+  };
+}
+
+const store = createStore(rootReducer, preloadedState);
+```
+
+**Middleware**
+Redux 使用一种称为 middleware 的特殊插件来让我们自定义 `dispatch` 函数。
+
+**Redux middleware 在 dispatch action 和到达 reducer 之间提供第三方扩展点。** 人们使用 Redux middleware 进行日志记录、崩溃报告、异步 API 通信、路由等。
+
+https://cn.redux.js.org/tutorials/fundamentals/part-4-store#middleware
+
+**React-Redux**
+
+**Redux Toolkit 是我们推荐的在生产应用中使用 Redux 的方式**
+
 #### 数据流基础
 
 - **Redux state 由 reducer 函数来更新:**
@@ -107,11 +179,12 @@ Redux 有的一些核心术语，Action，Action Creator，Reducer, Store, Dispa
 #### 使用数据
 
 - **任意 React 组件都能从 Redux store 中拿到其需要的数据**
-  任意组件都能从 Redux Store 中读取任意数据
-  多个组件可以读取相同的数据，甚至在同一时刻读
-  组件应该根据其渲染所需，从 Redux Store 中读取最小量的数据
-  组件可以结合 props, state, Redux store 的数据去渲染。组件可以从 store 中读取多条数据，并根据需要重塑数据以进行显示。
-  任意组件都能通过 dispatch actions 引发状态更新（state updates）
+
+  - 任意组件都能从 Redux Store 中读取任意数据
+  - 多个组件可以读取相同的数据，甚至在同一时刻读
+  - 组件应该根据其渲染所需，从 Redux Store 中读取最小量的数据
+  - 组件可以结合 props, state, Redux store 的数据去渲染。组件可以从 store 中读取多条数据，并根据需要重塑数据以进行显示。
+  - 任意组件都能通过 dispatch actions 引发状态更新（state updates）
 
 - **Redux action creators 可以使用一个正确的内容模板去构造（prepare）action 对象**
 
@@ -123,6 +196,33 @@ Redux 有的一些核心术语，Action，Action Creator，Reducer, Store, Dispa
   - Action 对象内应该包含足够描述即将发生什么事的信息
 
 #### 异步逻辑与数据请求
+
+- **可以编写可复用的“selector 选择器”函数来封装从 Redux 状态中读取数据的逻辑**
+  - 选择器是一种函数，它接收 Redux state 作为参数，并返回一些数据
+- **Redux 使用叫做“ middleware ”这样的插件模式来开发异步逻辑**
+  - 官方的处理异步 middleware 叫 `redux-thunk`，包含在 Redux Toolkit 中
+  - Thunk 函数接收 `dispatch` 和 `getState` 作为参数，并且可以在异步逻辑中使用它们
+- **你可以 dispatch 其他 action 来帮助跟踪 API 调用的加载状态**
+  - 典型的模式是在调用之前 dispatch 一个 "pending" 的 action，然后是包含数据的 “sucdess” 或包含错误的 “failure” action
+  - 加载状态通常应该使用枚举类型，如 'idle' | 'loading' | 'succeeded' | 'failed'
+- **Redux Toolkit 有一个 createAsyncThunk API 可以为你 dispatch 这些 action**
+  - createAsyncThunk 接受一个 “payload creator” 回调函数，它应该返回一个 Promise，并自动生成 `pending/fulfilled/rejected` action 类型
+  - 像 `fetchPosts` 这样生成的 action creator 根据你返回的 Promise dispatch 这些 action
+  - 可以使用 `extraReducers` 字段在 `createSlice` 中监听这些 action，并根据这些 action 更新 reducer 中的状态。
+  - action creator 可用于自动填充 `extraReducers` 对象的键，以便切片知道要监听的 action。
+  - Thunk 可以返回 promise。 具体对于`createAsyncThunk`，你可以 `await dispatch(someThunk()).unwrap()`来处理组件级别的请求成功或失败。
+
+## 性能优化
+
+- [提升渲染性能](https://cn.redux.js.org/tutorials/essentials/part-6-performance-normalization#%E6%8F%90%E5%8D%87%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD)
+
+### 记忆化的 Selector 函数
+
+`createSelector`
+
+### 列表优化渲染
+
+**React 的默认行为是当父组件渲染时，React 会递归渲染其中的所有子组件！**
 
 ### 更多参考
 
