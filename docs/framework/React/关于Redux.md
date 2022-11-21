@@ -158,7 +158,42 @@ https://cn.redux.js.org/tutorials/fundamentals/part-4-store#middleware
 
 **React-Redux**
 
+React 还支持编写自定义 hook，这使我们可以提取可重用的 hook，以在 React 的内置 hook 之上添加自定义行为。和许多其他库一样，`React-Redux` 也有它的自定义 hook，你可以直接在组件中使用它们。`React-Redux` hook 使 React 组件能够通过读取 state 以及 dispatch action 来和 Redux store 进行交互。
+
+`useSelector`是 React-Redux 中的自定义 hook，它使得 React 组件可以从 Redux store 中读取数据。`useSelector`接收一个 selector 函数。**selector 函数接收 Redux store 的 state 作为其参数，然后从 state 中取值并返回。**
+
+**我们可以在一个组件中多次使用 useSelector。并且每次调用 useSelector 都应该总是返回尽可能少的 state。**
+
+React-Redux 的 `useDispatch` hook 函数会返回 store 的 `dispatch` 方法。（事实上这个 hook 的内部实现真的是 `return store.dispatch。`）
+
+因此，我们可以在任何需要 dispatch action 的组件中使用 `const dispatch = useDispatch()`，然后根据需要调用 `dispatch(someAction)`。
+
+**使用 `<Provider>` 组件包裹 `<App>` 组件，并将 Redux store 作为 prop 传递给 `<Provider>` 组件**。之后，应用程序中的每个组件都可以在需要时能够访问到 Redux store。
+
+```js
+ReactDOM.render(
+  // 使用 `<Provider>` 组件包裹 `<App>` 组件
+  // 并把 Redux store 作为 prop 传入
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+```
+
+https://cn.redux.js.org/tutorials/fundamentals/part-5-ui-react#%E7%AE%80%E4%BB%8B
+
+#### 异步逻辑和数据获取
+
+中间件 thunk
+
+#### selecotr
+
 **Redux Toolkit 是我们推荐的在生产应用中使用 Redux 的方式**
+
+建议使用 Redux Toolkit 作为编写 Redux 应用的标准方法
 
 #### 数据流基础
 
