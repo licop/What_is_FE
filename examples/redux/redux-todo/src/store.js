@@ -19,6 +19,7 @@ const composedEnhancer1 = compose(sayHiOnDispatch, includeMeaningOfLife)
 // createStore 接受 preloadedState 值作为其第二个参数，可以添加初始数据
 // 接受 enhancer 作为参数， 用于自定义store的能力并新增功能
 // const store = createStore(rootReducer, preloadedState, composedEnhancer)
+
 const middlewareEnhancer = applyMiddleware(print1, print2, print3, delayedMessageMiddleware)
 
 // 将redux DevTools 添加到 store中， 代替原始的 Redux compose 函数

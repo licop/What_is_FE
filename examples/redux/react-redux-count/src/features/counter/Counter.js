@@ -10,7 +10,6 @@ import {
 } from './counterSlice';
 import styles from './Counter.module.css';
 
-
 export function Counter() {
   // useSelector 这个hook让我们从Redux的store状态树提取它任何需要的数据
   const count = useSelector(selectCount);

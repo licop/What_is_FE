@@ -32,7 +32,6 @@ function exampleMiddleware(storeAPI) {
 // 使用箭头函数
 const anotherExampleMiddleware = storeAPI => next => action => {
   // 当每个 action 都被 dispatch 时，在这里做一些事情
-
   return next(action)
 }
 
