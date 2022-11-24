@@ -85,7 +85,8 @@ module.exports = {
             '应用状态该用React组件状态还是Redux',
             '自定义hooks和高阶组件',
             'React项目的文件目录结构',
-            '关于Redux'
+            '关于Redux',
+            'Redux源码实现'
         ],
         'Vue': [
             'vue-router实现原理',

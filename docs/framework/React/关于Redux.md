@@ -632,6 +632,21 @@ Redux store 本身无法处理异步逻辑。它只会同步地 dispatch action�
 
 ![](/framework/redux/redux_2.gif)
 
+使用中间件开发一个简易的 `redux-thunk`:
+
+```js
+const asyncFunctionMiddleware = (storeAPI) => (next) => (action) => {
+  // 如果 action 实际上是一个函数...
+  if (typeof action === "function") {
+    // 调用该函数并传入 `dispatch` 和 `getState` 作为参数
+    return action(storeAPI.dispatch, storeAPI.getState);
+  }
+
+  // 否则，它就是一个普通 action，那就继续执行
+  return next(action);
+};
+```
+
 #### 使用 Redux Thunk Middleware
 
 `thunk middleware` 允许我们编写以 `dispatch` 和 `getState` 作为参数的函数。thunk 函数可以包含我们想要的任何异步逻辑，并且该逻辑可以根据需要 dispatch action 以及读取 store state。
