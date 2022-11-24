@@ -294,6 +294,7 @@ function combineReducers(reducers) {
       let key = reducerKeys[i];
       let reducer = reducers[key];
       let previousStateForKey = state[key];
+      // 调用小的reducer获取最新状态
       nextState[key] = reducer(previousStateForKey, action);
     }
     return nextState;
@@ -301,4 +302,4 @@ function combineReducers(reducers) {
 }
 ```
 
-[完整源码解析参考]()
+[完整 redux 源码](https://github.com/licop/What_is_FE/tree/master/examples/redux/myRedux)
