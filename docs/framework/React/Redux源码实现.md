@@ -300,3 +300,5 @@ function combineReducers(reducers) {
   };
 }
 ```
+
+[完整源码解析参考]()
