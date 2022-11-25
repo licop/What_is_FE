@@ -1,6 +1,4 @@
-# 关于 react hook
-
-## 什么是 hook
+## 什么是 Hook
 
 - React 16.8 带来的全新特性，使得函数式组件代替 class 组件的写法
 - hook 是一种特殊的函数，它可以让你“钩入” React 的特性，例如它可以帮助我们在函数中使用 state
@@ -9,7 +7,7 @@
   - 100% 向后兼容的。 Hook 不包含任何破坏性改动。
   - 没有计划从 React 移除 class
 
-## 为什么需要 hook
+## 为什么需要 Hook
 
 - class 组件很难复用状态逻辑
 - 复杂组件变得难以理解，尤其是声明周期函数
@@ -82,7 +80,7 @@ useEffect(() => {
 
 ```
 
-## hook 规则
+## Hook 规则
 
 ### 只在最顶层使用 Hook
 
@@ -95,7 +93,7 @@ useEffect(() => {
 - ✅ 在 React 的函数组件中调用 Hook
 - ✅ 在自定义 Hook 中调用其他 Hook
 
-## 自定义 hook
+## 自定义 Hook
 
 > demo 参考 react-hook-demo 中的 hooks 文件夹
 
@@ -127,9 +125,3 @@ const refContainer = useRef(initialValue);
 `useRef` 返回一个可变的 ref 对象，其`.current` 属性被初始化为传入的参数`（initialValue）`。返回的 ref 对象在组件的整个生命周期内保持不变。
 
 ref 也是一种访问 DOM 的主要方式。如果你将 ref 对象以`<div ref={myRef} />`形式传入组件，则无论该节点如何改变，React 都会将 ref 对象的 .current 属性设置为相应的 DOM 节点。
-
-## 更多参考
-
-- [react hook 中文文档](https://zh-hans.reactjs.org/docs/hooks-intro.html)
-- [useEffect 完整指南 by Dan](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
-- [React Hooks 实现和由来以及解决的问题](https://mp.weixin.qq.com/s/Vl5LhpkTocNl9LYRIYBwFg)

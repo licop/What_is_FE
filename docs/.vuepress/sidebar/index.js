@@ -77,13 +77,13 @@ module.exports = {
     '/framework/': {
         'React': [
             'React基础学习',
-            '关于react-hook',
+            '关于React-Hooks',
             '编写React应用程序步骤',
             '关于虚拟Dom和Diff算法',
             '关于React和不可变数据',
             'Fiber的作用和原理',
             '应用状态该用React组件状态还是Redux',
-            '自定义hooks和高阶组件',
+            '自定义Hooks和高阶组件',
             'React项目的文件目录结构',
             '关于Redux',
             'Redux源码实现'
