@@ -313,6 +313,55 @@ function Sample() {
 
 代码的原意可能是在 todos 变化的时候去产生一些副作用，但是这里的 todos 变量是在函数内创建的，实际上每次都产生了一个新数组。所以在作为依赖项的时候进行引用的比较，实际上被认为是发生了变化的。
 
+### 忘掉 Class 组件的生命周期
+
+在类组件中，`componentDidMount`，`componentWillUnmount`，和 `componentDidUpdate` 这三个生命周期方法可以说是日常开发最常用的。业务逻辑通常要分散到不同的生命周期方法中，
+比如说在下面的 Blog 文章的例子中，你需要同时在 `componentDidMount` 和 `componentDidUpdate` 中去获取数据。
+
+```js
+class BlogView extends React.Component {
+  // ...
+  componentDidMount() {
+    // 组件第一次加载时去获取 Blog 数据
+    fetchBlog(this.props.id);
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.id !== this.props.id) {
+      // 当 Blog 的 id 发生变化时去获取博客文章
+      fetchBlog(this.props.id);
+    }
+  }
+  // ...
+}
+```
+
+可以看到，在 Class 组件中，需要在两个生命周期方法中去实现副作用，一个是首次加载，另外一个则是每次 UI 更新后。而在函数组件中不再有生命周期的概念，而是提供了 `useEffect` 这样一个 Hook 专门用来执行副作用，因此，只需下面的代码即可实现同样的功能：
+
+```js
+function BlogView({ id }) {
+  useEffect(() => {
+    // 当 id 变化时重新获取博客文章
+    fetchBlog(id);
+  }, [id]); // 定义了依赖项 id
+}
+```
+
+可以看到，使用 Hooks 的方式更加简洁，在函数组件中你要思考的方式永远是：**当某个状态发生变化时，我要做什么**，而不再是在 Class 组件中的某个生命周期方法中我要做什么。
+
+```js
+useEffect(() => {
+  // componentDidMount + componentDidUpdate
+  console.log("这里基本等价于 componentDidMount + componentDidUpdate");
+  return () => {
+    // componentWillUnmount
+    console.log("这里基本等价于 componentWillUnmount");
+  };
+}, [deps]);
+```
+
+1. `useEffect(callback)` 这个 Hook 接收的 callback，只有在依赖项变化时才被执行。而传统的 `componentDidUpdate` 则一定会执行。这样来看，Hook 的机制其实更具有语义化，因为过去在 `componentDidUpdate` 中，我们通常都需要手动判断某个状态是否发生变化，然后再执行特定的逻辑。
+2. callback 返回的函数（一般用于清理工作）在下一次依赖项发生变化以及组件销毁之前执行，而传统的 `componentWillUnmount` 只在组件销毁时才会执行。
+
 ## Hooks 规则
 
 Hooks 本身作为纯粹的 JavaScript 函数，不是通过某个特殊的 API 去创建的，而是直接定义一个函数。它需要在降低学习和使用成本的同时，还需要遵循一定的规则才能正常工作。因而 Hooks 的使用规则包括以下两个：
@@ -350,6 +399,9 @@ function MyComp() {
 ```
 
 所以 Hooks 的这个规则可以总结为两点：**第一，所有 Hook 必须要被执行到。第二，必须按顺序执行。**
+
+因为 Hooks 使用规则的存在，使得有时某些逻辑无法直观地实现。 为了解决这个问题，我们可以使用**容器模式**，实现按条件执行 Hooks.
+具体做法就是**把条件判断的结果放到两个组件之中，确保真正 render UI 的组件收到的所有属性都是有值的。** 具体案例参考[容器模式](https://github.com/licop/react-hooks-demo/blob/main/src/10/UserInfoModal.js)
 
 ### Hooks 只能在函数组件或者其它 Hooks 中使用
 
@@ -433,7 +485,7 @@ function Counter() {
 useCallback(fn, deps);
 ```
 
-这里 fn 是定义的回调函数，deps 是依赖的变量数组。**只有当某个依赖变量发生变化时，才会重新声明 fn 这个回调函数。**那么对于上面的例子，我们可以把 handleIncrement 这个事件处理函数通过 useCallback 来进行性能的优化：
+这里 fn 是定义的回调函数，deps 是依赖的变量数组。**只有当某个依赖变量发生变化时，才会重新声明 fn 这个回调函数。** 那么对于上面的例子，我们可以把 handleIncrement 这个事件处理函数通过 useCallback 来进行性能的优化：
 
 ```js
 import React, { useState, useCallback } from "react";

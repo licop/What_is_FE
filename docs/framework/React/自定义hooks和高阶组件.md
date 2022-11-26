@@ -17,11 +17,14 @@
 
 ## 自定义 Hooks
 
-在开发 React 函数组件时，我们会大量使用 Hooks，包括 useState、useEffect 等。当这些 Hooks 的组合满足一定业务逻辑或者是交互逻辑时，可以根据需要将它们提取成自定义 Hooks。
+在开发 React 函数组件时，我们会大量使用 Hooks，包括 `useState`、`useEffect` 等。当这些 Hooks 的组合满足一定业务逻辑或者是交互逻辑时，可以根据需要将它们提取成自定义 Hooks。
 
 当我们想在两个函数之间共享逻辑时，我们会把它提取到第三个函数中。而组件和 Hook 都是函数，所以也同样适用这种方式。
 
-**自定义 Hook 是一个函数，其名称以 “use” 开头，函数内部可以调用其他的 Hook。**
+自定义 Hooks 的两个特点：
+
+- **名字一定是以 use 开头的函数**，这样 React 才能够知道这个函数是一个 Hook；
+- **函数内部一定调用了其它的 Hooks**，可以是内置的 Hooks，也可以是其它自定义 Hooks。这样才能够让组件刷新，或者去产生副作用。
 
 来看一个典型的业务型自定义 Hook。
 
@@ -137,6 +140,15 @@ const MagazineList = ({ categoryId }) => {
 
 只要遵循 Hooks 的使用规则，一个组件中可以使用多个自定义 Hooks，自定义 Hooks 里面也可以调用其他自定义 Hooks。
 
+自定义 Hooks 典型的四个使用场景：
+
+- **抽取业务逻辑；**
+- **封装通用逻辑；**
+- **监听浏览器状态；**
+- **拆分复杂组件。**
+
+比如我们可以通过自定义 Hooks，封装异步请求逻辑 useAsync， 监听浏览器滚动条状态 useScroll 等等，更多参考[自定义 Hooks ：四个典型的使用场景](https://github.com/licop/react-hooks-demo/tree/main/src/06)
+
 更多案例可以参考[官方文档自定义 hook](https://zh-hans.reactjs.org/docs/hooks-custom.html)的聊天框案例。
 
 我们也可以编写一个`useReducers`的 hook，使用 reducer 的方式来管理组件的内部 state。其简化版本可能如下所示：
@@ -165,6 +177,8 @@ function todos() {
   }
 }
 ```
+
+更多自定义 hooks 的通用方法库 参考[react-use](https://github.com/licop/react-use)
 
 ## 高阶组件
 
