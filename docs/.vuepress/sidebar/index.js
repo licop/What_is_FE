@@ -141,6 +141,9 @@ module.exports = {
         'lodash': [],
         'cross-env': [
             '关于cross-env'
+        ],
+        '表单类工具': [
+            '使用formik和yup构建表单'
         ]
     },
     // 服务器端
