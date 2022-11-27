@@ -201,6 +201,39 @@ const [todos, setTodos] = useState([{ text: "Learn Hooks" }]);
 2. **从 URL 中读到的值。** 比如有时需要读取 URL 中的参数，把它作为组件的一部分状态。那么我们可以在每次需要用的时候从 URL 中读取，而不是读出来直接放到 state 里。
 3. **从 cookie、localStorage 中读取的值。** 通常来说，也是每次要用的时候直接去读取，而不是读出来后放到 state 里。
 
+### useState 实现原理
+
+```js
+// 采用数组，允许设置多个state
+let state = [];
+let setters = [];
+let stateIndex = 0;
+
+// 创建设置状态值的方法，采用闭包的方式保存stateIndex
+// 闭包使得下标不会被释放，点击按钮的时候才会获取对应的状态方法
+function createSetter(index) {
+  return function(newState) {
+    state[index] = newState;
+    render();
+  };
+}
+
+function useState(initialState) {
+  state[stateIndex] = state[stateIndex] ? state[stateIndex] : initialState;
+  setters.push(createSetter(stateIndex));
+  let value = state[stateIndex];
+  let setter = setters[stateIndex];
+  stateIndex++;
+  return [value, setter];
+}
+
+function render() {
+  // 调用render方法，将stateIndex归零
+  stateIndex = 0;
+  ReactDOM.render(<App />, document.getElementById("root"));
+}
+```
+
 ## useEffect：执行副作用
 
 `useEffect` 可以让你在函数组件中执行副作用操作。副作用是指一段和当前执行结果无关的代码。比如说要修改函数外部的某个变量，要发起一个请求。
@@ -292,6 +325,42 @@ useEffect(() => {
 2. 仅第一次 render 后执行：提供一个空数组作为依赖项。比如 `useEffect(() => {}, [])`。
 3. 第一次以及依赖项发生变化后执行：提供依赖项数组。比如 `useEffect(() => {}, [deps])`。
 4. 组件 unmount 后执行：返回一个回调函数。比如 `useEffect() => { return () => {} }, [])`。
+
+### useEffect 实现原理
+
+```js
+// 上一次的依赖值
+let prevDepsAry = [];
+let effectIndex = 0;
+
+function useEffect(callback, depsAry) {
+  // 判断callback是不是函数
+  if (Object.prototype.toString.call(callback) !== "[object Function]")
+    throw new Error("useEffect函数的第一个参数必须是函数");
+  // 判断depsAry有没有被传递
+  if (typeof depsAry === "undefined") {
+    // 没有传递
+    callback();
+  } else {
+    // 判断depsAry是不是数组
+    if (Object.prototype.toString.call(depsAry) !== "[object Array]")
+      throw new Error("useEffect函数的第二个参数必须是数组");
+    // 获取上一次的状态值
+    let prevDeps = prevDepsAry[effectIndex];
+    // 将当前的依赖值和上一次的依赖值做对比 如果有变化 调用callback
+    let hasChanged = prevDeps
+      ? depsAry.every((dep, index) => dep === prevDeps[index]) === false
+      : true;
+    // 判断值是否有变化
+    if (hasChanged) {
+      callback();
+    }
+    // 同步依赖值
+    prevDepsAry[effectIndex] = depsAry;
+    effectIndex++;
+  }
+}
+```
 
 ### 理解 Hooks 的依赖
 
