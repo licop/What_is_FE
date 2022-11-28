@@ -85,6 +85,7 @@ module.exports = {
             '应用状态该用React组件状态还是Redux',
             '自定义Hooks和高阶组件',
             'React项目的文件目录结构',
+            'React组件性能优化',
             '关于Redux',
             'Redux源码实现'
         ],
