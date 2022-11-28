@@ -668,8 +668,11 @@ export default class App extends Component {
 
    3. runtime~main.[hash].js webpack 运行时代码
 
+   未加入 lodash 时的初始包大小
    ![](/framework//react_performance/5-1-未加入lodash时的初始包大小.png)
+   加入 lodash 后的包大小
    ![](/framework//react_performance/5-2-加入lodash后的包大小.png)
+   优化 lodash 后的包大小
    ![](/framework//react_performance/5-3-优化lodash后的包大小.png)
 
 6. App 组件
