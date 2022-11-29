@@ -145,6 +145,9 @@ module.exports = {
         ],
         '表单类工具': [
             '使用formik和yup构建表单'
+        ],
+        'VSCode': [
+            'VSCode插件'
         ]
     },
     // 服务器端
