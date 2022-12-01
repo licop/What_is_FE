@@ -7,7 +7,7 @@ module.exports = [
     { text: '运行与监控', link: '/runnnig-monitoring/安全/CSRF.html' },
     { text: '前端框架', link: '/framework/React/React基础学习.html' },
     { text: '常用工具与方法', link: '/tool&method/常用方法代码总结/封装fetch方法.html'},
-    { text: '服务器端', link: '/server/ssr/服务器端渲染.html'},
+    { text: '服务器端', link: '/server/nodejs/Nodejs学习笔记.html'},
     { text: '技术广度', link: '/more/'},
     { text: 'Github', link: 'https://github.com/licop/What_is_FE', target:'_blank' }
 ]

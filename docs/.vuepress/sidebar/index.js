@@ -152,6 +152,9 @@ module.exports = {
     },
     // 服务器端
     '/server/': {
+        'nodejs': [
+            'Node.js学习笔记'
+        ],
         'ssr': [
             '服务器端渲染',
             '关于 Nuxtjs'
