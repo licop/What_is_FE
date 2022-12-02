@@ -220,6 +220,22 @@ Node.js 中的进程 `process` 是一个全局对象，无需 require 直接使�
 
 ## Nodejs 核心模块
 
+### path 模块
+
+`path`为 Nodejs 内置模块，require 之后可以直接使用，用来处理文件和目录的路径 [path 模块 官方文档](https://nodejs.org/api/path.html)
+
+path 模块常用 API:
+
+- `path.basename(path[, suffix])` 获取路径中基础名称
+- `path.dirname(path)` 获取路径中目录名称
+- `path.extname(path)` 获取路径中扩展名称
+- `path.isAbsolute(path)` 当前路径是否是绝对路径
+- `path.join([...path])` 拼接多个路径片段
+- `path.resolve([...paths])` 返回绝对路径
+- `path.parse(path)` 解析路径
+- `path.format(pathObject)` 序列化路径
+- `path.normalize(path)` 规范化路径
+
 ## Nodejs 通信
 
 ## 更多学习资料
