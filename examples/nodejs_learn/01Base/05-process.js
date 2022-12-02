@@ -3,20 +3,27 @@
 // console.log(process.cpuUsage())
 
 // 2 运行环境：运行目录、node环境、cpu架构、用户环境、系统平台
-/* console.log(process.cwd())
-console.log(process.version)
+// console.log(process.cwd())
+// console.log(process.version)
 // console.log(process.versions)
-console.log(process.arch)
-console.log(process.env.NODE_ENV)
-// console.log(process.env.PATH)
-console.log(process.env.USERPROFILE)  // HOME
-console.log(process.platform) */
-
+// console.log(process.arch)
+// console.log(process.env)
+// // console.log(process.env.PATH)
+// console.log(process.env.USERPROFILE)  // HOME
+// console.log(process.platform) 
 // 3 运行状态： 启动参数、PID、运行时间
-/* console.log(process.argv)
+console.log(process.argv)
 console.log(process.argv0)  // execArgv
-console.log(process.pid) */  // ppid 
+console.log(process.pid)  // ppid 
 
 setTimeout(() => {
   console.log(process.uptime())
 }, 3000)
+
+// process.js
+// const http = require('http');
+
+// http.createServer().listen(3000, () => {
+//     process.title = '测试进程 Node.js' // 进程进行命名
+//     console.log(`process.pid: `, process.pid); // process.pid: 
+// });

@@ -2,6 +2,12 @@
 
 ## Nodejs 基础
 
+### 什么是 NodeJS
+
+JS 是脚本语言，脚本语言都需要一个解析器才能运行。对于写在 HTML 页面里的 JS，浏览器充当了解析器的角色。而对于需要独立运行的 JS，NodeJS 就是一个解析器。
+
+每一种解析器都是一个运行环境，不但允许 JS 定义各种数据结构，进行各种计算，还允许 JS 使用运行环境提供的内置对象和方法做一些事情。例如运行在浏览器中的 JS 的用途是操作 DOM，浏览器就提供了 `document` 之类的内置对象。而运行在 NodeJS 中的 JS 的用途是操作磁盘文件或搭建 HTTP 服务器，NodeJS 就相应提供了 `fs`、`http` 等内置对象。
+
 ### Nodejs 可以做什么
 
 ### Nodejs 架构
@@ -77,7 +83,7 @@ V8 的功能如下：
 
 - **单线程**
 
-  Node.js 运行 Javacript 主线程使用单线程来运行，单线程机制配合异步 I/O 和事件循环可以实现**高并发请求**, 单线程机制使得不适合 Cpu 密集型场景。
+  单线程就是一个进程（process）只开一个线程。 Node.js 运行 Javacript 主线程使用单线程来运行，单线程机制配合异步 I/O 和事件循环可以实现**高并发请求**, 单线程机制使得不适合 Cpu 密集型场景。
 
   ```js
   // 单线程机制演示
@@ -129,6 +135,89 @@ V8 的功能如下：
 
 ### Nodejs 应用场景
 
+- **I/O 密集型场景**
+
+  Node.js 的优势主要在于事件循环，非阻塞异步 I/O，只开一个线程，不会每个请求过来我都去创建一个线程，从而产生资源开销。
+
+- **RESTful API**
+
+  通常我们可以使用 Node.js 来做为中间层，负责组装数据提供 API 接口给到前端调用，这些数据源可能来自第三方接口或者数据库，例如，以前可能我们通过后端 Java、PHP 等其它语言来做，现在我们前端工程师通过 Node.js 即可完成，后端则可以更专注于业务开发。
+
+  推荐一个去哪儿开源的 API 管理工具 YAPI：https://github.com/YMFE/yapi 使用的 Node.js 进行开发的
+
+- **Backend For Frontend**
+
+  Backend For Frontend，简称 BFF，服务于前端的后端，并非是一种新技术只是一种逻辑上的分层，在这一层我们可以做一些资源的整合，例如：原先前端需要从三个不同的地方来获取资源，那么，有了这一层之后，我们是不是可以做个聚合，统一处理之后返回给前端，同时也不授后端系统的变迁，导致也要去更改。
+
+  ![](/server/nodejs/nodejs2.png)
+
+* **RPC 服务**
+
+  RPC（Remote Procedure Call）中文名「远程过程调用」，也许你对它很陌生，但是在当今微服务模式下，我们可能是针对功能或者具体的业务形态进行服务化，那么服务之间的通信一种常见的模式我们都知道通过 HTTP 来实现，了解网络模型的同学可能知道，如果我们现在通过 TCP 的方式是不是会更高效呢？
+
+  当然是的，HTTP 属于应用层协议，在这之下就是传输层，显然以 TCP 形式是很有优势的，RPC 服务也就是采用的 TCP，现在出名的 RPC 服务例如，Google 的 gRPC、阿里的 Dubble。
+
+* **基础工具**
+
+  可以做为基础工具，前端领域中的编译器、构建工具、搭建脚手架等。比较出名的例如 Webpack、Gulp 都是很成功的。
+
+* **论坛社区**
+
+  Nodeclub 是使用 Node.js 和 MongoDB 开发的社区系统，界面优雅，功能丰富，小巧迅速，可以用它搭建自己的社区。Cnode 社区就是一个成功的例子，Cnode 地址：https://cnodejs.org/
+
+  https://github.com/cnodejs/nodeclub
+
+* **Serverless**
+
+  `ServerLess` 是一种 “无服务器架构”，它不需要开发者去关心运维、流量处理这些工作，开发者则可以更关注于业务本身。
+
+  函数即服务，那么写一个函数就可以实现一个 API 接口给到前端，显然对开发工作是减轻了很多，在 JavaScript 中函数则是一等一的公民，在 ServerLess 这一场景下 Node.js 本身也很轻量级，还是拥有着很大的优势。
+
+* **Microservices**
+
+  微服务也是近两年一个很火热的词，这里提几个微服务主要的特点：小型服务、以独立进程运行、可以使用不同语言。那么这里则可以根据业务形态来选择不同的语言实现，Node.js 本身也是很轻量级的，实现起来也很快，在一些 I/O 密集场景还是很适用的。
+
+### Nodejs 实现第一个 API 服务
+
+[实现一个简单的 API 服务 demo](https://github.com/licop/What_is_FE/tree/master/examples/nodejs_learn/node_ts_api)
+
+### Nodejs 全局对象
+
+- 与浏览器平台的 window 不完全相同
+- Nodejs 全局对象上挂载许多属性
+- Nodejs 全局对象是 global， 全局对象可以看作全局变量的宿主
+
+Nodejs 常见全局变量：
+
+```js
+__filename: 返回正在执行脚本文件的绝对路径;
+__dirname: 返回正在执行脚本所在目录;
+timer类函数: 执行顺序与事件循环间的关系;
+process: 指向Nodejs内置的process模块，提供与当前进程互动的接口;
+require: 实现模块加载
+module、export: 处理模块导出
+...
+```
+
+### process 进程
+
+Node.js 中的进程 `process` 是一个全局对象，无需 require 直接使用，给我们提供了当前进程中的相关信息。官方文档提供了详细的说明，感兴趣的可以亲自实践下 [Process 文档](http://nodejs.cn/api/process.html)。
+
+- `process.env`：环境变量，例如通过 `process.env.NODE_ENV` 获取不同环境项目配置信息
+- `process.nextTick`：这个在谈及 Event Loop 时经常为会提到
+- `process.pid`：获取当前进程 id
+- `process.ppid`：当前进程对应的父进程
+- `process.cwd()`：获取当前进程工作目录
+- `process.platform`：获取当前进程运行的操作系统平台
+- `process.uptime()`：当前进程已运行时间，例如：pm2 守护进程的 uptime 值
+- `process.argv`: 获取启动参数
+- `process.memoryUsage()`: 内存使用
+- `process.cpuUsage`: cpu 使用
+- 进程事件：`process.on('uncaughtException', cb)` 捕获异常信息、`process.on('exit', cb）`进程退出监听
+- 三个标准流：`process.stdout` 标准输出、`process.stdin` 标准输入、`process.stderr` 标准错误输出
+
+了解更多关于进程(process)和线程(threads)：[进程和线程](https://www.nodejs.red/#/nodejs/process-threads?id=process)
+
 ## Nodejs 核心模块
 
 ## Nodejs 通信
@@ -143,7 +232,3 @@ V8 的功能如下：
 - [七天学会 NodeJS](http://nqdeng.github.io/7-days-nodejs/#1.1)
 - [9 个 Node.js 学习、进阶、debugging 分析、实战 的重磅开源项目](https://juejin.cn/post/6961101653709684772#heading-7)
 - [Nodejs 技术架构](https://juejin.cn/post/7081891057918558221)
-
-```
-
-```
