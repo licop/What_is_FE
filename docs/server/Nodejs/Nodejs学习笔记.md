@@ -236,6 +236,20 @@ path 模块常用 API:
 - `path.format(pathObject)` 序列化路径
 - `path.normalize(path)` 规范化路径
 
+[path 模块常用 API 使用 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/02Path/01-path.js)
+
+### Buffer
+
+- `Buffer` 是无须 require 的一个全局变量
+- 实现 Nodejs 平台下的二进制数据操作
+- 不占据 V8 堆内存大小的内存空间，直接由 c++层面进行分配
+- 内存的使用由 Node 来控制，由 V8 的 GC 回收
+- 一般配合 `Stream` 流使用，充当**数据缓冲区**
+
+![](/server/nodejs/nodejs3.png)
+
+关于 Buffer 详细可以参考： [Node.js 中的缓冲区（Buffer）究竟是什么？](https://www.nodejs.red/#/nodejs/buffer?id=buffer-vs-cache)
+
 ## Nodejs 通信
 
 ## 更多学习资料

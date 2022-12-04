@@ -1,6 +1,6 @@
 const path = require('path')
 
-console.log(__filename)
+console.log(__filename) // /Users/licop/Documents/GitHub/What_is_FE/examples/nodejs_learn/02Path/01-path.js
 
 // 1 获取路径中的基础名称 
 /**
@@ -85,7 +85,9 @@ console.log(path.normalize('a//\b/c\\/d'))
 console.log('9--------')
 console.log(path.resolve()) // /Users/licop/Documents/GitHub/What_is_FE/examples/nodejs_learn/02Path
 
-// resolve([from], to)
-
+/**
+ * resolve([from], to)
+ */
+ 
 console.log(path.resolve('/a', '../b'))  // /b
 console.log(path.resolve('index.html')) // /Users/licop/Documents/GitHub/What_is_FE/examples/nodejs_learn/02Path/index.html
