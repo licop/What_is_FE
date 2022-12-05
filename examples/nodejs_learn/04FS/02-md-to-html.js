@@ -11,8 +11,12 @@ const browserSync = require('browser-sync')
  * 05 使用 browser-sync 来实时显示 Html 内容
  */
 
+console.log(__dirname, process.argv[2])
+// 获取md文件路径 process.argv为命令传入参数
 let mdPath = path.join(__dirname, process.argv[2])
+
 let cssPath = path.resolve('github.css')
+// 更换后缀
 let htmlPath = mdPath.replace(path.extname(mdPath), '.html')
 
 fs.watchFile(mdPath, (curr, prev) => {

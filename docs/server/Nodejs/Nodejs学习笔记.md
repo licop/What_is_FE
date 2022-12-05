@@ -256,6 +256,14 @@ path 模块常用 API:
 
 [Buffer 自定义实例方法 split 的实现](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/03Buffer/04-buffer-split.js)
 
+### FS
+
+FS 是内置核心模块，提供文件系统操作的 API
+
+[文件读、写、拷贝、监控 API 操作 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/01-file-api-01.js)
+
+[使用 fs 的 api 将 md 文件转换成 html 文件 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/02-md-to-html.js)
+
 ## Nodejs 通信
 
 ## 更多学习资料
