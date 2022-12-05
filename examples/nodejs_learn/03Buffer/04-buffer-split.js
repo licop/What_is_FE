@@ -1,3 +1,4 @@
+// Buffer的操作和数组类似
 
 ArrayBuffer.prototype.split = function (sep) {
   let len = Buffer.from(sep).length
@@ -13,6 +14,6 @@ ArrayBuffer.prototype.split = function (sep) {
   return ret
 }
 
-let buf = 'zce吃馒头，吃面条，我吃所有吃'
+let buf = 'licop吃馒头，吃面条，我吃所有吃'
 let bufArr = buf.split('吃')
 console.log(bufArr)

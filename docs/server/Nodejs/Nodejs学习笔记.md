@@ -250,6 +250,12 @@ path 模块常用 API:
 
 关于 Buffer 详细可以参考： [Node.js 中的缓冲区（Buffer）究竟是什么？](https://www.nodejs.red/#/nodejs/buffer?id=buffer-vs-cache)
 
+#### Buffer 使用 demo
+
+[Buffer 的三种创建方法，实例方法和静态方法 Api 使用 demo](https://github.com/licop/What_is_FE/tree/master/examples/nodejs_learn/03Buffer)
+
+[Buffer 自定义实例方法 split 的实现](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/03Buffer/04-buffer-split.js)
+
 ## Nodejs 通信
 
 ## 更多学习资料

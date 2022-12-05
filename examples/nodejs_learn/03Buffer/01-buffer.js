@@ -30,6 +30,7 @@ const b8 = Buffer.from(b7)
 console.log(b7)
 console.log(b8)
 
+// b7的更改不影响b8
 b7[0] = 1
 console.log(b7) // <Buffer 01 00 00>
 console.log(b8) // <Buffer 00 00 00>
