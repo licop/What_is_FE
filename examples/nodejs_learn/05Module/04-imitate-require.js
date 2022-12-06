@@ -1,4 +1,3 @@
-const { dir } = require('console')
 const fs = require('fs')
 const path = require('path')
 const vm = require('vm')
@@ -6,7 +5,6 @@ const vm = require('vm')
 function Module (id) {
   this.id = id
   this.exports = {}
-  console.log(1111)
 }
 
 Module._resolveFilename = function (filename) {
@@ -18,10 +16,10 @@ Module._resolveFilename = function (filename) {
     // 如果条件成立则说明 absPath 对应的内容是存在的
     return absPath
   } else {
-    // 文件定位
+    // 文件定位, 如果文件没有加后缀，补充优先级js->json
     let suffix = Object.keys(Module._extensions)
 
-    for(var i=0; i<suffix.length; i++) {
+    for(let i = 0; i < suffix.length; i++) {
       let newPath = absPath + suffix[i]
       if (fs.existsSync(newPath)) {
         return newPath
@@ -39,7 +37,7 @@ Module._extensions = {
     // 包装
     content = Module.wrapper[0] + content + Module.wrapper[1] 
     
-    // VM 
+    // VM 独立沙箱执行代码
     let compileFn = vm.runInThisContext(content)
 
     // 准备参数的值
@@ -92,5 +90,5 @@ function myRequire (filename) {
 }
 
 let obj = myRequire('./v')
-let obj2 = myRequire('./v')
+// let obj2 = myRequire('./v')
 console.log(obj.age)

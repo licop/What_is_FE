@@ -282,6 +282,11 @@ FS 是内置核心模块，提供文件系统操作的 API。
 
 [异步模式创建嵌套文件夹 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/08-mkdir-async.js)
 
+### Commonjs 模块机制
+
+这方面知识在前端工程化的模块化内容总结过，参考：
+[Commonjs 模块机制](/engineering/前端工程化/模块化.html#commonjs)
+
 ## Nodejs 通信
 
 ## 更多学习资料
