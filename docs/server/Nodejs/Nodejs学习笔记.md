@@ -258,11 +258,19 @@ path 模块常用 API:
 
 ### FS
 
-FS 是内置核心模块，提供文件系统操作的 API
+FS 是内置核心模块，提供文件系统操作的 API。
+
+在 NodeJS 中，所有与文件操作都是通过 `fs` 核心模块来实现的，包括文件目录的创建、删除、查询以及文件的读取和写入，在 `fs` 模块中，所有的方法都分为同步和异步两种实现，具有 `sync` 后缀的方法为同步方法，不具有 `sync` 后缀的方法为异步方法，在了解文件操作的方法之前有一些关于系统和文件的前置知识，如文件的权限位`mode`、标识位 `flag`、文件描述符 `fd` 等。
+
+关于文件的前置知识和 `fs` 的所有 api 详解请参考，以及如何将`fs`异步方法的回调函数写成`async/await`方式：[Node 中 fs 模块 API 详解](https://juejin.cn/post/6844903677782654983)
 
 [文件读、写、拷贝、监控 API 操作 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/01-file-api-01.js)
 
 [使用 fs 的 api 将 md 文件转换成 html 文件 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/02-md-to-html.js)
+
+[文件的打开和关闭操作 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/03-open-close-api.js)
+
+[实现大文件读写 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/04-fs-read-write.js)
 
 ## Nodejs 通信
 

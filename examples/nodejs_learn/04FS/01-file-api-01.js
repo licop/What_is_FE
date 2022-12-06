@@ -2,12 +2,12 @@ const fs = require('fs')
 const path = require('path')
 
 // readFile  读取文件
-// fs.readFile(path.resolve('data.txt'), 'utf-8', (err, data) => {
-//   console.log(err) 
-//   if (!null) {
-//     console.log(data)
-//   }
-// }) 
+fs.readFile(path.resolve('data.txt'), 'utf-8', (err, data) => {
+  console.log(err) 
+  if (!null) {
+    console.log(data)
+  }
+}) 
 
 
 
@@ -35,11 +35,11 @@ const path = require('path')
 // }) 
 
 // watchFile 文件监控操作
-fs.watchFile('data.txt', {
-  interval: 20 // 20ms监控一次
-}, (curr, prev) => {
-  if (curr.mtime !== prev.mtime) {
-    console.log('文件被修改了')
-    fs.unwatchFile('data.txt')
-  }
-})
+// fs.watchFile('data.txt', {
+//   interval: 20 // 20ms监控一次
+// }, (curr, prev) => {
+//   if (curr.mtime !== prev.mtime) {
+//     console.log('文件被修改了')
+//     fs.unwatchFile('data.txt')
+//   }
+// })

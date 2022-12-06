@@ -543,6 +543,40 @@ Promise.race([request, timeout])
 
 [更多关于 Promise.race 使用](<Promise.race()有哪些具体应用.html>)
 
+### 将回调函数形式转化为 Promise 写法
+
+```js
+// 将fs的异步调用方法转换为Promise, async/await,使得代码变得可读性好
+const fs = require("fs");
+const path = require("path");
+
+// 将一个回调函数异步方法转换成 Promise
+function promisify(fn) {
+  return function(...args) {
+    return new Promise((resolve, reject) => {
+      // 通过 call 将闭包函数中的参数和回调函数作为参数传入了 fn 中，
+      fn.call(null, ...args, (err, data) =>
+        err ? reject(err) : resolve(data)
+      );
+    });
+  };
+}
+
+const readFile = promisify(fs.readFile);
+
+readFile(path.resolve("data.txt"), "utf-8").then((data) => {
+  console.log(data);
+});
+
+// 原有读取文件的写法
+// fs.readFile(path.resolve('data.txt'), 'utf-8', (err, data) => {
+//   console.log(err)
+//   if (!null) {
+//     console.log(data)
+//   }
+// })
+```
+
 ## Generator 异步方案
 
 Generator 可以将异步调用写成同步代码的体验。

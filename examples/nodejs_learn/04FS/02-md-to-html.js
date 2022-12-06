@@ -16,9 +16,11 @@ console.log(__dirname, process.argv[2])
 let mdPath = path.join(__dirname, process.argv[2])
 
 let cssPath = path.resolve('github.css')
+
 // 更换后缀
 let htmlPath = mdPath.replace(path.extname(mdPath), '.html')
 
+// 监听md文件
 fs.watchFile(mdPath, (curr, prev) => {
   if (curr.mtime !== prev.mtime) {
     fs.readFile(mdPath, 'utf-8', (err, data) => {
