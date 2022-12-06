@@ -264,6 +264,8 @@ FS 是内置核心模块，提供文件系统操作的 API。
 
 关于文件的前置知识和 `fs` 的所有 api 详解请参考，以及如何将`fs`异步方法的回调函数写成`async/await`方式：[Node 中 fs 模块 API 详解](https://juejin.cn/post/6844903677782654983)
 
+**fs 使用案例：**
+
 [文件读、写、拷贝、监控 API 操作 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/01-file-api-01.js)
 
 [使用 fs 的 api 将 md 文件转换成 html 文件 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/02-md-to-html.js)
@@ -271,6 +273,14 @@ FS 是内置核心模块，提供文件系统操作的 API。
 [文件的打开和关闭操作 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/03-open-close-api.js)
 
 [实现大文件读写 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/04-fs-read-write.js)
+
+[自定义实现大文件拷贝 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/05-copy-file.js)
+
+[目录的查看权限、读取信息、新建、删除等 API 操作 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/06-fs-dir-api.js)
+
+[同步模式创建嵌套文件夹 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/07-mkdir-sync.js)
+
+[异步模式创建嵌套文件夹 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/04FS/08-mkdir-async.js)
 
 ## Nodejs 通信
 

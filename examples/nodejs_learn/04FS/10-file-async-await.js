@@ -4,10 +4,10 @@ const path = require('path')
 
 // 将一个异步方法转换成 Promise
 function promisify(fn) {
-  return function (...args) {
-      return new Promise((resolve, reject) => {
-          fn.call(null, ...args, (err, data) => err ? reject(err) : resolve(data))
-      });
+  return function(...args) {
+    return new Promise((resolve, reject) => {
+      fn.call(null, ...args, (err, data) => err ? reject(err) : resolve(data))
+    })
   }
 }
 

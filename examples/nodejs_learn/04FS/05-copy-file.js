@@ -1,3 +1,5 @@
+// 自定义拷贝文件
+
 const fs = require('fs')
 
 /**
@@ -21,7 +23,8 @@ let buf = Buffer.alloc(10)
 }) */
 
 // 02 数据的完全拷贝
-/* fs.open('a.txt', 'r', (err, rfd) => {
+/* 
+fs.open('a.txt', 'r', (err, rfd) => {
   fs.open('b.txt', 'a+', (err, wfd) => {
     fs.read(rfd, buf, 0, 10, 0, (err, readBytes) => {
       fs.write(wfd, buf, 0, 10, 0, (err, written) => {
@@ -42,6 +45,7 @@ fs.open('a.txt', 'r', (err, rfd) => {
   fs.open('b.txt', 'w', (err, wfd) => {
     function next () {
       fs.read(rfd, buf, 0, BUFFER_SIZE, readOffset, (err, readBytes) => {
+        // readBytes， 为每次实际读取的字符数，如果为0则拷贝完成
         if (!readBytes) {
           // 如果条件成立，说明内容已经读取完毕
           fs.close(rfd, ()=> {})

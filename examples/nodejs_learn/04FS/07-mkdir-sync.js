@@ -1,3 +1,5 @@
+// 同步模式创建文件夹
+
 const fs = require('fs')
 const path = require('path')
 
@@ -13,11 +15,12 @@ function makeDirSync (dirPath) {
   for(let i = 1; i <= items.length; i++) {
     let dir = items.slice(0, i).join(path.sep)
     try {
-      fs.accessSync(dir)
+      fs.accessSync(dir) // 查看是否有操作权限
     } catch (err) {
-      fs.mkdirSync(dir)
+      fs.mkdirSync(dir) // 
     }
   }
 }
 
-makeDirSync('a\\b\\c')
+makeDirSync('a/b/c') 
+

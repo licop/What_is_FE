@@ -461,8 +461,11 @@ ajax("/api/users.json")
 - 前面 then 方法中回调函数的返回值会作为后面 then 方法回调的参数
 - 如果回调中返回的是 Promise，那后面 then 方法的回调会等待它的结束
 
-```
-Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log)
+```js
+Promise.resolve(1)
+  .then(2)
+  .then(Promise.resolve(3))
+  .then(console.log);
 // 结果为1， 原因为第二个和第三个then方法没有return返回值，所以传递给链条末端的参数是1
 ```
 
