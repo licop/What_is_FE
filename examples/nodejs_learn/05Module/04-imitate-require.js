@@ -1,3 +1,6 @@
+/**
+ * 模拟require实现，了解模块加载原理
+ */
 const fs = require('fs')
 const path = require('path')
 const vm = require('vm')
