@@ -60,3 +60,4 @@ ev.emit('事件1', '后') */
 ev.once('事件1', fn)
 // ev.off('事件1', fn)
 ev.emit('事件1', '前')
+

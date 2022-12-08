@@ -1,3 +1,6 @@
+
+
+// s1 p1 p2 s2 p3 p4
 // setTimeout(() => {
 //   console.log('s1')
 //   Promise.resolve().then(() => {
@@ -18,6 +21,7 @@
 //   })
 // })
 
+// p1 s1 p2 p3 s2 s3
 setTimeout(() => {
   console.log('s1')
   Promise.resolve().then(() => {
@@ -38,4 +42,3 @@ Promise.resolve().then(() => {
   })
 })
 
-// p1 s1 p2 p3 s2 s3

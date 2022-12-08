@@ -289,6 +289,83 @@ FS 是内置核心模块，提供文件系统操作的 API。
 
 ### Event
 
+`node.js`是基于**事件驱动**的异步操作架构，内置`events`模块，`events`模块提供了`EventEmitter`类， `node.js`中很多内置核心模块继承`EventEmitter`,例如 `Net`、`HTTP`、`FS`、`Stream` 等，除了这些系统模块比较知名的 `Express`、`Koa` 框架中也能看到 `EventEmitter` 的踪迹。
+
+**EventEmitter 常见 API**
+
+- on: 添加当事件被触发时调用的回调函数
+- emit: 触发事件，按照注册的顺序同步调用每个事件监听器
+- once: 添加当事件在注册之后首次被触发时调用的回调函数
+- off: 移除特定的监听器
+
+```js
+// 一个简单的例子
+const EventEmitter = require("events").EventEmitter;
+const emitter = new EventEmitter();
+
+emitter.on("起床", function(time) {
+  console.log(`早上 ${time} 开始起床，新的一天加油！`);
+});
+
+emitter.emit("起床", "6:00");
+```
+
+**模拟实现 EventEmitter 的功能**
+
+[代码实现](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/06Events/04-imitate-events.js)
+
+```js
+function MyEvent() {
+  // 准备一个数据结构用于缓存订阅者信息
+  this._events = Object.create(null);
+}
+
+MyEvent.prototype.on = function(type, callback) {
+  // 判断当前次的事件是否已经存在，然后再决定如何做缓存
+  if (this._events[type]) {
+    this._events[type].push(callback);
+  } else {
+    this._events[type] = [callback];
+  }
+};
+
+MyEvent.prototype.emit = function(type, ...args) {
+  if (this._events && this._events[type].length) {
+    this._events[type].forEach((callback) => {
+      callback.call(this, ...args);
+    });
+  }
+};
+
+MyEvent.prototype.off = function(type, callback) {
+  // 判断当前 type 事件监听是否存在，如果存在则取消指定的监听
+  if (this._events && this._events[type]) {
+    this._events[type] = this._events[type].filter((item) => {
+      return item !== callback && item.link !== callback;
+    });
+  }
+};
+
+MyEvent.prototype.once = function(type, callback) {
+  let foo = function(...args) {
+    callback.call(this, ...args);
+    this.off(type, foo);
+  };
+  foo.link = callback;
+  this.on(type, foo);
+};
+
+let ev = new MyEvent();
+
+let fn = function(...data) {
+  console.log("事件1执行了", data);
+};
+```
+
+[EventEmitter 常见 API 使用 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/06Events/01-EventEmitter-apis.js)
+
+更多关于 Event 模块的使用参考[Node.js Events 模块](https://www.nodejs.red/#/nodejs/events)
+
 ## Nodejs 通信
 
 ## 更多学习资料

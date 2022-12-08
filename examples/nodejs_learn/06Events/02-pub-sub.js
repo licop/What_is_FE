@@ -1,3 +1,5 @@
+// 使用发布订阅模式模拟EventEmitter
+
 class PubSub{
   constructor() {
     this._events = {}
@@ -35,3 +37,5 @@ ps.subscribe('事件1', () => {
 
 ps.publish('事件1')
 ps.publish('事件1')
+
+
