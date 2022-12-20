@@ -234,7 +234,7 @@ path 模块常用 API:
 - `path.format(pathObject)` 序列化路径
 - `path.normalize(path)` 规范化路径
 
-[path 模块常用 API 使用 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/02Path/01-path.js)
+- [path 模块常用 API 使用 demo](https://github.com/licop/What_is_FE/blob/master/examples/nodejs_learn/02Path/01-path.js)
 
 ### Buffer
 
@@ -601,6 +601,162 @@ readStream.on("end", function() {
 更多[Stream 使用案例 demo](https://github.com/licop/What_is_FE/tree/master/examples/nodejs_learn/07Stream)
 
 ## Nodejs 通信
+
+### Net 模块
+
+#### 网络模型
+
+很多人对 HTTP、HTTPS 会很熟悉，通常用于浏览器与服务端交互，或者服务端与服务端的交互，另外两个 Net 与 Dgram 也许会相对陌生，这两个是基于网络模型的传输层来实现的，分别对应于 `TCP`、`UDP` 协议，下面一图看明白 `OSI` 七层模型 与 `TCP/IP` 五层模型之间的关系，中间使用虚线标注了传输层，对于上层应用层（HTTP/HTTPS 等）也都是基于这一层的 TCP 协议来实现的，所以想使用 Node.js 做服务端开发，Net 模块也是你必须要掌握的。
+
+![](/server/nodejs/nodejs9.png)
+
+#### TCP 协议
+
+TCP 是传输控制协议，大多数情况下我们都会使用这个协议，因为它是一个更可靠的数据传输协议，具有如下三个特点：
+
+- **面向链接**: 需要对方主机在线，并建立链接。
+- **面向字节流**: 你给我一堆字节流的数据，我给你发送出去，但是每次发送多少是我说了算，每次选出一段字节发送的时候，都会带上一个序号，这个序号就是发送的这段字节中编号最小的字节的编号。
+- **可靠**: 保证数据有序的到达对方主机，每发送一个数据就会期待收到对方的回复，如果在指定时间内收到了对方的回复，就确认为数据到达，如果超过一定时间没收到对方回复，就认为对方没收到，在重新发送一遍。
+
+上面三个特点说到 TCP 是面向链接和可靠的，其一个显著特征是在传输之前会有一个 3 次握手，实现过程如下所示：
+
+![](/server/nodejs/nodejs10.png)
+
+在一次 TCP 三次握手的过程中，客户端与服务端会分别提供一个套接字来形成一个链接。之后客户端与服务端通过这个链接来互相发送数据。
+
+#### Socket
+
+网络上的两个程序通过一个双向的通信连接实现数据的交换，这个连接的一端称为一个 socket（套接字），因此建立网络通信连接至少要一对端口号。**socket 本质是对 TCP/IP 协议栈的封装，它提供了一个针对 TCP 或者 UDP 编程的接口，并不是另一种协议**。通过 socket，你可以使用 TCP/IP 协议。
+
+> Socket 的英文原义是“孔”或“插座”。作为 BSD UNIX 的[进程通信](https://baike.baidu.com/item/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1)机制，取后一种意思。通常也称作"[套接字](https://baike.baidu.com/item/%E5%A5%97%E6%8E%A5%E5%AD%97)"，用于描述 IP 地址和端口，是一个通信链的句柄，可以用来实现不同虚拟机或不同计算机之间的通信。在 Internet 上的[主机](https://baike.baidu.com/item/%E4%B8%BB%E6%9C%BA)一般运行了多个服务软件，同时提供几种服务。每种服务都打开一个 Socket，并绑定到一个端口上，不同的端口对应于不同的服务。Socket 正如其英文原义那样，像一个多孔插座。一台主机犹如布满各种插座的房间，每个插座有一个编号，有的插座提供 220 伏交流电， 有的提供 110 伏交流电，有的则提供有线电视节目。 客户软件将插头插到不同编号的插座，就可以得到不同的服务。—— [百度百科](https://baike.baidu.com/item/socket/281150)
+
+关于 Socket，可以总结以下几点：
+
+- 它可以实现底层通信，几乎所有的应用层都是通过 socket 进行通信的。
+- 对 TCP/IP 协议进行封装，便于应用层协议调用，属于二者之间的中间抽象层。
+- TCP/IP 协议族中，传输层存在两种通用协议: TCP、UDP，两种协议不同，因为不同参数的 socket 实现过程也不一样。
+
+#### Node.js 网络模块架构
+
+在 Node.js 的模块里面，与网络相关的模块有：**Net**、**DNS**、**HTTP**、**TLS/SSL**、**HTTPS**、**UDP/Datagram**，除此之外，还有 v8 底层相关的网络模块有 `tcp_wrap.cc`、`udp_wrap.cc`、`pipe_wrap.cc`、`stream_wrap.cc` 等等，在 JavaScript 层以及 C++ 层之间通过 `process.binding` 进行桥接相互通信。
+
+![network-arch](/server/nodejs/nodejs8.png)
+
+#### Net 模块构建一个 TCP 服务
+
+以上了解了 TCP 的一些概念之后，我们开始创建一个 TCP 服务端与客户端实例，这里我们需要使用 Node.js 的 Net 模块，它提供了一些用于底层通信的接口，该模块可以用于创建基于流的 TCP 或 IPC 的服务器（net.createServer()）与客户端（net.createConnection()）。
+
+在开始代码之前，先了解下其相关事件，参考官网 http://nodejs.cn/api/net.html，这里也不会把所有的都介绍，下面介绍一些常用的，并且通过代码示例，进行讲解，可以在这个基础之上在去参考官网，实践一些其它的事件或方法。
+
+TCP 服务器事件：
+
+- listening: ，也就是 server.listen();
+- connection: 新链接建立时触发，也就是每次收到客户端回调，参数 socket 为 net.createServer 实例，也可以写在 net.createServer(function(socket) {}) 方法里
+- close：当 server 关闭的时候触发（server.close()）。 如果有连接存在，直到所有的连接结束才会触发这个事件
+- error：捕获错误，例如监听一个已经存在的端口就会报 Error: listen EADDRINUSE 错误
+
+TCP 链接事件方法：
+
+- data: 一端调用 write() 方法发送数据时，另一端会通过 socket.on('data') 事件接收到，可以理解为读取数据
+- end: 每次 socket 链接会出现一次，例如客户端发送消息之后执行 Ctrl + C 终端，就会收到
+- error: 监听 socket 的错误信息
+- write：write 是一个方法（socket.write()）上面的 data 事件是读数据，write 方法在这里就为写数据到另一端，
+
+**TCP 服务端代码实现**
+
+```js
+// server.js
+const net = require("net");
+
+// 创建服务端实例
+const server = net.createServer();
+
+const PORT = 1234;
+const HOST = "localhost";
+
+server.listen(PORT, HOST);
+
+server.on("listening", () => {
+  console.log(`服务端已经开启在 ${HOST}: ${PORT}`);
+});
+
+// 接收消息 回写消息
+server.on("connection", (socket) => {
+  socket.on("data", (chunk) => {
+    const msg = chunk.toString();
+    console.log(msg);
+
+    // 回数据
+    socket.write(Buffer.from("您好" + msg));
+  });
+});
+
+server.on("close", () => {
+  console.log("服务端关闭了");
+});
+
+server.on("error", (err) => {
+  if (err.code == "EADDRINUSE") {
+    console.log("地址正在被使用");
+  } else {
+    console.log(err);
+  }
+});
+```
+
+**TCP 客户端代码实现**
+
+```js
+// client.js
+const net = require("net");
+
+const client = net.createConnection({
+  port: 1234,
+  host: "127.0.0.1",
+});
+
+client.on("connect", () => {
+  client.write("licop");
+});
+
+client.on("data", (chunk) => {
+  console.log(chunk.toString());
+});
+
+client.on("error", (err) => {
+  console.log(err);
+});
+
+client.on("close", () => {
+  console.log("客户端断开连接");
+});
+```
+
+- 更多案例参考：[TCP 案例 demo](https://github.com/licop/What_is_FE/tree/master/examples/nodejs_learn/11TCP)
+- [TCP 粘包问题的解决](https://www.nodejs.red/#/nodejs/net?id=tcp-%e7%b2%98%e5%8c%85%e9%97%ae%e9%a2%98)
+
+### Http 模块
+
+在了解 Http 模块之前，需要对 http 基础协议的知识有一定了解, 比如响应、请求报文，请求方法， 状态码等等。[Http 基础](https://github.com/semlinker/node-deep/blob/master/http/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0%20Node.js%20Http%20%E5%9F%BA%E7%A1%80%E7%AF%87.md)
+
+#### Http 基本使用
+
+```js
+// server.js
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  res.end("Hello licop!");
+});
+
+server.listen(3000, () => {
+  console.log("server listen on 3000");
+});
+```
+
+当运行完 node server.js 命令后，你可以通过 http://localhost:3000/ 这个 url 地址来访问我们本地的服务器。不出意外的话，你将在打开的页面中看到 "Hello licop!"。
+
+更多参考：[http 使用案例 demo](https://github.com/licop/What_is_FE/tree/master/examples/nodejs_learn/12HTTP)
 
 ## 更多学习资料
 
