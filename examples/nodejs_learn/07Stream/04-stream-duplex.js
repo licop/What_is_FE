@@ -18,9 +18,9 @@ class MyDuplex extends Duplex{
 let source = ['a', 'b', 'c']
 let myDuplex = new MyDuplex(source)
 
-/* myDuplex.on('data', (chunk) => {
+myDuplex.on('data', (chunk) => {
   console.log(chunk.toString())
-}) */
-myDuplex.write('拉勾教育', () => {
+})
+myDuplex.write('licop', () => {
   console.log(1111)
 })

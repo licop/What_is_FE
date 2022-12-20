@@ -6,7 +6,7 @@ const client = net.createConnection({
 })
 
 client.on('connect', () => {
-  client.write('拉勾教育')
+  client.write('licop')
 })
 
 client.on('data', (chunk) => {

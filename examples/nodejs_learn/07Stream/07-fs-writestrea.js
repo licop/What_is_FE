@@ -32,7 +32,7 @@ ws.write("2")
 }) */
 
 // end 执行之后就意味着数据写入操作完成
-ws.end('拉勾教育')
+ws.end('licop')
 
 
 // error

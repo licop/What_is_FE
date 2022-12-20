@@ -8,8 +8,6 @@ JS 是脚本语言，脚本语言都需要一个解析器才能运行。对于�
 
 每一种解析器都是一个运行环境，不但允许 JS 定义各种数据结构，进行各种计算，还允许 JS 使用运行环境提供的内置对象和方法做一些事情。例如运行在浏览器中的 JS 的用途是操作 DOM，浏览器就提供了 `document` 之类的内置对象。而运行在 NodeJS 中的 JS 的用途是操作磁盘文件或搭建 HTTP 服务器，NodeJS 就相应提供了 `fs`、`http` 等内置对象。
 
-### Nodejs 可以做什么
-
 ### Nodejs 架构
 
 可以将 Node.js 理解为一个将多种技术组合起来的平台，可以使用 JavaScript 调用系统接口。
@@ -366,6 +364,242 @@ let fn = function(...data) {
 
 更多关于 Event 模块的使用参考[Node.js Events 模块](https://www.nodejs.red/#/nodejs/events)
 
+### 关于流 Stream
+
+#### 什么是“流"
+
+流的英文 `stream`，**流（Stream）** 是一个抽象的数据接口，`Node.js` 中很多对象都实现了流，流是`EventEmitter` 对象的一个实例，总之它是会冒数据（以 Buffer 为单位），或者能够吸收数据的东西，它的本质就是让数据流动起来。
+
+可能看一张图会更直观：
+
+![](/server/nodejs/nodejs7.jpeg)
+
+流是数据的集合 —— 就像数组或字符串一样。流与它们的不同之处在于，流可能无法立马可用，并且它们不需要全部载入内存中。这种特性使得**流能够处理大量数据**，或者在一个时刻处理来自外部数据源的数据。
+
+`Node.js` 中的许多 `build-in` 模块都实现了流的接口：
+
+![](/server/nodejs/nodejs6.png)
+
+#### 为什么要使用”流“
+
+拿电影对比方，对比上图的水桶管道流转图，`source` 就是服务器端的视频，`dest` 就是你自己的播放器(或者浏览器中的 flash 和 h5 video)。看电影的方式就如同上面的图管道换水一样，一点点从服务端将视频流动到本地播放器，一边流动一边播放，最后流动完了也就播放完了。 说明：视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题 因内存占有太多而导致系统卡顿或者崩溃 因为我们的网速 内存 cpu 运算速度都是有限的，而且还要有多个程序共享使用，一个视频文件加载完可能有几个 g 那么大。
+
+在 Node.js 中，I/O 都是异步的，所有在和硬盘以及网络的交互过程中会涉及到传递回调函数的过程。
+
+你之前可能会写出这样的代码：
+
+```js
+var http = require("http");
+var fs = require("fs");
+
+var server = http.createServer(function(req, res) {
+  fs.readFile(__dirname + "/data.txt", function(err, data) {
+    res.end(data);
+  });
+});
+server.listen(8000);
+```
+
+上面的这段代码并没有什么问题，但是在每次请求时，我们都会把整个 `data.txt` 文件读入到内存中，然后再把结果返回给客户端。想想看，如果 `data.txt` 文件非常大，在响应大量用户的并发请求时，程序可能会消耗大量的内存，这样很可能会造成用户连接缓慢的问题。
+
+其次，上面的代码可能会造成很不好的用户体验，因为用户在接收到任何的内容之前首先需要等待程序将文件内容完全读入到内存中。
+
+幸运的是，`req` 请求对象和 `res` 响应对象都是流对象，这意味着我们可以使用一种更好的方法来实现上面的需求：
+
+```js
+var http = require("http");
+var fs = require("fs");
+
+var server = http.createServer(function(req, res) {
+  var stream = fs.createReadStream(__dirname + "/data.txt");
+  stream.pipe(res);
+});
+server.listen(8000);
+```
+
+在这里，`.pipe()` 方法会自动帮助我们监听 `data` 和 `end` 事件。上面的这段代码不仅简洁，而且 `data.txt` 文件中每一小段数据都将源源不断的发送到客户端。
+
+![](/server/nodejs/nodejs4.gif)
+
+除此之外，使用 `.pipe()` 方法还有别的好处，比如说它可以**自动控制背压**，以便在客户端连接缓慢的时候 `Node.js` 可以将尽可能少的缓存放到内存中。
+
+同时使用”流“创建大文件可以减少内存占用，提升程序的运行效率。
+
+#### 流的分类
+
+在 Node.js 中有四种类型的流：Readable、Writable、Duplex 和 Transform 流：
+
+- **Readable 流** 表示数据能够被消费，例如可以通过 `fs.createReadStream()` 方法创建可读流。
+- **Writable 流** 表示数据能被写，例如可以通过 `fs.createWriteStream()` 方法创建可写流。
+- **Duplex 流** 即表示既是 Readable 流也是 Writable 流，如 TCP Socket。
+- **Transform 流** 也是 Duplex 流，能够用来修改或转换数据。例如 `zlib.createGzip` 方法用来使用 gzip 压缩数据。你可以认为 transform 流是一个函数，它的输入是 Writable 流，输出是 Readable 流。
+
+| 使用情景                     | 类        | 需要重写的方法       |
+| ---------------------------- | --------- | -------------------- |
+| 只读                         | Readable  | \_read               |
+| 只写                         | Writable  | \_write              |
+| 双工                         | Duplex    | \_read, \_write      |
+| 操作被写入数据，然后读出结果 | Transform | \_transform, \_flush |
+
+此外所有的流都是 `EventEmitter` 的实例，它们能够监听或触发事件，用于控制读取和写入数据。Readable 与 Writable 流支持的常见的事件和方法如下图所示：
+
+![](/server/nodejs/nodejs5.png)
+
+#### stream 流转过程
+
+再次看这张水桶管道流转图
+
+![](/server/nodejs/nodejs7.jpeg)
+
+图中可以看出，`stream` 整个流转过程包括 `source`，`dest`，还有连接二者的管道 `pipe`(stream 的核心)，了解这三者可以搞懂 `stream` 流转过程。
+
+- **stream 从哪里来-soucre**
+
+`stream` 的常见来源方式有三种：
+
+1. 从控制台输入
+2. http 请求中的 request
+3. 读取文件
+
+这里先说一下从 **控制台输入** 这种方式，2 和 3 两种方式 `stream`应用场景章节会有详细的讲解。 看一段 `process.stdin` 的代码
+
+```js
+process.stdin.on('data', function (chunk) {
+    console.log('stream by stdin', chunk)
+    console.log('stream by stdin', chunk.toString())
+})
+//控制台输入licop后输出结果
+stream by stdin <Buffer 6c 69 63 6f 70 0a>
+stream by stdin licop
+```
+
+运行上面代码：然后从控制台输入任何内容都会被 data 事件监听到，`process.stdin` 就是一个 stream 对象,data 是 stream 对象用来监听数据传入的一个自定义函数，通过输出结果可看出 `process.stdin` 是一个 stream 对象。
+
+说明： stream 对象可以监听 data, end, opne, close, error 等事件。node.js 中监听自定义事件使用.on 方法，例如 `process.stdin.on(‘data’,…)`, `req.on(‘data’,…)`,通过这种方式，能很直观的监听到 stream 数据的传入和结束。
+
+- **连接水桶的管道-pipe**
+
+从水桶管道流转图中可以看到，在 source 和 dest 之间有一个连接的管道 pipe,它的基本语法是 `source.pipe(dest)`，source 和 dest 就是通过 pipe 连接，让数据从 source 流向了 dest。
+
+- **stream 到哪里去-dest**
+
+stream 的常见输出方式有三种：
+
+1. 输出控制台
+2. http 请求中的 response
+3. 写入文件
+
+#### stream 应用场景
+
+stream 的应用场景主要就是**处理 IO 操作**，而 **http 请求**和**文件操作**都属于 IO 操作。这里再提一下 stream 的本质——由于一次性 IO 操作过大，硬件开销太多，影响软件运行效率，因此将 IO 分批分段进行操作，让数据像水管一样流动起来，直到流动完成，也就是操作完成。下面对几个常用的应用场景分别进行介绍。
+
+- **get 请求中应用 stream**
+
+使用 node.js 实现一个 http 请求，读取 data.txt 文件，创建一个服务，监听 8000 端口，读取文件后返回给客户端
+
+常规使用文件读取返回给客户端 response 例子
+
+```js
+// getTest.js
+const http = require("http");
+const fs = require("fs");
+const path = require("path");
+
+const server = http.createServer(function(req, res) {
+  const method = req.method; // 获取请求方法
+  if (method === "GET") {
+    // get 请求方法判断
+    const fileName = path.resolve(__dirname, "data.txt");
+    fs.readFile(fileName, function(err, data) {
+      res.end(data);
+    });
+  }
+});
+server.listen(8000);
+```
+
+使用 stream 返回给客户端 response 将上面代码做部分修改
+
+```js
+const server = http.createServer(function(req, res) {
+  const method = req.method; // 获取请求方法
+  if (method === "GET") {
+    // get 请求
+    const fileName = path.resolve(__dirname, "data.txt");
+    let stream = fs.createReadStream(fileName);
+    stream.pipe(res); // 将 res 作为 stream 的 dest
+  }
+});
+server.listen(8000);
+```
+
+- **post 中使用 stream**
+
+一个通过 post 请求微信小程序的地址生成二维码的需求。
+
+```js
+/*
+ * 微信生成二维码接口
+ * params src 微信url / 其他图片请求链接
+ * params localFilePath: 本地路径
+ * params data: 微信请求参数
+ * */
+const downloadFile = async (src, localFilePath, data) => {
+  try {
+    const ws = fs.createWriteStream(localFilePath);
+    return new Promise((resolve, reject) => {
+      ws.on("finish", () => {
+        resolve(localFilePath);
+      });
+      if (data) {
+        request({
+          method: "POST",
+          uri: src,
+          json: true,
+          body: data,
+        }).pipe(ws);
+      } else {
+        request(src).pipe(ws);
+      }
+    });
+  } catch (e) {
+    logger.error("wxdownloadFile error: ", e);
+    throw e;
+  }
+};
+```
+
+看这段使用了 stream 的代码，为本地文件对应的路径创建一个 stream 对象，然后直接`.pipe(ws)`,将 post 请求的数据流转到这个本地文件中，这种 stream 的应用在 node 后端开发过程中还是比较常用的。
+
+- **在文件操作中使用 stream**
+
+创建一个可读数据流 readStream，一个可写数据流 writeStream,然后直接通过 pipe 管道把数据流转过去。
+
+```js
+const fs = require("fs");
+const path = require("path");
+
+// 两个文件名
+const fileName1 = path.resolve(__dirname, "data.txt");
+const fileName2 = path.resolve(__dirname, "data-bak.txt");
+// 读取文件的 stream 对象
+const readStream = fs.createReadStream(fileName1);
+// 写入文件的 stream 对象
+const writeStream = fs.createWriteStream(fileName2);
+// 通过 pipe执行拷贝，数据流转
+readStream.pipe(writeStream);
+// 数据读取完成监听，即拷贝完成
+readStream.on("end", function() {
+  console.log("拷贝完成");
+});
+```
+
+- **前端一些打包工具的底层实现**
+
+目前一些比较火的前端打包构建工具，都是通过 `node.js` 编写的，打包和构建的过程肯定是文件频繁操作的过程，离不来 stream,例如 gulp
+
+更多[Stream 使用案例 demo](https://github.com/licop/What_is_FE/tree/master/examples/nodejs_learn/07Stream)
+
 ## Nodejs 通信
 
 ## 更多学习资料
@@ -378,3 +612,5 @@ let fn = function(...data) {
 - [七天学会 NodeJS](http://nqdeng.github.io/7-days-nodejs/#1.1)
 - [9 个 Node.js 学习、进阶、debugging 分析、实战 的重磅开源项目](https://juejin.cn/post/6961101653709684772#heading-7)
 - [Nodejs 技术架构](https://juejin.cn/post/7081891057918558221)
+- [深入学习 Node.js](https://github.com/semlinker/node-deep)
+- [Node.js 内存溢出时如何处理？](http://www.inode.club/node/overflow.html)

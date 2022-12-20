@@ -12,6 +12,6 @@ class MyWriteable extends Writable{
 
 let myWriteable = new MyWriteable()
 
-myWriteable.write('拉勾教育', 'utf-8', () => {
+myWriteable.write('licop', 'utf-8', () => {
   console.log('end')
 })
