@@ -105,7 +105,7 @@ NoSQL 数据库有一个缺点：其在事务处理与一致性方面无法与 R
 - MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。
   - 这会让曾经使用过关系型数据库的人比较容易上手
 - MongoDB 将数据存储为一个文档，数据结构由键值(key=>value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。
-
+  ![](/server/mongodb/mongodb1.png)
 - MongoDB 的查询功能非常强大
   - 不仅支持大部分关系型数据库中的单表查询，还支持范围查询、排序、聚合、MapReduce 等
   - MongoDB 的查询语法类似于面相对象的程序语言
@@ -404,3 +404,195 @@ mongosh --username alice --password --authenticationDatabase admin --host mongod
 ```
 
 ### 数据库(Database)
+
+在 MongoDB 中，数据库包含一个或多个文档集合。
+
+**查看数据库列表**
+
+```
+show dbs
+```
+
+**查看当前数据库**
+
+```
+db
+```
+
+MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。
+
+有一些数据库名是保留的，可以直接访问这些有特殊作用的数据库。
+
+- admin：从权限的角度来看，这是"root"数据库。要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器。
+- local： 这个数据永远不会被复制，可以用来存储限于本地单台服务器的任意集合
+- config：当 Mongo 用于分片设置时，config 数据库在内部使用，用于保存分片的相关信息。
+
+**创建/切换数据库**
+
+```
+use <DATABASE_NAME>
+```
+
+在 MongoDB 中数据库只有真正的有了数据才会被创建出来。
+
+你可以切换到不存在的数据库。首次将数据存储在数据库中（例如通过创建集合）时，MongoDB 会创建数据库。例如，以下代码在 `insertOne()` 操作期间创建数据库 `myNewDatabase` 和集合 `myCollection`：
+
+```
+use myNewDatabase
+db.myCollection.insertOne( { x: 1 } );
+```
+
+**数据库名称规则**
+
+https://docs.mongodb.com/manual/reference/limits/#naming-restrictions
+
+- 不区分大小写，但是建议全部小写
+- 不能包含空字符。
+- 数据库名称不能为空，并且必须少于 64 个字符。
+- Windows 上的命名限制
+  - 不能包括 /\. "\$\*<>:|? 中的任何内容
+- Unix 和 Linux 上的命名限制
+  - 不能包括 /\. "\$ 中的任何字符
+
+**删除数据库**
+
+1. 使用 use 命令切换到要删除的数据库
+2. 使用 `db.dropDatabase()` 删除当前数据库
+
+### 集合(Collection)
+
+集合类似于关系数据库中的表，MongoDB 将文档存储在集合中。
+
+![](/server/mongodb/mongodb2.svg)
+
+**创建集合**
+
+如果不存在集合，则在您第一次为该集合存储数据时，MongoDB 会创建该集合。
+
+```
+db.myNewCollection2.insert( { x: 1 } )
+```
+
+MongoDB 提供 `db.createCollection()` 方法来显式创建具有各种选项的集合，例如设置最大大小或文档验证规则。如果未指定这些选项，则无需显式创建集合，因为在首次存储集合数据时，MongoDB 会创建新集合。
+
+**集合名称规则**
+
+集合名称应以下划线或字母字符开头，并且：
+
+- 不能包含 \$
+- 不能为空字符串
+- 不能包含空字符
+- 不能以 . 开头
+- 长度限制
+
+**查看集合**
+
+```
+show collections
+```
+
+**删除集合**
+
+```
+db.集合名称.drop()
+```
+
+### 文档(Document)
+
+- MongoDB 将数据记录存储为 BSON 文档
+- BSON（Binary JSON）是 JSON 文档的二进制表示形式，它比 JSON 包含更多的数据类型
+- [BSON 规范](https://bsonspec.org/)
+- [BSON 支持的数据类型](https://www.mongodb.com/docs/manual/reference/bson-types/)
+
+![](/server/mongodb/mongodb1.png)
+
+**文档结构**
+
+MongoDB 文档由字段和值对组成，并具有以下结构：
+
+```json
+{
+  "field1": value1,
+  "field2": value2,
+  "field3": value3,
+  "fieldN": valueN
+}
+```
+
+**字段名称**
+
+文档对字段名称有以下限制：
+
+- 字段名称 \_id 保留用作主键；它的值在集合中必须是唯一的，不可变的，并且可以是数组以外的任何类型。
+- 字段名称不能包含空字符。
+- 顶级字段名称不能以美元符号 \$ 开头。
+  - 从 MongoDB 3.6 开始，服务器允许存储包含点 . 和美元符号 \$ 的字段名称
+
+**MongoDB 中的数据类型**
+
+字段的值可以是任何 BSON 数据类型，包括其他文档，数组和文档数组。例如，以下文档包含各种类型的值：
+
+```js
+var mydoc = {
+  _id: ObjectId("5099803df3f4948bd2f98391"),
+  name: { first: "Alan", last: "Turing" },
+  birth: new Date("Jun 23, 1912"),
+  death: new Date("Jun 07, 1954"),
+  contribs: ["Turing machine", "Turing test", "Turingery"],
+  views: NumberLong(1250000),
+};
+```
+
+上面的字段具有以下数据类型：
+
+- \_id 保存一个 ObjectId 类型
+- name 包含一个嵌入式文档，该文档包含 first 和 last 字段
+- birth 和 death 持有 Date 类型的值
+- contribs 保存一个字符串数组
+- views 拥有 NumberLong 类型的值
+
+下面是 MongoDB 支持的常用数据类型。
+
+| 类型               | 整数标识符 | 别名（字符串标识符） | 别名（字符串标识符）                                                                                       |
+| ------------------ | ---------- | -------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Double             | 1          | “double”             | 双精度浮点值。用于存储浮点值。                                                                             |
+| String             | 2          | “string”             | 字符串。存储数据常用的数据类型。在 MongoDB 中，UTF-8 编码的字符串才是合法的。                              |
+| Object             | 3          | “object”             | 用于内嵌文档                                                                                               |
+| Array              | 4          | “array”              | 用于将数组或列表或多个值存储为一个键。                                                                     |
+| Binary data        | 5          | “binData”            | 二进制数据。用于存储二进制数据。                                                                           |
+| ObjectId           | 7          | “objectId”           | 对象 ID。用于创建文档的 ID。                                                                               |
+| Boolean            | 8          | “bool”               | 布尔值。用于存储布尔值（真/假）。                                                                          |
+| Date               | 9          | “date”               | 日期时间。用 UNIX 时间格式来存储当前日期或时间。你可以指定自己的日期时间：创建 Date 对象，传入年月日信息。 |
+| Null               | 10         | “null”               | 用于创建空值。                                                                                             |
+| Regular Expression | 11         | “regex”              | 正则表达式类型。用于存储正则表达式。                                                                       |
+| 32-bit integer     | 16         | “int”                | 整型数值。用于存储 32 位整型数值。                                                                         |
+| Timestamp          | 17         | “timestamp”          | 时间戳。记录文档修改或添加的具体时间。                                                                     |
+| 64-bit integer     | 18         | “long”               | 整型数值。用于存储 64 位整型数值。                                                                         |
+| Decimal128         | 19         | “decimal”            | 数值类型。常用于存储更精确的数字，例如货币。                                                               |
+
+**\_id 字段**
+
+在 MongoDB 中，存储在集合中的每个文档都需要一个唯一的 \_id 字段作为主键。如果插入的文档省略 \_id 字段，则 MongoDB 驱动程序会自动为 \_id 字段生成 ObjectId。
+
+\_id 字段具有以下行为和约束：
+
+- 默认情况下，MongoDB 在创建集合时会在 \_id 字段上创建唯一索引。
+- \_id 字段始终是文档中的第一个字段
+- \_id 字段可以包含任何 BSON 数据类型的值，而不是数组。
+
+### 可视化管理工具
+
+**Robo 3T**
+
+- 官网：https://robomongo.org/
+- 下载地址：https://robomongo.org/download
+
+**MongoDB Compass**
+
+- 官网：https://www.mongodb.com/products/compass
+- 下载地址：https://www.mongodb.com/try/download/compass
+- 使用文档：https://docs.mongodb.com/compass/current/
+
+Navicat
+
+- 官网：http://www.navicat.com.cn/
