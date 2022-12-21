@@ -593,6 +593,662 @@ var mydoc = {
 - 下载地址：https://www.mongodb.com/try/download/compass
 - 使用文档：https://docs.mongodb.com/compass/current/
 
-Navicat
+**Navicat**
 
 - 官网：http://www.navicat.com.cn/
+
+## 基础操作（CRUD）-- 创建文档
+
+创建或插入操作将新文档添加到集合中。如果集合当前不存在，则插入操作将创建集合。
+
+MongoDB 提供以下方法，用于将文档插入集合中：
+
+- `db.collection.insertOne()` 插入单个文档到集合中
+- `db.collection.insertMany()` 插入多个文档到集合中
+- `db.collection.insert()` 将 1 个或多个文档插入到集合中
+
+![](/server/mongodb/mongodb3.svg)
+
+**插入单个文档**
+
+```js
+db.inventory.insertOne({
+  item: "canvas",
+  qty: 100,
+  tags: ["cotton"],
+  size: { h: 28, w: 35.5, uom: "cm" },
+});
+```
+
+**插入多个文档**
+
+```js
+db.inventory.insertMany([
+  {
+    item: "journal",
+    qty: 25,
+    tags: ["blank", "red"],
+    size: { h: 14, w: 21, uom: "cm" },
+  },
+  {
+    item: "mat",
+    qty: 85,
+    tags: ["gray"],
+    size: { h: 27.9, w: 35.5, uom: "cm" },
+  },
+  {
+    item: "mousepad",
+    qty: 25,
+    tags: ["gel", "blue"],
+    size: { h: 19, w: 22.85, uom: "cm" },
+  },
+]);
+```
+
+**插入行为**
+
+1. 集合创建
+
+如果该集合当前不存在，则插入操作将创建该集合。
+
+2. \_id 字段
+
+在 MongoDB 中，存储在集合中的每个文档都需要一个唯一的 \_id 字段作为主键。如果插入的文档省略 \_id 字段，则 MongoDB 驱动程序会自动为 \_id 字段生成 ObjectId。
+
+## 基础操作（CRUD）-- 查询文档
+
+有关示例，请参见：
+
+- [基本查询 Query Documents](https://www.mongodb.com/docs/manual/tutorial/query-documents/)
+- [查询嵌套文档 Query on Embedded/Nested Documents](https://www.mongodb.com/docs/manual/tutorial/query-embedded-documents/)
+- [查询数组 Query an Array](https://www.mongodb.com/docs/manual/tutorial/query-arrays/)
+- [查询嵌入文档的数组 Query an Array of Embedded Documents](https://www.mongodb.com/docs/manual/tutorial/query-array-of-documents/)
+
+### 基本查询
+
+读取操作从集合中检索文档；即查询集合中的文档。 MongoDB 提供了以下方法来从集合中读取文档：
+
+- `db.collection.find(query, projection)` 查询匹配到的所有文档
+  - query ：可选，使用查询操作符指定查询条件
+  - projection ：可选，使用投影操作符指定返回的键。查询时返回文档中所有键值， 只需省略该参数即可（默认省略）。
+- db.collection.findOne() 匹配到第一个文档
+
+![](/server/mongodb/mongodb4.svg)
+
+**查询所有文档**
+
+```js
+db.inventory.find({});
+```
+
+等价于 SQL 中的 `SELECT * FROM inventory` 语句。
+
+格式化打印结果：
+
+```js
+db.myCollection.find().pretty();
+```
+
+**指定返回的文档字段**
+
+```js
+// 只显示item和qty字段
+db.inventory.find(
+  {},
+  {
+    item: 1, // 如果value是0 则不包含这个字段
+    qty: 1,
+  }
+);
+```
+
+**相等条件查询**
+
+```js
+// 只显示status为”D的字段
+db.inventory.find({ status: "D" });
+```
+
+等价于 SQL 中的 `SELECT * FROM inventory WHERE status = "D"` 语句。
+
+**指定 AND 条件**
+
+```js
+// 以下示例检索状态为“A”且数量小于（$ lt）30 的清单集合中的所有文档：
+db.inventory.find({ status: "A", qty: { $lt: 30 } });
+```
+
+该操作对应于以下 SQL 语句：
+
+```sql
+SELECT * FROM inventory WHERE status = "A" AND qty < 30
+```
+
+**指定 OR 条件**
+
+使用 `$or` 运算符，您可以指定一个复合查询，该查询将每个子句与一个逻辑或连接相连接，以便该查询选择集合中至少匹配一个条件的文档。
+
+```js
+// 下面的示例检索状态为 A 或数量小于 `$lt30` 的集合中的所有文档
+db.inventory.find({
+  $or: [{ status: "A" }, { qty: { $lt: 30 } }],
+});
+```
+
+该操作对应于以下 SQL 语句：
+
+```js
+SELECT * FROM inventory WHERE status = "A" OR qty < 30
+```
+
+**指定 AND 和 OR 条件**
+
+```js
+// 在下面的示例中，复合查询文档选择状态为“A”且qty小于（$ lt）30或item以字符p开头的所有文档：
+db.inventory.find({
+  status: "A",
+  $or: [{ qty: { $lt: 30 } }, { item: /^p/ }],
+});
+```
+
+该操作对应于以下 SQL 语句：
+
+```sql
+SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
+```
+
+**使用查询运算符指定条件**
+
+```js
+// 下面的示例从状态为“A”或“D”等于“库存”的清单集中检索所有文档：
+db.inventory.find({ status: { $in: ["A", "D"] } });
+```
+
+该操作对应以下 SQL 语句：
+
+```sql
+SELECT * FROM inventory WHERE status in ("A", "D")
+```
+
+完成的查询运算符参考：https://docs.mongodb.com/manual/reference/operator/query/
+
+**查询运算符**
+
+比较运算符：
+
+| 名称  | 描述                       |
+| ----- | -------------------------- |
+| \$eq  | 匹配等于指定值的值。       |
+| \$gt  | 匹配大于指定值的值。       |
+| \$gte | 匹配大于或等于指定值的值。 |
+| \$in  | 匹配数组中指定的任何值。   |
+| \$nin | 不匹配数组中指定的任何值。 |
+| \$lt  | 匹配小于指定值的值。       |
+| \$lte | 匹配小于或等于指定值的值。 |
+| \$ne  | 匹配所有不等于指定值的值。 |
+
+逻辑运算符：
+
+| 名称  | 描述                                                         |
+| ----- | ------------------------------------------------------------ |
+| \$and | 将查询子句与逻辑连接，并返回与这两个子句条件匹配的所有文档。 |
+| \$not | 反转查询表达式的效果，并返回与查询表达式不匹配的文档。       |
+| \$nor | 用逻辑 NOR 连接查询子句，返回所有不能匹配这两个子句的文档。  |
+| \$or  | 用逻辑连接查询子句，或返回与任一子句条件匹配的所有文档。     |
+
+### 查询嵌套文档
+
+**匹配嵌套文档**
+
+要在作为嵌入/嵌套文档的字段上指定相等条件，请使用查询过滤器文档 `{<field>: <value>}`，其中 `<value>` 是要匹配的文档。
+
+例如，以下查询选择字段大小等于文档 `{h: 14, w: 21, uom: "cm"}` 的所有文档：
+
+```js
+db.inventory.find({
+  size: { h: 14, w: 21, uom: "cm" },
+});
+```
+
+整个嵌入式文档上的相等匹配要求与指定的 `<value>` 文档完全匹配，包括字段顺序。例如，以下查询与库存收集中的任何文档都不匹配：
+
+```js
+db.inventory.find({
+  size: { w: 21, h: 14, uom: "cm" },
+});
+```
+
+**查询嵌套字段**
+
+要在嵌入式/嵌套文档中的字段上指定查询条件，请使用点符号 ("field.nestedField")。
+
+> 注意：使用点符号查询时，字段和嵌套字段必须在引号内。
+
+在嵌套字段上指定相等匹配
+
+以下示例选择嵌套在 size 字段中的 uom 字段等于 "in" 的所有文档：
+
+```js
+db.inventory.find({
+  "size.uom": "in",
+});
+```
+
+**使用查询运算符指定匹配项**
+
+查询过滤器文档可以使用查询运算符以以下形式指定条件：
+`{ <field1>: { <operator1>: <value1> }, ... }`
+
+```js
+// 以下查询在 size 字段中嵌入的字段 h 上使用小于运算符 $lt
+db.inventory.find({
+  "size.h": { $lt: 15 },
+});
+```
+
+**指定 AND 条件**
+
+以下查询选择嵌套字段 h 小于 15，嵌套字段 uom 等于 "in"，状态字段等于 "D" 的所有文档：
+
+```js
+db.inventory.find({
+  "size.h": { $lt: 15 },
+  "size.uom": "in",
+  status: "D",
+});
+```
+
+### 查询数组
+
+练习之前，先插入测试数据：
+
+```js
+db.inventory.insertMany([
+  { item: "journal", qty: 25, tags: ["blank", "red"], dim_cm: [14, 21] },
+  { item: "notebook", qty: 50, tags: ["red", "blank"], dim_cm: [14, 21] },
+  {
+    item: "paper",
+    qty: 100,
+    tags: ["red", "blank", "plain"],
+    dim_cm: [14, 21],
+  },
+  { item: "planner", qty: 75, tags: ["blank", "red"], dim_cm: [22.85, 30] },
+  { item: "postcard", qty: 45, tags: ["blue"], dim_cm: [10, 15.25] },
+]);
+```
+
+要在数组上指定相等条件，请使用查询文档 `{<field>: <value>}`，其中 `<value>` 是要匹配的精确数组，包括元素的顺序。
+
+下面的示例查询所有文档，其中字段标签值是按指定顺序恰好具有两个元素 "red" 和 "blank" 的数组：
+
+```js
+db.inventory.find({
+  tags: ["red", "blank"],
+});
+```
+
+相反，如果您希望找到一个同时包含元素 "red" 和 "blank" 的数组，而不考虑顺序或该数组中的其他元素，请使用 `$all` 运算符：
+
+```js
+db.inventory.find({
+  tags: { $all: ["red", "blank"] },
+});
+```
+
+**查询数组中的元素**
+
+要查询数组字段是否包含至少一个具有指定值的元素，请使用过滤器 `{<field>: <value>}`，其中 `<value>` 是元素值。
+
+以下示例查询所有文档，其中 tag 是一个包含字符串 "red" 作为其元素之一的数组：
+
+```js
+db.inventory.find({
+  tags: "red",
+});
+```
+
+要在数组字段中的元素上指定条件，请在查询过滤器文档中使用查询运算符：
+
+```js
+{ <array field>: { <operator1>: <value1>, ... } }
+```
+
+例如，以下操作查询数组 dim_cm 包含至少一个值大于 25 的元素的所有文档。
+
+```js
+db.inventory.find({
+  dim_cm: { $gt: 25 },
+});
+```
+
+#### 为数组元素指定多个条件
+
+在数组元素上指定复合条件时，可以指定查询，以使单个数组元素满足这些条件，或者数组元素的任何组合均满足条件。
+
+**使用数组元素上的复合过滤条件查询数组**
+
+以下示例查询文档，其中 `dim_cm` 数组包含以某种组合满足查询条件的元素；
+例如，一个元素可以满足大于 15 的条件，而另一个元素可以满足小于 20 的条件；或者单个元素可以满足以下两个条件：
+
+```js
+db.inventory.find({ dim_cm: { $gt: 15, $lt: 20 } });
+```
+
+**查询满足多个条件的数组元素**
+
+使用 `$elemMatch` 运算符可以在数组的元素上指定多个条件，以使至少一个数组元素满足所有指定的条件。
+
+以下示例查询在 dim_cm 数组中包含至少一个同时 大于 22 和 小于 30 的元素的文档：
+
+```js
+db.inventory.find({
+  dim_cm: { $elemMatch: { $gt: 22, $lt: 30 } },
+});
+```
+
+**通过数组索引位置查询元素**
+
+使用点符号，可以为数组的特定索引或位置指定元素的查询条件。该数组使用基于零的索引。
+
+> 注意：使用点符号查询时，字段和嵌套字段必须在引号内。
+
+下面的示例查询数组 dim_cm 中第二个元素大于 25 的所有文档：
+
+```js
+db.inventory.find({ "dim_cm.1": { $gt: 25 } });
+```
+
+**通过数组长度查询数组**
+
+使用 `$size` 运算符可按元素数量查询数组。
+例如，以下选择数组标签具有 3 个元素的文档。
+
+```js
+db.inventory.find({ tags: { $size: 3 } });
+```
+
+### 查询嵌入文档的数组
+
+测试数据：
+
+```js
+db.inventory.insertMany([
+  {
+    item: "journal",
+    instock: [
+      { warehouse: "A", qty: 5 },
+      { warehouse: "C", qty: 15 },
+    ],
+  },
+  { item: "notebook", instock: [{ warehouse: "C", qty: 5 }] },
+  {
+    item: "paper",
+    instock: [
+      { warehouse: "A", qty: 60 },
+      { warehouse: "B", qty: 15 },
+    ],
+  },
+  {
+    item: "planner",
+    instock: [
+      { warehouse: "A", qty: 40 },
+      { warehouse: "B", qty: 5 },
+    ],
+  },
+  {
+    item: "postcard",
+    instock: [
+      { warehouse: "B", qty: 15 },
+      { warehouse: "C", qty: 35 },
+    ],
+  },
+]);
+```
+
+#### 查询嵌套在数组中的文档
+
+以下示例选择库存数组中的元素与指定文档匹配的所有文档：
+
+```js
+db.inventory.find({
+  instock: { warehouse: "A", qty: 5 },
+});
+```
+
+整个嵌入式/嵌套文档上的相等匹配要求与指定文档（包括字段顺序）完全匹配。例如，以下查询与库存收集中的任何文档都不匹配：
+
+```js
+db.inventory.find({
+  instock: { qty: 5, warehouse: "A" },
+});
+```
+
+#### 在文档数组中的字段上指定查询条件
+
+**在嵌入文档数组中的字段上指定查询条件**
+
+如果您不知道嵌套在数组中的文档的索引位置，请使用点（.）和嵌套文档中的字段名称来连接数组字段的名称。
+
+下面的示例选择所有库存数组中包含至少一个嵌入式文档的嵌入式文档，这些嵌入式文档包含值小于或等于 20 的字段 qty：
+
+```js
+db.inventory.find({ "instock.qty": { $lte: 20 } });
+```
+
+**使用数组索引在嵌入式文档中查询字段**
+
+使用点表示法，您可以为文档中特定索引或数组位置处的字段指定查询条件。该数组使用基于零的索引。
+
+> 注意：使用点符号查询时，字段和索引必须在引号内。
+
+下面的示例选择所有库存文件，其中库存数组的第一个元素是包含值小于或等于 20 的字段 qty 的文档：
+
+```js
+db.inventory.find({ "instock.0.qty": { $lte: 20 } });
+```
+
+#### 为文档数组指定多个条件
+
+在嵌套在文档数组中的多个字段上指定条件时，可以指定查询，以使单个文档满足这些条件，或者数组中文档的任何组合（包括单个文档）都满足条件。
+
+**单个嵌套文档在嵌套字段上满足多个查询条件**
+
+使用`$ elemMatch` 运算符可在一组嵌入式文档上指定多个条件，以使至少一个嵌入式文档满足所有指定条件。
+
+下面的示例查询库存数组中至少有一个嵌入式文档的文档，这些文档同时包含等于 5 的字段 qty 和等于 A 的字段仓库：
+
+```js
+db.inventory.find({ instock: { $elemMatch: { qty: 5, warehouse: "A" } } });
+```
+
+下面的示例查询库存数组中至少有一个嵌入式文档的嵌入式文档包含的字段 qty 大于 10 且小于或等于 20：
+
+```js
+db.inventory.find({ instock: { $elemMatch: { qty: { $gt: 10, $lte: 20 } } } });
+```
+
+**元素组合满足标准**
+
+如果数组字段上的复合查询条件未使用`$elemMatch`运算符，则查询将选择其数组包含满足条件的元素的任意组合的那些文档。
+
+例如，以下查询匹配文档，其中嵌套在库存数组中的任何文档的 qty 字段都大于 10，而数组中的任何文档（但不一定是同一嵌入式文档）的 qty 字段小于或等于 20：
+
+```js
+db.inventory.find({ "instock.qty": { $gt: 10, $lte: 20 } });
+```
+
+下面的示例查询库存数组中具有至少一个包含数量等于 5 的嵌入式文档和至少一个包含等于 A 的字段仓库的嵌入式文档（但不一定是同一嵌入式文档）的文档：
+
+```js
+db.inventory.find({ "instock.qty": 5, "instock.warehouse": "A" });
+```
+
+### 指定从查询返回的项目字段
+
+默认情况下，MongoDB 中的查询返回匹配文档中的所有字段。要限制 MongoDB 发送给应用程序的数据量，可以包含一个投影文档以指定或限制要返回的字段。
+
+测试数据
+
+```js
+db.inventory.insertMany([
+  {
+    item: "journal",
+    status: "A",
+    size: { h: 14, w: 21, uom: "cm" },
+    instock: [{ warehouse: "A", qty: 5 }],
+  },
+  {
+    item: "notebook",
+    status: "A",
+    size: { h: 8.5, w: 11, uom: "in" },
+    instock: [{ warehouse: "C", qty: 5 }],
+  },
+  {
+    item: "paper",
+    status: "D",
+    size: { h: 8.5, w: 11, uom: "in" },
+    instock: [{ warehouse: "A", qty: 60 }],
+  },
+  {
+    item: "planner",
+    status: "D",
+    size: { h: 22.85, w: 30, uom: "cm" },
+    instock: [{ warehouse: "A", qty: 40 }],
+  },
+  {
+    item: "postcard",
+    status: "A",
+    size: { h: 10, w: 15.25, uom: "cm" },
+    instock: [
+      { warehouse: "B", qty: 15 },
+      { warehouse: "C", qty: 35 },
+    ],
+  },
+]);
+```
+
+**仅返回指定字段和 \_id 字段**
+
+通过将投影文档中的 `<field>` 设置为 1，投影可以显式包含多个字段。以下操作返回与查询匹配的所有文档。在结果集中，在匹配的文档中仅返回项目，状态和默认情况下的 \_id 字段。
+
+```js
+db.inventory.find({ status: "A" }, { item: 1, status: 1 });
+```
+
+**禁止 \_id 字段**
+
+您可以通过将投影中的 \_id 字段设置为 0 来从结果中删除 \_id 字段，如以下示例所示：
+
+```js
+db.inventory.find({ status: "A" }, { item: 1, status: 1, _id: 0 });
+```
+
+**返回所有但排除的字段**
+
+您可以使用投影排除特定字段，而不用列出要在匹配文档中返回的字段。以下示例返回匹配文档中状态和库存字段以外的所有字段：
+
+```js
+db.inventory.find({ status: "A" }, { status: 0, instock: 0 });
+```
+
+**返回嵌入式文档中的特定字段**
+
+您可以返回嵌入式文档中的特定字段。使用点表示法引用嵌入式字段，并在投影文档中将其设置为 1。
+
+以下示例返回：
+
+- \_id 字段（默认情况下返回）
+- item 字段
+- status 字段
+- size 文档中的 uom 字段
+
+uom 字段仍嵌入在尺寸文档中。
+
+```js
+db.inventory.find({ status: "A" }, { item: 1, status: 1, "size.uom": 1 });
+```
+
+从 MongoDB 4.4 开始，您还可以使用嵌套形式指定嵌入式字段，例如 `{item: 1, status: 1, size: {uom: 1}}`
+
+**禁止嵌入文档中的特定字段**
+
+您可以隐藏嵌入式文档中的特定字段。使用点表示法引用投影文档中的嵌入字段并将其设置为 0。
+
+以下示例指定一个投影，以排除尺寸文档内的 uom 字段。其他所有字段均在匹配的文档中返回：
+
+```js
+db.inventory.find({ status: "A" }, { "size.uom": 0 });
+```
+
+从 MongoDB 4.4 开始，您还可以使用嵌套形式指定嵌入式字段，例如 `{ size: { uom: 0 } }`。
+
+**在数组中的嵌入式文档上投射**
+
+使用点表示法可将特定字段投影在嵌入数组的文档中。
+
+以下示例指定要返回的投影：
+
+- \_id 字段（默认情况下返回）
+- item 字段
+- status 字段
+- qty 数组中嵌入的文档中的 instock 字段
+
+```
+db.inventory.find( { status: "A" }, { item: 1, status: 1, "instock.qty": 1 } )
+```
+
+**返回数组中的项目特定数组元素**
+
+对于包含数组的字段，MongoDB 提供以下用于操纵数组的投影运算符：`$elemMatch`，`$slice`和 `$`。
+
+下面的示例使用 `$slice` 投影运算符返回库存数组中的最后一个元素：
+
+```js
+// $slice 是正数返回前n个元素， $slice是负数返回后n个元素， 大于元素数组数量则返回全部数组
+db.inventory.find(
+  { status: "A" },
+  { item: 1, status: 1, instock: { $slice: -1 } }
+);
+```
+
+### 查询空字段或缺少字段
+
+MongoDB 中的不同查询运算符对空值的处理方式不同。
+
+测试数据：
+
+```js
+db.inventory.insertMany([{ _id: 1, item: null }, { _id: 2 }]);
+```
+
+**相等过滤器**
+
+`{item: null}` 查询将匹配包含其值为 null 的 item 字段或不包含 item 字段的文档
+
+```js
+db.inventory.find({ item: null });
+```
+
+该查询返回集合中的两个文档。
+
+**类型检查**
+
+`{ item: { $type: 10 } }` 查询仅匹配包含 item 字段，其值为 null 的文档；即 item 字段的值为 BSON 类型为 Null（类型编号 10）：
+
+```js
+db.inventory.find({ item: { $type: 10 } });
+```
+
+该查询仅返回 item 字段值为 null 的文档。
+
+**存在检查**
+
+以下示例查询不包含字段的文档。
+
+`{{ item: { $exists：false }}`查询与不包含 item 字段的文档匹配：
+
+```js
+db.inventory.find({ item: { $exists: false } });
+```
+
+该查询仅返回不包含项目字段的文档。
