@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Fiber 的作用和原理 | What is FE</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.05e426fd.css" as="style"><link rel="preload" href="/assets/js/app.23d3122b.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/33.02f2ea3b.js" as="script"><link rel="preload" href="/assets/js/3.b304fdc1.js" as="script"><link rel="prefetch" href="/assets/js/10.a37a353b.js"><link rel="prefetch" href="/assets/js/11.d1b90c3d.js"><link rel="prefetch" href="/assets/js/12.d3bf7b11.js"><link rel="prefetch" href="/assets/js/13.6f6b4894.js"><link rel="prefetch" href="/assets/js/14.2c89a43b.js"><link rel="prefetch" href="/assets/js/15.565302df.js"><link rel="prefetch" href="/assets/js/16.863ec29e.js"><link rel="prefetch" href="/assets/js/17.81c8a830.js"><link rel="prefetch" href="/assets/js/18.4e8004a4.js"><link rel="prefetch" href="/assets/js/19.04ae3cb6.js"><link rel="prefetch" href="/assets/js/20.43106a54.js"><link rel="prefetch" href="/assets/js/21.56a2417a.js"><link rel="prefetch" href="/assets/js/22.d0c70b78.js"><link rel="prefetch" href="/assets/js/23.9da4a7d3.js"><link rel="prefetch" href="/assets/js/24.6382844b.js"><link rel="prefetch" href="/assets/js/25.33b58a3b.js"><link rel="prefetch" href="/assets/js/26.f5dfaeb5.js"><link rel="prefetch" href="/assets/js/27.a01f0f1c.js"><link rel="prefetch" href="/assets/js/28.8f4ee848.js"><link rel="prefetch" href="/assets/js/29.14745b03.js"><link rel="prefetch" href="/assets/js/30.339e63b1.js"><link rel="prefetch" href="/assets/js/31.299a0ec5.js"><link rel="prefetch" href="/assets/js/32.36a9b7fc.js"><link rel="prefetch" href="/assets/js/34.8c2fd8ae.js"><link rel="prefetch" href="/assets/js/35.e1131b1f.js"><link rel="prefetch" href="/assets/js/36.ca800f3d.js"><link rel="prefetch" href="/assets/js/37.834c20f9.js"><link rel="prefetch" href="/assets/js/38.f0c65a45.js"><link rel="prefetch" href="/assets/js/39.4d09d993.js"><link rel="prefetch" href="/assets/js/4.61dc0fce.js"><link rel="prefetch" href="/assets/js/40.f50d8b03.js"><link rel="prefetch" href="/assets/js/41.e634a1d4.js"><link rel="prefetch" href="/assets/js/42.4409db03.js"><link rel="prefetch" href="/assets/js/43.eb927c4f.js"><link rel="prefetch" href="/assets/js/44.c2c8ac29.js"><link rel="prefetch" href="/assets/js/45.8c89abb2.js"><link rel="prefetch" href="/assets/js/46.1f598736.js"><link rel="prefetch" href="/assets/js/47.0dc0c336.js"><link rel="prefetch" href="/assets/js/48.7311c091.js"><link rel="prefetch" href="/assets/js/49.0590a5ee.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/50.5e6aa420.js"><link rel="prefetch" href="/assets/js/51.daaa3ea1.js"><link rel="prefetch" href="/assets/js/52.3be16e9a.js"><link rel="prefetch" href="/assets/js/53.f73c6710.js"><link rel="prefetch" href="/assets/js/54.a7d47983.js"><link rel="prefetch" href="/assets/js/55.5de6d42b.js"><link rel="prefetch" href="/assets/js/56.23b3eed4.js"><link rel="prefetch" href="/assets/js/57.a3fcd7a7.js"><link rel="prefetch" href="/assets/js/58.bceb7f62.js"><link rel="prefetch" href="/assets/js/59.1755e44b.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/60.0bd98a77.js"><link rel="prefetch" href="/assets/js/61.f0cd536c.js"><link rel="prefetch" href="/assets/js/62.1d73b33b.js"><link rel="prefetch" href="/assets/js/63.e2f2897f.js"><link rel="prefetch" href="/assets/js/64.8f52af13.js"><link rel="prefetch" href="/assets/js/65.d3483f2c.js"><link rel="prefetch" href="/assets/js/66.142ba4e5.js"><link rel="prefetch" href="/assets/js/67.a5d671a7.js"><link rel="prefetch" href="/assets/js/68.f6e3aa17.js"><link rel="prefetch" href="/assets/js/69.fdf1350c.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/70.9dff3efb.js"><link rel="prefetch" href="/assets/js/71.262665e8.js"><link rel="prefetch" href="/assets/js/72.73136398.js"><link rel="prefetch" href="/assets/js/73.e20e1cda.js"><link rel="prefetch" href="/assets/js/74.2de2dab9.js"><link rel="prefetch" href="/assets/js/75.d033acb2.js"><link rel="prefetch" href="/assets/js/76.5f13e879.js"><link rel="prefetch" href="/assets/js/77.6652698b.js"><link rel="prefetch" href="/assets/js/78.afe723ed.js"><link rel="prefetch" href="/assets/js/79.3bb9a95d.js"><link rel="prefetch" href="/assets/js/8.f847aa7a.js"><link rel="prefetch" href="/assets/js/80.84bf0a56.js"><link rel="prefetch" href="/assets/js/81.88c56010.js"><link rel="prefetch" href="/assets/js/82.2b75bb62.js"><link rel="prefetch" href="/assets/js/83.3230acf5.js"><link rel="prefetch" href="/assets/js/84.02f48b8c.js"><link rel="prefetch" href="/assets/js/85.05feeacd.js"><link rel="prefetch" href="/assets/js/86.5abf208e.js"><link rel="prefetch" href="/assets/js/87.cec0c2e6.js"><link rel="prefetch" href="/assets/js/88.e62b7e95.js"><link rel="prefetch" href="/assets/js/89.708bba5c.js"><link rel="prefetch" href="/assets/js/9.93fa1ba1.js"><link rel="prefetch" href="/assets/js/90.f79f6a80.js"><link rel="prefetch" href="/assets/js/91.98970e22.js"><link rel="prefetch" href="/assets/js/92.de5dd0bd.js"><link rel="prefetch" href="/assets/js/93.1b91999e.js"><link rel="prefetch" href="/assets/js/94.7d7076a6.js"><link rel="prefetch" href="/assets/js/95.b2b0edd4.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.05e426fd.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is FE</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/React基础学习.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;method/常用方法代码总结/封装fetch方法.html" class="nav-link">
+  常用工具与方法
+</a></div><div class="nav-item"><a href="/server/nodejs/Nodejs学习笔记.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/React基础学习.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;method/常用方法代码总结/封装fetch方法.html" class="nav-link">
+  常用工具与方法
+</a></div><div class="nav-item"><a href="/server/nodejs/Nodejs学习笔记.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>React</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/framework/React/React基础学习.html" class="sidebar-link">React 基础学习</a></li><li><a href="/framework/React/关于React-Hooks.html" class="sidebar-link">关于 React-Hooks</a></li><li><a href="/framework/React/编写React应用程序步骤.html" class="sidebar-link">编写 React 应用程序步骤</a></li><li><a href="/framework/React/关于虚拟Dom和Diff算法.html" class="sidebar-link">Virtual DOM 及 Diff 算法</a></li><li><a href="/framework/React/关于React和不可变数据.html" class="sidebar-link">关于 React 和不可变数据</a></li><li><a href="/framework/React/Fiber的作用和原理.html" class="active sidebar-link">Fiber 的作用和原理</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/framework/React/Fiber的作用和原理.html#什么是-fiber" class="sidebar-link">什么是 Fiber</a></li><li class="sidebar-sub-header"><a href="/framework/React/Fiber的作用和原理.html#fiber-解决了哪些问题" class="sidebar-link">Fiber 解决了哪些问题</a></li><li class="sidebar-sub-header"><a href="/framework/React/Fiber的作用和原理.html#fiber-的实现原理" class="sidebar-link">Fiber 的实现原理</a></li><li class="sidebar-sub-header"><a href="/framework/React/Fiber的作用和原理.html#更多资料" class="sidebar-link">更多资料</a></li></ul></li><li><a href="/framework/React/应用状态该用React组件状态还是Redux.html" class="sidebar-link">应用状态该用 React 组件状态还是 Redux</a></li><li><a href="/framework/React/自定义Hooks和高阶组件.html" class="sidebar-link">自定义 Hooks 和高阶组件</a></li><li><a href="/framework/React/React项目的文件目录结构.html" class="sidebar-link">React 项目的文件目录结构</a></li><li><a href="/framework/React/React组件性能优化.html" class="sidebar-link">React 组件性能优化</a></li><li><a href="/framework/React/关于Redux.html" class="sidebar-link">关于 Redux</a></li><li><a href="/framework/React/Redux源码实现.html" class="sidebar-link">Redux 源码实现</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Vue</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/framework/Vue/vue-router实现原理.html" class="sidebar-link">vue-router 实现原理</a></li><li><a href="/framework/Vue/vue数据响应式原理.html" class="sidebar-link">vue 数据响应式原理</a></li><li><a href="/framework/Vue/Virtual DOM 介绍以及 Snabbdom 源码解析.html" class="sidebar-link">Virtual DOM 介绍以及 Snabbdom 源码解析</a></li><li><a href="/framework/Vue/Vue 源码解析--Vue 初始化和首次渲染.html" class="sidebar-link">Vue 源码解析--Vue 初始化和首次渲染</a></li><li><a href="/framework/Vue/Vue 源码解析--数据响应式原理.html" class="sidebar-link">Vue 源码解析--数据响应式原理</a></li><li><a href="/framework/Vue/Vue 源码解析--虚拟 Dom.html" class="sidebar-link">Vue 源码解析--虚拟 Dom</a></li><li><a href="/framework/Vue/Vue 源码解析--模板编译.html" class="sidebar-link">Vue 源码解析--模板编译和组件化</a></li><li><a href="/framework/Vue/Vue 源码解析--一些工具方法.html" class="sidebar-link">Vue 源码解析--一些工具方法</a></li><li><a href="/framework/Vue/Vuex 介绍及源码解析.html" class="sidebar-link">Vuex 介绍及源码解析</a></li><li><a href="/framework/Vue/Vue3 的优化.html" class="sidebar-link">Vue3 的优化</a></li><li><a href="/framework/Vue/使用 vue-server-renderer 开发一个 Vue 服务端渲染项目.html" class="sidebar-link">使用 vue-server-renderer 开发一个 Vue 服务端渲染项目</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="fiber-的作用和原理"><a href="#fiber-的作用和原理" class="header-anchor">#</a> Fiber 的作用和原理</h1> <h2 id="什么是-fiber"><a href="#什么是-fiber" class="header-anchor">#</a> 什么是 Fiber</h2> <blockquote><p>Fiber 是 React16 中的新的协调引擎。 它的主要目的是 Virtual DOM 可以进行增量式渲染。</p></blockquote> <p>以上这是 React 官方给的关于 Fiber 的描述,<strong>增量式渲染</strong>的意思就是把渲染任务拆分成块。Fiber 其实就是 Dom 比对的新的算法，以前 Dom 比对的方法叫做 <code>Stack Reconciler</code>。</p> <p>回想一下一个 React 组件的渲染主要经历两个阶段：</p> <ul><li><strong>调度阶段（Reconciler）</strong>：用新的数据生成一棵新的树，然后通过 Diff 算法，遍历旧的树，快速找出需要更新的元素，放到更新队列中去，得到新的更新队列。</li> <li><strong>渲染阶段（Renderer）</strong>：遍历更新队列，通过调用宿主环境的 API，实际更新渲染对应的元素。宿主环境如 DOM，Native 等。</li></ul> <p>我们也可以称为<code>diff</code>和<code>patch</code>两个阶段，Fiber 就是对<code>Reconciler</code>的改造。</p> <h2 id="fiber-解决了哪些问题"><a href="#fiber-解决了哪些问题" class="header-anchor">#</a> Fiber 解决了哪些问题</h2> <p>React 16 之前的版本比对更新 VirtualDOM 的过程是采用<strong>循环加递归</strong>实现的，这种比对方式有一个问题，就是一旦任务开始进行就无法中断，如果应用中组件数量庞大，主线程被长期占用，直到整棵 VirtualDOM 树比对更新完成之后主线程才能被释放，主线程才能执行其他任务。这就会导致一些用户交互，动画等任务无法立即得到执行，页面就会产生卡顿, 非常的影响用户体验。</p> <p>核心问题：<strong>递归无法中断，执行重任务耗时长。 JavaScript 又是单线程，无法同时执行其他任务，导致任务延迟页面卡顿，用户体验差。</strong></p> <p><code>Fiber Reconciler</code> 把一个耗时长的任务分成很多小片，每一个小片的运行时间很短，虽然总时间依然很长，但是在每个小片执行完之后，都给其他任务一个执行的机会，这样唯一的线程就不会被独占，其他任务依然有运行的机会。</p> <p>React Fiber 把更新过程碎片化，每执行完一段更新过程，就把控制权交还给 React 负责任务协调的模块，看看有没有其他紧急任务要做，如果没有就继续去更新，如果有紧急任务，那就去做紧急任务。</p> <p>维护每一个分片的数据结构，就是 <strong>Fiber</strong>。</p> <p>总之 Fiber 将原有的 <code>Stack Reconciler</code> 替换为 <code>Fiber Reconciler</code>，<strong>提高了复杂应用的可响应性和性能</strong>。主要通过以下方式达成目标：</p> <ul><li>对大型复杂任务的分片。</li> <li>对任务划分优先级，优先调度高优先级的任务。</li> <li>调度过程中，可以对任务进行挂起、恢复、终止等操作。</li></ul> <h2 id="fiber-的实现原理"><a href="#fiber-的实现原理" class="header-anchor">#</a> Fiber 的实现原理</h2> <p>下面通过实现一个简易的<a href="https://github.com/licop/Fiber" target="_blank" rel="noopener noreferrer">Fiber<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>项目来了解一下其原理, 该项目通过<code>Fiber Reconciler</code>实现了 React 的基础功能，可以对元素节点和组件的渲染、更新和删除。</p> <h3 id="核心-api-requestidlecallback"><a href="#核心-api-requestidlecallback" class="header-anchor">#</a> 核心 API requestIdleCallback</h3> <p>利用浏览器的空余时间执行任务，如果有更高优先级的任务要执行时，当前执行的任务可以被终止，优先执行高级别任务。</p> <p>比如说当页面有个计算任务在执行，浏览主线程是卡在这里的，并不能执行其他的任务。如果此时用户想要进行其他操作，页面就会变得卡顿，体验变差;
+我们可以将就计算任务放在<code>requestIdleCallback</code>中执行，用浏览的空余时间执行，当用户操作页面优先级比较高的任务就可以执行了。</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// 浏览器有空余时间，执行参数里的函数</span>
+<span class="token function">requestIdleCallback</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">deadline</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// deadline.timeRemaining() 获取浏览器的空余时间</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="浏览器空余时间"><a href="#浏览器空余时间" class="header-anchor">#</a> 浏览器空余时间</h3> <p>页面是一帧一帧绘制出来的，当每秒绘制的帧数达到 60 时，页面是流畅的，小于这个值时， 用户会感觉到卡顿</p> <p>1s 60 帧，每一帧分到的时间是 1000/60 ≈ 16 ms，如果每一帧执行的时间小于 16ms，就说明浏览器有空余时间</p> <p>如果任务在剩余的时间内没有完成则会停止任务执行，继续优先执行主任务，也就是说 <code>requestIdleCallback</code> 总是利用浏览器的空余时间执行任务</p> <h3 id="api-功能体验"><a href="#api-功能体验" class="header-anchor">#</a> API 功能体验</h3> <p>页面中有两个按钮和一个 DIV，点击第一个按钮执行一项昂贵的计算，使其长期占用主线程，当计算任务执行的时候去点击第二个按钮更改页面中 DIV 的背景颜色就会十分卡顿。</p> <p>使用 <code>requestIdleCallback</code> 就可以完美解决这个卡顿问题。</p> <div class="language-html extra-class"><pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>playground<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>play<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>playground<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>work<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>start work<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>interaction<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>handle some user interaction<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">&lt;style&gt;
+  .playground</span> <span class="token punctuation">{</span>
+    <span class="token property">background</span><span class="token punctuation">:</span> palevioletred<span class="token punctuation">;</span>
+    <span class="token property">padding</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+    <span class="token property">margin-bottom</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+&lt;/style&gt;
+</code></pre></div><div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">var</span> play <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&quot;play&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> workBtn <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&quot;work&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> interactionBtn <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&quot;interaction&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> iterationCount <span class="token operator">=</span> <span class="token number">100000000</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> value <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">expensiveCalculation</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">deadline</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 空余时间大于1s</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>iterationCount <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> deadline<span class="token punctuation">.</span><span class="token function">timeRemaining</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 用于产生昂贵的计算</span>
+    value <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0.5</span> <span class="token operator">?</span> value <span class="token operator">+</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> value <span class="token operator">+</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    iterationCount <span class="token operator">=</span> iterationCount <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">requestIdleCallback</span><span class="token punctuation">(</span>expensiveCalculation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+workBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&quot;click&quot;</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">requestIdleCallback</span><span class="token punctuation">(</span>expensiveCalculation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+interactionBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&quot;click&quot;</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  play<span class="token punctuation">.</span>style<span class="token punctuation">.</span>background <span class="token operator">=</span> <span class="token string">&quot;palegreen&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>目前 <code>requestIdleCallback</code> 目前只有 Chrome 支持。所以目前 React 自己实现了一个。</p> <h3 id="实现思路"><a href="#实现思路" class="header-anchor">#</a> 实现思路</h3> <p>除了 Fiber 工作单元的拆分，两阶段的拆分也是一个非常重要的改造，<strong>在此之前都是一边 Diff 一边提交的</strong>。先来看看这两者的区别:</p> <p><strong>协调阶段</strong>: 可以认为是 Diff 阶段, 这个阶段<strong>可以被中断</strong>, 这个阶段构建 Fiber 对象，并会找出所有节点变更，例如节点新增、删除、属性变更等等, 这些变更 React 称之为'副作用(Effect)' . 以下生命周期钩子会在协调阶段被调用：</p> <ul><li>constructor</li> <li>componentWillMount(废弃)</li> <li>componentWillReceiveProps(废弃)</li> <li>static getDerivedStateFromProps</li> <li>shouldComponentUpdate</li> <li>componentWillUpdate(废弃)</li> <li>render</li></ul> <p><strong>提交阶段</strong>: 将上一个阶段计算出来的需要处理的**副作用(Effects)**一次性执行了。这个阶段必须同步执行，<strong>不能被打断</strong>. 这些生命周期钩子在提交阶段被执行:</p> <ul><li>getSnapshotBeforeUpdate() 严格来说，这个是在进入 commit 阶段前调用</li> <li>componentDidMount</li> <li>componentDidUpdate</li> <li>componentWillUnmount</li></ul> <p>需要注意的是：因为<strong>协调阶段</strong>可能被中断、恢复，甚至重做，React 协调阶段的生命周期钩子可能会被调用多次! 例如 <code>componentWillMount</code> 可能会被调用两次。
+因此建议<strong>协调阶段</strong>的生命周期钩子不要包含副作用. 索性 React 就废弃了这部分可能包含副作用的生命周期方法，例如 <code>componentWillMount</code>、<code>componentWillUpdate</code>.</p> <h4 id="协调阶段-构建-fiber"><a href="#协调阶段-构建-fiber" class="header-anchor">#</a> 协调阶段 -&gt; 构建 Fiber</h4> <p>构建 Fiber 发生在生成 virtualDOM 之后，我们要在 virtualDOM 中找到每个内部的 virtualDOM 对象，为每个 virtualDOM 对象构建 Fiber 对象。Fiber 对象也是 JavaScript 对象，由 virtualDOM 对象演变而来，新增一些重要的信息，比如当前节点要执行的操作。当所有 Fiber 对象构建完成后，存放在一个 Fiber 的数组中。</p> <p>VirtualDom tree 变成 Fiber tree 了，以前是自上而下的简单树结构，现在是基于<strong>单链表的树结构</strong>，维护的节点关系更多一些。</p> <p><img src="/framework/react_fiber/react_fiber_2.png" alt=""></p> <p>以下是 Fiber 对象的一些属性， 由于 VirtualDom 对象节点树被抹平，所以 Fiber 对象需要添加<code>parent</code>, <code>child</code>, <code>sibling</code>属性，才能进行节点比对。</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  type         节点类型 (元素, 文本, 组件)(具体的类型)
+  props        节点属性
+  stateNode    节点 DOM 对象 | 组件实例对象
+  tag          节点标记 (对具体类型的分类 hostRoot || hostComponent || classComponent || functionComponent)
+  effects      数组, 存储需要更改的 fiber 对象
+  effectTag    当前 Fiber 要被执行的操作 (新增, 删除, 修改)
+  return/parent       当前 Fiber 的父级 Fiber
+  child        当前 Fiber 的子级 Fiber
+  sibling      当前 Fiber 的下一个兄弟 Fiber
+  alternate    旧的Fiber 备份， fiber 比对时使用
+}
+</code></pre></div><p>以下是协调阶段构建 Fiber 对象的简略代码。
+<code>workLoop</code> 的工作大概猜到了，它会从更新队列(taskQueue)中弹出更新任务来执行，每执行完一个‘执行单元‘，就检查一下剩余时间是否充足，如果充足就进行执行下一个执行单元。</p> <p><code>executeTask</code>去调用<code>reconcileChildren</code>函数构建子节点 fiber 对象，遍历 fiber 数结构按照<strong>先子节点后相邻节点</strong>的顺序，不断弹出子任务。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 构建根节点的fiber对象</span>
+<span class="token keyword">const</span> <span class="token function-variable function">getFirstTask</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 从任务队列中获取任务</span>
+  <span class="token keyword">const</span> task <span class="token operator">=</span> taskQueue<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">//...</span>
+
+  <span class="token comment">// 返回最外层节点的Fiber对象</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    props<span class="token operator">:</span> task<span class="token punctuation">.</span>props<span class="token punctuation">,</span>
+    stateNode<span class="token operator">:</span> task<span class="token punctuation">.</span>dom<span class="token punctuation">,</span>
+    <span class="token comment">// 根节点</span>
+    tag<span class="token operator">:</span> <span class="token string">&quot;host_root&quot;</span><span class="token punctuation">,</span>
+    effects<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    child<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+    <span class="token comment">// 旧的fiber对象备份</span>
+    alternate<span class="token operator">:</span> task<span class="token punctuation">.</span>dom<span class="token punctuation">.</span>__rootFiberContainer<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 构建子节点fiber对象</span>
+<span class="token keyword">const</span> <span class="token function-variable function">reconcileChildren</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">fiber<span class="token punctuation">,</span> children</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ***</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">executeTask</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">fiber</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 构建子级对象</span>
+  <span class="token comment">// ...</span>
+  <span class="token function">reconcileChildren</span><span class="token punctuation">(</span>fiber<span class="token punctuation">,</span> fiber<span class="token punctuation">.</span>props<span class="token punctuation">.</span>children<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">/**
+   * 如果子级存在 返回子级
+   * 将这个子级当做父级 构建这个父级下的子级
+   * 在workloop的while里进行循环调用
+   */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>fiber<span class="token punctuation">.</span>child<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> fiber<span class="token punctuation">.</span>child<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">/**
+   * 如果存在同级 返回同级 构建同级的子级
+   * 如果同级不存在 返回到父级 看父级是否有同级
+   * 这样就可以遍历所有节点了
+   */</span>
+  <span class="token keyword">let</span> currentExecutelyFiber <span class="token operator">=</span> fiber<span class="token punctuation">;</span>
+
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>currentExecutelyFiber<span class="token punctuation">.</span>parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 构建effects数组</span>
+    <span class="token comment">// 将所有的fiber存放在在外层fiber的effects中</span>
+    currentExecutelyFiber<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>effects <span class="token operator">=</span> currentExecutelyFiber<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>effects<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>
+      currentExecutelyFiber<span class="token punctuation">.</span>effects<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token punctuation">[</span>currentExecutelyFiber<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>currentExecutelyFiber<span class="token punctuation">.</span>sibling<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> currentExecutelyFiber<span class="token punctuation">.</span>sibling<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    currentExecutelyFiber <span class="token operator">=</span> currentExecutelyFiber<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 此时currentExecutelyFiber为根节点的fiber</span>
+  pendingCommit <span class="token operator">=</span> currentExecutelyFiber<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">workLoop</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">deadline</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 如果子任务不存在，就去获取子任务</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>subTask<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    subTask <span class="token operator">=</span> <span class="token function">getFirstTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 如果任务存在并且浏览器有空闲时间</span>
+  <span class="token comment">// executeTask方法执行任务，接受任务，返回新的任务</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>subTask <span class="token operator">&amp;&amp;</span> deadline<span class="token punctuation">.</span><span class="token function">timeRemaining</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    subTask <span class="token operator">=</span> <span class="token function">executeTask</span><span class="token punctuation">(</span>subTask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 获取到顶级节点的fiber和effects属性下的fiber数组，提交fiber进行渲染</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>pendingCommit<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">commitAllWork</span><span class="token punctuation">(</span>pendingCommit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">preformTask</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">deadline</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 执行任务</span>
+  <span class="token function">workLoop</span><span class="token punctuation">(</span>deadline<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 判断任务是否存在，判断任务队列中是否还有任务没有执行</span>
+  <span class="token comment">// 再次告诉浏览器在空闲的时间执行任务</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>subTask <span class="token operator">||</span> <span class="token operator">!</span>taskQueue<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">requestIdleCallback</span><span class="token punctuation">(</span>preformTask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">render</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">element<span class="token punctuation">,</span> dom</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 1. 向任务队列，添加任务</span>
+  <span class="token comment">// 任务就是通过virtualDOM对象构建Fiber对象</span>
+  taskQueue<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    dom<span class="token punctuation">,</span>
+    props<span class="token operator">:</span> <span class="token punctuation">{</span> children<span class="token operator">:</span> element <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 2. 指定在浏览器空闲时执行任务</span>
+  <span class="token function">requestIdleCallback</span><span class="token punctuation">(</span>preformTask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h4 id="提交阶段-commit"><a href="#提交阶段-commit" class="header-anchor">#</a> 提交阶段 Commit</h4> <p>将 Fiber 的渲染和变更的数据<strong>一次性提交</strong>，渲染为真实 DOM</p> <p><code>commitAllWork</code>的参数为根节点的 fiber 对象，<code>effects</code>属性中存放这所有节点的 fiber 对象</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> <span class="token function-variable function">commitAllWork</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">fiber</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 循环effects数组，构建dom节点树</span>
+  fiber<span class="token punctuation">.</span>effects<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 如果是类组件，在其组件实例对想中挂载fiber</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>item<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">&quot;class_component&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      item<span class="token punctuation">.</span>stateNode<span class="token punctuation">.</span>__fiber <span class="token operator">=</span> fiber<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>item<span class="token punctuation">.</span>effectTag <span class="token operator">===</span> <span class="token string">&quot;delete&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 删除节点</span>
+      item<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>stateNode<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span>stateNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>item<span class="token punctuation">.</span>effectTag <span class="token operator">===</span> <span class="token string">&quot;update&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 更新节点</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>item<span class="token punctuation">.</span>type <span class="token operator">===</span> item<span class="token punctuation">.</span>alternate<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 节点类型相同</span>
+        <span class="token function">updateElementNode</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span>stateNode<span class="token punctuation">,</span> item<span class="token punctuation">,</span> item<span class="token punctuation">.</span>alternate<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 节点类型不同</span>
+        item<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>stateNode<span class="token punctuation">.</span><span class="token function">replaceChild</span><span class="token punctuation">(</span>
+          item<span class="token punctuation">.</span>stateNode<span class="token punctuation">,</span>
+          item<span class="token punctuation">.</span>alternate<span class="token punctuation">.</span>stateNode
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>item<span class="token punctuation">.</span>effectTag <span class="token operator">===</span> <span class="token string">&quot;placement&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 当前要追加的子节点</span>
+      <span class="token keyword">let</span> fiber <span class="token operator">=</span> item<span class="token punctuation">;</span>
+      <span class="token comment">// 当前要追加的子节点的父级</span>
+      <span class="token keyword">let</span> parentFiber <span class="token operator">=</span> item<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+      <span class="token comment">/**
+       * 找到普通节点父级 排除组件父级
+       * 因为组件父级是不能直接追加真实DOM节点的
+       */</span>
+      <span class="token keyword">while</span> <span class="token punctuation">(</span>
+        parentFiber<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">&quot;class_component&quot;</span> <span class="token operator">||</span>
+        parentFiber<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">&quot;function_component&quot;</span>
+      <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        parentFiber <span class="token operator">=</span> parentFiber<span class="token punctuation">.</span>parent<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// 如果子节点是普通节点 找到父级 将子节点追加到父级中</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>fiber<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">&quot;host_component&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        parentFiber<span class="token punctuation">.</span>stateNode<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>fiber<span class="token punctuation">.</span>stateNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 在跟节点dom上备份旧的fiber节点对象</span>
+  fiber<span class="token punctuation">.</span>stateNode<span class="token punctuation">.</span>__rootFiberContainer <span class="token operator">=</span> fiber<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>DOM 初始渲染: virtualDOM -&gt; Fiber -&gt; Fiber[] -&gt; DOM</li> <li>DOM 更新操作: newFiber vs oldFiber -&gt; Fiber[] -&gt; DOM</li></ul> <p>其实稍一细想，从 <code>Stack reconciler</code> 到 <code>Fiber reconciler</code>，源码层面就是干了一件<strong>递归改循环</strong>的事情（当然，实际做的事情远不止递归改循环，但这是第一步）</p> <p>以上只是对 fiber 的原理的简易实现，并没有涉及复杂的双缓冲技术。</p> <h2 id="更多资料"><a href="#更多资料" class="header-anchor">#</a> 更多资料</h2> <ul><li><a href="https://zhuanlan.zhihu.com/p/26027085" target="_blank" rel="noopener noreferrer">React Fiber 是什么<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://cloud.tencent.com/developer/article/1882296" target="_blank" rel="noopener noreferrer">React Fiber 的作用和原理<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="http://www.ayqy.net/blog/dive-into-react-fiber/" target="_blank" rel="noopener noreferrer">完全理解 React Fiber<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://juejin.cn/post/6844903975112671239" target="_blank" rel="noopener noreferrer">这可能是最通俗的 React Fiber(时间分片) 打开方式<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://juejin.cn/post/6937560479795511303" target="_blank" rel="noopener noreferrer">走进 React Fiber 的世界<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/framework/React/关于React和不可变数据.html" class="prev">
+        关于 React 和不可变数据
+      </a></span> <span class="next"><a href="/framework/React/应用状态该用React组件状态还是Redux.html">
+        应用状态该用 React 组件状态还是 Redux
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.23d3122b.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/33.02f2ea3b.js" defer></script><script src="/assets/js/3.b304fdc1.js" defer></script>
+  </body>
+</html>

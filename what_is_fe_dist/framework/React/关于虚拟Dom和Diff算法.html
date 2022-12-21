@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Virtual DOM 及 Diff 算法 | What is FE</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.05e426fd.css" as="style"><link rel="preload" href="/assets/js/app.23d3122b.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/44.c2c8ac29.js" as="script"><link rel="preload" href="/assets/js/3.b304fdc1.js" as="script"><link rel="prefetch" href="/assets/js/10.a37a353b.js"><link rel="prefetch" href="/assets/js/11.d1b90c3d.js"><link rel="prefetch" href="/assets/js/12.d3bf7b11.js"><link rel="prefetch" href="/assets/js/13.6f6b4894.js"><link rel="prefetch" href="/assets/js/14.2c89a43b.js"><link rel="prefetch" href="/assets/js/15.565302df.js"><link rel="prefetch" href="/assets/js/16.863ec29e.js"><link rel="prefetch" href="/assets/js/17.81c8a830.js"><link rel="prefetch" href="/assets/js/18.4e8004a4.js"><link rel="prefetch" href="/assets/js/19.04ae3cb6.js"><link rel="prefetch" href="/assets/js/20.43106a54.js"><link rel="prefetch" href="/assets/js/21.56a2417a.js"><link rel="prefetch" href="/assets/js/22.d0c70b78.js"><link rel="prefetch" href="/assets/js/23.9da4a7d3.js"><link rel="prefetch" href="/assets/js/24.6382844b.js"><link rel="prefetch" href="/assets/js/25.33b58a3b.js"><link rel="prefetch" href="/assets/js/26.f5dfaeb5.js"><link rel="prefetch" href="/assets/js/27.a01f0f1c.js"><link rel="prefetch" href="/assets/js/28.8f4ee848.js"><link rel="prefetch" href="/assets/js/29.14745b03.js"><link rel="prefetch" href="/assets/js/30.339e63b1.js"><link rel="prefetch" href="/assets/js/31.299a0ec5.js"><link rel="prefetch" href="/assets/js/32.36a9b7fc.js"><link rel="prefetch" href="/assets/js/33.02f2ea3b.js"><link rel="prefetch" href="/assets/js/34.8c2fd8ae.js"><link rel="prefetch" href="/assets/js/35.e1131b1f.js"><link rel="prefetch" href="/assets/js/36.ca800f3d.js"><link rel="prefetch" href="/assets/js/37.834c20f9.js"><link rel="prefetch" href="/assets/js/38.f0c65a45.js"><link rel="prefetch" href="/assets/js/39.4d09d993.js"><link rel="prefetch" href="/assets/js/4.61dc0fce.js"><link rel="prefetch" href="/assets/js/40.f50d8b03.js"><link rel="prefetch" href="/assets/js/41.e634a1d4.js"><link rel="prefetch" href="/assets/js/42.4409db03.js"><link rel="prefetch" href="/assets/js/43.eb927c4f.js"><link rel="prefetch" href="/assets/js/45.8c89abb2.js"><link rel="prefetch" href="/assets/js/46.1f598736.js"><link rel="prefetch" href="/assets/js/47.0dc0c336.js"><link rel="prefetch" href="/assets/js/48.7311c091.js"><link rel="prefetch" href="/assets/js/49.0590a5ee.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/50.5e6aa420.js"><link rel="prefetch" href="/assets/js/51.daaa3ea1.js"><link rel="prefetch" href="/assets/js/52.3be16e9a.js"><link rel="prefetch" href="/assets/js/53.f73c6710.js"><link rel="prefetch" href="/assets/js/54.a7d47983.js"><link rel="prefetch" href="/assets/js/55.5de6d42b.js"><link rel="prefetch" href="/assets/js/56.23b3eed4.js"><link rel="prefetch" href="/assets/js/57.a3fcd7a7.js"><link rel="prefetch" href="/assets/js/58.bceb7f62.js"><link rel="prefetch" href="/assets/js/59.1755e44b.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/60.0bd98a77.js"><link rel="prefetch" href="/assets/js/61.f0cd536c.js"><link rel="prefetch" href="/assets/js/62.1d73b33b.js"><link rel="prefetch" href="/assets/js/63.e2f2897f.js"><link rel="prefetch" href="/assets/js/64.8f52af13.js"><link rel="prefetch" href="/assets/js/65.d3483f2c.js"><link rel="prefetch" href="/assets/js/66.142ba4e5.js"><link rel="prefetch" href="/assets/js/67.a5d671a7.js"><link rel="prefetch" href="/assets/js/68.f6e3aa17.js"><link rel="prefetch" href="/assets/js/69.fdf1350c.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/70.9dff3efb.js"><link rel="prefetch" href="/assets/js/71.262665e8.js"><link rel="prefetch" href="/assets/js/72.73136398.js"><link rel="prefetch" href="/assets/js/73.e20e1cda.js"><link rel="prefetch" href="/assets/js/74.2de2dab9.js"><link rel="prefetch" href="/assets/js/75.d033acb2.js"><link rel="prefetch" href="/assets/js/76.5f13e879.js"><link rel="prefetch" href="/assets/js/77.6652698b.js"><link rel="prefetch" href="/assets/js/78.afe723ed.js"><link rel="prefetch" href="/assets/js/79.3bb9a95d.js"><link rel="prefetch" href="/assets/js/8.f847aa7a.js"><link rel="prefetch" href="/assets/js/80.84bf0a56.js"><link rel="prefetch" href="/assets/js/81.88c56010.js"><link rel="prefetch" href="/assets/js/82.2b75bb62.js"><link rel="prefetch" href="/assets/js/83.3230acf5.js"><link rel="prefetch" href="/assets/js/84.02f48b8c.js"><link rel="prefetch" href="/assets/js/85.05feeacd.js"><link rel="prefetch" href="/assets/js/86.5abf208e.js"><link rel="prefetch" href="/assets/js/87.cec0c2e6.js"><link rel="prefetch" href="/assets/js/88.e62b7e95.js"><link rel="prefetch" href="/assets/js/89.708bba5c.js"><link rel="prefetch" href="/assets/js/9.93fa1ba1.js"><link rel="prefetch" href="/assets/js/90.f79f6a80.js"><link rel="prefetch" href="/assets/js/91.98970e22.js"><link rel="prefetch" href="/assets/js/92.de5dd0bd.js"><link rel="prefetch" href="/assets/js/93.1b91999e.js"><link rel="prefetch" href="/assets/js/94.7d7076a6.js"><link rel="prefetch" href="/assets/js/95.b2b0edd4.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.05e426fd.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is FE</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/React基础学习.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;method/常用方法代码总结/封装fetch方法.html" class="nav-link">
+  常用工具与方法
+</a></div><div class="nav-item"><a href="/server/nodejs/Nodejs学习笔记.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/React基础学习.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;method/常用方法代码总结/封装fetch方法.html" class="nav-link">
+  常用工具与方法
+</a></div><div class="nav-item"><a href="/server/nodejs/Nodejs学习笔记.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>React</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/framework/React/React基础学习.html" class="sidebar-link">React 基础学习</a></li><li><a href="/framework/React/关于React-Hooks.html" class="sidebar-link">关于 React-Hooks</a></li><li><a href="/framework/React/编写React应用程序步骤.html" class="sidebar-link">编写 React 应用程序步骤</a></li><li><a href="/framework/React/关于虚拟Dom和Diff算法.html" class="active sidebar-link">Virtual DOM 及 Diff 算法</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#虚拟-dom" class="sidebar-link">虚拟 Dom</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#协调" class="sidebar-link">协调</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#diffing-算法" class="sidebar-link">Diffing 算法</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#触发协调的场景" class="sidebar-link">触发协调的场景</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#virtual-dom-如何提升效率" class="sidebar-link">Virtual DOM 如何提升效率</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#创建-virtual-dom" class="sidebar-link">创建 Virtual DOM</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#渲染-virtualdom-为真实-dom-对象" class="sidebar-link">渲染 VirtualDOM 为真实 DOM 对象</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#为元素节点添加属性" class="sidebar-link">为元素节点添加属性</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#渲染组件" class="sidebar-link">渲染组件</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#virtual-dom-比对" class="sidebar-link">Virtual DOM 比对</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#ref-属性" class="sidebar-link">ref 属性</a></li><li class="sidebar-sub-header"><a href="/framework/React/关于虚拟Dom和Diff算法.html#key-属性" class="sidebar-link">key 属性</a></li></ul></li><li><a href="/framework/React/关于React和不可变数据.html" class="sidebar-link">关于 React 和不可变数据</a></li><li><a href="/framework/React/Fiber的作用和原理.html" class="sidebar-link">Fiber 的作用和原理</a></li><li><a href="/framework/React/应用状态该用React组件状态还是Redux.html" class="sidebar-link">应用状态该用 React 组件状态还是 Redux</a></li><li><a href="/framework/React/自定义Hooks和高阶组件.html" class="sidebar-link">自定义 Hooks 和高阶组件</a></li><li><a href="/framework/React/React项目的文件目录结构.html" class="sidebar-link">React 项目的文件目录结构</a></li><li><a href="/framework/React/React组件性能优化.html" class="sidebar-link">React 组件性能优化</a></li><li><a href="/framework/React/关于Redux.html" class="sidebar-link">关于 Redux</a></li><li><a href="/framework/React/Redux源码实现.html" class="sidebar-link">Redux 源码实现</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Vue</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/framework/Vue/vue-router实现原理.html" class="sidebar-link">vue-router 实现原理</a></li><li><a href="/framework/Vue/vue数据响应式原理.html" class="sidebar-link">vue 数据响应式原理</a></li><li><a href="/framework/Vue/Virtual DOM 介绍以及 Snabbdom 源码解析.html" class="sidebar-link">Virtual DOM 介绍以及 Snabbdom 源码解析</a></li><li><a href="/framework/Vue/Vue 源码解析--Vue 初始化和首次渲染.html" class="sidebar-link">Vue 源码解析--Vue 初始化和首次渲染</a></li><li><a href="/framework/Vue/Vue 源码解析--数据响应式原理.html" class="sidebar-link">Vue 源码解析--数据响应式原理</a></li><li><a href="/framework/Vue/Vue 源码解析--虚拟 Dom.html" class="sidebar-link">Vue 源码解析--虚拟 Dom</a></li><li><a href="/framework/Vue/Vue 源码解析--模板编译.html" class="sidebar-link">Vue 源码解析--模板编译和组件化</a></li><li><a href="/framework/Vue/Vue 源码解析--一些工具方法.html" class="sidebar-link">Vue 源码解析--一些工具方法</a></li><li><a href="/framework/Vue/Vuex 介绍及源码解析.html" class="sidebar-link">Vuex 介绍及源码解析</a></li><li><a href="/framework/Vue/Vue3 的优化.html" class="sidebar-link">Vue3 的优化</a></li><li><a href="/framework/Vue/使用 vue-server-renderer 开发一个 Vue 服务端渲染项目.html" class="sidebar-link">使用 vue-server-renderer 开发一个 Vue 服务端渲染项目</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="virtual-dom-及-diff-算法"><a href="#virtual-dom-及-diff-算法" class="header-anchor">#</a> Virtual DOM 及 Diff 算法</h1> <p>本篇文章讲介绍什么<strong>Virtual DOM</strong> 和 <strong>Diff 算法</strong>， 以及通过实现一个简易版本的 react 项目<a href="https://github.com/licop/tiny-react" target="_blank" rel="noopener noreferrer">tiny-react<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>来具体了解其原理和具体实现。</p> <h2 id="虚拟-dom"><a href="#虚拟-dom" class="header-anchor">#</a> 虚拟 Dom</h2> <p><strong>虚拟 DOM（Virtual DOM）</strong> 是前端领域近几年比较出圈的一个概念，是相对于 HTML DOM（Document Object Model，文档对象模型）更轻量的 JS 模型。在 React、Vue.js、Elm 这样的声明式前端框架中，都包含了虚拟 DOM。</p> <p>面向前端开发者，React 提供了包括 JSX 语法在内的声明组件 API，在运行时，开发者声明的组件会渲染成虚拟 DOM，虚拟 DOM 再由 React 框架渲染成真实的 DOM；虚拟 DOM 的变动，最终会自动体现在真实 DOM 上；真实 DOM 上的交互，也会由 React 框架抽象成虚拟 DOM 上的副作用（Side-effect），与开发者编写的交互逻辑关联起来。</p> <p><strong>理想状态下，开发者在开发 React 应用时，可以完全不去接触真实 DOM</strong>（但现实世界中这种情况很少见），一定程度上隐藏了 Web 原生技术的细节，有助于提高开发效率。</p> <p>如下图所示，左半边展示了 React 面向开发者的 API，右半边则是 React 内部实现对 DOM API 的封装，渲染面向用户的页面：</p> <p><img src="/framework/react_dom_1.png" alt=""></p> <p>可以把 Virtual DOM 对象理解为 DOM 对象的副本，但是它不能直接显示在屏幕上。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">&quot;container&quot;</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>h3<span class="token operator">&gt;</span>Hello React<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>React is great <span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token punctuation">{</span>
+  type<span class="token operator">:</span> <span class="token string">&quot;div&quot;</span><span class="token punctuation">,</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span> className<span class="token operator">:</span> <span class="token string">&quot;container&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  children<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> <span class="token string">&quot;h3&quot;</span><span class="token punctuation">,</span>
+      props<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+      children<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          type<span class="token operator">:</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span>
+          props<span class="token operator">:</span> <span class="token punctuation">{</span>
+            textContent<span class="token operator">:</span> <span class="token string">&quot;Hello React&quot;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> <span class="token string">&quot;p&quot;</span><span class="token punctuation">,</span>
+      props<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+      children<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          type<span class="token operator">:</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span>
+          props<span class="token operator">:</span> <span class="token punctuation">{</span>
+            textContent<span class="token operator">:</span> <span class="token string">&quot;React is great&quot;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="真实-dom-有什么问题"><a href="#真实-dom-有什么问题" class="header-anchor">#</a> 真实 DOM 有什么问题？</h3> <p>React 的设计哲学 UI=f(state) ，理论上来说，对于给定的 f() 和状态数据，一定可以重现一模一样的 UI；这也意味着，<strong>只要状态数据有变化，f()就需要重新执行，整个 UI 需要重新渲染。</strong></p> <p><strong>操作真实 DOM 是比较耗费资源的</strong>，无脑地大量调用 DOM API 绘制页面，页面很容易就卡了。</p> <p>这时就需要 React 提供一系列算法和过程，过滤掉没有必要的 DOM API 调用，最终把 f() 的成本降下来。虚拟 DOM 就是这些算法过程的中间模型，它远比 DOM API 轻量，跟最终的 DOM API 分摊成本后，可以保证 React 组件的渲染效率。</p> <p>虚拟 DOM 的价值在于，当你构建应用时，无需考虑状态的变化如何体现在 UI 上，且一般情况下不用担心性能问题。这减少了代码 Bug，比起乏味的编码，你可以把更多时间投入到创造性的工作上。</p> <h2 id="协调"><a href="#协调" class="header-anchor">#</a> 协调</h2> <p>React 组件会渲染出一棵元素树。因为开发者使用的是 React 的声明式 API，在此基础上，每次有 props、state 等数据变动时，组件会渲染出新的元素树，React 框架会与之前的树做 Diffing 对比，将元素的变动最终体现在浏览器页面的 DOM 中。这一过程就称为<strong>协调（Reconciliation）</strong></p> <h2 id="diffing-算法"><a href="#diffing-算法" class="header-anchor">#</a> Diffing 算法</h2> <p>React 在以下两个假设的基础之上提出了一套 O(n) 的启发式算法：</p> <ul><li>两个不同类型的元素会产生出不同的树；</li> <li>开发者可以使用 key 属性标识哪些子元素在不同的渲染中可能是不变的。</li></ul> <p>React 框架后续的版本中也在不断优化 Diffing 算法。近四年算法细节变了不少，但基本逻辑还是能归纳出以下几点：</p> <ol><li>从根元素开始，React 将递归对比两棵树的根元素和子元素；</li> <li>对比不同类型的元素，如对比 HTML 元素和 React 组件元素，React 会直接清理旧的元素和它的子树，然后建立新的树；</li> <li>对比同为 HTML 元素，但 Tag 不同的元素，如从 <code>&lt;a&gt;</code>变成 <code>&lt;div&gt;</code> ，React 会直接清理旧的元素和子树，然后建立新的树；</li> <li>对比同为 React 组件元素，但组件类或组件函数不同的元素，如从 NewCard 变成 Card ，React 会卸载旧的元素和子树，然后挂载新的元素树；</li> <li>对比 Tag 相同的 HTML 元素，如 <code>&lt;input type=&quot;text&quot; value=&quot;old&quot; /&gt;</code> 和 <code>&lt;input type=&quot;text&quot; value=&quot;new&quot; /&gt;</code> ，React 将会保留该元素，并记录有改变的属性，在这个例子里就是 value 的值从 &quot;old&quot; 变成了 &quot;new&quot; ；</li> <li>对比组件类或组件函数相同的组件元素，如 <code>&lt;Card title=&quot;老卡片&quot; /&gt;</code> 和 <code>&lt;Card title=&quot;新卡片&quot; /&gt;</code> ，React 会保留组件实例，更新 props，并触发组件的生命周期方法或者 Hooks。</li></ol> <p>需要强调的是，在对比两棵树对应节点的子元素时，如果子元素形成一个列表，那么 React 会按顺序尝试匹配新旧两个列表的元素。</p> <p>如果对比结果是在列表末尾新增或者减少元素那还好，但如果是在列表头部或者中间插入或者删除元素，React 就不知道该保留哪个元素了，干脆把整个列表都推翻了重建，这样会带来性能损耗。</p> <p>为了应对这种情况，React 引入了 key 这个特殊属性，当有子元素列表中的元素有这个属性时，<strong>React 会利用这个 key 属性值来匹配新旧列表中的元素</strong>，以减少插入元素时的性能损耗。</p> <p>这样的用途就要求在<strong>任何一个子元素列表中，key 对于每个元素应该是唯一的且稳定的</strong>。比如你的数据来自于数据库，包含了自增 ID，那么你就可以用这个 ID 当作 key 的值。</p> <h2 id="触发协调的场景"><a href="#触发协调的场景" class="header-anchor">#</a> 触发协调的场景</h2> <p>了解了什么是协调，以及协调对比算法的基本逻辑，我们再回到 React 应用开发者的视角，看一下开发者做什么事情时会触发协调。</p> <p>首先，开发者在使用 React API 时，不应该随时想着协调的细节，否则会加重开发者的负担；但协调又是页面最终变化的必经之路，这在前面已经强调过。那么如果你是 React 框架的设计者，你会选择在什么情况下触发协调？一般而言你会有两个方向的选择，<strong>拉（Pull）或者推（Push）</strong>。</p> <p>轮询（Polling）就是一种“拉”的方案，我们假设一个极端的设计，让 React 间隔每 16ms 触发一次协调，这从功能上是一定可以实现需求的，只要 React 元素树有风吹草动，这一次的协调就会算出 Diff，更新页面。但很容易就能看出这种方式的问题，也许元素树很长时间都没有变过，这会导致做了太多次没必要的协调，增加了资源的开销。</p> <p>那么我们选择“推”的方案。我们要有方式告诉 React，说我们需要触发协调，而且这个方式应该停留在 React API 层面，否则会把协调这一内部过程的复杂性暴露给开发者。结合 React 的设计哲学，UI=f(state) （这个 state 泛指组件数据，不是 React 接口里哪个 state），我们认为只有数据变化时，才需要触发协调。</p> <p>这就好办了，在 React API 里有哪些是操作组件数据的？是的， props 和 state ，除此之外再加一个 context。其中 props 从组件外面传进来，state 则是活跃在组件内部，至于 context ，在组件外面的 Context.Provider 提供数据，组件内部则可以消费 context 数据。</p> <p><strong>只要这三种数据之一发生了变化，React 就会对当前组件触发协调过程，最终按照 Diffing 结果更改页面。</strong></p> <blockquote><p>注意：一个组件的 props 应该由父组件传进来，props 数据的变动也应该由父组件负责，不可以在自身组件的随意变更。</p></blockquote> <p>下面我们通过<a href="https://github.com/licop/tiny-react" target="_blank" rel="noopener noreferrer">tiny-react<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>来看看<strong>Virtual DOM</strong> 和 <strong>Diff 算法</strong> 是如何实现的吧</p> <h2 id="virtual-dom-如何提升效率"><a href="#virtual-dom-如何提升效率" class="header-anchor">#</a> Virtual DOM 如何提升效率</h2> <p><strong>精准找出发生变化的 DOM 对象，只更新发生变化的部分。</strong></p> <p>在 React 第一次创建 DOM 对象后，会为每个 DOM 对象创建其对应的 Virtual DOM 对象，在 DOM 对象发生更新之前，React 会先更新所有的 Virtual DOM 对象，然后 React 会将更新后的 Virtual DOM 和 更新前的 Virtual DOM 进行比较，从而找出发生变化的部分，React 会将发生变化的部分更新到真实的 DOM 对象中，React 仅更新必要更新的部分。</p> <p>Virtual DOM 对象的更新和比较仅发生在内存中，不会在视图中渲染任何内容，所以这一部分的性能损耗成本是微不足道的。</p> <p><img src="/framework/react_diff/react_diff_1.png" alt=""></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">&quot;container&quot;</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>Hello React<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">&quot;container&quot;</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>Hello Angular<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> before <span class="token operator">=</span> <span class="token punctuation">{</span>
+  type<span class="token operator">:</span> <span class="token string">&quot;div&quot;</span><span class="token punctuation">,</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span> id<span class="token operator">:</span> <span class="token string">&quot;container&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  children<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> <span class="token string">&quot;p&quot;</span><span class="token punctuation">,</span>
+      props<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+      children<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> type<span class="token operator">:</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span> props<span class="token operator">:</span> <span class="token punctuation">{</span> textContent<span class="token operator">:</span> <span class="token string">&quot;Hello React&quot;</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> after <span class="token operator">=</span> <span class="token punctuation">{</span>
+  type<span class="token operator">:</span> <span class="token string">&quot;div&quot;</span><span class="token punctuation">,</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span> id<span class="token operator">:</span> <span class="token string">&quot;container&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  children<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> <span class="token string">&quot;p&quot;</span><span class="token punctuation">,</span>
+      props<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+      children<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> type<span class="token operator">:</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span> props<span class="token operator">:</span> <span class="token punctuation">{</span> textContent<span class="token operator">:</span> <span class="token string">&quot;Hello Angular&quot;</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="创建-virtual-dom"><a href="#创建-virtual-dom" class="header-anchor">#</a> 创建 Virtual DOM</h2> <p>在 React 代码执行前，JSX 会被 Babel 转换为 React.createElement 方法的调用，在调用 createElement 方法时会传入元素的类型，元素的属性，以及元素的子元素，createElement 方法的返回值为构建好的 Virtual DOM 对象。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token punctuation">{</span>
+  type<span class="token operator">:</span> <span class="token string">&quot;div&quot;</span><span class="token punctuation">,</span>
+  props<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  children<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>type<span class="token operator">:</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span> props<span class="token operator">:</span> <span class="token punctuation">{</span>textContent<span class="token operator">:</span> <span class="token string">&quot;Hello&quot;</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * 创建 Virtual DOM
+ * @param {string} type 类型
+ * @param {object | null} props 属性
+ * @param  {createElement[]} children 子元素
+ * @return {object} Virtual DOM
+ */</span>
+<span class="token keyword">function</span> <span class="token function">createElement</span><span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> props<span class="token punctuation">,</span> <span class="token operator">...</span>children</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    type<span class="token punctuation">,</span>
+    props<span class="token punctuation">,</span>
+    children<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>从 createElement 方法的第三个参数开始就都是子元素了，在定义 createElement 方法时，通过 <code>...children</code> 将所有的子元素放置到 children 数组中。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> virtualDOM <span class="token operator">=</span> <span class="token punctuation">(</span>
+  <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">&quot;container&quot;</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span>你好 Tiny React<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span><span class="token punctuation">(</span>编码必杀技<span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>
+      嵌套<span class="token number">1</span> <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>嵌套 <span class="token number">1.1</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h3<span class="token operator">&gt;</span><span class="token punctuation">(</span>观察<span class="token operator">:</span> 这个将会被改变<span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">&gt;</span>
+    <span class="token punctuation">{</span><span class="token number">2</span> <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>如果<span class="token number">2</span>和<span class="token number">1</span>相等渲染当前内容<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token number">2</span> <span class="token operator">==</span> <span class="token number">2</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span><span class="token number">2</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span>span<span class="token operator">&gt;</span>这是一段内容<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">&quot;你好&quot;</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&gt;</span>点击我<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h3<span class="token operator">&gt;</span>这个将会被删除<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">&gt;</span>
+    <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>通过以上代码测试，发现返回的 Virtual DOM 存在一些问题，第一个问题是文本节点被直接放入到了数组中</p> <p><img src="/framework/react_diff/react_diff_2.png" alt=""></p> <p>而我们期望是文本节点应该是这样的</p> <div class="language-json extra-class"><pre class="language-json"><code>children<span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    type<span class="token operator">:</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span>
+    props<span class="token operator">:</span> <span class="token punctuation">{</span>
+      textContent<span class="token operator">:</span> <span class="token string">&quot;React is great&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>;
+</code></pre></div><p>通过以下代码对 Virtual DOM 进行改造，重新构建 Virtual DOM。</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// 将原有 children 拷贝一份 不要在原有数组上进行操作</span>
+<span class="token keyword">const</span> childElements <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token operator">...</span>children<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">child</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 判断 child 是否是对象类型</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>child <span class="token keyword">instanceof</span> <span class="token class-name">Object</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 如果是 什么都不需要做 直接返回即可</span>
+    <span class="token keyword">return</span> child<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 如果不是对象就是文本 手动调用 createElement 方法将文本转换为 Virtual DOM</span>
+    <span class="token keyword">return</span> <span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> textContent<span class="token operator">:</span> child <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">return</span> <span class="token punctuation">{</span>
+  type<span class="token punctuation">,</span>
+  props<span class="token punctuation">,</span>
+  children<span class="token operator">:</span> childElements<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p><img src="/framework/react_diff/react_diff_3.png" alt=""></p> <p>通过观察返回的 Virtual DOM，文本节点已经被转化成了对象类型的 Virtual DOM，但是布尔值也被当做文本节点被转化了，在 JSX 中，如果 Virtual DOM 被转化为了布尔值或者 null，是不应该被更新到真实 DOM 中的，所以接下来要做的事情就是清除 Virtual DOM 中的布尔值和 null。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 由于 map 方法无法从数据中刨除元素, 所以此处将 map 方法更改为 reduce 方法</span>
+<span class="token keyword">const</span> childElements <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token operator">...</span>children<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">result<span class="token punctuation">,</span> child</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 判断子元素类型 刨除 null true false</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>child <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> child <span class="token operator">!=</span> <span class="token boolean">false</span> <span class="token operator">&amp;&amp;</span> child <span class="token operator">!=</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>child <span class="token keyword">instanceof</span> <span class="token class-name">Object</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>child<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> textContent<span class="token operator">:</span> child <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 将需要保留的 Virtual DOM 放入 result 数组</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>在 React 组件中，可以通过 props.children 获取子元素，所以还需要将子元素存储在 props 对象中。</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">return</span> <span class="token punctuation">{</span>
+  type<span class="token punctuation">,</span>
+  props<span class="token operator">:</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span> children<span class="token operator">:</span> childElements <span class="token punctuation">}</span><span class="token punctuation">,</span> props<span class="token punctuation">)</span><span class="token punctuation">,</span>
+  children<span class="token operator">:</span> childElements<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="渲染-virtualdom-为真实-dom-对象"><a href="#渲染-virtualdom-为真实-dom-对象" class="header-anchor">#</a> 渲染 VirtualDOM 为真实 DOM 对象</h2> <p>通过调用 render 方法可以将 Virtual DOM 对象更新为真实 DOM 对象。</p> <p>在更新之前需要确定是否存在旧的 Virtual DOM，如果存在需要比对差异，如果不存在可以直接将 Virtual DOM 转换为 DOM 对象。</p> <p>目前先只考虑不存在旧的 Virtual DOM 的情况，就是说先直接将 Virtual DOM 对象更新为真实 DOM 对象。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// render.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">render</span><span class="token punctuation">(</span>
+  <span class="token parameter">virtualDOM<span class="token punctuation">,</span>
+  container<span class="token punctuation">,</span>
+  oldDOM <span class="token operator">=</span> container<span class="token punctuation">.</span>firstChild</span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 在 diff 方法内部判断是否需要对比 对比也好 不对比也好 都在 diff 方法中进行操作</span>
+  <span class="token function">diff</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">,</span> oldDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diff.js</span>
+<span class="token keyword">import</span> mountElement <span class="token keyword">from</span> <span class="token string">&quot;./mountElement&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">diff</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">,</span> oldDOM</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 判断 oldDOM 是否存在</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>oldDOM<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 如果不存在 不需要对比 直接将 Virtual DOM 转换为真实 DOM</span>
+    <span class="token function">mountElement</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在进行 virtual DOM 转换之前还需要确定 Virtual DOM 的类 Component VS Native Element。</p> <p>类型不同需要做不同的处理 如果是 Native Element 直接转换。</p> <p>如果是组件 还需要得到组件实例对象 通过组件实例对象获取组件返回的 virtual DOM 然后再进行转换。</p> <p>目前先只考虑 Native Element 的情况。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// mountElement.js</span>
+<span class="token keyword">import</span> mountNativeElement <span class="token keyword">from</span> <span class="token string">&quot;./mountNativeElement&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">mountElement</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> container</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 通过调用 mountNativeElement 方法转换 Native Element</span>
+  <span class="token function">mountNativeElement</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// mountNativeElement.js</span>
+<span class="token keyword">import</span> createDOMElement <span class="token keyword">from</span> <span class="token string">&quot;./createDOMElement&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">mountNativeElement</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> container</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> newElement <span class="token operator">=</span> <span class="token function">createDOMElement</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  container<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>newElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// createDOMElement.js</span>
+<span class="token keyword">import</span> mountElement <span class="token keyword">from</span> <span class="token string">&quot;./mountElement&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> updateElementNode <span class="token keyword">from</span> <span class="token string">&quot;./updateElementNode&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">createDOMElement</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> newElement <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 创建文本节点</span>
+    newElement <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createTextNode</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">.</span>textContent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 创建元素节点</span>
+    newElement <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 更新元素属性</span>
+    <span class="token function">updateElementNode</span><span class="token punctuation">(</span>newElement<span class="token punctuation">,</span> virtualDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 递归渲染子节点</span>
+  virtualDOM<span class="token punctuation">.</span>children<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">child</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 因为不确定子元素是 NativeElement 还是 Component 所以调用 mountElement 方法进行确定</span>
+    <span class="token function">mountElement</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> newElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> newElement<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="为元素节点添加属性"><a href="#为元素节点添加属性" class="header-anchor">#</a> 为元素节点添加属性</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// createDOMElement.js</span>
+<span class="token comment">// 看看节点类型是文本类型还是元素类型</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 创建文本节点 设置节点内容</span>
+  newElement <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createTextNode</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">.</span>textContent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 根据 Virtual DOM type 属性值创建 DOM 元素</span>
+  newElement <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 为元素设置属性</span>
+  <span class="token function">updateElementNode</span><span class="token punctuation">(</span>newElement<span class="token punctuation">,</span> virtualDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">updateElementNode</span><span class="token punctuation">(</span><span class="token parameter">element<span class="token punctuation">,</span> virtualDOM</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 获取要解析的 VirtualDOM 对象中的属性对象</span>
+  <span class="token keyword">const</span> newProps <span class="token operator">=</span> virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+  <span class="token comment">// 将属性对象中的属性名称放到一个数组中并循环数组</span>
+  Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>newProps<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">propName</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> newPropsValue <span class="token operator">=</span> newProps<span class="token punctuation">[</span>propName<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token comment">// 考虑属性名称是否以 on 开头 如果是就表示是个事件属性 onClick -&gt; click</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>propName<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&quot;on&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> eventName <span class="token operator">=</span> propName<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      element<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>eventName<span class="token punctuation">,</span> newPropsValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// 如果属性名称是 value 或者 checked 需要通过 [] 的形式添加</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>propName <span class="token operator">===</span> <span class="token string">&quot;value&quot;</span> <span class="token operator">||</span> propName <span class="token operator">===</span> <span class="token string">&quot;checked&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      element<span class="token punctuation">[</span>propName<span class="token punctuation">]</span> <span class="token operator">=</span> newPropsValue<span class="token punctuation">;</span>
+      <span class="token comment">// 刨除 children 因为它是子元素 不是属性</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>propName <span class="token operator">!==</span> <span class="token string">&quot;children&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// className 属性单独处理 不直接在元素上添加 class 属性是因为 class 是 JavaScript 中的关键字</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>propName <span class="token operator">===</span> <span class="token string">&quot;className&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        element<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">&quot;class&quot;</span><span class="token punctuation">,</span> newPropsValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 普通属性</span>
+        element<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span>propName<span class="token punctuation">,</span> newPropsValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="渲染组件"><a href="#渲染组件" class="header-anchor">#</a> 渲染组件</h2> <h3 id="函数组件"><a href="#函数组件" class="header-anchor">#</a> 函数组件</h3> <p>在渲染组件之前首先要明确的是，<strong>组件的 Virtual DOM 类型值为函数，函数组件和类组件都是这样的。</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 原始组件</span>
+<span class="token keyword">const</span> <span class="token function-variable function">Heart</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token operator">&lt;</span>span<span class="token operator">&gt;</span><span class="token operator">&amp;</span>hearts<span class="token punctuation">;</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span><span class="token punctuation">;</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token operator">&lt;</span>Heart <span class="token operator">/</span><span class="token operator">&gt;</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 组件的 Virtual DOM</span>
+<span class="token punctuation">{</span>
+  type<span class="token operator">:</span> f <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  children<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在渲染组件时，要先将 Component 与 Native Element 区分开，如果是 Native Element 可以直接开始渲染，如果是组件，特别处理。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// mountElement.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">mountElement</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> container</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 无论是类组件还是函数组件 其实本质上都是函数</span>
+  <span class="token comment">// 如果 Virtual DOM 的 type 属性值为函数 就说明当前这个 Virtual DOM 为组件</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isFunction</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 如果是组件 调用 mountComponent 方法进行组件渲染</span>
+    <span class="token function">mountComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token function">mountNativeElement</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Virtual DOM 是否为函数类型</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">isFunction</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> virtualDOM <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> virtualDOM<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">&quot;function&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在 mountComponent 方法中再进行函数组件和类型的区分，然后再分别进行处理。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// mountComponent.js</span>
+<span class="token keyword">import</span> mountNativeElement <span class="token keyword">from</span> <span class="token string">&quot;./mountNativeElement&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">mountComponent</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> container</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 存放组件调用后返回的 Virtual DOM 的容器</span>
+  <span class="token keyword">let</span> nextVirtualDOM <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token comment">// 区分函数型组件和类组件</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isFunctionalComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 函数组件 调用 buildFunctionalComponent 方法处理函数组件</span>
+    nextVirtualDOM <span class="token operator">=</span> <span class="token function">buildFunctionalComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 类组件</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 判断得到的 Virtual Dom 是否是组件</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isFunction</span><span class="token punctuation">(</span>nextVirtualDOM<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 如果是组件 继续调用 mountComponent 解剖组件</span>
+    <span class="token function">mountComponent</span><span class="token punctuation">(</span>nextVirtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 如果是 Navtive Element 就去渲染</span>
+    <span class="token function">mountNativeElement</span><span class="token punctuation">(</span>nextVirtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Virtual DOM 是否为函数型组件</span>
+<span class="token comment">// 条件有两个: 1. Virtual DOM 的 type 属性值为函数 2. 函数的原型对象中不能有render方法</span>
+<span class="token comment">// 只有类组件的原型对象中有render方法</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">isFunctionalComponent</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> type <span class="token operator">=</span> virtualDOM <span class="token operator">&amp;&amp;</span> virtualDOM<span class="token punctuation">.</span>type<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    type <span class="token operator">&amp;&amp;</span> <span class="token function">isFunction</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token punctuation">(</span>type<span class="token punctuation">.</span>prototype <span class="token operator">&amp;&amp;</span> type<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>render<span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 函数组件处理</span>
+<span class="token keyword">function</span> <span class="token function">buildFunctionalComponent</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 通过 Virtual DOM 中的 type 属性获取到组件函数并调用</span>
+  <span class="token comment">// 调用组件函数时将 Virtual DOM 对象中的 props 属性传递给组件函数 这样在组件中就可以通过 props 属性获取数据了</span>
+  <span class="token comment">// 组件返回要渲染的 Virtual DOM</span>
+  <span class="token keyword">return</span> virtualDOM <span class="token operator">&amp;&amp;</span> virtualDOM<span class="token punctuation">.</span><span class="token function">type</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="类组件"><a href="#类组件" class="header-anchor">#</a> 类组件</h3> <p>类组件本身也是 Virtual DOM，可以通过 Virtual DOM 中的 type 属性值确定当前要渲染的组件是类组件还是函数组件。</p> <p>在确定当前要渲染的组件为类组件以后，<strong>需要实例化类组件得到类组件实例对象，通过类组件实例对象调用类组件中的 render 方法，获取组件要渲染的 Virtual DOM。</strong></p> <p>类组件需要继承 Component 父类，<strong>子类需要通过 super 方法将自身的 props 属性传递给 Component 父类，父类会将 props 属性挂载为父类属性，子类继承了父类，自己本身也就自然拥有 props 属性了</strong>。这样做的好处是当 props 发生更新后，父类可以根据更新后的 props 帮助子类更新视图。</p> <p>假设以下代码就是我们要渲染的类组件：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">class</span> <span class="token class-name">Alert</span> <span class="token keyword">extends</span> <span class="token class-name">TinyReact<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 将 props 传递给父类 子类继承父类的 props 子类自然就有 props 数据了</span>
+    <span class="token comment">// 否则 props 仅仅是 constructor 函数的参数而已</span>
+    <span class="token comment">// 将 props 传递给父类的好处是 当 props 发生更改时 父类可以帮助更新 props 更新组件视图</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token punctuation">{</span>
+      title<span class="token operator">:</span> <span class="token string">&quot;default title&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>title<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>message<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+TinyReact<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>Alert message<span class="token operator">=</span><span class="token string">&quot;Hello React&quot;</span> <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> root<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// Component.js 父类 Component 实现</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 类组件子类中调用的super(),就是调用这个constructor</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>props <span class="token operator">=</span> props<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在 mountComponent 方法中通过调用 buildStatefulComponent 方法得到类组件要渲染的 Virtual DOM</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// mountComponent.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">mountComponent</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> container</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> nextVirtualDOM <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token comment">// 区分函数型组件和类组件</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isFunctionalComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 函数组件</span>
+    nextVirtualDOM <span class="token operator">=</span> <span class="token function">buildFunctionalComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 类组件</span>
+    nextVirtualDOM <span class="token operator">=</span> <span class="token function">buildStatefulComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 判断得到的 Virtual Dom 是否是组件</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isFunction</span><span class="token punctuation">(</span>nextVirtualDOM<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">mountComponent</span><span class="token punctuation">(</span>nextVirtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token function">mountNativeElement</span><span class="token punctuation">(</span>nextVirtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 处理类组件</span>
+<span class="token keyword">function</span> <span class="token function">buildStatefulComponent</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 实例化类组件 得到类组件实例对象 并将 props 属性传递进类组件</span>
+  <span class="token keyword">const</span> component <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">virtualDOM<span class="token punctuation">.</span>type</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 调用类组件中的render方法得到要渲染的 Virtual DOM</span>
+  <span class="token keyword">const</span> nextVirtualDOM <span class="token operator">=</span> component<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 返回要渲染的 Virtual DOM</span>
+  <span class="token keyword">return</span> nextVirtualDOM<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="virtual-dom-比对"><a href="#virtual-dom-比对" class="header-anchor">#</a> Virtual DOM 比对</h2> <p>在进行 Virtual DOM 比对时，需要用到更新后的 Virtual DOM 和更新前的 Virtual DOM，更新后的 Virtual DOM 目前我们可以通过 render 方法进行传递，现在的问题是更新前的 Virtual DOM 要如何获取呢？</p> <p>对于更新前的 Virtual DOM，对应的其实就是已经在页面中显示的真实 DOM 对象。既然是这样，那么我们在创建真实 DOM 对象时，就可以将 Virtual DOM 添加到真实 DOM 对象的属性中。在进行 Virtual DOM 对比之前，就可以通过真实 DOM 对象获取其对应的 Virtual DOM 对象了，其实就是通过 render 方法的第三个参数获取的，container.firstChild。</p> <p>在创建真实 DOM 对象时为其添加对应的 Virtual DOM 对象</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// mountElement.js</span>
+<span class="token keyword">import</span> mountElement <span class="token keyword">from</span> <span class="token string">&quot;./mountElement&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">mountNativeElement</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> container</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 将 Virtual DOM 挂载到真实 DOM 对象的属性中 方便在对比时获取其 Virtual DOM</span>
+  newElement<span class="token punctuation">.</span>_virtualDOM <span class="token operator">=</span> virtualDOM<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>如下图所示，<strong>VirtualDOM 比对为同级节点中进行比较</strong> <img src="/framework/react_diff/react_diff_8.png" alt=""></p> <h3 id="virtual-dom-类型相同"><a href="#virtual-dom-类型相同" class="header-anchor">#</a> Virtual DOM 类型相同</h3> <p>Virtual DOM 类型相同，如果是元素节点，就对比元素节点属性是否发生变化，如果是文本节点就对比文本节点内容是否发生变化</p> <p>要实现对比，需要先从已存在 DOM 对象中获取其对应的 Virtual DOM 对象。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diff.js</span>
+<span class="token comment">// 获取未更新前的 Virtual DOM</span>
+<span class="token keyword">const</span> oldVirtualDOM <span class="token operator">=</span> oldDOM <span class="token operator">&amp;&amp;</span> oldDOM<span class="token punctuation">.</span>_virtualDOM<span class="token punctuation">;</span>
+</code></pre></div><p>判断 oldVirtualDOM 是否存在， 如果存在则继续判断要对比的 Virtual DOM 类型是否相同，如果类型相同判断节点类型是否是文本，如果是文本节点对比，就调用 updateTextNode 方法，如果是元素节点对比就调用 setAttributeForElement 方法</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diff.js</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>oldVirtualDOM <span class="token operator">&amp;&amp;</span> virtualDOM<span class="token punctuation">.</span>type <span class="token operator">===</span> oldVirtualDOM<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 文本节点 对比文本内容是否发生变化</span>
+    <span class="token function">updateTextNode</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> oldVirtualDOM<span class="token punctuation">,</span> oldDOM<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 元素节点 对比元素属性是否发生变化</span>
+    <span class="token function">updateElementNode</span><span class="token punctuation">(</span>oldDOM<span class="token punctuation">,</span> virtualDOM<span class="token punctuation">,</span> oldVirtualDOM<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+</code></pre></div><p><code>updateTextNode</code> 方法用于对比文本节点内容是否发生变化，如果发生变化则更新真实 DOM 对象中的内容，既然真实 DOM 对象发生了变化，还要将最新的 Virtual DOM 同步给真实 DOM 对象。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">updateTextNode</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> oldVirtualDOM<span class="token punctuation">,</span> oldDOM</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 如果文本节点内容不同</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">.</span>textContent <span class="token operator">!==</span> oldVirtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">.</span>textContent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 更新真实 DOM 对象中的内容</span>
+    oldDOM<span class="token punctuation">.</span>textContent <span class="token operator">=</span> virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">.</span>textContent<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 同步真实 DOM 对应的 Virtual DOM</span>
+  oldDOM<span class="token punctuation">.</span>_virtualDOM <span class="token operator">=</span> virtualDOM<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><code>updateElementNode</code> 方法用于设置/更新元素节点属性</p> <p>思路是先分别获取更新后的和更新前的 Virtual DOM 中的 props 属性，循环新 Virtual DOM 中的 props 属性，通过对比看一下新 Virtual DOM 中的属性值是否发生了变化，如果发生变化 需要将变化的值更新到真实 DOM 对象中</p> <p>再循环未更新前的 Virtual DOM 对象，通过对比看看新的 Virtual DOM 中是否有被删除的属性，如果存在删除的属性 需要将 DOM 对象中对应的属性也删除掉</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// updateElementNode.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">updateElementNode</span><span class="token punctuation">(</span>
+  <span class="token parameter">newElement<span class="token punctuation">,</span>
+  virtualDOM<span class="token punctuation">,</span>
+  oldVirtualDOM <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span></span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 获取节点对应的属性对象</span>
+  <span class="token keyword">const</span> newProps <span class="token operator">=</span> virtualDOM<span class="token punctuation">.</span>props <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> oldProps <span class="token operator">=</span> oldVirtualDOM<span class="token punctuation">.</span>props <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>newProps<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">propName</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 获取属性值</span>
+    <span class="token keyword">const</span> newPropsValue <span class="token operator">=</span> newProps<span class="token punctuation">[</span>propName<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> oldPropsValue <span class="token operator">=</span> oldProps<span class="token punctuation">[</span>propName<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>newPropsValue <span class="token operator">!==</span> oldPropsValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 判断属性是否是否事件属性 onClick -&gt; click</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>propName<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&quot;on&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 事件名称</span>
+        <span class="token keyword">const</span> eventName <span class="token operator">=</span> propName<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 为元素添加事件</span>
+        newElement<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>eventName<span class="token punctuation">,</span> newPropsValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 删除原有的事件的事件处理函数</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>oldPropsValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          newElement<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span>eventName<span class="token punctuation">,</span> oldPropsValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>propName <span class="token operator">===</span> <span class="token string">&quot;value&quot;</span> <span class="token operator">||</span> propName <span class="token operator">===</span> <span class="token string">&quot;checked&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        newElement<span class="token punctuation">[</span>propName<span class="token punctuation">]</span> <span class="token operator">=</span> newPropsValue<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>propName <span class="token operator">!==</span> <span class="token string">&quot;children&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>propName <span class="token operator">===</span> <span class="token string">&quot;className&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          newElement<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">&quot;class&quot;</span><span class="token punctuation">,</span> newPropsValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          newElement<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span>propName<span class="token punctuation">,</span> newPropsValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 判断属性被删除的情况</span>
+  Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>oldProps<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">propName</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> newPropsValue <span class="token operator">=</span> newProps<span class="token punctuation">[</span>propName<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> oldPropsValue <span class="token operator">=</span> oldProps<span class="token punctuation">[</span>propName<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>newPropsValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 属性被删除了</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>propName<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&quot;on&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> eventName <span class="token operator">=</span> propName<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        newElement<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span>eventName<span class="token punctuation">,</span> oldPropsValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>propName <span class="token operator">!==</span> <span class="token string">&quot;children&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        newElement<span class="token punctuation">.</span><span class="token function">removeAttribute</span><span class="token punctuation">(</span>propName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>以上对比的仅仅是最上层元素，上层元素对比完成以后还需要递归对比子元素</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diff.js</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>oldVirtualDOM <span class="token operator">&amp;&amp;</span> virtualDOM<span class="token punctuation">.</span>type <span class="token operator">===</span> oldVirtualDOM<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 递归对比 Virtual DOM 的子元素</span>
+    virtualDOM<span class="token punctuation">.</span>children<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">child<span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token function">diff</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> oldDOM<span class="token punctuation">,</span> oldDOM<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+</code></pre></div><p>这张题表示节点比对时的比对顺序，VirtualDOM 比对是执行<strong>深度优先</strong>，子节点优先于同级节点
+<img src="/framework/react_diff/react_diff_7.png" alt=""></p> <h3 id="virtual-dom-类型不同"><a href="#virtual-dom-类型不同" class="header-anchor">#</a> Virtual DOM 类型不同</h3> <p>当对比的元素节点类型不同时，就不需要继续对比了，直接使用新的 Virtual DOM 创建 DOM 对象，用新的 DOM 对象直接替换旧的 DOM 对象。当前这种情况要将组件刨除，组件要被单独处理。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diff.js</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>
+  <span class="token comment">// 如果 Virtual DOM 类型不一样</span>
+  virtualDOM<span class="token punctuation">.</span>type <span class="token operator">!==</span> oldVirtualDOM<span class="token punctuation">.</span>type <span class="token operator">&amp;&amp;</span>
+  <span class="token comment">// 并且 Virtual DOM 不是组件 因为组件要单独进行处理</span>
+  <span class="token keyword">typeof</span> virtualDOM<span class="token punctuation">.</span>type <span class="token operator">!==</span> <span class="token string">&quot;function&quot;</span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 根据 Virtual DOM 创建真实 DOM 元素</span>
+  <span class="token keyword">const</span> newDOMElement <span class="token operator">=</span> <span class="token function">createDOMElement</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span>
+  <span class="token comment">// 用创建出来的真实 DOM 元素 替换旧的 DOM 元素</span>
+  oldDOM<span class="token punctuation">.</span>parentNode<span class="token punctuation">.</span><span class="token function">replaceChild</span><span class="token punctuation">(</span>newDOMElement<span class="token punctuation">,</span> oldDOM<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="删除节点"><a href="#删除节点" class="header-anchor">#</a> 删除节点</h3> <p>删除节点发生在<strong>节点更新以后</strong>并且发生在同一个父节点下的所有子节点身上。</p> <p>在节点更新完成以后，如果旧节点对象的数量多于新 VirtualDOM 节点的数量，就说明有节点需要被删除。</p> <p><img src="/framework/react_diff/react_diff_5.png" alt=""></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 获取就节点的数量</span>
+<span class="token keyword">let</span> oldChildNodes <span class="token operator">=</span> oldDOM<span class="token punctuation">.</span>childNodes<span class="token punctuation">;</span>
+<span class="token comment">// 如果旧节点的数量多于要渲染的新节点的长度</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>oldChildNodes<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> virtualDOM<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>
+    <span class="token keyword">let</span> i <span class="token operator">=</span> oldChildNodes<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    i <span class="token operator">&gt;</span> virtualDOM<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    i<span class="token operator">--</span>
+  <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    oldDOM<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>oldChildNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="类组件状态更新"><a href="#类组件状态更新" class="header-anchor">#</a> 类组件状态更新</h3> <p>以下代码是要更新状态的类组件，在类组件的 state 对象中有默认的 title 状态，点击 change title 按钮调用 handleChange 方法，在 handleChange 方法中调用 this.setState 方法更改 title 的状态值。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">class</span> <span class="token class-name">Alert</span> <span class="token keyword">extends</span> <span class="token class-name">TinyReact<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token punctuation">{</span>
+      title<span class="token operator">:</span> <span class="token string">&quot;default title&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token comment">// 更改 handleChange 方法中的 this 指向 让 this 指向类实例对象</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>handleChange <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleChange</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">handleChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 调用父类中的 setState 方法更改状态</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      title<span class="token operator">:</span> <span class="token string">&quot;changed title&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>title<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>message<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">}</span><span class="token operator">&gt;</span>change title<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>setState 方法是定义在父类 Component 中的，该方法的作用是更改子类的 state，产生一个全新的 state 对象。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// Component.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>props <span class="token operator">=</span> props<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">setState</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// setState 方法被子类调用 此处this指向子类实例对象</span>
+    <span class="token comment">// 所以改变的是子类的 state 对象</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>现在子类已经可以调用父类的 setState 方法更改状态值了，<strong>当组件的 state 对象发生更改时，要调用 render 方法更新组件视图。</strong></p> <p>在更新组件之前，要使用更新的 Virtual DOM 对象和未更新的 Virtual DOM 进行对比找出更新的部分，达到 DOM 最小化操作的目的。</p> <p>在 setState 方法中可以通过调用 this.render 方法获取更新后的 Virtual DOM，<strong>由于 setState 方法被子类调用，this 指向子类，所以此处调用的是子类的 render 方法。</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// Component.js</span>
+<span class="token function">setState</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// setState 方法被子类调用 此处this指向子类</span>
+  <span class="token comment">// 所以改变的是子类的 state</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">,</span> state<span class="token punctuation">)</span>
+  <span class="token comment">// 通过调用 render 方法获取最新的 Virtual DOM</span>
+  <span class="token keyword">let</span> virtualDOM <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>要实现对比，还需要获取未更新前的 Virtual DOM，按照之前的经验，我们可以从 DOM 对象中获取其对应的 Virtual DOM 对象，未更新前的 DOM 对象实际上就是现在在页面中显示的 DOM 对象，我们只要能获取到这个 DOM 对象就可以获取到其对应的 Virtual DOM 对象了。</p> <p>页面中的 DOM 对象要怎样获取呢？页面中的 DOM 对象是通过 mountNativeElement 方法挂载到页面中的，所以我们只需要在这个方法中调用 Component 类中的方法就可以将 DOM 对象保存在 Component 类中了。在子类调用 setState 方法的时候，在 setState 方法中再调用另一个获取 DOM 对象的方法就可以获取到之前保存的 DOM 对象了。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// Component.js</span>
+<span class="token comment">// 保存 DOM 对象的方法</span>
+<span class="token function">setDOM</span><span class="token punctuation">(</span><span class="token parameter">dom</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_dom <span class="token operator">=</span> dom
+<span class="token punctuation">}</span>
+<span class="token comment">// 获取 DOM 对象的方法</span>
+<span class="token function">getDOM</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_dom
+<span class="token punctuation">}</span>
+</code></pre></div><p>接下来我们要研究一下在 mountNativeElement 方法中如何才能调用到 setDOM 方法，要调用 setDOM 方法，必须要得到类的实例对象，所以目前的问题就是如何在 mountNativeElement 方法中得到类的实例对象，这个类指的不是 Component 类，因为我们在代码中并不是直接实例化的 Component 类，而是实例化的它的子类，由于子类继承了父类，所以在子类的实例对象中也是可以调用到 setDOM 方法的。</p> <p>mountNativeElement 方法接收最新的 Virtual DOM 对象，如果这个 Virtual DOM 对象是类组件产生的，在产生这个 Virtual DOM 对象时一定会先得到这个类的实例对象，然后再调用实例对象下面的 render 方法进行获取。我们可以在那个时候将类组件实例对象添加到 Virtual DOM 对象的属性中，而这个 Virtual DOM 对象最终会传递给 mountNativeElement 方法，这样我们就可以在 mountNativeElement 方法中获取到组件的实例对象了，既然类组件的实例对象获取到了，我们就可以调用 setDOM 方法了。</p> <p>在 buildClassComponent 方法中为 Virtual DOM 对象添加 component 属性， 值为类组件的实例对象。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// mountComponent.js</span>
+<span class="token keyword">function</span> <span class="token function">buildClassComponent</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> component <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">virtualDOM<span class="token punctuation">.</span>type</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> nextVirtualDOM <span class="token operator">=</span> component<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  nextVirtualDOM<span class="token punctuation">.</span>component <span class="token operator">=</span> component<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> nextVirtualDOM<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在 mountNativeElement 方法中获取组件实例对象，通过实例调用调用 setDOM 方法保存 DOM 对象，方便在对比时通过它获取它的 Virtual DOM 对象</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">mountNativeElement</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> container</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 获取组件实例对象</span>
+  <span class="token keyword">const</span> component <span class="token operator">=</span> virtualDOM<span class="token punctuation">.</span>component<span class="token punctuation">;</span>
+  <span class="token comment">// 如果组件实例对象存在</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>component<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 保存 DOM 对象</span>
+    component<span class="token punctuation">.</span><span class="token function">setDOM</span><span class="token punctuation">(</span>newElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>接下来在 setState 方法中就可以调用 getDOM 方法获取 DOM 对象了</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token function">setState</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">,</span> state<span class="token punctuation">)</span>
+  <span class="token keyword">let</span> virtualDOM <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token comment">// 获取页面中正在显示的 DOM 对象 通过它可以获取其对象的 Virtual DOM 对象</span>
+  <span class="token keyword">let</span> oldDOM <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getDOM</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>现在更新前的 Virtual DOM 对象和更新后的 Virtual DOM 对象就都已经获取到了，接下来还要获取到真实 DOM 对象父级容器对象，因为在调用 diff 方法进行对比的时候需要用到</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token function">setState</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">,</span> state<span class="token punctuation">)</span>
+  <span class="token keyword">let</span> virtualDOM <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">let</span> oldDOM <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getDOM</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token comment">// 获取真实 DOM 对象父级容器对象</span>
+  <span class="token keyword">let</span> container <span class="token operator">=</span> oldDOM<span class="token punctuation">.</span>parentNode
+<span class="token punctuation">}</span>
+</code></pre></div><p>接下来就可以调用 diff 方法进行比对了，比对后会按照我们之前写好的逻辑进行 DOM 对象更新，我们就可以在页面中看到效果了</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token function">setState</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">,</span> state<span class="token punctuation">)</span>
+    <span class="token keyword">let</span> virtualDOM <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">let</span> oldDOM <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getDOM</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">let</span> container <span class="token operator">=</span> oldDOM<span class="token punctuation">.</span>parentNode
+    <span class="token comment">// 比对</span>
+    <span class="token function">diff</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">,</span> oldDOM<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+</code></pre></div><h3 id="组件更新"><a href="#组件更新" class="header-anchor">#</a> 组件更新</h3> <p>在 diff 方法中判断要更新的 Virtual DOM 是否是组件。</p> <p>如果是组件再判断要更新的组件和未更新前的组件是否是同一个组件，如果不是同一个组件就不需要做组件更新操作，直接调用 mountElement 方法将组件返回的 Virtual DOM 添加到页面中。</p> <p>如果是同一个组件，就执行更新组件操作，其实就是将最新的 props 传递到组件中，再调用组件的 render 方法获取组件返回的最新的 Virtual DOM 对象，再将 Virtual DOM 对象传递给 diff 方法，让 diff 方法找出差异，从而将差异更新到真实 DOM 对象中。</p> <p>在更新组件的过程中还要在不同阶段调用其不同的组件<strong>生命周期函数</strong>。</p> <p>在 diff 方法中判断要更新的 Virtual DOM 是否是组件，如果是组件又分为多种情况，新增 diffComponent 方法进行处理</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diff.js</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> virtualDOM<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">&quot;function&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 要更新的是组件</span>
+  <span class="token comment">// 1) 组件本身的 virtualDOM 对象 通过它可以获取到组件最新的 props</span>
+  <span class="token comment">// 2) 要更新的组件的实例对象 通过它可以调用组件的生命周期函数 可以更新组件的 props 属性 可以获取到组件返回的最新的 Virtual DOM</span>
+  <span class="token comment">// 3) 要更新的 DOM 象 在更新组件时 需要在已有DOM对象的身上进行修改 实现DOM最小化操作 获取旧的 Virtual DOM 对象</span>
+  <span class="token comment">// 4) 如果要更新的组件和旧组件不是同一个组件 要直接将组件返回的 Virtual DOM 显示在页面中 此时需要 container 做为父级容器</span>
+  <span class="token function">diffComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> oldComponent<span class="token punctuation">,</span> oldDOM<span class="token punctuation">,</span> container<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在 diffComponent 方法中判断要更新的组件是未更新前的组件是否是同一个组件</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diffComponent.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">diffComponent</span><span class="token punctuation">(</span>
+  <span class="token parameter">virtualDOM<span class="token punctuation">,</span>
+  oldComponent<span class="token punctuation">,</span>
+  oldDOM<span class="token punctuation">,</span>
+  container</span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 判断要更新的组件和未更新的组件是否是同一个组件 只需要确定两者使用的是否是同一个构造函数就可以了</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isSameComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> oldComponent<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 属同一个组件 做组件更新</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 不是同一个组件 直接将组件内容显示在页面中</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// virtualDOM.type 更新后的组件构造函数</span>
+<span class="token comment">// oldComponent.constructor 未更新前的组件构造函数</span>
+<span class="token comment">// 两者等价就表示是同一组件</span>
+<span class="token keyword">function</span> <span class="token function">isSameComponent</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> oldComponent</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> oldComponent <span class="token operator">&amp;&amp;</span> virtualDOM<span class="token punctuation">.</span>type <span class="token operator">===</span> oldComponent<span class="token punctuation">.</span>constructor<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>如果不是同一个组件的话，就不需要执行更新组件的操作，直接将组件内容显示在页面中，替换原有内容</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diffComponent.js</span>
+<span class="token keyword">else</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 不是同一个组件 直接将组件内容显示在页面中</span>
+  <span class="token comment">// 这里为 mountElement 方法新增了一个参数 oldDOM</span>
+  <span class="token comment">// 作用是在将 DOM 对象插入到页面前 将页面中已存在的 DOM 对象删除 否则无论是旧DOM对象还是新DOM对象都会显示在页面中</span>
+  <span class="token function">mountElement</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">,</span> oldDOM<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在 mountNativeElement 方法中删除原有的旧 DOM 对象</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// mountNavtiveElement.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">mountNativeElement</span><span class="token punctuation">(</span><span class="token parameter">virtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">,</span> oldDOM</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 如果旧的DOM对象存在 删除</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>oldDOM<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">unmount</span><span class="token punctuation">(</span>oldDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// unmount.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">unmount</span><span class="token punctuation">(</span><span class="token parameter">node</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  node<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>如果是同一个组件的话，需要执行组件更新操作，需要调用组件生命周期函数</p> <p>先在 Component 类中添加生命周期函数，子类要使用的话直接覆盖就可以</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// Component.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 生命周期函数</span>
+  <span class="token function">componentWillMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token function">componentWillReceiveProps</span><span class="token punctuation">(</span><span class="token parameter">nextProps</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token function">shouldComponentUpdate</span><span class="token punctuation">(</span><span class="token parameter">nextProps<span class="token punctuation">,</span> nextState</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> nextProps <span class="token operator">!=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props <span class="token operator">||</span> nextState <span class="token operator">!=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">componentWillUpdate</span><span class="token punctuation">(</span><span class="token parameter">nextProps<span class="token punctuation">,</span> nextState</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token function">componentDidUpdate</span><span class="token punctuation">(</span><span class="token parameter">prevProps<span class="token punctuation">,</span> preState</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token function">componentWillUnmount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>新建 updateComponent 方法用于更新组件操作，并在 if 成立后调用</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diffComponent.js</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isSameComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> oldComponent<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 属同一个组件 做组件更新</span>
+  <span class="token function">updateComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">,</span> oldComponent<span class="token punctuation">,</span> oldDOM<span class="token punctuation">,</span> container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在 updateComponent 方法中调用组件的生命周期函数，更新组件获取最新 Virtual DOM，最终调用 diff 方法进行更新</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> diff <span class="token keyword">from</span> <span class="token string">&quot;./diff&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">updateComponent</span><span class="token punctuation">(</span>
+  <span class="token parameter">virtualDOM<span class="token punctuation">,</span>
+  oldComponent<span class="token punctuation">,</span>
+  oldDOM<span class="token punctuation">,</span>
+  container</span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 生命周期函数</span>
+  oldComponent<span class="token punctuation">.</span><span class="token function">componentWillReceiveProps</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>
+    <span class="token comment">// 调用 shouldComponentUpdate 生命周期函数判断是否要执行更新操作</span>
+    oldComponent<span class="token punctuation">.</span><span class="token function">shouldComponentUpdate</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">)</span>
+  <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 将未更新的 props 保存一份</span>
+    <span class="token keyword">let</span> prevProps <span class="token operator">=</span> oldComponent<span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+    <span class="token comment">// 生命周期函数</span>
+    oldComponent<span class="token punctuation">.</span><span class="token function">componentWillUpdate</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 更新组件的 props 属性 updateProps 方法定义在 Component 类型</span>
+    oldComponent<span class="token punctuation">.</span><span class="token function">updateProps</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 因为组件的 props 已经更新 所以调用 render 方法获取最新的 Virtual DOM</span>
+    <span class="token keyword">const</span> nextVirtualDOM <span class="token operator">=</span> oldComponent<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 将组件实例对象挂载到 Virtual DOM 身上</span>
+    nextVirtualDOM<span class="token punctuation">.</span>component <span class="token operator">=</span> oldComponent<span class="token punctuation">;</span>
+    <span class="token comment">// 调用diff方法更新视图</span>
+    <span class="token function">diff</span><span class="token punctuation">(</span>nextVirtualDOM<span class="token punctuation">,</span> container<span class="token punctuation">,</span> oldDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 生命周期函数</span>
+    oldComponent<span class="token punctuation">.</span><span class="token function">componentDidUpdate</span><span class="token punctuation">(</span>prevProps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// Component.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+  <span class="token function">updateProps</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>props <span class="token operator">=</span> props<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="ref-属性"><a href="#ref-属性" class="header-anchor">#</a> ref 属性</h2> <p>为节点添加 ref 属性可以获取到这个节点的 DOM 对象，比如在 DemoRef 类中，为 input 元素添加了 ref 属性，目的是获取 input DOM 元素对象，在点击按钮时获取用户在文本框中输入的内容</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">class</span> <span class="token class-name">DemoRef</span> <span class="token keyword">extends</span> <span class="token class-name">TinyReact<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+  <span class="token function">handle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> value <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">&quot;text&quot;</span> ref<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token parameter">input</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>input <span class="token operator">=</span> input<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&gt;</span>按钮<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>实现思路是在创建节点时判断其 Virtual DOM 对象中是否有 ref 属性，如果有就调用 ref 属性中所存储的方法并且将创建出来的 DOM 对象作为参数传递给 ref 方法，这样在渲染组件节点的时候就可以拿到元素对象并将元素对象存储为组件属性了。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// createDOMElement.js</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props <span class="token operator">&amp;&amp;</span> virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">.</span>ref<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">.</span><span class="token function">ref</span><span class="token punctuation">(</span>newElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在类组件的身上也可以添加 ref 属性，目的是获取组件的实例对象，比如下列代码中，在 DemoRef 组件中渲染了 Alert 组件，在 Alert 组件中添加了 ref 属性，目的是在 DemoRef 组件中获取 Alert 组件实例对象。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">class</span> <span class="token class-name">DemoRef</span> <span class="token keyword">extends</span> <span class="token class-name">TinyReact<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+  <span class="token function">handle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> value <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>alert<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;componentDidMount&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">&quot;text&quot;</span> ref<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token parameter">input</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>input <span class="token operator">=</span> input<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&gt;</span>按钮<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>Alert ref<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token parameter">alert</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>alert <span class="token operator">=</span> alert<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>实现思路是在 mountComponent 方法中，如果判断了当前处理的是类组件，就通过类组件返回的 Virtual DOM 对象中获取组件实例对象，判断组件实例对象中的 props 属性中是否存在 ref 属性，如果存在就调用 ref 方法并且将组件实例对象传递给 ref 方法。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// mountComponent.js</span>
+<span class="token keyword">let</span> component <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isFunctionalComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 类组件</span>
+  nextVirtualDOM <span class="token operator">=</span> <span class="token function">buildStatefulComponent</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 获取组件实例对象</span>
+  component <span class="token operator">=</span> nextVirtualDOM<span class="token punctuation">.</span>component<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 如果组件实例对象存在的话</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>component<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 判断组件实例对象身上是否有 props 属性 props 属性中是否有 ref 属性</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>component<span class="token punctuation">.</span>props <span class="token operator">&amp;&amp;</span> component<span class="token punctuation">.</span>props<span class="token punctuation">.</span>ref<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 调用 ref 方法并传递组件实例对象</span>
+    component<span class="token punctuation">.</span>props<span class="token punctuation">.</span><span class="token function">ref</span><span class="token punctuation">(</span>component<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>代码走到这，顺便处理一下组件挂载完成的生命周期函数</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 如果组件实例对象存在的话</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>component<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  component<span class="token punctuation">.</span><span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="key-属性"><a href="#key-属性" class="header-anchor">#</a> key 属性</h2> <p>在 React 中，渲染列表数据时通常会在被渲染的列表元素上添加 key 属性，<strong>key 属性就是数据的唯一标识，帮助 React 识别哪些数据被修改或者删除了，从而达到 DOM 最小化操作的目的。</strong></p> <p>key 属性不需要全局唯一，但是在同一个父节点下的兄弟节点之间必须是唯一的。</p> <p>也就是说，在比对同一个父节点下类型相同的子节点时需要用到 key 属性。</p> <h3 id="节点对比"><a href="#节点对比" class="header-anchor">#</a> 节点对比</h3> <p>实现思路是在两个元素进行比对时，如果类型相同，就循环旧的 DOM 对象的子元素，查看其身上是否有 key 属性，如果有就将这个子元素的 DOM 对象存储在一个 JavaScript 对象中，接着循环要渲染的 Virtual DOM 对象的子元素，在循环过程中获取到这个子元素的 key 属性，然后使用这个 key 属性到 JavaScript 对象中查找 DOM 对象，如果能够找到就说明这个元素是已经存在的，是不需要重新渲染的。如果通过 key 属性找不到这个元素，就说明这个元素是新增的是需要渲染的。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diff.js</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>oldVirtualDOM <span class="token operator">&amp;&amp;</span> virtualDOM<span class="token punctuation">.</span>type <span class="token operator">===</span> oldVirtualDOM<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 将拥有key属性的元素放入 keyedElements 对象中</span>
+  <span class="token keyword">let</span> keyedElements <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> len <span class="token operator">=</span> oldDOM<span class="token punctuation">.</span>childNodes<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> domElement <span class="token operator">=</span> oldDOM<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>domElement<span class="token punctuation">.</span>nodeType <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> key <span class="token operator">=</span> domElement<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">&quot;key&quot;</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        keyedElements<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> domElement
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// diff.js</span>
+<span class="token comment">// 看一看是否有找到了拥有 key 属性的元素</span>
+<span class="token keyword">let</span> hasNoKey <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>keyedElements<span class="token punctuation">)</span><span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 如果没有找到拥有 key 属性的元素 就按照索引进行比较</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>hasNoKey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 递归对比 Virtual DOM 的子元素</span>
+  virtualDOM<span class="token punctuation">.</span>children<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">child<span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token function">diff</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> oldDOM<span class="token punctuation">,</span> oldDOM<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 使用key属性进行元素比较</span>
+  virtualDOM<span class="token punctuation">.</span>children<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">child<span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 获取要进行比对的元素的 key 属性</span>
+    <span class="token keyword">let</span> key <span class="token operator">=</span> child<span class="token punctuation">.</span>props<span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+    <span class="token comment">// 如果 key 属性存在</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 到已存在的 DOM 元素对象中查找对应的 DOM 元素</span>
+      <span class="token keyword">let</span> domElement <span class="token operator">=</span> keyedElements<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token comment">// 如果找到元素就说明该元素已经存在 不需要重新渲染</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>domElement<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 虽然 DOM 元素不需要重新渲染 但是不能确定元素的位置就一定没有发生变化</span>
+        <span class="token comment">// 所以还要查看一下元素的位置</span>
+        <span class="token comment">// 看一下 oldDOM 对应的(i)子元素和 domElement 是否是同一个元素 如果不是就说明元素位置发生了变化</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>oldDOM<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> oldDOM<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!==</span> domElement<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 元素位置发生了变化</span>
+          <span class="token comment">// 将 domElement 插入到当前元素位置的前面 oldDOM.childNodes[i] 就是当前位置</span>
+          <span class="token comment">// domElement 就被放入了当前位置</span>
+          oldDOM<span class="token punctuation">.</span><span class="token function">insertBefore</span><span class="token punctuation">(</span>domElement<span class="token punctuation">,</span> oldDOM<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token function">mountElement</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> oldDOM<span class="token punctuation">,</span> oldDOM<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// mountNativeElement.js</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>oldDOM<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  container<span class="token punctuation">.</span><span class="token function">insertBefore</span><span class="token punctuation">(</span>newElement<span class="token punctuation">,</span> oldDOM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 将转换之后的DOM对象放置在页面中</span>
+  container<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>newElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="节点卸载"><a href="#节点卸载" class="header-anchor">#</a> 节点卸载</h3> <p>在比对节点的过程中，如果旧节点的数量多于要渲染的新节点的数量就说明有节点被删除了，继续判断 keyedElements 对象中是否有元素，如果没有就使用索引方式删除，如果有就要使用 key 属性比对的方式进行删除。</p> <p>实现思路是循环旧节点，在循环旧节点的过程中获取旧节点对应的 key 属性，然后根据 key 属性在新节点中查找这个旧节点，如果找到就说明这个节点没有被删除，如果没有找到，就说明节点被删除了，调用卸载节点的方法卸载节点即可。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 获取就节点的数量</span>
+<span class="token keyword">let</span> oldChildNodes <span class="token operator">=</span> oldDOM<span class="token punctuation">.</span>childNodes<span class="token punctuation">;</span>
+<span class="token comment">// 如果旧节点的数量多于要渲染的新节点的长度</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>oldChildNodes<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> virtualDOM<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>hasNoKey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>
+      <span class="token keyword">let</span> i <span class="token operator">=</span> oldChildNodes<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+      i <span class="token operator">&gt;=</span> virtualDOM<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+      i<span class="token operator">--</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      oldDOM<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>oldChildNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> oldChildNodes<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> oldChild <span class="token operator">=</span> oldChildNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">let</span> oldChildKey <span class="token operator">=</span> oldChild<span class="token punctuation">.</span>_virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+      <span class="token keyword">let</span> found <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> n <span class="token operator">&lt;</span> virtualDOM<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length<span class="token punctuation">;</span> n<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>oldChildKey <span class="token operator">===</span> virtualDOM<span class="token punctuation">.</span>children<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          found <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>found<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">unmount</span><span class="token punctuation">(</span>oldChild<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        i<span class="token operator">--</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>卸载节点并不是说将节点直接删除就可以了，还需要考虑以下几种情况</p> <ol><li>如果要删除的节点是文本节点的话可以直接删除</li> <li>如果要删除的节点由组件生成，需要调用组件卸载生命周期函数</li> <li>如果要删除的节点中包含了其他组件生成的节点，需要调用其他组件的卸载生命周期函数</li> <li>如果要删除的节点身上有 ref 属性，还需要删除通过 ref 属性传递给组件的 DOM 节点对象</li> <li>如果要删除的节点身上有事件，需要删除事件对应的事件处理函数</li></ol> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">unmount</span><span class="token punctuation">(</span><span class="token parameter">dom</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 获取节点对应的 virtualDOM 对象</span>
+  <span class="token keyword">const</span> virtualDOM <span class="token operator">=</span> dom<span class="token punctuation">.</span>_virtualDOM<span class="token punctuation">;</span>
+  <span class="token comment">// 如果要删除的节点时文本</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 直接删除节点</span>
+    dom<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 阻止程序向下运行</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 查看节点是否由组件生成</span>
+  <span class="token keyword">let</span> component <span class="token operator">=</span> virtualDOM<span class="token punctuation">.</span>component<span class="token punctuation">;</span>
+  <span class="token comment">// 如果由组件生成</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>component<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 调用组件卸载生命周期函数</span>
+    component<span class="token punctuation">.</span><span class="token function">componentWillUnmount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// 如果节点具有 ref 属性 通过再次调用 ref 方法 将传递给组件的DOM对象删除</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props <span class="token operator">&amp;&amp;</span> virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">.</span>ref<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">.</span><span class="token function">ref</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// 事件处理</span>
+  Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">propName</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>propName<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&quot;on&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> eventName <span class="token operator">=</span> propName<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> eventHandler <span class="token operator">=</span> virtualDOM<span class="token punctuation">.</span>props<span class="token punctuation">[</span>propName<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      dom<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span>eventName<span class="token punctuation">,</span> eventHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 递归删除子节点</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>dom<span class="token punctuation">.</span>childNodes<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> dom<span class="token punctuation">.</span>childNodes<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">unmount</span><span class="token punctuation">(</span>dom<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      i<span class="token operator">--</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  dom<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/framework/React/编写React应用程序步骤.html" class="prev">
+        编写 React 应用程序步骤
+      </a></span> <span class="next"><a href="/framework/React/关于React和不可变数据.html">
+        关于 React 和不可变数据
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.23d3122b.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/44.c2c8ac29.js" defer></script><script src="/assets/js/3.b304fdc1.js" defer></script>
+  </body>
+</html>

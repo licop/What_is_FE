@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>React 项目的文件目录结构 | What is FE</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="构建自己的系统的 Web 前端知识体系">
+    
+    <link rel="preload" href="/assets/css/0.styles.05e426fd.css" as="style"><link rel="preload" href="/assets/js/app.23d3122b.js" as="script"><link rel="preload" href="/assets/js/2.5e2d37c1.js" as="script"><link rel="preload" href="/assets/js/39.4d09d993.js" as="script"><link rel="preload" href="/assets/js/3.b304fdc1.js" as="script"><link rel="prefetch" href="/assets/js/10.a37a353b.js"><link rel="prefetch" href="/assets/js/11.d1b90c3d.js"><link rel="prefetch" href="/assets/js/12.d3bf7b11.js"><link rel="prefetch" href="/assets/js/13.6f6b4894.js"><link rel="prefetch" href="/assets/js/14.2c89a43b.js"><link rel="prefetch" href="/assets/js/15.565302df.js"><link rel="prefetch" href="/assets/js/16.863ec29e.js"><link rel="prefetch" href="/assets/js/17.81c8a830.js"><link rel="prefetch" href="/assets/js/18.4e8004a4.js"><link rel="prefetch" href="/assets/js/19.04ae3cb6.js"><link rel="prefetch" href="/assets/js/20.43106a54.js"><link rel="prefetch" href="/assets/js/21.56a2417a.js"><link rel="prefetch" href="/assets/js/22.d0c70b78.js"><link rel="prefetch" href="/assets/js/23.9da4a7d3.js"><link rel="prefetch" href="/assets/js/24.6382844b.js"><link rel="prefetch" href="/assets/js/25.33b58a3b.js"><link rel="prefetch" href="/assets/js/26.f5dfaeb5.js"><link rel="prefetch" href="/assets/js/27.a01f0f1c.js"><link rel="prefetch" href="/assets/js/28.8f4ee848.js"><link rel="prefetch" href="/assets/js/29.14745b03.js"><link rel="prefetch" href="/assets/js/30.339e63b1.js"><link rel="prefetch" href="/assets/js/31.299a0ec5.js"><link rel="prefetch" href="/assets/js/32.36a9b7fc.js"><link rel="prefetch" href="/assets/js/33.02f2ea3b.js"><link rel="prefetch" href="/assets/js/34.8c2fd8ae.js"><link rel="prefetch" href="/assets/js/35.e1131b1f.js"><link rel="prefetch" href="/assets/js/36.ca800f3d.js"><link rel="prefetch" href="/assets/js/37.834c20f9.js"><link rel="prefetch" href="/assets/js/38.f0c65a45.js"><link rel="prefetch" href="/assets/js/4.61dc0fce.js"><link rel="prefetch" href="/assets/js/40.f50d8b03.js"><link rel="prefetch" href="/assets/js/41.e634a1d4.js"><link rel="prefetch" href="/assets/js/42.4409db03.js"><link rel="prefetch" href="/assets/js/43.eb927c4f.js"><link rel="prefetch" href="/assets/js/44.c2c8ac29.js"><link rel="prefetch" href="/assets/js/45.8c89abb2.js"><link rel="prefetch" href="/assets/js/46.1f598736.js"><link rel="prefetch" href="/assets/js/47.0dc0c336.js"><link rel="prefetch" href="/assets/js/48.7311c091.js"><link rel="prefetch" href="/assets/js/49.0590a5ee.js"><link rel="prefetch" href="/assets/js/5.a6acc31c.js"><link rel="prefetch" href="/assets/js/50.5e6aa420.js"><link rel="prefetch" href="/assets/js/51.daaa3ea1.js"><link rel="prefetch" href="/assets/js/52.3be16e9a.js"><link rel="prefetch" href="/assets/js/53.f73c6710.js"><link rel="prefetch" href="/assets/js/54.a7d47983.js"><link rel="prefetch" href="/assets/js/55.5de6d42b.js"><link rel="prefetch" href="/assets/js/56.23b3eed4.js"><link rel="prefetch" href="/assets/js/57.a3fcd7a7.js"><link rel="prefetch" href="/assets/js/58.bceb7f62.js"><link rel="prefetch" href="/assets/js/59.1755e44b.js"><link rel="prefetch" href="/assets/js/6.56200eb6.js"><link rel="prefetch" href="/assets/js/60.0bd98a77.js"><link rel="prefetch" href="/assets/js/61.f0cd536c.js"><link rel="prefetch" href="/assets/js/62.1d73b33b.js"><link rel="prefetch" href="/assets/js/63.e2f2897f.js"><link rel="prefetch" href="/assets/js/64.8f52af13.js"><link rel="prefetch" href="/assets/js/65.d3483f2c.js"><link rel="prefetch" href="/assets/js/66.142ba4e5.js"><link rel="prefetch" href="/assets/js/67.a5d671a7.js"><link rel="prefetch" href="/assets/js/68.f6e3aa17.js"><link rel="prefetch" href="/assets/js/69.fdf1350c.js"><link rel="prefetch" href="/assets/js/7.ab8ffd39.js"><link rel="prefetch" href="/assets/js/70.9dff3efb.js"><link rel="prefetch" href="/assets/js/71.262665e8.js"><link rel="prefetch" href="/assets/js/72.73136398.js"><link rel="prefetch" href="/assets/js/73.e20e1cda.js"><link rel="prefetch" href="/assets/js/74.2de2dab9.js"><link rel="prefetch" href="/assets/js/75.d033acb2.js"><link rel="prefetch" href="/assets/js/76.5f13e879.js"><link rel="prefetch" href="/assets/js/77.6652698b.js"><link rel="prefetch" href="/assets/js/78.afe723ed.js"><link rel="prefetch" href="/assets/js/79.3bb9a95d.js"><link rel="prefetch" href="/assets/js/8.f847aa7a.js"><link rel="prefetch" href="/assets/js/80.84bf0a56.js"><link rel="prefetch" href="/assets/js/81.88c56010.js"><link rel="prefetch" href="/assets/js/82.2b75bb62.js"><link rel="prefetch" href="/assets/js/83.3230acf5.js"><link rel="prefetch" href="/assets/js/84.02f48b8c.js"><link rel="prefetch" href="/assets/js/85.05feeacd.js"><link rel="prefetch" href="/assets/js/86.5abf208e.js"><link rel="prefetch" href="/assets/js/87.cec0c2e6.js"><link rel="prefetch" href="/assets/js/88.e62b7e95.js"><link rel="prefetch" href="/assets/js/89.708bba5c.js"><link rel="prefetch" href="/assets/js/9.93fa1ba1.js"><link rel="prefetch" href="/assets/js/90.f79f6a80.js"><link rel="prefetch" href="/assets/js/91.98970e22.js"><link rel="prefetch" href="/assets/js/92.de5dd0bd.js"><link rel="prefetch" href="/assets/js/93.1b91999e.js"><link rel="prefetch" href="/assets/js/94.7d7076a6.js"><link rel="prefetch" href="/assets/js/95.b2b0edd4.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.05e426fd.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">What is FE</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/React基础学习.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;method/常用方法代码总结/封装fetch方法.html" class="nav-link">
+  常用工具与方法
+</a></div><div class="nav-item"><a href="/server/nodejs/Nodejs学习笔记.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/programming-basics/编程模式/函数式编程.html" class="nav-link">
+  编程基础
+</a></div><div class="nav-item"><a href="/syntax&amp;API/HTML/关于HTML.html" class="nav-link">
+  语法和API
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络和通讯
+</a></div><div class="nav-item"><a href="/development-process/Git/git命令.html" class="nav-link">
+  开发流程
+</a></div><div class="nav-item"><a href="/engineering/webpack/webpack基础学习.html" class="nav-link">
+  前端工程化
+</a></div><div class="nav-item"><a href="/runnnig-monitoring/安全/CSRF.html" class="nav-link">
+  运行与监控
+</a></div><div class="nav-item"><a href="/framework/React/React基础学习.html" class="nav-link">
+  前端框架
+</a></div><div class="nav-item"><a href="/tool&amp;method/常用方法代码总结/封装fetch方法.html" class="nav-link">
+  常用工具与方法
+</a></div><div class="nav-item"><a href="/server/nodejs/Nodejs学习笔记.html" class="nav-link">
+  服务器端
+</a></div><div class="nav-item"><a href="/more/" class="nav-link">
+  技术广度
+</a></div><div class="nav-item"><a href="https://github.com/licop/What_is_FE" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>React</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/framework/React/React基础学习.html" class="sidebar-link">React 基础学习</a></li><li><a href="/framework/React/关于React-Hooks.html" class="sidebar-link">关于 React-Hooks</a></li><li><a href="/framework/React/编写React应用程序步骤.html" class="sidebar-link">编写 React 应用程序步骤</a></li><li><a href="/framework/React/关于虚拟Dom和Diff算法.html" class="sidebar-link">Virtual DOM 及 Diff 算法</a></li><li><a href="/framework/React/关于React和不可变数据.html" class="sidebar-link">关于 React 和不可变数据</a></li><li><a href="/framework/React/Fiber的作用和原理.html" class="sidebar-link">Fiber 的作用和原理</a></li><li><a href="/framework/React/应用状态该用React组件状态还是Redux.html" class="sidebar-link">应用状态该用 React 组件状态还是 Redux</a></li><li><a href="/framework/React/自定义Hooks和高阶组件.html" class="sidebar-link">自定义 Hooks 和高阶组件</a></li><li><a href="/framework/React/React项目的文件目录结构.html" class="active sidebar-link">React 项目的文件目录结构</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/framework/React/React项目的文件目录结构.html#几种典型的-react-项目文件目录" class="sidebar-link">几种典型的 React 项目文件目录</a></li></ul></li><li><a href="/framework/React/React组件性能优化.html" class="sidebar-link">React 组件性能优化</a></li><li><a href="/framework/React/关于Redux.html" class="sidebar-link">关于 Redux</a></li><li><a href="/framework/React/Redux源码实现.html" class="sidebar-link">Redux 源码实现</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Vue</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/framework/Vue/vue-router实现原理.html" class="sidebar-link">vue-router 实现原理</a></li><li><a href="/framework/Vue/vue数据响应式原理.html" class="sidebar-link">vue 数据响应式原理</a></li><li><a href="/framework/Vue/Virtual DOM 介绍以及 Snabbdom 源码解析.html" class="sidebar-link">Virtual DOM 介绍以及 Snabbdom 源码解析</a></li><li><a href="/framework/Vue/Vue 源码解析--Vue 初始化和首次渲染.html" class="sidebar-link">Vue 源码解析--Vue 初始化和首次渲染</a></li><li><a href="/framework/Vue/Vue 源码解析--数据响应式原理.html" class="sidebar-link">Vue 源码解析--数据响应式原理</a></li><li><a href="/framework/Vue/Vue 源码解析--虚拟 Dom.html" class="sidebar-link">Vue 源码解析--虚拟 Dom</a></li><li><a href="/framework/Vue/Vue 源码解析--模板编译.html" class="sidebar-link">Vue 源码解析--模板编译和组件化</a></li><li><a href="/framework/Vue/Vue 源码解析--一些工具方法.html" class="sidebar-link">Vue 源码解析--一些工具方法</a></li><li><a href="/framework/Vue/Vuex 介绍及源码解析.html" class="sidebar-link">Vuex 介绍及源码解析</a></li><li><a href="/framework/Vue/Vue3 的优化.html" class="sidebar-link">Vue3 的优化</a></li><li><a href="/framework/Vue/使用 vue-server-renderer 开发一个 Vue 服务端渲染项目.html" class="sidebar-link">使用 vue-server-renderer 开发一个 Vue 服务端渲染项目</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="react-项目的文件目录结构"><a href="#react-项目的文件目录结构" class="header-anchor">#</a> React 项目的文件目录结构</h1> <p>在前端工程化和团队协作的基础上，大型 React 项目代码量上 10 万很常见。项目从最初的几行代码到如今的数十万代码，你可能会遇到如下问题：</p> <ul><li>新功能的组件、Hooks、样式要不要分文件写，源文件都放到哪里？</li> <li>Redux 的 action、reducer、store 都写到哪里？</li> <li>公共的代码放到哪里？</li> <li>代码文件多到找不到怎么办？</li></ul> <p>大中型 React 项目在代码增多，项目整体的扩展就会遇到挑战，这时目录结构组件就变的重要了。</p> <h2 id="几种典型的-react-项目文件目录"><a href="#几种典型的-react-项目文件目录" class="header-anchor">#</a> 几种典型的 React 项目文件目录</h2> <p>项目源码的文件目录结构并不等同于应用的整体逻辑，但却可以<strong>作为把握应用整体逻辑的一张“地图”</strong>。一个良好的文件目录结构是<strong>自解释</strong>的，可以帮助新接触项目的开发者快速熟悉代码逻辑。</p> <p>React 应用项目有以下五种典型的文件目录结构：</p> <ul><li>单文件结构；</li> <li>单目录结构；</li> <li>按文件职能划分目录结构；</li> <li>按组件划分目录结构；</li> <li>按业务功能划分目录结构。</li></ul> <h3 id="单文件结构"><a href="#单文件结构" class="header-anchor">#</a> 单文件结构</h3> <p>单文件结构就是指，在单个 React 组件文件中开发所有业务逻辑。比如说不算样式的话，我们把所有代码都写在了 <code>src/app.js</code> 中。需要注意的是，这种结构只适合代码演示或微型的 React 项目。</p> <h3 id="单目录结构"><a href="#单目录结构" class="header-anchor">#</a> 单目录结构</h3> <p>比起单文件结构，这种结构拆分了组件文件，拆分的文件都放在同一个目录下。</p> <div class="language-js extra-class"><pre class="language-js"><code>src
+├── App<span class="token punctuation">.</span>css
+├── App<span class="token punctuation">.</span>js
+├── KanbanBoard<span class="token punctuation">.</span>js
+├── KanbanCard<span class="token punctuation">.</span>js
+├── KanbanColumn<span class="token punctuation">.</span>js
+├── KanbanNewCard<span class="token punctuation">.</span>js
+├── index<span class="token punctuation">.</span>css
+└── index<span class="token punctuation">.</span>js
+</code></pre></div><p>单目录结构比起单文件结构，能支撑更多组件以及相关逻辑，适合微型 React 项目。</p> <h3 id="按文件职能划分目录结构"><a href="#按文件职能划分目录结构" class="header-anchor">#</a> 按文件职能划分目录结构</h3> <p>顾名思义，在这种结构下，组件文件放一个目录，自定义 Hooks 文件放一个目录，context 文件放一个目录，如果使用了 Redux 的话，actions、reducers、store 各占一个目录（或者 Redux Toolkit 的 slices 和 store 目录）。</p> <div class="language-js extra-class"><pre class="language-js"><code>src
+├── components
+│   ├── App<span class="token punctuation">.</span>css
+│   ├── App<span class="token punctuation">.</span>tsx
+│   ├── KanbanBoard<span class="token punctuation">.</span>tsx
+│   ├── KanbanCard<span class="token punctuation">.</span>tsx
+│   ├── KanbanColumn<span class="token punctuation">.</span>tsx
+│   └── KanbanNewCard<span class="token punctuation">.</span>tsx
+├── context
+│   └── AdminContext<span class="token punctuation">.</span>ts
+├── hooks
+│   └── useFetchCards<span class="token punctuation">.</span>ts
+├── actions
+├── reducers
+├── store
+├── types
+├   └── KanbanCard<span class="token punctuation">.</span>types<span class="token punctuation">.</span>ts
+├── index<span class="token punctuation">.</span>css
+└── index<span class="token punctuation">.</span>tsx
+</code></pre></div><p>按文件职能划分目录结构的优点在于，可以快速定位任何一种类型的源码，在源码之间导入导出也比较方便：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// src/components/App.tsx</span>
+<span class="token keyword">import</span> AdminContext <span class="token keyword">from</span> <span class="token string">&quot;../context/AdminContext&quot;</span><span class="token punctuation">;</span>
+</code></pre></div><p>当其中某个或者某几个目录中的文件数不断增多时，这种结构的缺点就暴露出来了：不容易定位到直接相关的源文件。比如 hooks/useFetchCards.ts 目前只有 components/App.tsx 在用，这从目录结构上是看不出来的，必须进到源码里去看，当 components 目录下的文件足够多时，要花些功夫才能确认这两个文件的关联关系。</p> <h3 id="按组件划分目录结构"><a href="#按组件划分目录结构" class="header-anchor">#</a> 按组件划分目录结构</h3> <p>这种目录结构为每个组件都划分了一个独立、平级的目录，只要跟这个组件强相关，都往这个目录里招呼。
+这种设计出于两个考虑：</p> <ul><li>React 的基本开发单元是组件；</li> <li>同一组件的相关代码要尽量<strong>共置</strong></li></ul> <p>目录树结构的例子如下：</p> <div class="language-js extra-class"><pre class="language-js"><code>src
+├── components
+│   ├── App
+│   │   ├── AdminContext<span class="token punctuation">.</span>js
+│   │   ├── App<span class="token punctuation">.</span>css
+│   │   ├── App<span class="token punctuation">.</span>jsx
+│   │   ├── App<span class="token punctuation">.</span>test<span class="token punctuation">.</span>jsx
+│   │   ├── index<span class="token punctuation">.</span>js
+│   │   └── useFetchCards<span class="token punctuation">.</span>js
+│   ├── KanbanBoard
+│   │   ├── KanbanBoard<span class="token punctuation">.</span>css
+│   │   ├── KanbanBoard<span class="token punctuation">.</span>jsx
+│   │   └── index<span class="token punctuation">.</span>js
+│   ├── KanbanCard
+│   │   ├── KanbanCard<span class="token punctuation">.</span>css
+│   │   ├── KanbanCard<span class="token punctuation">.</span>jsx
+│   │   ├── KanbanNewCard<span class="token punctuation">.</span>jsx
+│   │   └── index<span class="token punctuation">.</span>js
+│   └── KanbanColumn
+│       ├── KanbanColumn<span class="token punctuation">.</span>css
+│       ├── KanbanColumn<span class="token punctuation">.</span>jsx
+│       └── index<span class="token punctuation">.</span>js
+├── index<span class="token punctuation">.</span>css
+└── index<span class="token punctuation">.</span>jsx
+</code></pre></div><p>在每个目录中都有一个 index.js，负责把当前目录的组件重新导出（Re-export）到目录外面去，这样其他组件在导入这个组件时，不需要关心目录里都有哪些实现，只关注作为入口的 index.js 就行。入口文件示意代码如下：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// src/components/KanbanCard/index.js</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> <span class="token keyword">default</span> <span class="token keyword">as</span> KanbanCard <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;./KanbanCard.jsx&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> <span class="token keyword">default</span> <span class="token keyword">as</span> KanbanNewCard <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;./KanbanNewCard.jsx&quot;</span><span class="token punctuation">;</span>
+</code></pre></div><p>这种目录结构的优势在于，能为特定组件提供一定的封装性，在它专属的目录中能找到它强相关的所有代码。但它也有不足，面对一些跨组件复用的逻辑，可能会出现放到哪个组件目录都不太合适的窘境。</p> <h3 id="按业务功能划分目录结构"><a href="#按业务功能划分目录结构" class="header-anchor">#</a> 按业务功能划分目录结构</h3> <p>按业务功能划分目录结构，它与我们刚刚讲过的结构都不同，意味着目录划分的主要依据不再是具体框架中的某个具体技术概念（包括 React 的组件、Hooks、context，也包括 Redux 的 action、reducer、store）。这使得按业务功能划分目录结构成为一个框架无关的方案，也就是说，其他框架的应用也可以利用这种目录结构。</p> <p>目录树结构的例子如下：</p> <div class="language-js extra-class"><pre class="language-js"><code>src
+├── features
+│   ├── admin
+│   │   ├── AdminContext<span class="token punctuation">.</span>js
+│   │   ├── AdminDashboard<span class="token punctuation">.</span>jsx
+│   │   ├── AdminSettings<span class="token punctuation">.</span>jsx
+│   │   └── index<span class="token punctuation">.</span>js
+│   ├── kanban
+│   │   ├── KanbanBoard<span class="token punctuation">.</span>jsx
+│   │   ├── KanbanCard<span class="token punctuation">.</span>jsx
+│   │   ├── KanbanColumn<span class="token punctuation">.</span>jsx
+│   │   ├── KanbanNewCard<span class="token punctuation">.</span>jsx
+│   │   ├── index<span class="token punctuation">.</span>js
+│   │   └── useFetchCards<span class="token punctuation">.</span>js
+│   ├── login
+│   │   ├── Login<span class="token punctuation">.</span>css
+│   │   ├── Login<span class="token punctuation">.</span>jsx
+│   │   ├── LoginForm<span class="token punctuation">.</span>jsx
+│   │   └── index<span class="token punctuation">.</span>js
+│   └── user
+│       ├── Password<span class="token punctuation">.</span>jsx
+│       ├── UserProfile<span class="token punctuation">.</span>jsx
+│       ├── UserSettings<span class="token punctuation">.</span>jsx
+│       └── index<span class="token punctuation">.</span>js
+├── index<span class="token punctuation">.</span>css
+└── index<span class="token punctuation">.</span>jsx
+</code></pre></div><p>按业务功能划分目录结构可以说，它是这五种结构中最适合大中型 React 项目的。它既强调了相关源文件的共置，也在增加业务功能时具有良好的可扩展性。但它也具有与按组件划分目录结构类似的缺点，面对一些跨业务功能复用的逻辑，放在哪个业务目录下都不太合适。</p> <h3 id="如何选取合适的文件目录结构"><a href="#如何选取合适的文件目录结构" class="header-anchor">#</a> 如何选取合适的文件目录结构？</h3> <p><img src="/framework/react_base_10.png" alt=""></p> <h3 id="前端应用逻辑架构的功用"><a href="#前端应用逻辑架构的功用" class="header-anchor">#</a> 前端应用逻辑架构的功用</h3> <p>无论是否精确、美观，这样的架构图有助于我们把握项目的整体走向，对于大中型 React 项目而言是一个值得的先期投入。</p> <p><img src="/framework/react_base_11.png" alt=""></p> <h3 id="大中型-react-项目推荐的文件目录结构"><a href="#大中型-react-项目推荐的文件目录结构" class="header-anchor">#</a> 大中型 React 项目推荐的文件目录结构</h3> <p>当 React 项目规模属于中型或大型时，文件目录结构需要满足以下几个目标：</p> <ul><li>便于横向扩展（即增加新功能点或视图）；</li> <li>易于定位相关代码；鼓励代码复用；</li> <li>有利于团队协作。</li></ul> <p>为了满足上面的目标，推荐以按业务功能划分为主，结合按组件、按文件职能的方式，划分目录结构。</p> <div class="language-js extra-class"><pre class="language-js"><code>src
+├── components
+│   ├── Button
+│   ├── Dialog
+│   ├── ErrorBoundary
+│   ├── Form
+│   │   ├── Form<span class="token punctuation">.</span>css
+│   │   ├── FormField<span class="token punctuation">.</span>jsx
+│   │   ├── Form<span class="token punctuation">.</span>jsx
+│   │   └── index<span class="token punctuation">.</span>js
+│   ├── <span class="token operator">...</span>
+│   └── Tooltip
+├── context
+│   ├── <span class="token operator">...</span>
+│   └── UserContext<span class="token punctuation">.</span>js
+├── features
+│   ├── admin
+│   ├── dashboard
+│   │   ├── activies
+│   │   │   └── ActivityList<span class="token punctuation">.</span>jsx
+│   │   ├── charts
+│   │   │   └── <span class="token operator">...</span>
+│   │   ├── news
+│   │   │   ├── news<span class="token punctuation">.</span>png
+│   │   │   ├── NewsDetail<span class="token punctuation">.</span>jsx
+│   │   │   └── NewsList<span class="token punctuation">.</span>jsx
+│   │   ├── Dashboard<span class="token punctuation">.</span>css
+│   │   ├── Dashboard<span class="token punctuation">.</span>jsx
+│   │   └── index<span class="token punctuation">.</span>js
+│   ├── kanban
+│   │   ├── KanbanBoard<span class="token punctuation">.</span>jsx
+│   │   ├── index<span class="token punctuation">.</span>js
+│   │   └── useFetchCards<span class="token punctuation">.</span>js
+│   ├── home
+│   ├── login
+│   ├── <span class="token operator">...</span>
+│   └── user
+├── hooks
+│   ├── <span class="token operator">...</span>
+│   └── useLocation<span class="token punctuation">.</span>js
+├── servies
+│   ├── kanbanService<span class="token punctuation">.</span>js
+│   ├── <span class="token operator">...</span>
+│   └── userService<span class="token punctuation">.</span>js
+├── index<span class="token punctuation">.</span>css
+└── index<span class="token punctuation">.</span>jsx
+</code></pre></div><p>对应上面的例子，首先建立 features 目录， features 下面的一级目录都对应一个相对完整的业务功能，目录中有实现这一功能的各类代码。</p> <p>对于部分体量比较大的功能，可以根据需要在一级目录下加入二级目录，每个二级目录都对应一个相对独立的子功能（业务），目录内部是实现子功能的各类代码。必要时还可以加入三级、四级目录，但总体目录层级不应过深。所以我们说，在 features 目录，可以从横向、纵向两个方向扩展功能点。</p> <p>在 features 目录之外，为公用的代码建立一系列职能型的目录，包括可重用组件的 components 目录、可重用 Hooks 的 hooks 目录； context 目录的主要目的不是重用，而是跨业务功能使用 context； services 目录下，集中定义了整个应用会用到的远程服务，避免四散到各个业务模块中，甚至硬编码（Hardcode）。这些公用代码的目录层级不宜太深，以一到二级为主。</p> <p>从代码的导入导出关系来看，在 features 目录下，原则上同级目录间的文件不应互相导入，二级、三级目录只应被直接上一级目录导入，不能反过来被下一级目录导入。features 目录的代码可以导入公用目录的代码，反过来公用目录的代码不能导入 features 目录的代码。在任何时候都应该避免循环导入（Circular Import）。</p> <p>目前为止的目录结构，都是以单个 React 项目为前提的。</p> <p>根据实际项目需要，也有很多 React 项目使用了多项目或者 monorepo 的方式来开发和扩展，虽然编译构建、CI/CD 更加复杂了，但更有利于多个团队的协作，提高整体开发效率。在这样的实践中，可以把追加功能点到同一个 React 项目（或 monorepo 的包）看作纵向扩展，把特定模块、可复用组件和逻辑抽取为独立 React 项目（或 monorepo 的包）看作横向扩展。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/framework/React/自定义Hooks和高阶组件.html" class="prev">
+        自定义 Hooks 和高阶组件
+      </a></span> <span class="next"><a href="/framework/React/React组件性能优化.html">
+        React 组件性能优化
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.23d3122b.js" defer></script><script src="/assets/js/2.5e2d37c1.js" defer></script><script src="/assets/js/39.4d09d993.js" defer></script><script src="/assets/js/3.b304fdc1.js" defer></script>
+  </body>
+</html>

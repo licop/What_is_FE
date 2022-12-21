@@ -155,6 +155,11 @@ module.exports = {
         'Nodejs': [
             'Nodejs学习笔记'
         ],
+        'MongoDB': [
+            'MongoDB基础',
+            'MongoDB进阶',
+            'MongoDB运维'
+        ],
         'ssr': [
             '服务器端渲染',
             '关于 Nuxtjs'
