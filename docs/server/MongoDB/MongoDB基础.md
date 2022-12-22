@@ -1245,10 +1245,248 @@ db.inventory.find({ item: { $type: 10 } });
 
 以下示例查询不包含字段的文档。
 
-`{{ item: { $exists：false }}`查询与不包含 item 字段的文档匹配：
+`{ item: { $exists：false }`查询与不包含 item 字段的文档匹配：
 
 ```js
 db.inventory.find({ item: { $exists: false } });
 ```
 
 该查询仅返回不包含项目字段的文档。
+
+## 基础操作（CRUD）-- 更新文档
+
+更新操作会修改集合中的现有文档。 MongoDB 提供了以下方法来更新集合的文档：
+
+- `db.collection.updateOne(<filter>, <update>, <options>)` 更新单个文档
+- `db.collection.updateMany(<filter>, <update>, <options>)` 更新多个文档
+- `db.collection.replaceOne(<filter>, <update>, <options>)` 替换指定文档
+
+您可以指定标识要更新的文档的条件或过滤器。这些过滤器使用与读取操作相同的语法。
+
+测试数据：
+
+```js
+db.inventory.insertMany([
+  {
+    item: "canvas",
+    qty: 100,
+    size: { h: 28, w: 35.5, uom: "cm" },
+    status: "A",
+  },
+  { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+  { item: "mat", qty: 85, size: { h: 27.9, w: 35.5, uom: "cm" }, status: "A" },
+  {
+    item: "mousepad",
+    qty: 25,
+    size: { h: 19, w: 22.85, uom: "cm" },
+    status: "P",
+  },
+  {
+    item: "notebook",
+    qty: 50,
+    size: { h: 8.5, w: 11, uom: "in" },
+    status: "P",
+  },
+  { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+  {
+    item: "planner",
+    qty: 75,
+    size: { h: 22.85, w: 30, uom: "cm" },
+    status: "D",
+  },
+  {
+    item: "postcard",
+    qty: 45,
+    size: { h: 10, w: 15.25, uom: "cm" },
+    status: "A",
+  },
+  {
+    item: "sketchbook",
+    qty: 80,
+    size: { h: 14, w: 21, uom: "cm" },
+    status: "A",
+  },
+  {
+    item: "sketch pad",
+    qty: 95,
+    size: { h: 22.85, w: 30.5, uom: "cm" },
+    status: "A",
+  },
+]);
+```
+
+### 语法
+
+为了更新文档，MongoDB 提供了更新操作符（例如 `$set`）来修改字段值。
+
+要使用更新运算符，请将以下形式的更新文档传递给更新方法：
+
+```js
+{
+  <update operator>: { <field1>: <value1>, ... },
+  <update operator>: { <field2>: <value2>, ... },
+  ...
+}
+```
+
+如果该字段不存在，则某些更新运算符（例如`$set`）将创建该字段。有关详细信息，请参见各个更新操作员参考。
+
+### 更新单个文档
+
+下面的示例在清单集合上使用 `db.collection.updateOne()` 方法更新项目等于 paper 的第一个文档：
+
+```js
+db.inventory.updateOne(
+  { item: "paper" },
+  {
+    $set: { "size.uom": "cm", status: "P" },
+    $currentDate: { lastModified: true },
+  }
+);
+```
+
+更新操作：
+
+- 使用 `$set` 运算符将 size.uom 字段的值更新为 cm，将状态字段的值更新为 P
+- 使用 `$currentDate` 运算符将 lastModified 字段的值更新为当前日期。如果 lastModified 字段不存在，则 \$currentDate 将创建该字段。
+
+```json
+// 更新后
+{
+  "_id": ObjectId("63a3b3d4a91f79c4db32f68f"),
+  "item": "paper",
+  "qty": 100.0,
+  "size": {
+    "h": 8.5,
+    "w": 11.0,
+    "uom": "cm"
+  },
+  "status": "P",
+  "lastModified": ISODate("2022-12-22T01:39:36.933Z")
+}
+```
+
+### 更新多个文档
+
+以下示例在清单集合上使用 `db.collection.updateMany()` 方法来更新数量小于 50 的所有文档：
+
+```js
+db.inventory.updateMany(
+  { qty: { $lt: 50 } },
+  {
+    $set: { "size.uom": "in", status: "P" },
+    $currentDate: { lastModified: true },
+  }
+);
+```
+
+更新操作：
+
+- 使用 `$set` 运算符将 size.uom 字段的值更新为 "in"，将状态字段的值更新为 "p"
+- 使用 `$currentDate` 运算符将 lastModified 字段的值更新为当前日期。如果 lastModified 字段不存在，则 `$currentDate` 将创建该字段。
+
+### 替换文档
+
+要替换 \_id 字段以外的文档的全部内容，请将一个全新的文档作为第二个参数传递给 `db.collection.replaceOne()`。
+
+替换文档时，替换文档必须仅由字段/值对组成；即不包含更新运算符表达式。
+
+替换文档可以具有与原始文档不同的字段。在替换文档中，由于 \_id 字段是不可变的，因此可以省略 \_id 字段；但是，如果您确实包含 \_id 字段，则它必须与当前值具有相同的值。
+
+以下示例替换了清单集合中项目 "paper" 的第一个文档：
+
+```js
+db.inventory.replaceOne(
+  { item: "paper" },
+  {
+    item: "paper",
+    instock: [
+      { warehouse: "A", qty: 60 },
+      { warehouse: "B", qty: 40 },
+    ],
+  }
+);
+```
+
+## 基础操作（CRUD）-- 删除文档
+
+删除操作从集合中删除文档。 MongoDB 提供了以下删除集合文档的方法：
+
+- [db.collection.deleteMany()](https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteMany/#db.collection.deleteMany)
+- [db.collection.deleteOne()](https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteOne/#db.collection.deleteOne)
+
+您可以指定标准或过滤器，以标识要删除的文档。这些过滤器使用与读取操作相同的语法。
+
+![](/server/mongodb/mongodb6.svg)
+
+测试数据：
+
+```js
+db.inventory.insertMany([
+  { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+  {
+    item: "notebook",
+    qty: 50,
+    size: { h: 8.5, w: 11, uom: "in" },
+    status: "P",
+  },
+  { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+  {
+    item: "planner",
+    qty: 75,
+    size: { h: 22.85, w: 30, uom: "cm" },
+    status: "D",
+  },
+  {
+    item: "postcard",
+    qty: 45,
+    size: { h: 10, w: 15.25, uom: "cm" },
+    status: "A",
+  },
+]);
+```
+
+要删除集合中的所有文档，请将空的过滤器文档{}传递给 `db.collection.deleteMany（）`方法。
+
+以下示例从清单收集中删除所有文档：
+
+```js
+db.inventory.deleteMany({});
+```
+
+该方法返回具有操作状态的文档。有关更多信息和示例，请参见 deleteMany()。
+
+### 删除所有符合条件的文档
+
+您可以指定标准或过滤器，以标识要删除的文档。筛选器使用与读取操作相同的语法。
+
+要指定相等条件，请在查询过滤器文档中使用`<field>：<value>`表达式：
+
+```js
+{ <field1>: <value1>, ... }
+```
+
+查询过滤器文档可以使用查询运算符以以下形式指定条件：
+
+```js
+{ <field1>: { <operator1>: <value1> }, ... }
+```
+
+要删除所有符合删除条件的文档，请将过滤器参数传递给 deleteMany（）方法。
+
+以下示例从状态字段等于“ A”的清单集合中删除所有文档：
+
+```js
+db.inventory.deleteMany({ status: "A" });
+```
+
+该方法返回具有操作状态的文档。有关更多信息和示例，请参见`deleteMany（）`。
+
+### 仅删除 1 个符合条件的文档
+
+要删除最多一个与指定过滤器匹配的文档（即使多个文档可能与指定过滤器匹配），请使用 `db.collection.deleteOne（）`方法。
+下面的示例删除状态为“ D”的第一个文档：
+
+```js
+db.inventory.deleteOne({ status: "D" });
+```
