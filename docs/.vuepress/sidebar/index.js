@@ -156,9 +156,7 @@ module.exports = {
             'Nodejs学习笔记'
         ],
         'MongoDB': [
-            'MongoDB基础',
-            'MongoDB进阶',
-            'MongoDB运维'
+            'MongoDB基础'
         ],
         'ssr': [
             '服务器端渲染',

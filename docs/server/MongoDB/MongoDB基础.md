@@ -10,9 +10,9 @@
 - 查询上亿量级数据的速度极其缓慢 。
 - 分库、分表形成的子库到达一定规模后难以进一步扩展 。
 - 分库、分表 的规则可能会因为需求变更而发生变更。
-- 修改表结构困难 。
+- 修改表结构困难。
 
-在很多互联网应用场景下 ， 对数据联表的查询需求不是那么强烈 ，也并不需要在数据写入后立刻读取，但对数据的读取和并发写入速度有非常高的要求 。 在这样的情况下 ，非关系型数据库得到高速的发展 。
+在很多互联网应用场景下， 对数据联表的查询需求不是那么强烈，也并不需要在数据写入后立刻读取，但对数据的读取和并发写入速度有非常高的要求 。 在这样的情况下 ，非关系型数据库得到高速的发展。
 
 ### 什么是 NoSQL 数据库
 
@@ -1489,4 +1489,134 @@ db.inventory.deleteMany({ status: "A" });
 
 ```js
 db.inventory.deleteOne({ status: "D" });
+```
+
+## 在 Node.js 中操作 MongoDB
+
+参考：
+
+- 在服务端操作 MongoDB：https://docs.mongodb.com/drivers/
+- 在 Node.js 中操作 MongoDB：https://docs.mongodb.com/drivers/node/
+
+### 初始化示例项目
+
+```
+mkdir node-mongodb-demo
+
+cd node-mongodb-demo
+
+npm init -y
+
+npm install mongodb
+```
+
+### 连接到 MongoDB
+
+```js
+const { MongoClient } = require("mongodb");
+// Connection URI
+const uri = "mongodb://127.0.0.1:27017";
+// Create a new MongoClient
+const client = new MongoClient(uri);
+async function run() {
+  try {
+    // 链接数据库
+    await client.connect();
+    // 获取数据库
+    const myDb = client.db("myNewDatabase");
+    // 获取集合
+    const inventoryCollection = myDb.collection("inventory");
+    // 查找文档
+    const ret = await inventoryCollection.find();
+    // 转为数组
+    console.log(await ret.toArray());
+    console.log("Connected successfully to server");
+  } catch (error) {
+    console.log("Connect failed");
+    console.log(error);
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+
+run();
+```
+
+### CRUD 操作
+
+CRUD（创建，读取，更新，删除）操作使您可以处理存储在 MongoDB 中的数据。在 nodejs 中的 CRUD 操作语法和上面的操作没有区别，几乎是一样的。
+
+```js
+const { MongoClient, ObjectId } = require("mongodb");
+// Connection URI
+const uri = "mongodb://127.0.0.1:27017";
+// Create a new MongoClient
+const client = new MongoClient(uri);
+async function run() {
+  try {
+    // 链接数据库
+    await client.connect();
+    // 获取数据库
+    const myDb = client.db("myNewDatabase");
+    // 获取集合
+    const inventoryCollection = myDb.collection("inventory");
+
+    // 创建文档
+    const ret = await inventoryCollection.insertOne({
+      a: 1,
+      b: 2,
+      c: true,
+      d: [1, 2, 3],
+    });
+    console.log(ret);
+
+    // 查找文档
+    const findRet = await inventoryCollection.find({
+      item: "mat",
+    });
+    // 转为数组
+    console.log(await findRet.toArray());
+
+    // 删除文档
+    const deleteRet = await inventoryCollection.deleteOne({
+      _id: ObjectId("63a3ccc2a91f79c4db32f69b"),
+    });
+    console.log(await deleteRet);
+
+    // 更新文档
+    const updateRet = await inventoryCollection.updateOne(
+      {
+        _id: ObjectId("63a3ccc2a91f79c4db32f699"),
+      },
+      {
+        $set: {
+          qty: 100,
+        },
+      }
+    );
+    console.log(updateRet, 43);
+
+    // 替换文档
+    const replaceRet = await inventoryCollection.replaceOne(
+      {
+        _id: ObjectId("63a90abde3e3d632bef4e3a6"),
+      },
+      {
+        z: 42,
+      }
+    );
+    console.log(replaceRet);
+
+    console.log("Connected successfully to server");
+  } catch (error) {
+    console.log("Connect failed");
+    console.log(error);
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+
+run();
 ```
