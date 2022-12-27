@@ -158,6 +158,9 @@ module.exports = {
         'MongoDB': [
             'MongoDB基础'
         ],
+        'Redis': [
+            'Redis基础学习'
+        ],
         'ssr': [
             '服务器端渲染',
             '关于 Nuxtjs'

@@ -1624,3 +1624,10 @@ run();
 [node-mongodb-demo 地址](https://github.com/licop/What_is_FE/blob/master/examples/mongodb/node-mongodb-demo/index.js)
 
 ## MongoDB 数据库结合 Web 服务
+
+基于 RESTful 接口规范。
+
+- [理解 RESTful 架构](http://www.ruanyifeng.com/blog/2011/09/restful.html)
+- [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
+
+[MongoDB 结合 nodejs 实现文章 CURD 操作](https://github.com/licop/What_is_FE/tree/master/examples/mongodb/article-bed)
