@@ -237,6 +237,16 @@ ps aux | grep -v grep | grep mongod
 brew services stop mongodb-community
 ```
 
+### 将 json 数据导入 mongodb
+
+```js
+mongoimport --db ecommerce --collection categories --file /Users/licop/Documents/db/categories.json
+```
+
+- ecommerce 为数据库名
+- categories 为集合名
+- /Users/licop/Documents/db/categories.json 为本地 json 地址
+
 ### 重启 MongoDB
 
 ```shell
