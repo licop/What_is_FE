@@ -271,6 +271,165 @@ GET foo
 - 命令：quit
 - 快捷键：Ctrl + C
 
+## Redis 中的多数据库
+
+一个 Redis 实例提供了多个用来存储数据的字典，客户端可以指定将数据存储在哪个字典中。这与我们熟知的在一个关系数据库中可以创建多个数据库类似，所有可以将其中的每个字典都理解成一个独立的数据库。
+
+Redis 默认支持 16 个数据库，分别编号为 0、1、2、...14、15
+
+- Redis 不支持自定义数据库名字
+- 因为每个数据库都以编号命名，所有开发者必须要明确哪个数据库存放了哪些数据
+- 可以通过配置参数 `databases` 修改支持的数据库个数
+
+每个数据库都是独立的，也就是说你在 0 号数据库中插入的数据在 1 号数据库是访问不到的。
+
+客户端与 Redis 建立连接后自动选择 0 号数据库，我们可以使用 SELECT 命令来更换数据库。
+
+```shell
+127.0.0.1:6379> SET a 1
+OK
+127.0.0.1:6379> KEYS *
+1) "a"
+127.0.0.1:6379> SELECT 16
+(error) ERR DB index is out of range
+127.0.0.1:6379> SELECT 15
+OK
+127.0.0.1:6379[15]> SET b 2
+OK
+127.0.0.1:6379[15]> KEYS *
+1) "b"
+127.0.0.1:6379[15]> SELECT 0
+OK
+127.0.0.1:6379> KEYS *
+1) "a"
+127.0.0.1:6379>
+
+# 将指定 key 移动到指定数据库
+move key db
+
+```
+
+> 当选择的数据库编号超过最大数据库编号时，默认编号的数据库
+
+**Redis 不支持为每个数据库设置不同的访问密码，所有一个客户端要么可以访问全部数据库，要么一个数据库也没有权限访问。**
+
+最重要的一点是多个数据库之间并不是完全隔离的，比如 FLUSHALL 命令可以清空一个 Redis 实例中所有数据库中的数据。
+
+综上所述，这些数据库更像是一个命名空间，**而不适宜存储不同应用程序的数据**，比如不适宜使用 0 号数据库存储 A 应用数据而使用 1 号数据库存储 B 应用数据，这是非常不推荐的做法！！！
+
+**不同的应用应该使用不同的 Redis 实例存储数据。** 由于 Redis 非常轻量级，一个空的 Redis 占用的内存只有 1 MB 作用，所以不用担心多个 Redis 实例会额外占用很多内存的问题。
+
+## Redis 中的数据类型及操作命令（CURD）
+
+Redis 不是简单的键值存储，它实际上是一个数据结构服务器，支持不同类型的值。这意味着在传统键值存储中，您将字符串键与字符串值相关联，而在 Redis 中，该值不仅限于简单的字符串，还可以容纳更复杂的数据结构。以下是 Redis 中支持的所有数据结构的列表：
+
+- `String`: 字符串
+- `Hash`: 散列，是由与值相关联的字段组成的内容。字段和值都是字符串。这与 Ruby 或 Python 哈希非常相似。类似于 JavaScript 中的对象结构。
+- `List`: 列表，根据插入顺序排序的字符串元素的集合。它们基本上是链表。
+- `Set`: 未排序的字符串元素集合，集合中的数据是不重复的。
+- `ZSet`: 与 Sets 类似，但每个字符串元素都与一个称为分数的浮点值相关联。元素总是按它们的分数排序，因此与 Sets 不同，可以检索一系列元素（例如，您可能会问：给我前 10 名或后 10 名）。
+- `Bit`： arrays（或 bitmaps） 可以使用特殊命令像位数组一样处理字符串值：您可以设置和清除单个位，计数所有设置为 1 的位，找到第一个设置或未设置的位，依此类推。
+- `HyperLogLogs`： 这是一个概率数据结构，用于估计集合的基数。
+- `Streams`： 提供抽象日志数据类型的类似地图项的仅追加集合。
+
+### Redis 中的键
+
+Redis 密钥是二进制安全的，这意味着您可以使用任何二进制序列作为 key，从 "foo" 之类的字符串到 JPEG 文件的内容。空字符串也是有效的键。
+
+有关键的其他一些规则：
+
+- 太长不好，占用内存空间
+- 太短也不好，没有可读性
+- 尝试坚持使用固定规则，例如：
+  - object-type:id
+  - user:1000
+  - 点或破折号通常用于多字字段，例如：comment:1234:reply.to 或 comment:1234:reply-to 中。
+- 允许的最大大小为 512 MB
+
+总结一下：
+
+- 不要太长，浪费空间
+- 不要过短，不利于阅读
+- 统一的命令规范
+
+## 在 Node.js 中操作 Redis
+
+Node.js 中可以操作 Redis 的软件包推荐列表：https://redis.io/clients#nodejs。
+
+推荐下面两个：
+
+- https://github.com/NodeRedis/node-redis
+- https://github.com/luin/ioredis
+
+这里我主要以 ioredis 为例。
+
+ioredis 是功能强大的 Redis 客户端，已被世界上最大的在线商务公司阿里巴巴和许多其他了不起的公司所使用。
+
+ioredis 特点：
+
+- 功能齐全。它支持集群，前哨，流，流水线，当然还支持 Lua 脚本和发布/订阅（具有二进制消息的支持）。
+- 高性能
+- 令人愉快的 API。它的异步 API 支持回调函数与 Promise
+- 命令参数和返回值的转换
+- 透明键前缀
+- Lua 脚本的抽象，允许您定义自定义命令。
+- 支持二进制数据
+- 支持 TLS
+- 支持脱机队列和就绪检查
+- 支持 ES6 类型，例如 Map 和 Set
+- 支持 GEO 命令（Redis 3.2 不稳定）
+- 复杂的错误处理策略
+- 支持 NAT 映射
+- 支持自动流水线
+
+相关链接：
+
+- API 参考文档：https://github.com/luin/ioredis/blob/master/API.md
+- 更新日志：https://github.com/luin/ioredis/blob/master/Changelog.md
+- 从 node_redis 迁移：https://github.com/luin/ioredis/wiki/Migrating-from-node_redis
+
+### 基本使用
+
+安装依赖：
+
+```
+npm install ioredis
+```
+
+```js
+const Redis = require("ioredis");
+const redis = new Redis(); // uses defaults unless given configuration object
+
+// ioredis supports all Redis commands:
+redis.set("foo", "bar"); // returns promise which resolves to string, "OK"
+
+// the format is: redis[SOME_REDIS_COMMAND_IN_LOWERCASE](ARGUMENTS_ARE_JOINED_INTO_COMMAND_STRING)
+// the js: ` redis.set("mykey", "Hello") ` is equivalent to the cli: ` redis> SET mykey "Hello" `
+
+// ioredis supports the node.js callback style
+redis.get("foo", function(err, result) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(result); // Promise resolves to "bar"
+  }
+});
+
+// Or ioredis returns a promise if the last argument isn't a function
+redis.get("foo").then(function(result) {
+  console.log(result); // Prints "bar"
+});
+
+// Most responses are strings, or arrays of strings
+redis.zadd("sortedSet", 1, "one", 2, "dos", 4, "quatro", 3, "three");
+redis.zrange("sortedSet", 0, 2, "WITHSCORES").then((res) => console.log(res)); // Promise resolves to ["one", "1", "dos", "2", "three", "3"] as if the command was ` redis> ZRANGE sortedSet 0 2 WITHSCORES `
+
+// All arguments are passed directly to the redis server:
+redis.set("key", 100, "EX", 10);
+```
+
+有关更多实例，可以参考这里：https://github.com/luin/ioredis/tree/master/examples。
+
 ## 相关资源
 
 - [官网](https://redis.io/)
@@ -278,3 +437,4 @@ GET foo
 - [交互式学习 Redis](https://try.redis.io/)
 - [Redis 中文网（非官方](http://www.redis.cn/)
 - [Redis 命令参考](http://doc.redisfans.com/)
+- [Redis 教程](https://www.yuque.com/lipengzhou/redis/nshx0v)
