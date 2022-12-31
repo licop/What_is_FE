@@ -44,8 +44,10 @@ exports.login = [
       if(!user) {
         return Promise.reject('用户不存在')
       }
+
       // 将数据加载在请求对象中，后续的中间件可以使用
       req.user = user
+      console.log(req.user, 49)
     })  
   ]),
   validate([  
