@@ -1641,3 +1641,107 @@ run();
 - [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
 
 [MongoDB 结合 nodejs 实现文章 CURD 操作](https://github.com/licop/What_is_FE/tree/master/examples/mongodb/article-bed)
+
+## mongoose
+
+`mongoose` 是用来操作 MongoDB 数据库的开源 ORM 框架。
+
+### 安装
+
+```shell
+npm install mongoose
+```
+
+### 连接数据库
+
+```js
+const mongoose = require("mongoose");
+// 链接mongodb数据库
+mongoose.connect("mongodb://127.0.0.1:27017/realworld");
+
+const db = mongoose.connection;
+
+// 当连接失败的时候
+db.on("error", (err) => {
+  console.log("Mongodb 数据库连接失败", err);
+});
+
+// 当连接成功的时候
+db.once("open", () => {
+  console.log("Mongodb 数据库连接成功");
+});
+```
+
+### 定义 Schema
+
+```js
+const kittySchema = new mongoose.Schema({
+  name: String,
+});
+```
+
+### 将 Schema 发布为 Model
+
+```js
+const Kitten = mongoose.model("Kitten", kittySchema);
+```
+
+### 使用 Model 操作数据库
+
+```js
+// 添加
+const fluffy = new Kitten({ name: 'fluffy' });
+fluffy.save().then(...)
+
+// 查询
+Kitten.find().then(...)
+
+// 更新
+Kitten.findOneAndUpdate(
+ {}, // 查询条件
+ {} // 更新数据
+).then(...)
+
+// 删除
+Kitten.findOneAndDelete(
+  {} // 条件
+).then(...)
+```
+
+### Schemas
+
+参考：https://mongoosejs.com/docs/guide.html。
+
+### SchemaTypes
+
+参考：https://mongoosejs.com/docs/schematypes.html。
+
+### Connections
+
+参考：https://mongoosejs.com/docs/connections.html。
+
+### Models
+
+参考：https://mongoosejs.com/docs/models.html。
+
+### Documents
+
+参考：https://mongoosejs.com/docs/documents.html。
+
+### Subdocuments
+
+参考：https://mongoosejs.com/docs/subdocs.html。
+
+### Queries
+
+参考：https://mongoosejs.com/docs/queries.html。
+
+### Validation
+
+参考：https://mongoosejs.com/docs/queries.html。
+
+### Populate
+
+参考：https://mongoosejs.com/docs/populate.html。
+
+- [mongoose 官网](https://mongoosejs.com/)

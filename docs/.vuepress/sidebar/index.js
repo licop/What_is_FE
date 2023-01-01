@@ -154,7 +154,8 @@ module.exports = {
     '/server/': {
         'Nodejs': [
             'Nodejs学习笔记',
-            "Express框架学习"
+            "Express框架学习",
+            "基于JWT的身份认证"
         ],
         'MongoDB': [
             'MongoDB基础'
