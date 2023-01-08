@@ -100,7 +100,6 @@ NoSQL 数据库有一个缺点：其在事务处理与一致性方面无法与 R
 
 ### 什么是 MongoDB
 
-- 官方文档：https://www.mongodb.com/
 - MongoDB 是由 C++ 语言编写的，是一个基于分布式文件存储的开源 NoSQL 数据库系统。
 - MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。
   - 这会让曾经使用过关系型数据库的人比较容易上手
@@ -1339,7 +1338,7 @@ db.inventory.insertMany([
 }
 ```
 
-如果该字段不存在，则某些更新运算符（例如`$set`）将创建该字段。有关详细信息，请参见各个更新操作员参考。
+如果该字段不存在，则某些更新运算符（例如`$set`）将创建该字段。有关详细信息，请参见[更新运算符](https://docs.mongoing.com/can-kao/yun-suan-fu/update-operators)。
 
 ### 更新单个文档
 
@@ -1641,6 +1640,12 @@ run();
 - [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
 
 [MongoDB 结合 nodejs 实现文章 CURD 操作](https://github.com/licop/What_is_FE/tree/master/examples/mongodb/article-bed)
+
+## mongodb 相关资料
+
+- [mongodb 官方文档](https://www.mongodb.com/)
+- [mongodb 中文文档](https://docs.mongoing.com/)
+- [mongodb 中文社区](https://mongoing.com/)
 
 ## mongoose
 
