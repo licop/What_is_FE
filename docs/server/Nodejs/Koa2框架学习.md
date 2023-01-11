@@ -1,5 +1,11 @@
 # Koa2 框架学习
 
+## 技术归纳图
+
+![](/server/koa/koa2.svg)
+
+> [点击查看大图](/server/koa/koa2.svg)
+
 ## Koa 介绍
 
 - Koa 是一个新的 web 框架，由 Express 幕后的原班人马打造，致力于成为 web 应用和 API 开发领域中的一个更小、更富有表现力、更健壮的基石。
@@ -407,6 +413,10 @@ const main = async function(ctx) {
 
 app.use(koaBody({ multipart: true }));
 ```
+
+## 实现一个简单的 koa
+
+[实现一个简单的 koa](https://github.com/licop/What_is_FE/tree/master/examples/koa/my-koa)
 
 ## 学习资料
 

@@ -4,6 +4,8 @@
 
 ![](/server/express/express.svg)
 
+> [点击查看大图](/server/express/express.svg)
+
 ## empress 开发案例
 
 - [empress 学习 demo](https://github.com/licop/What_is_FE/tree/master/examples/express/demo)
