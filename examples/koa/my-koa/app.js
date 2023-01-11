@@ -32,31 +32,34 @@ const readFile = util.promisify(fs.readFile)
 //   ctx.body = 'Hello Koa 3'
 // })
 
-// app.use(async (ctx, next) => {
-//   console.log(ctx.response.body, ctx.body)
-//   ctx.body = 'Hello Koa 2'
-// })
+app.use(async (ctx, next) => {
+  console.log(ctx.req.url, ctx.request.method, ctx.method)
 
-const one = (ctx, next) => {
-  console.log('>> one')
-  next()
-  console.log('<< one')
-}
+  ctx.body = 'Hello Koa 2'
+  console.log(ctx.response.body, ctx.body)
 
-const two = (ctx, next) => {
-  console.log('>> two')
-  next()
-  console.log('<< two')
-}
+})
 
-const three = (ctx, next) => {
-  console.log('>> three')
-  next()
-  console.log('<< three')
-}
+// const one = (ctx, next) => {
+//   console.log('>> one')
+//   next()
+//   console.log('<< one')
+// }
 
-app.use(one)
-app.use(two)
-app.use(three)
+// const two = (ctx, next) => {
+//   console.log('>> two')
+//   next()
+//   console.log('<< two')
+// }
+
+// const three = (ctx, next) => {
+//   console.log('>> three')
+//   next()
+//   console.log('<< three')
+// }
+
+// app.use(one)
+// app.use(two)
+// app.use(three)
 
 app.listen(3002)
