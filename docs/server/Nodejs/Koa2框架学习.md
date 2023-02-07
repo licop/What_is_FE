@@ -27,6 +27,7 @@
   - koa 2 社区远不如 express
   - koa 1 在思想上与 koa 2 是一致的，但是 koa 2 的实现更漂亮
 - [Awesome Koa](https://github.com/ellerbrock/awesome-koa)
+- 初始化一个 koa 项目 [koa-generator](https://github.com/i5ting/koa-generator)
 
 ## 基本用法
 
