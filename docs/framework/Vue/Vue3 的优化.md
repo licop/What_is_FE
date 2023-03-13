@@ -21,6 +21,21 @@ Vue.js 2.x 中响应式系统的核心是 使用`defineProperty`数据劫持，V
 - 可以监听删除属性
 - 可以监听数组索引和 length 属性
 
+```js
+// vue2
+// 基于Object.defineProperty()实现
+
+// vue3 基于Proxy
+let proxyObj = new Proxy(obj, {
+  get: function(target, prop) {
+    return prop in target ? target[prop] : 0;
+  },
+  set: function(target, prop, value) {
+    target[prop] = 888;
+  },
+});
+```
+
 ### 编译优化
 
 - Vue.js 2.x 中通过标记**静态根节点**，优化 diff 的过程
@@ -98,7 +113,7 @@ export function render(_ctx, _cache) {
 ### 优化打包编译
 
 - Vue.js 3.0 中移除了一些不常用的 Api，例如`inline-template`, `filter`
-- 更好的 `Tree-shaking`，`Tree-shaking` 要依赖 `ESModule`的 `import`，Vue3.0 对于项目没有用到的功能会进行 `Tree-shaking`比如 v-model 或者 transition，如果没有使用不会打包，但`virtual dom`的更新算法和响应式系统等核心内容无论如何都会在包里
+- 更好的 `Tree-shaking`，简单来讲，就是在保持代码运行结果不变的前提下，去除无用的代码在 Vue2 中，无论我们使用什么功能，它们最终都会出现在生产代码中。主要原因是 Vue 实例在项目中是单例的，捆绑程序无法检测到该对象的哪些属性在代码中被使用到。而 Vue3 源码引入 Tree shaking 特性，将全局 API 进行分块。如果你不使用其某些功能，它们将不会包含在你的基础包中，就是比如你要用 `watch` 就是 `import {watch} from 'vue'` 其他的 `computed` 没用到就不会给你打包减少体积
 
 ## Composition API
 
@@ -243,7 +258,7 @@ console.log(book.title); // 'Vue 3 Detailed Guide'
 
 **reactive**
 
-- reactive 判断这参数是否是对象，如果不是，直接返回
+- reactive 只支持引用类型 Array、Object、Set、Map， 判断这参数是否是引用类型，如果不是，直接返回
 - reactive 重新赋值丢失响应式
 - reactive 返回的对象不可以解构
 
@@ -258,6 +273,12 @@ const product = reactive({
 // ref
 const count = ref(3);
 ```
+
+### Vue3.0diff 算法
+
+![](/framework/vue/vue3_diff.png)
+
+参考[Vue 核心虚拟 Dom 和 diff 算法](https://xiaoman.blog.csdn.net/article/details/122778560)
 
 ### 响应式实现原理
 
@@ -639,7 +660,35 @@ console.log("Server running @ http://localhost:3000");
 
 ### Fragments
 
-Vue3 中不在要求模版的跟节点必须是只能有一个节点。跟节点和和 render 函数返回的可以是纯文字、数组、单个节点，如果是数组，会自动转化为 `Fragments`。
+Vue3 中不再要求模版的跟节点必须是只能有一个节点。跟节点和 render 函数返回的可以是纯文字、数组、单个节点，如果是数组，会自动转化为 `Fragments`。
+
+```vue
+<template>
+  <div>12</div>
+  <div>23</div>
+</template>
+```
+
+同时支持 render JSX 写法
+
+```js
+
+render() {
+    return (
+        <>
+            {this.visable ? (
+                <div>{this.obj.name}</div>
+            ) : (
+                <div>{this.obj.price}</div>
+            )}
+            <input v-model={this.val}></input>
+            {[1, 2, 3].map((v) => {
+                return <div>{v}-----</div>;
+            })}
+        </>
+    );
+}
+```
 
 ### Teleport
 
