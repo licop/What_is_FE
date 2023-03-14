@@ -212,7 +212,7 @@ export default {
 </script>
 ```
 
-### toRefs
+### toRefs 和 toRef
 
 当我们想使用大型响应式对象的一些 property 时，可能很想使用 ES6 解构来获取我们想要的 property：
 
@@ -249,6 +249,46 @@ title.value = "Vue 3 Detailed Guide"; // 我们需要使用 .value 作为标题�
 console.log(book.title); // 'Vue 3 Detailed Guide'
 ```
 
+在我们使用 ref 或者 refs 时，如果原始对象是响应式的是会更新视图并且改变数据的，如果原始对象是非响应式的就不会更新视图 数据是会变的
+
+具体原因看 toRef 源码解析
+
+如果是 ref 对象直接返回 否则 调用 `ObjectRefImpl` 创建一个类 ref 对象
+
+```ts
+export function toRef<T extends object, K extends keyof T>(
+  object: T,
+  key: K,
+  defaultValue?: T[K]
+): ToRef<T[K]> {
+  const val = object[key]
+  return isRef(val)
+    ? val
+    : (new ObjectRefImpl(object, key, defaultValue) as any)
+```
+
+类 ref 对象只是做了值的改变 并未处理 收集依赖 和 触发依赖的过程 所以 普通对象无法更新视图
+
+```js
+class ObjectRefImpl<T extends object, K extends keyof T> {
+  public readonly __v_isRef = true
+
+  constructor(
+    private readonly _object: T,
+    private readonly _key: K,
+    private readonly _defaultValue?: T[K]
+  ) {}
+
+  get value() {
+    const val = this._object[this._key]
+    return val === undefined ? (this._defaultValue as T[K]) : val
+  }
+
+  set value(newVal) {
+    this._object[this._key] = newVal
+  }
+```
+
 ### reactive vs ref
 
 **ref**
@@ -259,7 +299,8 @@ console.log(book.title); // 'Vue 3 Detailed Guide'
 **reactive**
 
 - reactive 只支持引用类型 Array、Object、Set、Map， 判断这参数是否是引用类型，如果不是，直接返回
-- reactive 重新赋值丢失响应式
+- reactive 不能直接赋值，否则会丢失响应式
+  - 解决方法：数组可以使用 push 加解构 `list.push(...res)`或者添加一个对象把数组变成一个属性去解决
 - reactive 返回的对象不可以解构
 
 ```js
