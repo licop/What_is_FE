@@ -744,6 +744,8 @@ render() {
 - async setup()
 - Async Component
 
+[更多关于异步组件和 Suspense](https://xiaoman.blog.csdn.net/article/details/122909360)
+
 ## 更多参考
 
 - [尤雨溪 - 聊聊 Vue.js 3.0 Beta 官方直播完整版](https://www.bilibili.com/video/BV1Tg4y1z7FH?from=search&seid=3343601568143163134)
