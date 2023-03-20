@@ -139,11 +139,12 @@ Composition API 是 Vue3.0 相比较 Vue2.x 更新的核心部分，Composition 
 - 缺点：学习成本可能会增加，以前的思维方式也要转变
 - 优点：`Composition API` 是根据逻辑相关性组织代码的，提高可读性和可维护性，基于函数组合的 API 更好的重用逻辑代码（在 Vue2 Options API 中通过 Mixins 重用逻辑代码，容易发生命名冲突且关系不清）
 
-如果开发一个逻辑 Vue 库建议使用 Composition API，便于可复用逻辑，灵活度比基于 options 选项的要好很多。
+如果开发一个逻辑 Vue 库建议使用 Composition API，便于可复用逻辑，更好的拆分代码,灵活度比基于 options 选项的要好很多。
 
 ### setup
 
 Composition API 提供了新的组件选项 `setup`, 创建组件之前执行，一旦 props 被解析，并充当合成 API 的入口点。
+
 由于在执行 `setup` 时尚未创建组件实例，因此在 `setup` 选项中没有 this。这意味着，除了 props 之外，你将无法访问组件中声明的任何属性——**本地状态**、**计算属性**或**方法**。
 
 `setup` 选项应该是一个接受 props 和 context 的函数，从 `setup` 返回的所有内容都将暴露给组件的其余部分 (计算属性、方法、生命周期钩子等等) 以及组件的模板。
@@ -151,6 +152,52 @@ Composition API 提供了新的组件选项 `setup`, 创建组件之前执行，
 更多关于 Composition API [Vue3.0 Composition API 文档](https://v3.cn.vuejs.org/guide/composition-api-introduction.html#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%84%E5%90%88%E5%BC%8F-api)
 
 使用 Composition API 完成 TodoMVC 项目[TodoMVC](https://github.com/licop/What_is_FE/tree/master/examples/vue3.0/04-composition-todolist)
+
+### `<script setup>`
+
+Composition API 带来的好处已经掌握了，而 `<script setup>` 是为了提高我们使用 Composition API 的效率而存在的。我们在 setup 配置函数中写代码时， 我们还要在 setup 函数中，返回所有需要在模板中使用的变量和方法。`<script setup>`是 Vue3.2 推出的新功能，使我们更有理由使用组合式的写法。
+
+以下是两种方法的书写对比：
+
+```vue
+<template>
+  <div>
+    <h1 @click="add">{{ count }}</h1>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+let count = ref(1);
+function add() {
+  count.value++;
+}
+</script>
+
+<style>
+h1 {
+  color: red;
+}
+</style>
+```
+
+```vue
+<script>
+import { ref } from "vue";
+export default {
+  setup() {
+    let count = ref(1);
+    function add() {
+      count.value++;
+    }
+    return {
+      count,
+      add,
+    };
+  },
+};
+</script>
+```
 
 ## 响应系统原理
 
@@ -569,6 +616,21 @@ export function computed(getter) {
 
 更多关于 Vue3.0 响应式参考 [Vue 3.0 中文文档 响应性](https://vue3js.cn/docs/zh/guide/reactivity.html#%E4%BB%80%E4%B9%88%E6%98%AF%E5%93%8D%E5%BA%94%E6%80%A7)
 
+### Teleport
+
+对标 React Portal。可以做一些关于响应式的设计，如果屏幕宽度比较宽的时候，加入某些元素，屏幕变窄后移除。
+
+### Suspense
+
+等待嵌套的异步依赖。再把一个嵌套的组件树渲染到页面上之前，先在内存中进行渲染，并记录所有的存在异步依赖的组件。
+只有所有的异步依赖全部被 resolve 之后，才会把整个书渲染到 dom 中。当你的组件中有一个 async 的 setup 函数，这个组件可以被看作是一个 Async Component，
+只有当这个组件被 Resolve 之后，再把整个树渲染出来
+
+- async setup()
+- Async Component
+
+[更多关于异步组件和 Suspense](https://xiaoman.blog.csdn.net/article/details/122909360)
+
 ## Vite
 
 `Vite` 是一个面向现代浏览器的一个更轻、更快的 web 应用开发工具，本质是一个 http 服务器, 它基于 ECMAScript 标准原生模块系统(ES Modules)实现，
@@ -731,20 +793,18 @@ render() {
 }
 ```
 
-### Teleport
+## 总结
 
-对标 React Portal。可以做一些关于响应式的设计，如果屏幕宽度比较宽的时候，加入某些元素，屏幕变窄后移除。
+本篇重点是 Vue 3 主要的新特性，我们再来对这些特征做一个回顾：
 
-### Suspense
-
-等待嵌套的异步依赖。再把一个嵌套的组件树渲染到页面上之前，先在内存中进行渲染，并记录所有的存在异步依赖的组件。
-只有所有的异步依赖全部被 resolve 之后，才会把整个书渲染到 dom 中。当你的组件中有一个 async 的 setup 函数，这个组件可以被看作是一个 Async Component，
-只有当这个组件被 Resolve 之后，再把整个树渲染出来
-
-- async setup()
-- Async Component
-
-[更多关于异步组件和 Suspense](https://xiaoman.blog.csdn.net/article/details/122909360)
+- Vue 3 性能更高，体积更小。
+- 对于普通开发者来说，Composition API 组合语法带来了更好的组织代码的形式。
+- 全新的响应式系统基于 Proxy，也可以独立使用。
+- Vue 3 内置了新的 Fragment、Teleport 和 Suspense 等组件。
+- 对于 Vue 的二次开发来说，自定义渲染器让我们开发跨端应用时更加得心应手。
+- 对于 Vue 的源码维护者，全部的模块使用 TypeScript 重构，能够带来更好的可维护性。
+- 新的 RFC 机制也让我们所有人都可以参与 Vue 新语法的讨论。
+- 工程化工具 Vite 带来了更丝滑的调试体验。对于产品的最终效果来看，
 
 ## 更多参考
 
