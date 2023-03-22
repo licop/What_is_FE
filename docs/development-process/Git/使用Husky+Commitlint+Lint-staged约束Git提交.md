@@ -4,25 +4,15 @@
 
 ## 常用工具汇总
 
-1. eslint (https://github.com/eslint/eslint)
+1. [eslint](https://github.com/eslint/eslint) JavaScript 代码检测工具，检测并提示错误或警告信息
 
-JavaScript 代码检测工具，检测并提示错误或警告信息
+2. [prettier](https://github.com/prettier/prettier) 代码格式化工具，更好的代码风格效果
 
-2. prettier (https://github.com/prettier/prettier)
+3. [husky](https://github.com/typicode/husky) Git hooks 工具, 可以在执行 git 命令时，执行自定义的脚本程序
 
-代码格式化工具，更好的代码风格效果
+4. [lint-staged](https://github.com/okonet/lint-staged) 对暂存区 (git add) 文件执行脚本
 
-3. husky (https://github.com/typicode/husky)
-
-Git hooks 工具, 可以在执行 git 命令时，执行自定义的脚本程序
-
-4. lint-staged (https://github.com/okonet/lint-staged)
-
-对暂存区 (git add) 文件执行脚本
-
-5. commitlint (https://github.com/conventional-changelog/commitlint)
-
-检测 git commit 内容是否符合定义的规范
+5. [commitlint](https://github.com/conventional-changelog/commitlint) 检测 git commit 内容是否符合定义的规范
 
 ## Husky
 

@@ -107,7 +107,7 @@ module.exports = {
     '/development-process/': {
         'Git': [
             'git命令',
-            '使用omyzsh git插件的别名'
+            '使用omyzsh git插件的别名',
             '使用Husky+Commitlint+Lint-staged约束Git提交'
         ],
         'Linux': [
