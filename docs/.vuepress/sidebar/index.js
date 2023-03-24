@@ -114,7 +114,7 @@ module.exports = {
             'linux 常用命令'
         ],
         'mock': [
-            '在线 mock server'
+            '关于 mock server'
         ],
         'NPM': [
             '关于 package.json',
