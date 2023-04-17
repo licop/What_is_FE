@@ -11,7 +11,9 @@ module.exports = {
             '关于HTML'
         ],
         'CSS': [
-            'css单位中px和em,rem的区别'
+            'css单位中px和em,rem的区别',
+            'BEM命名规范'
+            
         ],
         'ES语法': [
             'ECMAScript 2015 语法',

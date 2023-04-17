@@ -33,3 +33,10 @@ TypeScript 提供最新的和不断发展的 JavaScript 特性，包括那些来
 ## 总结
 
 TypeScript 在社区的流行度越来越高，它非常适用于一些大型项目，也非常适用于一些基础库，极大地帮助我们提升了开发效率和体验。
+
+## 更多学习参考
+
+- [在线编译器 TS Playground](https://www.typescriptlang.org/pt/play)
+- [TS 学习指南](https://juejin.cn/post/6872111128135073806)
+- [TS 动画版进阶教程合集](https://juejin.cn/post/7095547569777934367)
+- [TypeScript 泛型及应用](https://juejin.cn/post/6844904184894980104)
