@@ -34,6 +34,17 @@ TypeScript 提供最新的和不断发展的 JavaScript 特性，包括那些来
 
 TypeScript 在社区的流行度越来越高，它非常适用于一些大型项目，也非常适用于一些基础库，极大地帮助我们提升了开发效率和体验。
 
+## TypeScript 学习项目
+
+以下为本人学习 TypeScript 时写的项目，供学习和参考
+
+- TypeScript 基础学习提升练习 demo: [tsupgrade](https://github.com/licop/tsupgrade)
+- TypeScript 类型体操姿势合集, 个人挑战: [type-challenges](https://github.com/licop/type-challenges)
+- Typescript 实现仿 Nest.js 装饰器: [ts-nestjs-decorator](https://github.com/licop/ts-nestjs-decorator)
+- 使用 Typescript 实现 Promise 源码: [ts-promise](https://github.com/licop/ts-promise)
+- 使用 Typescript 实现 Vuex4 源码[ts-vuex](https://github.com/licop/ts-vuex)
+- ypescript 实现一个基于 promise 的 HTTP 仿 Axios 的请求库[ts-request](https://github.com/licop/ts-request)
+
 ## 更多学习参考
 
 - [在线编译器 TS Playground](https://www.typescriptlang.org/pt/play)
